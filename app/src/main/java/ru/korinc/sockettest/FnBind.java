@@ -55,10 +55,7 @@ public class FnBind extends FragmentActivity implements OnClickListener
 	
 
 	//Pager...
-	/**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-     * sequence.
-     */
+
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
     	
         public ScreenSlidePagerAdapter(android.support.v4.app.FragmentManager fragmentManager) {
