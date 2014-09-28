@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    
+    <RelativeLayout
+	
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+	
+	android:id="@+id/rl">
+
+	<ImageButton
+		android:id="@+id/fnCustomDelElement"
+		android:src="@drawable/ic_action_back"
+		android:background="@android:color/transparent"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_vertical"
+		
+	android:layout_marginRight="10dp"
+		android:layout_alignParentRight="true"/>
+
+	<HorizontalScrollView
+	    android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:singleLine="true"
+		
+		android:layout_toLeftOf="@id/fnCustomDelElement">
+
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:orientation="horizontal" >
+	        <TextView
+		android:id="@+id/fnCustomSelectTV"
+		android:text="This"
+		android:textSize="25dp"
+		 android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+		/>
+	    </LinearLayout>
+	</HorizontalScrollView>
+
+	
+
+</RelativeLayout>
+    <Button
+        android:id="@+id/fnCustomBtnOk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+        android:layout_alignParentLeft="true"
+         android:textColor="#FFFFFF"
+			    android:background="@drawable/btn_seelctor"
+			    android:layout_margin="5dp"
+        android:text="That&apos;s what i need!" />
+    
+     <EditText
+        android:id="@+id/fnCustomEtName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/fnCustomBtnOk"
+        android:hint="Name of button" />
+    
+      <TextView
+        android:id="@id/android:empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="Nope" />
+    
+    <ListView
+        android:id="@id/android:list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:layout_above="@id/fnCustomEtName"
+        android:layout_below="@id/rl">
+    </ListView>
+
+  
+
+    
+
+</RelativeLayout>

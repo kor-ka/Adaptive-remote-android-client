@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageButton
+    	android:id="@+id/add_mic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_open_mic_plus" 
+        android:background="@android:color/transparent"
+        android:padding="5dip"/>
+    
+<EditText
+    android:layout_toLeftOf="@id/add_mic"
+    android:id="@+id/fn_custom_command_et"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:hint="Command to PC" />
+
+
+    
+    <Button
+        android:id="@+id/fnCommandLineBtnOk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+        android:layout_alignParentLeft="true"
+         android:textColor="#FFFFFF"
+			    android:background="@drawable/btn_seelctor"
+			    android:layout_margin="5dp"
+        android:text="That&apos;s what i need!" />
+    
+    <EditText
+        android:id="@+id/fnCommandLineEtName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/fnCommandLineBtnOk"
+        android:hint="Name of button" />
+    
+      <TextView
+        android:id="@id/android:empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="Nope" />
+    
+    <ListView
+        android:id="@id/android:list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:layout_above="@id/fnCommandLineEtName"
+        android:layout_below="@id/fn_custom_command_et">
+    </ListView>
+
+  
+
+    
+
+</RelativeLayout>

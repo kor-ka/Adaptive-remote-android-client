@@ -1,0 +1,88 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/keyboard"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="Keyboard"
+		android:icon="@drawable/hardware_keyboard"
+        />
+	
+	<item
+        android:id="@+id/voiceInput"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="Voice input"
+		android:icon="@drawable/ic_action_device_access_mic"
+	/>
+
+	<item
+        android:id="@+id/settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Settings"
+		android:icon="@drawable/action_settings"
+	>
+		<menu>
+			<group>
+				<item
+					android:id="@+id/enterAfterVoiceInput"
+					android:orderInCategory="100"
+					android:showAsAction="never"
+					android:title="Enter after voice input"
+					android:checkable="true"/>
+				
+				<item
+					android:id="@+id/showFnButtons"
+					android:orderInCategory="100"
+					android:showAsAction="never"
+					android:title="Show Fn buttons"
+					android:checkable="true"/>
+				
+				<item
+					android:id="@+id/map"
+					android:orderInCategory="100"
+					android:showAsAction="never"
+					android:title="Fix voice input"/>
+				
+				<item
+			        android:id="@+id/voiceFnSettings"
+			        android:orderInCategory="100"
+			        android:showAsAction="never"
+			        android:title="Voice Fn settings"/>
+       
+				
+			</group>
+		</menu>
+	</item>
+	
+	
+
+    <item
+        android:id="@+id/launchApp"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Launch app"/>
+    
+    <item
+        android:id="@+id/fireFN"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Fire Fn"/>
+    
+     
+    <item
+        android:id="@+id/action_scan"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Сonnect to server"/>
+    
+  
+    <item
+        android:id="@+id/arrows"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Arrows"/>
+    
+    
+</menu>

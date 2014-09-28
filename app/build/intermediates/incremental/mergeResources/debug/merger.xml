@@ -1,0 +1,977 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="20.0.0" >
+        <source path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/res" />
+    </dataSet>
+    <dataSet config="unspecified" >
+        <source path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res" >
+            <file
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/values/values.xml"
+                qualifiers="" >
+                <color name="default_circle_indicator_fill_color" >#FFFFFFFF
+                </color>
+
+                <bool name="default_title_indicator_selected_bold" >
+true
+                </bool>
+
+                <style
+                    name="Theme.PageIndicatorDefaults"
+                    parent="android:Theme" >
+                    <item name="vpiIconPageIndicatorStyle">
+@style/Widget.IconPageIndicator
+                    </item>
+                    <item name="vpiTabPageIndicatorStyle">
+@style/Widget.TabPageIndicator
+                    </item>
+                </style>
+
+                <color name="default_underline_indicator_selected_color" >#FF33B5E5
+                </color>
+
+                <dimen name="default_title_indicator_clip_padding" >4dp
+                </dimen>
+
+                <integer name="default_underline_indicator_fade_length" >
+400
+                </integer>
+
+                <color name="vpi__bright_foreground_inverse_holo_dark" >@color/vpi__bright_foreground_holo_light
+                </color>
+
+                <declare-styleable name="CirclePageIndicator" >
+
+                    <!-- Whether or not the indicators should be centered. -->
+                    <attr name="centered" />
+                    <!-- Color of the filled circle that represents the current page. -->
+                    <attr
+                        name="fillColor"
+                        format="color" />
+                    <!-- Color of the filled circles that represents pages. -->
+                    <attr
+                        name="pageColor"
+                        format="color" />
+                    <!-- Orientation of the indicator. -->
+                    <attr name="android:orientation" />
+                    <!-- Radius of the circles. This is also the spacing between circles. -->
+                    <attr
+                        name="radius"
+                        format="dimension" />
+                    <!-- Whether or not the selected indicator snaps to the circles. -->
+                    <attr
+                        name="snap"
+                        format="boolean" />
+                    <!-- Color of the open circles. -->
+                    <attr
+                        name="strokeColor"
+                        format="color" />
+                    <!-- Width of the stroke used to draw the circles. -->
+                    <attr name="strokeWidth" />
+                    <!-- View background -->
+                    <attr name="android:background" />
+                </declare-styleable>
+
+                <dimen name="default_title_indicator_footer_indicator_height" >4dp
+                </dimen>
+
+                <color name="vpi__bright_foreground_holo_light" >@color/vpi__background_holo_dark
+                </color>
+
+                <style
+                    name="Widget.TabPageIndicator"
+                    parent="Widget" >
+                    <item name="android:gravity">
+center
+                    </item>
+                    <item name="android:background">
+@drawable/vpi__tab_indicator
+                    </item>
+                    <item name="android:paddingLeft">
+22dip
+                    </item>
+                    <item name="android:paddingRight">
+22dip
+                    </item>
+                    <item name="android:paddingTop">
+12dp
+                    </item>
+                    <item name="android:paddingBottom">
+12dp
+                    </item>
+                    <item name="android:textAppearance">
+@style/TextAppearance.TabPageIndicator
+                    </item>
+                    <item name="android:textSize">
+12sp
+                    </item>
+                    <item name="android:maxLines">
+1
+                    </item>
+                </style>
+
+                <color name="vpi__background_holo_light" >#fff3f3f3
+                </color>
+
+                <integer name="default_title_indicator_footer_indicator_style" >
+2
+                </integer>
+
+                <dimen name="default_title_indicator_top_padding" >7dp
+                </dimen>
+
+                <declare-styleable name="ViewPagerIndicator" >
+
+                    <!-- Style of the circle indicator. -->
+                    <attr
+                        name="vpiCirclePageIndicatorStyle"
+                        format="reference" />
+                    <!-- Style of the icon indicator's views. -->
+                    <attr
+                        name="vpiIconPageIndicatorStyle"
+                        format="reference" />
+                    <!-- Style of the line indicator. -->
+                    <attr
+                        name="vpiLinePageIndicatorStyle"
+                        format="reference" />
+                    <!-- Style of the title indicator. -->
+                    <attr
+                        name="vpiTitlePageIndicatorStyle"
+                        format="reference" />
+                    <!-- Style of the tab indicator's tabs. -->
+                    <attr
+                        name="vpiTabPageIndicatorStyle"
+                        format="reference" />
+                    <!-- Style of the underline indicator. -->
+                    <attr
+                        name="vpiUnderlinePageIndicatorStyle"
+                        format="reference" />
+                </declare-styleable>
+
+                <color name="default_title_indicator_text_color" >#BBFFFFFF
+                </color>
+
+                <dimen name="default_title_indicator_title_padding" >5dp
+                </dimen>
+
+                <color name="vpi__background_holo_dark" >#ff000000
+                </color>
+
+                <attr
+                    name="strokeWidth"
+                    format="dimension" />
+
+                <declare-styleable name="LinePageIndicator" >
+
+                    <!-- Whether or not the indicators should be centered. -->
+                    <attr name="centered" />
+                    <!-- Color of the unselected lines that represent the pages. -->
+                    <attr name="unselectedColor" />
+                    <!-- Color of the selected line that represents the current page. -->
+                    <attr name="selectedColor" />
+                    <!-- Width of each indicator line. -->
+                    <attr
+                        name="lineWidth"
+                        format="dimension" />
+                    <!-- Width of each indicator line's stroke. -->
+                    <attr name="strokeWidth" />
+                    <!-- Width of the gap between each indicator line. -->
+                    <attr
+                        name="gapWidth"
+                        format="dimension" />
+                    <!-- View background -->
+                    <attr name="android:background" />
+                </declare-styleable>
+
+                <bool name="default_underline_indicator_fades" >
+true
+                </bool>
+
+                <dimen name="default_line_indicator_gap_width" >4dp
+                </dimen>
+
+                <integer name="default_title_indicator_line_position" >
+0
+                </integer>
+
+                <dimen name="default_line_indicator_stroke_width" >1dp
+                </dimen>
+
+                <style name="Widget" />
+
+                <color name="vpi__bright_foreground_disabled_holo_light" >#ffb2b2b2
+                </color>
+
+                <bool name="default_line_indicator_centered" >
+true
+                </bool>
+
+                <dimen name="default_circle_indicator_radius" >3dp
+                </dimen>
+
+                <color name="vpi__bright_foreground_holo_dark" >@color/vpi__background_holo_light
+                </color>
+                <color name="default_circle_indicator_page_color" >#00000000
+                </color>
+
+                <bool name="default_circle_indicator_snap" >
+false
+                </bool>
+
+                <attr
+                    name="centered"
+                    format="boolean" />
+
+                <color name="vpi__bright_foreground_disabled_holo_dark" >#ff4c4c4c
+                </color>
+
+                <attr
+                    name="selectedColor"
+                    format="color" />
+
+                <dimen name="default_line_indicator_line_width" >12dp
+                </dimen>
+
+                <declare-styleable name="TitlePageIndicator" >
+
+                    <!-- Screen edge padding. -->
+                    <attr
+                        name="clipPadding"
+                        format="dimension" />
+                    <!-- Color of the footer line and indicator. -->
+                    <attr
+                        name="footerColor"
+                        format="color" />
+                    <!-- Height of the footer line. -->
+                    <attr
+                        name="footerLineHeight"
+                        format="dimension" />
+                    <!-- Style of the indicator. Default is triangle. -->
+                    <attr name="footerIndicatorStyle" >
+                        <enum
+                            name="none"
+                            value="0" />
+                        <enum
+                            name="triangle"
+                            value="1" />
+                        <enum
+                            name="underline"
+                            value="2" />
+                    </attr>
+                    <!-- Height of the indicator above the footer line. -->
+                    <attr
+                        name="footerIndicatorHeight"
+                        format="dimension" />
+                    <!-- Left and right padding of the underline indicator. -->
+                    <attr
+                        name="footerIndicatorUnderlinePadding"
+                        format="dimension" />
+                    <!-- Padding between the bottom of the title and the footer. -->
+                    <attr
+                        name="footerPadding"
+                        format="dimension" />
+                    <!-- Position of the line. -->
+                    <attr name="linePosition" >
+                        <enum
+                            name="bottom"
+                            value="0" />
+                        <enum
+                            name="top"
+                            value="1" />
+                    </attr>
+                    <!-- Color of the selected title. -->
+                    <attr name="selectedColor" />
+                    <!-- Whether or not the selected item is displayed as bold. -->
+                    <attr
+                        name="selectedBold"
+                        format="boolean" />
+                    <!-- Color of regular titles. -->
+                    <attr name="android:textColor" />
+                    <!-- Size of title text. -->
+                    <attr name="android:textSize" />
+                    <!-- Padding between titles when bumping into each other. -->
+                    <attr
+                        name="titlePadding"
+                        format="dimension" />
+                    <!-- Padding between titles and the top of the View. -->
+                    <attr
+                        name="topPadding"
+                        format="dimension" />
+                    <!-- View background -->
+                    <attr name="android:background" />
+                </declare-styleable>
+                <declare-styleable name="UnderlinePageIndicator" >
+
+                    <!-- Whether or not the selected indicator fades. -->
+                    <attr
+                        name="fades"
+                        format="boolean" />
+                    <!-- Length of the delay to fade the indicator. -->
+                    <attr
+                        name="fadeDelay"
+                        format="integer" />
+                    <!-- Length of the indicator fade to transparent. -->
+                    <attr
+                        name="fadeLength"
+                        format="integer" />
+                    <!-- Color of the selected line that represents the current page. -->
+                    <attr name="selectedColor" />
+                    <!-- View background -->
+                    <attr name="android:background" />
+                </declare-styleable>
+
+                <color name="default_circle_indicator_stroke_color" >#FFDDDDDD
+                </color>
+                <color name="default_line_indicator_selected_color" >#FF33B5E5
+                </color>
+
+                <integer name="default_underline_indicator_fade_delay" >
+300
+                </integer>
+                <integer name="default_circle_indicator_orientation" >
+0
+                </integer>
+
+                <dimen name="default_title_indicator_footer_padding" >7dp
+                </dimen>
+
+                <bool name="default_circle_indicator_centered" >
+true
+                </bool>
+
+                <color name="vpi__bright_foreground_inverse_holo_light" >@color/vpi__bright_foreground_holo_dark
+                </color>
+
+                <attr
+                    name="unselectedColor"
+                    format="color" />
+
+                <dimen name="default_title_indicator_text_size" >15dp
+                </dimen>
+                <dimen name="default_circle_indicator_stroke_width" >1dp
+                </dimen>
+
+                <color name="default_line_indicator_unselected_color" >#FFBBBBBB
+                </color>
+
+                <style
+                    name="Widget.IconPageIndicator"
+                    parent="Widget" >
+                    <item name="android:layout_marginLeft">
+6dp
+                    </item>
+                    <item name="android:layout_marginRight">
+6dp
+                    </item>
+                </style>
+
+                <dimen name="default_title_indicator_footer_indicator_underline_padding" >20dp
+                </dimen>
+
+                <style
+                    name="TextAppearance.TabPageIndicator"
+                    parent="Widget" >
+                    <item name="android:textStyle">
+bold
+                    </item>
+                    <item name="android:textColor">
+@color/vpi__dark_theme
+                    </item>
+                </style>
+
+                <color name="default_title_indicator_selected_color" >#FFFFFFFF
+                </color>
+
+                <dimen name="default_title_indicator_footer_line_height" >2dp
+                </dimen>
+
+                <color name="default_title_indicator_footer_color" >#FF33B5E5
+                </color>
+            </file>
+            <file
+                name="vpi__dark_theme"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/color/vpi__dark_theme.xml"
+                qualifiers=""
+                type="color" />
+            <file
+                name="vpi__light_theme"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/color/vpi__light_theme.xml"
+                qualifiers=""
+                type="color" />
+            <file
+                name="vpi__tab_indicator"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable/vpi__tab_indicator.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_pressed_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-xhdpi-v4/vpi__tab_selected_pressed_holo.9.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_focused_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-xhdpi-v4/vpi__tab_unselected_focused_holo.9.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_focused_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-xhdpi-v4/vpi__tab_selected_focused_holo.9.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-xhdpi-v4/vpi__tab_selected_holo.9.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-xhdpi-v4/vpi__tab_unselected_holo.9.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_pressed_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-xhdpi-v4/vpi__tab_unselected_pressed_holo.9.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_pressed_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-hdpi-v4/vpi__tab_selected_pressed_holo.9.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_focused_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-hdpi-v4/vpi__tab_unselected_focused_holo.9.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_focused_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-hdpi-v4/vpi__tab_selected_focused_holo.9.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-hdpi-v4/vpi__tab_selected_holo.9.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-hdpi-v4/vpi__tab_unselected_holo.9.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_pressed_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-hdpi-v4/vpi__tab_unselected_pressed_holo.9.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_pressed_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-mdpi-v4/vpi__tab_selected_pressed_holo.9.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_focused_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-mdpi-v4/vpi__tab_unselected_focused_holo.9.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_focused_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-mdpi-v4/vpi__tab_selected_focused_holo.9.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_selected_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-mdpi-v4/vpi__tab_selected_holo.9.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-mdpi-v4/vpi__tab_unselected_holo.9.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="vpi__tab_unselected_pressed_holo"
+                path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/drawable-mdpi-v4/vpi__tab_unselected_pressed_holo.9.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+        </source>
+    </dataSet>
+    <dataSet config="main" >
+        <source path="/home/korka/AndroidstudioProjects/STA/app/src/main/res" >
+            <file
+                name="navigation_previous_item"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-mdpi/navigation_previous_item.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-mdpi/ic_launcher.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_action_back"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-mdpi/ic_action_back.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="navigation_expand"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-mdpi/navigation_expand.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="navigation_next_item"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-mdpi/navigation_next_item.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_chrome"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-mdpi/ic_chrome.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_ic_open_mic_plus"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-mdpi/ic_ic_open_mic_plus.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_action_device_access_mic"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-mdpi/ic_action_device_access_mic.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="navigation_collapse"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-mdpi/navigation_collapse.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="action_settings"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-mdpi/action_settings.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_open_mic_plus"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-mdpi/ic_open_mic_plus.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="hardware_keyboard"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-mdpi/hardware_keyboard.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_overflow"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-mdpi/ic_overflow.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="navigation_previous_item"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xhdpi/navigation_previous_item.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xhdpi/ic_launcher.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_action_back"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xhdpi/ic_action_back.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="navigation_expand"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xhdpi/navigation_expand.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="navigation_next_item"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xhdpi/navigation_next_item.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_chrome"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xhdpi/ic_chrome.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_ic_open_mic_plus"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xhdpi/ic_ic_open_mic_plus.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_action_device_access_mic"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xhdpi/ic_action_device_access_mic.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="navigation_collapse"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xhdpi/navigation_collapse.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="action_settings"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xhdpi/action_settings.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_open_mic_plus"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xhdpi/ic_open_mic_plus.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="hardware_keyboard"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xhdpi/hardware_keyboard.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_overflow"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xhdpi/ic_overflow.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/values-v11/styles.xml"
+                qualifiers="v11" >
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Holo.Light" >
+
+                    <!-- API 11 theme customizations can go here. -->
+                </style>
+            </file>
+            <file
+                name="fn_buttons_fragment"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/layout/fn_buttons_fragment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_voice_fn_mapping_list"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/layout/activity_voice_fn_mapping_list.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fn_custom_command_lay"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/layout/fn_custom_command_lay.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_mapping_list"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/layout/activity_mapping_list.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_fn_select"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/layout/activity_fn_select.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_st"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/layout/activity_st.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_launch_from_task_bar"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/layout/activity_launch_from_task_bar.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fn_custom_select_lay"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/layout/fn_custom_select_lay.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_dialog"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/layout/fragment_dialog.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_st_land"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/layout/activity_st_land.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="mapping_list"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/menu/mapping_list.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="fn_select"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/menu/fn_select.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="launch_from_task_bar"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/menu/launch_from_task_bar.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="st"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/menu/st.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/values/styles.xml"
+                qualifiers="" >
+
+                <style
+                    name="MyTheme.ActionBar.TitleTextStyle"
+                    parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title" >
+                    <item name="android:textColor">
+@android:color/white
+                    </item>
+                </style>
+
+                <style
+                    name="myCustomMenuTextApearance"
+                    parent="@android:style/TextAppearance.Widget.IconMenu.Item" >
+                    <item name="android:textColor">
+@android:color/holo_blue_dark
+                    </item>
+                </style>
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Holo.Light" >
+
+                    <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+                    -->
+                </style>
+
+                <style
+                    name="MyActionButtonOverflow"
+                    parent="android:style/Widget.Holo.ActionButton.Overflow" >
+                    <item name="android:src">
+@drawable/ic_overflow
+                    </item>
+                </style>
+
+                <style
+                    name="MyActionBar"
+                    parent="@android:style/Widget.Holo.Light.ActionBar" >
+                    <item name="android:background">
+@android:color/holo_blue_light
+                    </item>
+                    <item name="android:titleTextStyle">
+@style/MyTheme.ActionBar.TitleTextStyle
+                    </item>
+                </style>
+
+                <style
+                    name="AppTheme"
+                    parent="AppBaseTheme" >
+
+                    <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+                    <item name="android:actionBarStyle">
+@style/MyActionBar
+                    </item>
+                    <item name="android:itemTextAppearance">
+@style/myCustomMenuTextApearance
+                    </item>
+                    <item name="android:actionOverflowButtonStyle">
+@style/MyActionButtonOverflow
+                    </item>
+                </style>
+            </file>
+            <file
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/values/dimens.xml"
+                qualifiers="" >
+                <dimen name="activity_horizontal_margin" >16dp
+                </dimen>
+                <dimen name="activity_vertical_margin" >16dp
+                </dimen>
+            </file>
+            <file
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/values/strings.xml"
+                qualifiers="" >
+                <string name="action_settings" >Settings
+                </string>
+                <string name="title_activity_mapping_list" >Fix voice input
+                </string>
+                <string name="app_name" >Adaptive remote
+                </string>
+                <string name="title_activity_launch_from_task_bar" >Launch from taskbar
+                </string>
+                <string name="title_activity_voice_fn_mapping_list" >Voice Fn commands
+                </string>
+                <string name="hello_world" >Hello world!
+                </string>
+                <string name="title_activity_fn_select" >Fn Select
+                </string>
+            </file>
+            <file
+                name="no_fn_btn_background_pressed"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable/no_fn_btn_background_pressed.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="no_fn_btn_seelctor"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable/no_fn_btn_seelctor.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="btn_background"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable/btn_background.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="btn_seelctor"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable/btn_seelctor.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="btn_background_pressed"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable/btn_background_pressed.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="no_fn_btn_background"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable/no_fn_btn_background.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/values-land/refs.xml"
+                qualifiers="land" >
+                <item
+                    name="activity_st"
+                    type="layout">
+@layout/activity_st_land
+                </item>
+            </file>
+            <file
+                name="ic_launcher"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xxxhdpi/ic_launcher.png"
+                qualifiers="xxxhdpi-v4"
+                type="drawable" />
+            <file
+                name="navigation_previous_item"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-hdpi/navigation_previous_item.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-hdpi/ic_launcher.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_action_back"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-hdpi/ic_action_back.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="navigation_expand"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-hdpi/navigation_expand.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_chrome_512"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-hdpi/ic_chrome_512.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="navigation_next_item"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-hdpi/navigation_next_item.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_ic_open_mic_plus"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-hdpi/ic_ic_open_mic_plus.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_action_device_access_mic"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-hdpi/ic_action_device_access_mic.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="navigation_collapse"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-hdpi/navigation_collapse.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="action_settings"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-hdpi/action_settings.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_open_mic_plus"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-hdpi/ic_open_mic_plus.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="hardware_keyboard"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-hdpi/hardware_keyboard.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_overflow"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-hdpi/ic_overflow.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/values-sw720dp-land/dimens.xml"
+                qualifiers="sw720dp-land-v13" >
+                <dimen name="activity_horizontal_margin" >128dp
+                </dimen>
+            </file>
+            <file
+                name="ic_launcher"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xxhdpi/ic_launcher.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_action_back"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xxhdpi/ic_action_back.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_action_keyboard"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xxhdpi/ic_action_keyboard.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_chrome"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xxhdpi/ic_chrome.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_ic_open_mic_plus"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xxhdpi/ic_ic_open_mic_plus.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_action_device_access_mic"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xxhdpi/ic_action_device_access_mic.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_open_mic_plus"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xxhdpi/ic_open_mic_plus.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_action_overflow"
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable-xxhdpi/ic_action_overflow.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                path="/home/korka/AndroidstudioProjects/STA/app/src/main/res/values-v14/styles.xml"
+                qualifiers="v14" >
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Holo.Light" >
+
+                    <!-- API 14 theme customizations can go here. -->
+                </style>
+            </file>
+        </source>
+        <source path="/home/korka/AndroidstudioProjects/STA/app/build/generated/res/rs/debug" />
+        <source path="/home/korka/AndroidstudioProjects/STA/app/build/generated/res/generated/debug" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="/home/korka/AndroidstudioProjects/STA/app/src/debug/res" />
+    </dataSet>
+
+</merger>

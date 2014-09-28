@@ -1,0 +1,27 @@
+apply plugin: 'com.android.application'
+
+
+
+android {
+    compileSdkVersion 14
+    buildToolsVersion '20.0.0'
+
+    defaultConfig {
+        applicationId "ru.korinc.sockettest"
+        minSdkVersion 14
+        targetSdkVersion 18
+    }
+
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    //compile 'com.android.support:support-v4:+'
+    compile 'com.android.support:support-v4:20.0.0'
+    compile project(':library')
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    
+       <Button
+			    android:id="@+id/buttonB1"
+			    android:layout_width="match_parent"
+			    android:layout_height="match_parent"
+			    android:layout_weight="1"
+			    android:text="B1"
+			    android:textColor="#FFFFFF"
+			    android:background="@drawable/btn_seelctor"
+			    android:layout_margin="5dp"
+			    android:visibility="visible" />
+
+			<Button
+			    android:id="@+id/buttonB2"
+			    android:layout_width="match_parent"
+			    android:layout_height="match_parent"
+			    android:layout_weight="1"
+			    android:text="B2"
+			    android:textColor="#FFFFFF"
+			    android:background="@drawable/btn_seelctor"
+			    android:layout_margin="5dp"
+			    android:visibility="visible" />
+			
+			<Button
+			    android:id="@+id/buttonB3"
+			    android:layout_width="match_parent"
+			    android:layout_height="match_parent"
+			    android:layout_weight="1"
+			    android:text="B3"
+			    android:textColor="#FFFFFF"
+			    android:background="@drawable/btn_seelctor"
+			    android:layout_margin="5dp"
+			    android:visibility="visible" />
+
+</LinearLayout>
+<!-- From: file:/home/korka/AndroidstudioProjects/STA/app/src/main/res/layout/fn_buttons_fragment.xml -->

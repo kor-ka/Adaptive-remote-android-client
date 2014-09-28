@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/home/korka/AndroidstudioProjects/STA/app/src/main/res/values-land/refs.xml -->
+    <eat-comment />
+
+    <item name="activity_st" type="layout">@layout/activity_st_land</item>
+
+</resources>
