@@ -525,7 +525,10 @@ public class ST extends FragmentActivity implements OnClickListener {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        status.setText("Connecting...");
+                        if(status!=null){
+                            status.setText("Connecting...");     
+                        }
+                       
                     }
                 });
 
@@ -557,7 +560,9 @@ public class ST extends FragmentActivity implements OnClickListener {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        status.setText("Connected!");
+                                        if(status!=null){
+                                            status.setText("Connected!");
+                                        }
                                     }
                                 });
 
