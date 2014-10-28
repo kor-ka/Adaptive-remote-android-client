@@ -479,7 +479,6 @@ public class ST extends FragmentActivity implements OnClickListener {
         if (keys.isEmpty()) {
 
             keys.add("Поиск");
-            ed.putString("VoiceFnArg:" + "Поиск", "start www.google.com/search?q=<input>");
             ed.putInt("VoiceFn:" + "Поиск", FnButton.FN_COMMAND_LINE);
 
             keys.add("хром");
@@ -513,7 +512,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             ed.commit();
         }
 
-        fixPort();
+        if(!isPortFixRunning)fixPort();
 
     }
 
@@ -539,8 +538,10 @@ public class ST extends FragmentActivity implements OnClickListener {
                     @Override
                     public void run() {
                         boolean isFirstCycle = true;
-                        while (true) {
+                        boolean connected = false;
+                        while (!connected) {
                             try {
+
 
                                 InetAddress ipAddress = InetAddress.getByName(ip);
                                 socket = new Socket();
@@ -562,10 +563,11 @@ public class ST extends FragmentActivity implements OnClickListener {
                                     public void run() {
                                         if(status!=null){
                                             status.setText("Connected!");
+
                                         }
                                     }
                                 });
-
+                                connected = true;
                                 break;
 
                             } catch (IOException e) {
@@ -573,7 +575,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                     isFirstCycle = false;
                                     port = 1026;
                                 } else if(port>1031) {
-                                    port = 1025;
+                                    port = 1026;
 
                                 } else {
                                     port++;
@@ -583,7 +585,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                             }
                         }
-
+                        
 
                     }
                 }).start();
@@ -597,6 +599,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 super.onPostExecute(integer);
                 isPortFixRunning = false;
                 lastFixed = System.currentTimeMillis();
+
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, 1);
     }
@@ -742,12 +745,13 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                 InetAddress ipAddress = InetAddress.getByName(ip);
                 socket = new Socket();
-                socket.connect(new InetSocketAddress(ipAddress, Integer.parseInt(portEt.getText().toString())), 5000);
+                socket.connect(new InetSocketAddress(ipAddress, Integer.parseInt(portEt.getText().toString())), 500);
 
                 send();
+                lastFixed = System.currentTimeMillis();
 
             } catch (IOException e) {
-                if(!isPortFixRunning&&System.currentTimeMillis()-lastFixed>=1000)fixPort();
+                if(!isPortFixRunning&&System.currentTimeMillis()-lastFixed>=600)fixPort();
                 e.printStackTrace();
 
             }
@@ -879,6 +883,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 final EditText input = new EditText(this);
 
                 input.setHint("IP");
+                input.setText(shp.getString("ip", ""));
                 input.setInputType(InputType.TYPE_CLASS_NUMBER
                         | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 input.setKeyListener(DigitsKeyListener
@@ -889,6 +894,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 final EditText inputPort = new EditText(this);
 
                 inputPort.setHint("Port");
+                inputPort.setText(shp.getString("port", ""));
                 inputPort.setInputType(InputType.TYPE_CLASS_NUMBER);
                 inputPort.setLayoutParams(new LinearLayout.LayoutParams(0,
                         LayoutParams.WRAP_CONTENT, 1f));
