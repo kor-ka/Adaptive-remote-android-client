@@ -46,12 +46,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.InterfaceAddress;
+import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -74,6 +80,8 @@ public class ST extends FragmentActivity implements OnClickListener {
     ImageButton left;
     ImageButton right;
     TextView status;
+    AlertDialog dialog;
+
 
     String currentCommandLineaArgs;
 
@@ -604,6 +612,118 @@ public class ST extends FragmentActivity implements OnClickListener {
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, 1);
     }
 
+
+    public  String getBroadcast(){
+        String found_bcast_address=null;
+        System.setProperty("java.net.preferIPv4Stack", "true");
+        try
+        {
+            Enumeration<NetworkInterface> niEnum = NetworkInterface.getNetworkInterfaces();
+            while (niEnum.hasMoreElements())
+            {
+                NetworkInterface ni = niEnum.nextElement();
+                if(!ni.isLoopback()){
+                    for (InterfaceAddress interfaceAddress : ni.getInterfaceAddresses())
+                    {
+                            if(interfaceAddress.getBroadcast()==null)continue;
+                            found_bcast_address = interfaceAddress.getBroadcast().toString();
+                            found_bcast_address = found_bcast_address.substring(1);
+
+                        //found_bcast_address = interfaceAddress.getAddress().toString();//.substring(0, interfaceAddress.getAddress().toString().lastIndexOf('.'));
+                        //found_bcast_address += ".255";
+                        //Toast.makeText(this, found_bcast_address+ "", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }
+        catch (SocketException e)
+        {
+            e.printStackTrace();
+        }
+
+        return found_bcast_address;
+    }
+
+    private void discoverServers() {
+
+                String broadcastAdress = getBroadcast();
+                Toast.makeText(this, broadcastAdress+ "", Toast.LENGTH_SHORT).show();
+                if(broadcastAdress!=null){
+                    new Thread(new SocketThread(ipEt.getText().toString()/*broadcastAdress*/,
+                            Integer.parseInt(portEt.getText().toString()), ab, 12, 12) {
+
+
+                        @Override
+                        public void run() {
+                            try {
+                            DatagramSocket c = new DatagramSocket();
+                            c.setBroadcast(true);
+                            byte[] sendData = ("ab:" + a + "lolParseMe" + b).getBytes();
+
+                                /*
+                                for (int i = 0; i <254 ; i++) {
+                                    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName(ip.substring(0, ip.length()-3)+i), port);
+                                    c.send(sendPacket);
+                                }
+                                */
+                                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName(ip), port);
+                                c.send(sendPacket);
+
+                                //Wait for a response
+                                byte[] recvBuf = new byte[15000];
+                                final DatagramPacket receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
+                                c.receive(receivePacket);
+
+                                //We have a response
+                                receivePacket.getAddress().getHostAddress();
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ((ArrayAdapter)dialog.getListView().getAdapter()).add(receivePacket.getAddress().getHostAddress());
+                                    }
+                                });
+
+
+                                c.close();
+
+
+                            } catch (Exception e) {
+                            }
+
+                            /*
+                            super.run();
+                            while(true){
+                                try {
+                                    final String s = in.readUTF();
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            ((ArrayAdapter)dialog.getListView().getAdapter()).add(s);
+                                        }
+                                    });
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            */
+                        }
+
+
+
+                    }).start();
+
+                }else{
+                    Toast.makeText(this, "Не удалось получить broadcastAdress", Toast.LENGTH_SHORT).show();
+
+                }
+
+
+
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -721,6 +841,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         int b;
         String chr;
         Socket socket;
+        DataInputStream in;
 
         public SocketThread(String ip, int port, int mode, int a, int b) {
             this.ip = ip;
@@ -736,6 +857,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             this.port = port;
             this.mode = mode;
             this.chr = chr;
+
 
         }
 
@@ -769,7 +891,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                         InputStream sin = socket.getInputStream();
                         OutputStream sout = socket.getOutputStream();
 
-                        DataInputStream in = new DataInputStream(sin);
+                        in = new DataInputStream(sin);
                         DataOutputStream out = new DataOutputStream(sout);
 
                         switch (mode) {
@@ -834,9 +956,9 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                         out.flush();
 
-                        final String line = in.readUTF();
+                        //final String line = in.readUTF();
 
-                        socket.close();
+                        closeSocket();
                         // socket = null;
                         // Toast.makeText(getBaseContext(), line + "",
                         // Toast.LENGTH_LONG).show();
@@ -848,6 +970,15 @@ public class ST extends FragmentActivity implements OnClickListener {
                 }
             }
         }
+
+        public void closeSocket(){
+            try {
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
 
     }
 
@@ -926,6 +1057,44 @@ public class ST extends FragmentActivity implements OnClickListener {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
 
+                                dialogInputText = input.getText().toString()
+                                        + ":" + inputPort.getText().toString();
+
+                                if (!input.getText().toString().equals("")
+                                        && !inputPort.getText().toString()
+                                        .equals("")) {
+                                    String[] adressParts = dialogInputText
+                                            .split(":");
+                                    String IP = adressParts[0];
+                                    String port = adressParts[1];
+
+                                    ipEt.setText(IP);
+                                    portEt.setText(port);
+
+                                    ed.putString("ip", IP);
+                                    ed.putString("port", port);
+                                    ed.commit();
+
+                                    dialog.dismiss();
+                                } else if (!input.getText().toString()
+                                        .equals("")) {
+
+                                    Toast.makeText(getBaseContext(),
+                                            "Вы не указали Port :'(",
+                                            Toast.LENGTH_SHORT).show();
+                                } else if (!inputPort.getText().toString()
+                                        .equals("")) {
+
+                                    Toast.makeText(getBaseContext(),
+                                            "Вы не указали IP :'(",
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+
+                                    Toast.makeText(getBaseContext(),
+                                            "Вы не указали IP и Port :'(",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+
                             }
                         });
                 builder.setNegativeButton((installed) ? "Barcode Scanner" : "Get Barcode Scanner",
@@ -953,8 +1122,26 @@ public class ST extends FragmentActivity implements OnClickListener {
                             }
                         });
 
-                final AlertDialog dialog = builder.create();
+                final ArrayAdapter<String> serversArrayAdapter = new ArrayAdapter<String>(
+                        ST.this,
+                        android.R.layout.select_dialog_singlechoice);
+
+                builder.setAdapter(serversArrayAdapter,
+                    new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            inputPort.setText(serversArrayAdapter.getItem(which));
+                        }
+                    });
+
+                dialog = builder.create();
+
                 dialog.show();
+                discoverServers();
+
+
+/*
                 // Overriding the handler immediately after show is probably a
                 // better approach than OnShowListener as described below
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE)
@@ -963,47 +1150,11 @@ public class ST extends FragmentActivity implements OnClickListener {
                             @Override
                             public void onClick(View v) {
 
-                                dialogInputText = input.getText().toString()
-                                        + ":" + inputPort.getText().toString();
 
-                                if (!input.getText().toString().equals("")
-                                        && !inputPort.getText().toString()
-                                        .equals("")) {
-                                    String[] adressParts = dialogInputText
-                                            .split(":");
-                                    String IP = adressParts[0];
-                                    String port = adressParts[1];
-
-                                    ipEt.setText(IP);
-                                    portEt.setText(port);
-
-                                    ed.putString("ip", IP);
-                                    ed.putString("port", port);
-                                    ed.commit();
-
-                                    dialog.cancel();
-                                } else if (!input.getText().toString()
-                                        .equals("")) {
-
-                                    Toast.makeText(getBaseContext(),
-                                            "Вы не указали Port :'(",
-                                            Toast.LENGTH_SHORT).show();
-                                } else if (!inputPort.getText().toString()
-                                        .equals("")) {
-
-                                    Toast.makeText(getBaseContext(),
-                                            "Вы не указали IP :'(",
-                                            Toast.LENGTH_SHORT).show();
-                                } else {
-
-                                    Toast.makeText(getBaseContext(),
-                                            "Вы не указали IP и Port :'(",
-                                            Toast.LENGTH_SHORT).show();
-                                }
 
                             }
                         });
-
+*/
 
                 break;
 
