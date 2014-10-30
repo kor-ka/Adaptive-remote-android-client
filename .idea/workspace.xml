@@ -24,6 +24,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8aece080-7de7-4787-b604-789c48b90d26" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/ST.java" afterPath="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/ST.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="STA.iws" />
@@ -52,31 +53,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FnButton.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnButton.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1386" max-vertical-offset="6948">
-              <caret line="77" column="12" selection-start-line="77" selection-start-column="12" selection-end-line="77" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FnButtonsFragment.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnButtonsFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="5364">
-              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ST.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/ST.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7025641" vertical-offset="11048" max-vertical-offset="21312">
-              <caret line="1099" column="52" selection-start-line="1099" selection-start-column="52" selection-end-line="1099" selection-end-column="52" />
+            <state vertical-scroll-proportion="2.4982698" vertical-offset="9752" max-vertical-offset="21168">
+              <caret line="1098" column="30" selection-start-line="1098" selection-start-column="30" selection-end-line="1098" selection-end-column="30" />
               <folding>
                 <element signature="method#onCreate#0;class#ST#0" expanded="false" />
                 <element signature="class#5789:7472" expanded="false" />
@@ -85,25 +66,9 @@
                 <element signature="class#8811:11559" expanded="false" />
                 <element signature="method#onTouch#0;class#8811:11559" expanded="false" />
                 <element signature="class#11816:15743" expanded="false" />
-                <element signature="e#23982#24354#0" expanded="true" />
-                <element signature="e#24311#24312#0" expanded="true" />
-                <element signature="e#38699#38707#0" expanded="true" />
-                <element signature="e#38889#39508#0" expanded="true" />
-                <element signature="e#39485#39486#0" expanded="true" />
-                <element signature="e#39615#39784#0" expanded="true" />
-                <element signature="e#39765#39766#0" expanded="true" />
-                <element signature="e#55071#55079#0" expanded="true" />
+                <element signature="e#38738#38746#0" expanded="true" />
+                <element signature="e#55110#55118#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VoiceFnMappingList.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/VoiceFnMappingList.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2574" max-vertical-offset="3906">
-              <caret line="143" column="47" selection-start-line="143" selection-start-column="47" selection-end-line="143" selection-end-column="61" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -1494,7 +1459,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -1505,7 +1470,123 @@
       <autoscrollFromSource />
       <sortByType />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="STA" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="STA" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="STA" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="STA" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="STA" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="STA" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="STA" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="STA" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="STA" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="STA" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="STA" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sockettest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToClass.includeLibraries" value="false" />
@@ -1745,7 +1826,11 @@
       <created>1414705336595</created>
       <updated>1414705336595</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="autoDiscovery!">
+      <created>1414705349309</created>
+      <updated>1414705349309</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1757,7 +1842,7 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290938" sideWeight="0.49960285" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30273753" sideWeight="0.49960285" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30273753" sideWeight="0.49960285" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3993559" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290938" sideWeight="0.50039715" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1772,7 +1857,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32828686" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18964143" sideWeight="0.49919486" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18964143" sideWeight="0.49919486" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
@@ -1843,14 +1928,8 @@
             <element signature="class#8811:11559" expanded="false" />
             <element signature="method#onTouch#0;class#8811:11559" expanded="false" />
             <element signature="class#11816:15743" expanded="false" />
-            <element signature="e#23982#24354#0" expanded="true" />
-            <element signature="e#24311#24312#0" expanded="true" />
-            <element signature="e#38699#38707#0" expanded="true" />
-            <element signature="e#38889#39508#0" expanded="true" />
-            <element signature="e#39485#39486#0" expanded="true" />
-            <element signature="e#39615#39784#0" expanded="true" />
-            <element signature="e#39765#39766#0" expanded="true" />
-            <element signature="e#55071#55079#0" expanded="true" />
+            <element signature="e#38738#38746#0" expanded="true" />
+            <element signature="e#55110#55118#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1891,14 +1970,8 @@
             <element signature="class#8811:11559" expanded="false" />
             <element signature="method#onTouch#0;class#8811:11559" expanded="false" />
             <element signature="class#11816:15743" expanded="false" />
-            <element signature="e#23982#24354#0" expanded="true" />
-            <element signature="e#24311#24312#0" expanded="true" />
-            <element signature="e#38699#38707#0" expanded="true" />
-            <element signature="e#38889#39508#0" expanded="true" />
-            <element signature="e#39485#39486#0" expanded="true" />
-            <element signature="e#39615#39784#0" expanded="true" />
-            <element signature="e#39765#39766#0" expanded="true" />
-            <element signature="e#55071#55079#0" expanded="true" />
+            <element signature="e#38738#38746#0" expanded="true" />
+            <element signature="e#55110#55118#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1939,14 +2012,8 @@
             <element signature="class#8811:11559" expanded="false" />
             <element signature="method#onTouch#0;class#8811:11559" expanded="false" />
             <element signature="class#11816:15743" expanded="false" />
-            <element signature="e#23982#24354#0" expanded="true" />
-            <element signature="e#24311#24312#0" expanded="true" />
-            <element signature="e#38699#38707#0" expanded="true" />
-            <element signature="e#38889#39508#0" expanded="true" />
-            <element signature="e#39485#39486#0" expanded="true" />
-            <element signature="e#39615#39784#0" expanded="true" />
-            <element signature="e#39765#39766#0" expanded="true" />
-            <element signature="e#55071#55079#0" expanded="true" />
+            <element signature="e#38738#38746#0" expanded="true" />
+            <element signature="e#55110#55118#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1987,14 +2054,8 @@
             <element signature="class#8811:11559" expanded="false" />
             <element signature="method#onTouch#0;class#8811:11559" expanded="false" />
             <element signature="class#11816:15743" expanded="false" />
-            <element signature="e#23982#24354#0" expanded="true" />
-            <element signature="e#24311#24312#0" expanded="true" />
-            <element signature="e#38699#38707#0" expanded="true" />
-            <element signature="e#38889#39508#0" expanded="true" />
-            <element signature="e#39485#39486#0" expanded="true" />
-            <element signature="e#39615#39784#0" expanded="true" />
-            <element signature="e#39765#39766#0" expanded="true" />
-            <element signature="e#55071#55079#0" expanded="true" />
+            <element signature="e#38738#38746#0" expanded="true" />
+            <element signature="e#55110#55118#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2035,14 +2096,8 @@
             <element signature="class#8811:11559" expanded="false" />
             <element signature="method#onTouch#0;class#8811:11559" expanded="false" />
             <element signature="class#11816:15743" expanded="false" />
-            <element signature="e#23982#24354#0" expanded="true" />
-            <element signature="e#24311#24312#0" expanded="true" />
-            <element signature="e#38699#38707#0" expanded="true" />
-            <element signature="e#38889#39508#0" expanded="true" />
-            <element signature="e#39485#39486#0" expanded="true" />
-            <element signature="e#39615#39784#0" expanded="true" />
-            <element signature="e#39765#39766#0" expanded="true" />
-            <element signature="e#55071#55079#0" expanded="true" />
+            <element signature="e#38738#38746#0" expanded="true" />
+            <element signature="e#55110#55118#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2067,14 +2122,8 @@
             <element signature="class#8811:11559" expanded="false" />
             <element signature="method#onTouch#0;class#8811:11559" expanded="false" />
             <element signature="class#11816:15743" expanded="false" />
-            <element signature="e#23982#24354#0" expanded="true" />
-            <element signature="e#24311#24312#0" expanded="true" />
-            <element signature="e#38699#38707#0" expanded="true" />
-            <element signature="e#38889#39508#0" expanded="true" />
-            <element signature="e#39485#39486#0" expanded="true" />
-            <element signature="e#39615#39784#0" expanded="true" />
-            <element signature="e#39765#39766#0" expanded="true" />
-            <element signature="e#55071#55079#0" expanded="true" />
+            <element signature="e#38738#38746#0" expanded="true" />
+            <element signature="e#55110#55118#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2112,14 +2161,8 @@
             <element signature="class#8811:11559" expanded="false" />
             <element signature="method#onTouch#0;class#8811:11559" expanded="false" />
             <element signature="class#11816:15743" expanded="false" />
-            <element signature="e#23982#24354#0" expanded="true" />
-            <element signature="e#24311#24312#0" expanded="true" />
-            <element signature="e#38699#38707#0" expanded="true" />
-            <element signature="e#38889#39508#0" expanded="true" />
-            <element signature="e#39485#39486#0" expanded="true" />
-            <element signature="e#39615#39784#0" expanded="true" />
-            <element signature="e#39765#39766#0" expanded="true" />
-            <element signature="e#55071#55079#0" expanded="true" />
+            <element signature="e#38738#38746#0" expanded="true" />
+            <element signature="e#55110#55118#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2157,14 +2200,8 @@
             <element signature="class#8811:11559" expanded="false" />
             <element signature="method#onTouch#0;class#8811:11559" expanded="false" />
             <element signature="class#11816:15743" expanded="false" />
-            <element signature="e#23982#24354#0" expanded="true" />
-            <element signature="e#24311#24312#0" expanded="true" />
-            <element signature="e#38699#38707#0" expanded="true" />
-            <element signature="e#38889#39508#0" expanded="true" />
-            <element signature="e#39485#39486#0" expanded="true" />
-            <element signature="e#39615#39784#0" expanded="true" />
-            <element signature="e#39765#39766#0" expanded="true" />
-            <element signature="e#55071#55079#0" expanded="true" />
+            <element signature="e#38738#38746#0" expanded="true" />
+            <element signature="e#55110#55118#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2325,8 +2362,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/ST.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7025641" vertical-offset="11048" max-vertical-offset="21312">
-          <caret line="1099" column="52" selection-start-line="1099" selection-start-column="52" selection-end-line="1099" selection-end-column="52" />
+        <state vertical-scroll-proportion="2.4982698" vertical-offset="9752" max-vertical-offset="21168">
+          <caret line="1098" column="30" selection-start-line="1098" selection-start-column="30" selection-end-line="1098" selection-end-column="30" />
           <folding>
             <element signature="method#onCreate#0;class#ST#0" expanded="false" />
             <element signature="class#5789:7472" expanded="false" />
@@ -2335,14 +2372,8 @@
             <element signature="class#8811:11559" expanded="false" />
             <element signature="method#onTouch#0;class#8811:11559" expanded="false" />
             <element signature="class#11816:15743" expanded="false" />
-            <element signature="e#23982#24354#0" expanded="true" />
-            <element signature="e#24311#24312#0" expanded="true" />
-            <element signature="e#38699#38707#0" expanded="true" />
-            <element signature="e#38889#39508#0" expanded="true" />
-            <element signature="e#39485#39486#0" expanded="true" />
-            <element signature="e#39615#39784#0" expanded="true" />
-            <element signature="e#39765#39766#0" expanded="true" />
-            <element signature="e#55071#55079#0" expanded="true" />
+            <element signature="e#38738#38746#0" expanded="true" />
+            <element signature="e#55110#55118#0" expanded="true" />
           </folding>
         </state>
       </provider>

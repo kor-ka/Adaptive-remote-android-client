@@ -550,7 +550,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                             try {
 
 
-                                InetAddress ipAddress = InetAddress.getByName(ip);
+                                InetAddress ipAddress = InetAddress.getByName(ipEt.getText().toString());
                                 socket = new Socket();
                                 socket.connect(new InetSocketAddress(ipAddress, port), 500);
 
@@ -648,16 +648,16 @@ public class ST extends FragmentActivity implements OnClickListener {
                 String broadcastAdress = getBroadcast();
                    breakDiscovering = false;
                 if(broadcastAdress!=null){
-                    for (int i = 1; i <=255 ; i++) {
-                        if(breakDiscovering)break;
-                        String ipToDesc = broadcastAdress.substring(0, broadcastAdress.lastIndexOf("255"))+i;
-                        new Thread(new SocketThread(ipToDesc/*broadcastAdress*/,
-                                Integer.parseInt(portEt.getText().toString()), ab, 12, 12) {
+                    for (int j = 1026; j <= 1032; j++) {
+                        for (int i = 1; i <=255 ; i++) {
+                            if(breakDiscovering)break;
+                            String ipToDesc = broadcastAdress.substring(0, broadcastAdress.lastIndexOf("255"))+i;
+                            new Thread(new SocketThread(ipToDesc/*broadcastAdress*/, j==1032?1025:j, ab, 12, 12) {
 
-                            @Override
-                            public void run() {
+                                @Override
+                                public void run() {
 
-                                super.run();
+                                    super.run();
 
                                     try {
                                         //final String s = in.readUTF();
@@ -672,9 +672,11 @@ public class ST extends FragmentActivity implements OnClickListener {
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                            }
+                                }
 
-                        }).start();
+                            }).start();
+                        }
+
                     }
 
 
@@ -826,7 +828,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                 InetAddress ipAddress = InetAddress.getByName(ip);
                 socket = new Socket();
-                socket.connect(new InetSocketAddress(ipAddress, Integer.parseInt(portEt.getText().toString())), 500);
+                socket.connect(new InetSocketAddress(ipAddress, port), 500);
 
                 send();
                 lastFixed = System.currentTimeMillis();
