@@ -46,8 +46,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.InterfaceAddress;
@@ -81,6 +79,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     ImageButton right;
     TextView status;
     AlertDialog dialog;
+    boolean breakDiscovering = false;
 
 
     String currentCommandLineaArgs;
@@ -647,80 +646,39 @@ public class ST extends FragmentActivity implements OnClickListener {
     private void discoverServers() {
 
                 String broadcastAdress = getBroadcast();
-                Toast.makeText(this, broadcastAdress+ "", Toast.LENGTH_SHORT).show();
+                   breakDiscovering = false;
                 if(broadcastAdress!=null){
-                    new Thread(new SocketThread(ipEt.getText().toString()/*broadcastAdress*/,
-                            Integer.parseInt(portEt.getText().toString()), ab, 12, 12) {
+                    for (int i = 1; i <=255 ; i++) {
+                        if(breakDiscovering)break;
+                        String ipToDesc = broadcastAdress.substring(0, broadcastAdress.lastIndexOf("255"))+i;
+                        new Thread(new SocketThread(ipToDesc/*broadcastAdress*/,
+                                Integer.parseInt(portEt.getText().toString()), ab, 12, 12) {
 
+                            @Override
+                            public void run() {
 
-                        @Override
-                        public void run() {
-                            try {
-                            DatagramSocket c = new DatagramSocket();
-                            c.setBroadcast(true);
-                            byte[] sendData = ("ab:" + a + "lolParseMe" + b).getBytes();
+                                super.run();
 
-                                /*
-                                for (int i = 0; i <254 ; i++) {
-                                    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName(ip.substring(0, ip.length()-3)+i), port);
-                                    c.send(sendPacket);
-                                }
-                                */
-                                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName(ip), port);
-                                c.send(sendPacket);
+                                    try {
+                                        //final String s = in.readUTF();
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                if(line!=null&&line.equals("ok"))((ArrayAdapter)dialog.getListView().getAdapter()).add(ip+":"+port);
 
-                                //Wait for a response
-                                byte[] recvBuf = new byte[15000];
-                                final DatagramPacket receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
-                                c.receive(receivePacket);
+                                            }
+                                        });
 
-                                //We have a response
-                                receivePacket.getAddress().getHostAddress();
-
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        ((ArrayAdapter)dialog.getListView().getAdapter()).add(receivePacket.getAddress().getHostAddress());
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
                                     }
-                                });
-
-
-                                c.close();
-
-
-                            } catch (Exception e) {
                             }
 
-                            /*
-                            super.run();
-                            while(true){
-                                try {
-                                    final String s = in.readUTF();
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            ((ArrayAdapter)dialog.getListView().getAdapter()).add(s);
-                                        }
-                                    });
+                        }).start();
+                    }
 
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            */
-                        }
-
-
-
-                    }).start();
-
-                }else{
-                    Toast.makeText(this, "Не удалось получить broadcastAdress", Toast.LENGTH_SHORT).show();
 
                 }
-
-
-
     }
 
 
@@ -842,6 +800,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         String chr;
         Socket socket;
         DataInputStream in;
+        String line;
 
         public SocketThread(String ip, int port, int mode, int a, int b) {
             this.ip = ip;
@@ -956,7 +915,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                         out.flush();
 
-                        //final String line = in.readUTF();
+                        line = in.readUTF();
 
                         closeSocket();
                         // socket = null;
@@ -1131,14 +1090,27 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            inputPort.setText(serversArrayAdapter.getItem(which));
+                            String[] ipPort = serversArrayAdapter.getItem(which).split(":");
+                            ipEt.setText(ipPort[0]);
+                            portEt.setText(ipPort[1]);
+
+                            ed.putString("ip", ipPort[0]);
+                            ed.putString("port", ipPort[1]);
+                            ed.commit();
+                            breakDiscovering = true;
                         }
                     });
 
                 dialog = builder.create();
 
                 dialog.show();
-                discoverServers();
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        discoverServers();
+                    }
+                }).start();
 
 
 /*
