@@ -1741,7 +1741,11 @@
       <created>1414705304474</created>
       <updated>1414705304474</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="autoDiscovery!">
+      <created>1414705336595</created>
+      <updated>1414705336595</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
