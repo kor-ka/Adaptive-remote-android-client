@@ -72,10 +72,13 @@ true
                     <attr name="android:background" />
                 </declare-styleable>
 
+                <color name="vpi__bright_foreground_holo_light" >@color/vpi__background_holo_dark
+                </color>
+
                 <dimen name="default_title_indicator_footer_indicator_height" >4dp
                 </dimen>
 
-                <color name="vpi__bright_foreground_holo_light" >@color/vpi__background_holo_dark
+                <color name="vpi__background_holo_light" >#fff3f3f3
                 </color>
 
                 <style
@@ -110,15 +113,9 @@ center
                     </item>
                 </style>
 
-                <color name="vpi__background_holo_light" >#fff3f3f3
-                </color>
-
                 <integer name="default_title_indicator_footer_indicator_style" >
 2
                 </integer>
-
-                <dimen name="default_title_indicator_top_padding" >7dp
-                </dimen>
 
                 <declare-styleable name="ViewPagerIndicator" >
 
@@ -147,6 +144,9 @@ center
                         name="vpiUnderlinePageIndicatorStyle"
                         format="reference" />
                 </declare-styleable>
+
+                <dimen name="default_title_indicator_top_padding" >7dp
+                </dimen>
 
                 <color name="default_title_indicator_text_color" >#BBFFFFFF
                 </color>
@@ -325,19 +325,19 @@ false
                 <color name="default_line_indicator_selected_color" >#FF33B5E5
                 </color>
 
-                <integer name="default_underline_indicator_fade_delay" >
-300
-                </integer>
                 <integer name="default_circle_indicator_orientation" >
 0
                 </integer>
-
-                <dimen name="default_title_indicator_footer_padding" >7dp
-                </dimen>
+                <integer name="default_underline_indicator_fade_delay" >
+300
+                </integer>
 
                 <bool name="default_circle_indicator_centered" >
 true
                 </bool>
+
+                <dimen name="default_title_indicator_footer_padding" >7dp
+                </dimen>
 
                 <color name="vpi__bright_foreground_inverse_holo_light" >@color/vpi__bright_foreground_holo_dark
                 </color>
@@ -748,17 +748,6 @@ bold
                 </style>
 
                 <style
-                    name="MyActionBar"
-                    parent="@android:style/Widget.Holo.Light.ActionBar" >
-                    <item name="android:background">
-@android:color/holo_blue_light
-                    </item>
-                    <item name="android:titleTextStyle">
-@style/MyTheme.ActionBar.TitleTextStyle
-                    </item>
-                </style>
-
-                <style
                     name="AppTheme"
                     parent="AppBaseTheme" >
 
@@ -771,6 +760,17 @@ bold
                     </item>
                     <item name="android:actionOverflowButtonStyle">
 @style/MyActionButtonOverflow
+                    </item>
+                </style>
+
+                <style
+                    name="MyActionBar"
+                    parent="@android:style/Widget.Holo.Light.ActionBar" >
+                    <item name="android:background">
+@android:color/holo_blue_light
+                    </item>
+                    <item name="android:titleTextStyle">
+@style/MyTheme.ActionBar.TitleTextStyle
                     </item>
                 </style>
             </file>

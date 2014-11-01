@@ -79,6 +79,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     ImageButton right;
     TextView status;
     AlertDialog dialog;
+    ArrayList<String> ipPortsArray = new ArrayList<String>();
     boolean breakDiscovering = false;
 
 
@@ -644,7 +645,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     }
 
     private void discoverServers() {
-
+                ipPortsArray.clear();
                 String broadcastAdress = getBroadcast();
                    breakDiscovering = false;
                 if(broadcastAdress!=null){
@@ -664,7 +665,10 @@ public class ST extends FragmentActivity implements OnClickListener {
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                if(line!=null&&line.equals("ok"))((ArrayAdapter)dialog.getListView().getAdapter()).add(ip+":"+port);
+                                                if(line!=null&&line.startsWith("ok")) {
+                                                    ((ArrayAdapter) dialog.getListView().getAdapter()).add(line.substring(2));
+                                                    ipPortsArray.add(ip + ":" + port);
+                                                }
 
                                             }
                                         });
@@ -1092,7 +1096,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            String[] ipPort = serversArrayAdapter.getItem(which).split(":");
+                            String[] ipPort = ipPortsArray.get(which).split(":");
                             ipEt.setText(ipPort[0]);
                             portEt.setText(ipPort[1]);
 
@@ -1113,23 +1117,6 @@ public class ST extends FragmentActivity implements OnClickListener {
                         discoverServers();
                     }
                 }).start();
-
-
-/*
-                // Overriding the handler immediately after show is probably a
-                // better approach than OnShowListener as described below
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                        .setOnClickListener(new View.OnClickListener() {
-
-                            @Override
-                            public void onClick(View v) {
-
-
-
-                            }
-                        });
-*/
-
                 break;
 
         }
