@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ru.korinc.sockettest.ST.SocketThread;
+import ru.korinc.sockettest.SocketThread;
 
 import android.content.Context;
 import android.content.Intent;
