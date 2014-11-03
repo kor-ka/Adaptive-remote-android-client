@@ -35,6 +35,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,13 +71,26 @@ public class ST extends FragmentActivity implements OnClickListener {
     EditText keyboardEt;
     Button scan;
     Button send;
-    Button b4;
-    Button b5;
-    Button b6;
+
     ImageButton up;
     ImageButton down;
     ImageButton left;
     ImageButton right;
+
+    Button wsBtn1;
+    Button wsBtn2;
+    Button wsBtn3;
+    Button wsBtn4;
+    Button wsBtn5;
+    Button wsBtn6;
+    Button wsBtn7;
+    Button wsBtn8;
+    Button wsBtn9;
+
+    TableRow tr1;
+    TableRow tr2;
+    TableRow tr3;
+
     TextView status;
     AlertDialog dialog;
     ArrayList<String> ipPortsArray = new ArrayList<String>();
@@ -127,6 +141,47 @@ public class ST extends FragmentActivity implements OnClickListener {
     public boolean isPortFixRunning = false;
     public long lastFixed = System.currentTimeMillis();
 
+
+    private static final String FN_SAVE_B1 = "cwfnB1";
+    private static final String FN_SAVE_B2 = "cwfnB2";
+    private static final String FN_SAVE_B3 = "cwfnB3";
+    private static final String FN_SAVE_B4 = "cwfnB4";
+    private static final String FN_SAVE_B5 = "cwfnB5";
+    private static final String FN_SAVE_B6 = "cwfnB6";
+    private static final String FN_SAVE_B7 = "cwfnB7";
+    private static final String FN_SAVE_B8 = "cwfnB8";
+    private static final String FN_SAVE_B9 = "cwfnB9";
+
+    public static final int REQUEST_CODE_B1 = 12346;
+    public static final int REQUEST_CODE_B2 = 12347;
+    public static final int REQUEST_CODE_B3 = 12348;
+    public static final int REQUEST_CODE_B4 = 12349;
+    public static final int REQUEST_CODE_B5 = 12350;
+    public static final int REQUEST_CODE_B6 = 12351;
+    public static final int REQUEST_CODE_B7 = 12355;
+    public static final int REQUEST_CODE_B8 = 12356;
+    public static final int REQUEST_CODE_B9 = 12357;
+
+    private static final String FN_SAVE_ARGS_B1 = "cwfnB1args";
+    private static final String FN_SAVE_ARGS_B2 = "cwfnB2args";
+    private static final String FN_SAVE_ARGS_B3 = "cwfnB3args";
+    private static final String FN_SAVE_ARGS_B4 = "cwfnB4args";
+    private static final String FN_SAVE_ARGS_B5 = "cwfnB5args";
+    private static final String FN_SAVE_ARGS_B6 = "cwfnB6args";
+    private static final String FN_SAVE_ARGS_B7 = "cwfnB7args";
+    private static final String FN_SAVE_ARGS_B8 = "cwfnB8args";
+    private static final String FN_SAVE_ARGS_B9 = "cwfnB9args";
+
+    private static final String FN_SAVE_NAME_B1 = "cwfnB1name";
+    private static final String FN_SAVE_NAME_B2 = "cwfnB2name";
+    private static final String FN_SAVE_NAME_B3 = "cwfnB3name";
+    private static final String FN_SAVE_NAME_B4 = "cwfnB4name";
+    private static final String FN_SAVE_NAME_B5 = "cwfnB5name";
+    private static final String FN_SAVE_NAME_B6 = "cwfnB6name";
+    private static final String FN_SAVE_NAME_B7 = "cwfnB7name";
+    private static final String FN_SAVE_NAME_B8 = "cwfnB8name";
+    private static final String FN_SAVE_NAME_B9 = "cwfnB9name";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,6 +217,20 @@ public class ST extends FragmentActivity implements OnClickListener {
         down = (ImageButton) findViewById(R.id.buttonDown);
         left = (ImageButton) findViewById(R.id.buttonLeft);
         right = (ImageButton) findViewById(R.id.buttonRight);
+
+        wsBtn1 = (Button) findViewById(R.id.workSpaceBTN1);
+        wsBtn2 = (Button) findViewById(R.id.workSpaceBTN2);
+        wsBtn3 = (Button) findViewById(R.id.workSpaceBTN3);
+        wsBtn4 = (Button) findViewById(R.id.workSpaceBTN4);
+        wsBtn5 = (Button) findViewById(R.id.workSpaceBTN5);
+        wsBtn6 = (Button) findViewById(R.id.workSpaceBTN6);
+        wsBtn7 = (Button) findViewById(R.id.workSpaceBTN7);
+        wsBtn8 = (Button) findViewById(R.id.workSpaceBTN8);
+        wsBtn9 = (Button) findViewById(R.id.workSpaceBTN9);
+
+        tr1 = (TableRow) findViewById(R.id.tableWSRow1);
+        tr2 = (TableRow) findViewById(R.id.tableWSRow2);
+        tr3 = (TableRow) findViewById(R.id.tableWSRow3);
 
         ll = (LinearLayout) findViewById(R.id.ll);
 
@@ -624,6 +693,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     public void setCurrentProcess(String process){
         currentProcess = process;
         status.setText(currentProcess);
+        bindContextButtons();
     }
 
 
@@ -990,6 +1060,20 @@ public class ST extends FragmentActivity implements OnClickListener {
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
+
+        //bind contextButtonsArrayList<Integer>
+        ArrayList<Integer> arr = new ArrayList<Integer>();
+        arr.add(REQUEST_CODE_B1);
+        arr.add(REQUEST_CODE_B2);
+        arr.add(REQUEST_CODE_B3);
+        arr.add(REQUEST_CODE_B4);
+        arr.add(REQUEST_CODE_B5);
+        arr.add(REQUEST_CODE_B6);
+        arr.add(REQUEST_CODE_B7);
+        arr.add(REQUEST_CODE_B8);
+        arr.add(REQUEST_CODE_B9);
+        if(resultCode==RESULT_OK && arr.contains(requestCode)){saveFnBindResults(intent, requestCode);}
+
         boolean needReinvokeVoiceFn = false;
         //Fixing voice input
         if (resultCode == RESULT_OK) {
@@ -1521,5 +1605,639 @@ public class ST extends FragmentActivity implements OnClickListener {
             return NUM_PAGES;
         }
     }
+
+    public void bindContextButtons(){
+        OnClickListener ocl = new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.workSpaceBTN1:
+                        int bindedFunction1 = shp.getInt(FN_SAVE_B1+""+currentProcess, fnb.NO_FUNCTION);
+                        if(bindedFunction1 == fnb.NO_FUNCTION){
+                            Intent intentB1 = new Intent(getBaseContext(), FnBind.class);
+                            startActivityForResult(intentB1, REQUEST_CODE_B1);
+                        }else{
+                            fnb.press(bindedFunction1, shp.getString(FN_SAVE_ARGS_B1+""+currentProcess, "Nope"),"");
+                        }
+                        break;
+
+                    case R.id.workSpaceBTN2:
+                        int bindedFunction2 = shp.getInt(FN_SAVE_B2+""+currentProcess, fnb.NO_FUNCTION);
+                        if(bindedFunction2 == fnb.NO_FUNCTION){
+                            Intent intentB2 = new Intent(getBaseContext(), FnBind.class);
+                            startActivityForResult(intentB2, REQUEST_CODE_B2);
+                        }else{
+                            fnb.press(bindedFunction2, shp.getString(FN_SAVE_ARGS_B2+""+currentProcess, "Nope"), "");
+                        }
+                        break;
+
+                    case R.id.workSpaceBTN3:
+                        int bindedFunction3 = shp.getInt(FN_SAVE_B3+""+currentProcess, fnb.NO_FUNCTION);
+                        if(bindedFunction3 ==fnb.NO_FUNCTION){
+                            Intent intentB3 = new Intent(getBaseContext(), FnBind.class);
+                            startActivityForResult(intentB3, REQUEST_CODE_B3);
+                        }else{
+                            fnb.press(bindedFunction3, shp.getString(FN_SAVE_ARGS_B3+""+currentProcess, "Nope"), "");
+                        }
+                        break;
+                    case R.id.workSpaceBTN4:
+                        int bindedFunction4 = shp.getInt(FN_SAVE_B4+""+currentProcess, fnb.NO_FUNCTION);
+                        if(bindedFunction4 == fnb.NO_FUNCTION){
+                            Intent intentB4 = new Intent(getBaseContext(), FnBind.class);
+                            startActivityForResult(intentB4, REQUEST_CODE_B4);
+                        }else{
+                            fnb.press(bindedFunction4, shp.getString(FN_SAVE_ARGS_B4+""+currentProcess, "Nope"),"");
+                        }
+                        break;
+
+                    case R.id.workSpaceBTN5:
+                        int bindedFunction5 = shp.getInt(FN_SAVE_B5+""+currentProcess, fnb.NO_FUNCTION);
+                        if(bindedFunction5 == fnb.NO_FUNCTION){
+                            Intent intentB5 = new Intent(getBaseContext(), FnBind.class);
+                            startActivityForResult(intentB5, REQUEST_CODE_B5);
+                        }else{
+                            fnb.press(bindedFunction5, shp.getString(FN_SAVE_ARGS_B5+""+currentProcess, "Nope"), "");
+                        }
+                        break;
+
+                    case R.id.workSpaceBTN6:
+                        int bindedFunction6 = shp.getInt(FN_SAVE_B6+""+currentProcess, fnb.NO_FUNCTION);
+                        if(bindedFunction6 ==fnb.NO_FUNCTION){
+                            Intent intentB6 = new Intent(getBaseContext(), FnBind.class);
+                            startActivityForResult(intentB6, REQUEST_CODE_B6);
+                        }else{
+                            fnb.press(bindedFunction6, shp.getString(FN_SAVE_ARGS_B6+""+currentProcess, "Nope"), "");
+                        }
+                        break;
+                    case R.id.workSpaceBTN7:
+                        int bindedFunction7 = shp.getInt(FN_SAVE_B7+""+currentProcess, fnb.NO_FUNCTION);
+                        if(bindedFunction7 == fnb.NO_FUNCTION){
+                            Intent intentB7 = new Intent(getBaseContext(), FnBind.class);
+                            startActivityForResult(intentB7, REQUEST_CODE_B7);
+                        }else{
+                            fnb.press(bindedFunction7, shp.getString(FN_SAVE_ARGS_B7+""+currentProcess, "Nope"),"");
+                        }
+                        break;
+
+                    case R.id.workSpaceBTN8:
+                        int bindedFunction8 = shp.getInt(FN_SAVE_B8+""+currentProcess, fnb.NO_FUNCTION);
+                        if(bindedFunction8 == fnb.NO_FUNCTION){
+                            Intent intentB8 = new Intent(getBaseContext(), FnBind.class);
+                            startActivityForResult(intentB8, REQUEST_CODE_B8);
+                        }else{
+                            fnb.press(bindedFunction8, shp.getString(FN_SAVE_ARGS_B8+""+currentProcess, "Nope"), "");
+                        }
+                        break;
+
+                    case R.id.workSpaceBTN9:
+                        int bindedFunction9 = shp.getInt(FN_SAVE_B9+""+currentProcess, fnb.NO_FUNCTION);
+                        if(bindedFunction9 ==fnb.NO_FUNCTION){
+                            Intent intentB9 = new Intent(getBaseContext(), FnBind.class);
+                            startActivityForResult(intentB9, REQUEST_CODE_B9);
+                        }else{
+                            fnb.press(bindedFunction9, shp.getString(FN_SAVE_ARGS_B9+""+currentProcess, "Nope"), "");
+                        }
+                        break;
+                }
+            }
+        };
+
+        View.OnLongClickListener olclFn = new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View v) {
+                int reqToSend=0;
+                switch (v.getId()) {
+                    case R.id.workSpaceBTN1:
+                        reqToSend = REQUEST_CODE_B1;
+                        break;
+
+                    case R.id.workSpaceBTN2:
+                        reqToSend = REQUEST_CODE_B2;
+                        break;
+
+                    case R.id.workSpaceBTN3:
+                        reqToSend = REQUEST_CODE_B3;
+                        break;
+                    case R.id.workSpaceBTN4:
+                        reqToSend = REQUEST_CODE_B4;
+                        break;
+
+                    case R.id.workSpaceBTN5:
+                        reqToSend = REQUEST_CODE_B5;
+                        break;
+
+                    case R.id.workSpaceBTN6:
+                        reqToSend = REQUEST_CODE_B6;
+                        break;
+                    case R.id.workSpaceBTN7:
+                        reqToSend = REQUEST_CODE_B7;
+                        break;
+
+                    case R.id.workSpaceBTN8:
+                        reqToSend = REQUEST_CODE_B8;
+                        break;
+
+                    case R.id.workSpaceBTN9:
+                        reqToSend = REQUEST_CODE_B9;
+                        break;
+
+                }
+                Intent intent = new Intent(getBaseContext(), FnBind.class);
+                startActivityForResult(intent, reqToSend);
+                return false;
+            }
+        };
+
+        wsBtn1.setOnClickListener(ocl);
+        wsBtn1.setText(fnb.fnMap.get(shp.getInt(FN_SAVE_B1 + "" + currentProcess, fnb.NO_FUNCTION)));
+        wsBtn1.setOnLongClickListener(olclFn);
+        
+        wsBtn2.setOnClickListener(ocl);
+        wsBtn2.setText(fnb.fnMap.get(shp.getInt(FN_SAVE_B2 + "" + currentProcess, fnb.NO_FUNCTION)));
+        wsBtn2.setOnLongClickListener(olclFn);
+        
+        wsBtn3.setOnClickListener(ocl);
+        wsBtn3.setText(fnb.fnMap.get(shp.getInt(FN_SAVE_B3 + "" + currentProcess, fnb.NO_FUNCTION)));
+        wsBtn3.setOnLongClickListener(olclFn);
+
+        wsBtn4.setOnClickListener(ocl);
+        wsBtn4.setText(fnb.fnMap.get(shp.getInt(FN_SAVE_B4 + "" + currentProcess, fnb.NO_FUNCTION)));
+        wsBtn4.setOnLongClickListener(olclFn);
+
+        wsBtn5.setOnClickListener(ocl);
+        wsBtn5.setText(fnb.fnMap.get(shp.getInt(FN_SAVE_B5 + "" + currentProcess, fnb.NO_FUNCTION)));
+        wsBtn5.setOnLongClickListener(olclFn);
+
+        wsBtn6.setOnClickListener(ocl);
+        wsBtn6.setText(fnb.fnMap.get(shp.getInt(FN_SAVE_B6 + "" + currentProcess, fnb.NO_FUNCTION)));
+        wsBtn6.setOnLongClickListener(olclFn);
+
+        wsBtn7.setOnClickListener(ocl);
+        wsBtn7.setText(fnb.fnMap.get(shp.getInt(FN_SAVE_B7 + "" + currentProcess, fnb.NO_FUNCTION)));
+        wsBtn7.setOnLongClickListener(olclFn);
+
+        wsBtn8.setOnClickListener(ocl);
+        wsBtn8.setText(fnb.fnMap.get(shp.getInt(FN_SAVE_B8 + "" + currentProcess, fnb.NO_FUNCTION)));
+        wsBtn8.setOnLongClickListener(olclFn);
+
+        wsBtn9.setOnClickListener(ocl);
+        wsBtn9.setText(fnb.fnMap.get(shp.getInt(FN_SAVE_B9 + "" + currentProcess, fnb.NO_FUNCTION)));
+        wsBtn9.setOnLongClickListener(olclFn);
+
+        if(shp.getInt(FN_SAVE_B1+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+            wsBtn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+        }else{
+            wsBtn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+        }
+        if(shp.getInt(FN_SAVE_B2+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+            wsBtn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+        }else{
+            wsBtn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+        }
+        if(shp.getInt(FN_SAVE_B3+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+            wsBtn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+        }else{
+            wsBtn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+        }
+
+        if(shp.getInt(FN_SAVE_B4+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+            wsBtn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+        }else{
+            wsBtn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+        }
+        if(shp.getInt(FN_SAVE_B5+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+            wsBtn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+        }else{
+            wsBtn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+        }
+        if(shp.getInt(FN_SAVE_B6+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+            wsBtn6.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+        }else{
+            wsBtn6.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+        }
+
+        if(shp.getInt(FN_SAVE_B7+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+            wsBtn7.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+        }else{
+            wsBtn7.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+        }
+        if(shp.getInt(FN_SAVE_B8+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+            wsBtn8.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+        }else{
+            wsBtn8.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+        }
+        if(shp.getInt(FN_SAVE_B9+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+            wsBtn9.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+        }else{
+            wsBtn9.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+        }
+
+        if(shp.getInt(FN_SAVE_B1+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B1+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+            wsBtn1.setText(shp.getString(FN_SAVE_ARGS_B1 + "" + currentProcess, ""));
+            if(shp.getString(FN_SAVE_ARGS_B1+""+currentProcess, "").contains("chrome")){
+                wsBtn1.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+            }else{
+                wsBtn1.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            }
+        }else{
+            wsBtn1.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        }
+        if(shp.getInt(FN_SAVE_B2+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B2+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+            wsBtn2.setText(shp.getString(FN_SAVE_ARGS_B2 + "" + currentProcess, ""));
+            if(shp.getString(FN_SAVE_ARGS_B2+""+currentProcess, "").contains("chrome")){
+                wsBtn2.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+            }else{
+                wsBtn2.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            }
+        }else{
+            wsBtn2.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        }
+        if(shp.getInt(FN_SAVE_B3+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B3+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+            wsBtn3.setText(shp.getString(FN_SAVE_ARGS_B3 + "" + currentProcess, ""));
+            if(shp.getString(FN_SAVE_ARGS_B3+""+currentProcess, "").contains("chrome")){
+                wsBtn3.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+            }else{
+                wsBtn3.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            }
+        }else{
+            wsBtn3.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        }
+
+        if(shp.getInt(FN_SAVE_B4+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B4+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+            wsBtn4.setText(shp.getString(FN_SAVE_ARGS_B4 + "" + currentProcess, ""));
+            if(shp.getString(FN_SAVE_ARGS_B4+""+currentProcess, "").contains("chrome")){
+                wsBtn4.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+            }else{
+                wsBtn4.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            }
+        }else{
+            wsBtn4.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        }
+        if(shp.getInt(FN_SAVE_B5+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B5+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+            wsBtn5.setText(shp.getString(FN_SAVE_ARGS_B5 + "" + currentProcess, ""));
+            if(shp.getString(FN_SAVE_ARGS_B5+""+currentProcess, "").contains("chrome")){
+                wsBtn5.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+            }else{
+                wsBtn5.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            }
+        }else{
+            wsBtn5.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        }
+        if(shp.getInt(FN_SAVE_B6+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B6+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+            wsBtn6.setText(shp.getString(FN_SAVE_ARGS_B6 + "" + currentProcess, ""));
+            if(shp.getString(FN_SAVE_ARGS_B6+""+currentProcess, "").contains("chrome")){
+                wsBtn6.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+            }else{
+                wsBtn6.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            }
+        }else{
+            wsBtn6.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        }
+
+        if(shp.getInt(FN_SAVE_B7+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B7+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+            wsBtn7.setText(shp.getString(FN_SAVE_ARGS_B7 + "" + currentProcess, ""));
+            if(shp.getString(FN_SAVE_ARGS_B7+""+currentProcess, "").contains("chrome")){
+                wsBtn7.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+            }else{
+                wsBtn7.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            }
+        }else{
+            wsBtn7.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        }
+        if(shp.getInt(FN_SAVE_B8+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B8+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+            wsBtn8.setText(shp.getString(FN_SAVE_ARGS_B8 + "" + currentProcess, ""));
+            if(shp.getString(FN_SAVE_ARGS_B8+""+currentProcess, "").contains("chrome")){
+                wsBtn8.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+            }else{
+                wsBtn8.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            }
+        }else{
+            wsBtn8.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        }
+        if(shp.getInt(FN_SAVE_B9+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B9+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+            wsBtn9.setText(shp.getString(FN_SAVE_ARGS_B9 + "" + currentProcess, ""));
+            if(shp.getString(FN_SAVE_ARGS_B9+""+currentProcess, "").contains("chrome")){
+                wsBtn9.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+            }else{
+                wsBtn9.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            }
+        }else{
+            wsBtn9.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        }
+
+        if(!shp.getString(FN_SAVE_NAME_B1+""+currentProcess, "").equals("")){
+            wsBtn1.setText(shp.getString(FN_SAVE_NAME_B1 + "" + currentProcess, ""));
+        }
+        if(!shp.getString(FN_SAVE_NAME_B2+""+currentProcess, "").equals("")){
+            wsBtn2.setText(shp.getString(FN_SAVE_NAME_B2 + "" + currentProcess, ""));
+        }
+        if(!shp.getString(FN_SAVE_NAME_B3+""+currentProcess, "").equals("")){
+            wsBtn3.setText(shp.getString(FN_SAVE_NAME_B3 + "" + currentProcess, ""));
+        }
+
+        if(!shp.getString(FN_SAVE_NAME_B4+""+currentProcess, "").equals("")){
+            wsBtn4.setText(shp.getString(FN_SAVE_NAME_B4 + "" + currentProcess, ""));
+        }
+        if(!shp.getString(FN_SAVE_NAME_B5+""+currentProcess, "").equals("")){
+            wsBtn5.setText(shp.getString(FN_SAVE_NAME_B5 + "" + currentProcess, ""));
+        }
+        if(!shp.getString(FN_SAVE_NAME_B6+""+currentProcess, "").equals("")){
+            wsBtn6.setText(shp.getString(FN_SAVE_NAME_B6 + "" + currentProcess, ""));
+        }
+
+        if(!shp.getString(FN_SAVE_NAME_B7+""+currentProcess, "").equals("")){
+            wsBtn7.setText(shp.getString(FN_SAVE_NAME_B7 + "" + currentProcess, ""));
+        }
+        if(!shp.getString(FN_SAVE_NAME_B8+""+currentProcess, "").equals("")){
+            wsBtn8.setText(shp.getString(FN_SAVE_NAME_B8 + "" + currentProcess, ""));
+        }
+        if(!shp.getString(FN_SAVE_NAME_B9+""+currentProcess, "").equals("")){
+            wsBtn9.setText(shp.getString(FN_SAVE_NAME_B9 + "" + currentProcess, ""));
+        }
+    }
+
+    public void saveFnBindResults (Intent i, int reqestCode){
+        
+        switch (reqestCode) {
+            case REQUEST_CODE_B1:
+                ed.putInt(FN_SAVE_B1+""+currentProcess, i.getIntExtra("FnResult", fnb.NO_FUNCTION));
+                ed.putString(FN_SAVE_ARGS_B1+""+currentProcess, i.getStringExtra("FnResultArgs"));
+                ed.putString(FN_SAVE_NAME_B1+""+currentProcess, i.getStringExtra("Name"));
+                ed.commit();
+                wsBtn1.setText(fnb.fnMap.get(i.getIntExtra("FnResult", fnb.NO_FUNCTION)));
+                if(!i.getStringExtra("FnResultArgs").equals("")){
+                    wsBtn1.setText(i.getStringExtra("FnResultArgs"));
+                }
+                if(!i.getStringExtra("Name").equals("")){
+                    wsBtn1.setText(i.getStringExtra("Name"));
+                }
+
+                if(shp.getInt(FN_SAVE_B1+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                    wsBtn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+                }else{
+                    wsBtn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+                }
+                if(shp.getInt(FN_SAVE_B1+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B1+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+
+                    if(shp.getString(FN_SAVE_ARGS_B1+""+currentProcess, "").contains("chrome")){
+                        wsBtn1.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+                    }else{
+                        wsBtn1.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                    }
+                }else{
+                    wsBtn1.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                }
+                break;
+
+            case REQUEST_CODE_B2:
+                ed.putInt(FN_SAVE_B2+""+currentProcess, i.getIntExtra("FnResult", fnb.NO_FUNCTION));
+                ed.putString(FN_SAVE_ARGS_B2+""+currentProcess, i.getStringExtra("FnResultArgs"));
+                ed.putString(FN_SAVE_NAME_B2+""+currentProcess, i.getStringExtra("Name"));
+                ed.commit();
+                wsBtn2.setText(fnb.fnMap.get(i.getIntExtra("FnResult", fnb.NO_FUNCTION)));
+                if(!i.getStringExtra("FnResultArgs").equals("")){
+                    wsBtn2.setText(i.getStringExtra("FnResultArgs"));
+                }
+                if(!i.getStringExtra("Name").equals("")){
+                    wsBtn2.setText(i.getStringExtra("Name"));
+                }
+
+                if(shp.getInt(FN_SAVE_B2+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                    wsBtn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+                }else{
+                    wsBtn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+                }
+                if(shp.getInt(FN_SAVE_B2+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B2+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+
+                    if(shp.getString(FN_SAVE_ARGS_B3+""+currentProcess, "").contains("chrome")){
+                        wsBtn2.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+                    }else{
+                        wsBtn2.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                    }
+                }else{
+                    wsBtn2.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                }
+
+                break;
+
+            case REQUEST_CODE_B3:
+                ed.putInt(FN_SAVE_B3+""+currentProcess, i.getIntExtra("FnResult", fnb.NO_FUNCTION));
+                ed.putString(FN_SAVE_ARGS_B3+""+currentProcess, i.getStringExtra("FnResultArgs"));
+                ed.putString(FN_SAVE_NAME_B3+""+currentProcess, i.getStringExtra("Name"));
+                ed.commit();
+                wsBtn3.setText(fnb.fnMap.get(i.getIntExtra("FnResult", fnb.NO_FUNCTION)));
+                if(!i.getStringExtra("FnResultArgs").equals("")){
+                    wsBtn3.setText(i.getStringExtra("FnResultArgs"));
+                }
+                if(!i.getStringExtra("Name").equals("")){
+                    wsBtn3.setText(i.getStringExtra("Name"));
+                }
+
+                if(shp.getInt(FN_SAVE_B3+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                    wsBtn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+                }else{
+                    wsBtn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+                }
+                if(shp.getInt(FN_SAVE_B3+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B3+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+
+                    if(shp.getString(FN_SAVE_ARGS_B3+""+currentProcess, "").contains("chrome")){
+                        wsBtn3.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+                    }else{
+                        wsBtn3.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                    }
+                }else{
+                    wsBtn3.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                }
+
+                break;
+
+            case REQUEST_CODE_B4:
+                ed.putInt(FN_SAVE_B4+""+currentProcess, i.getIntExtra("FnResult", fnb.NO_FUNCTION));
+                ed.putString(FN_SAVE_ARGS_B4+""+currentProcess, i.getStringExtra("FnResultArgs"));
+                ed.putString(FN_SAVE_NAME_B4+""+currentProcess, i.getStringExtra("Name"));
+                ed.commit();
+                wsBtn4.setText(fnb.fnMap.get(i.getIntExtra("FnResult", fnb.NO_FUNCTION)));
+                if(!i.getStringExtra("FnResultArgs").equals("")){
+                    wsBtn4.setText(i.getStringExtra("FnResultArgs"));
+                }
+                if(!i.getStringExtra("Name").equals("")){
+                    wsBtn4.setText(i.getStringExtra("Name"));
+                }
+
+                if(shp.getInt(FN_SAVE_B4+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                    wsBtn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+                }else{
+                    wsBtn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+                }
+                if(shp.getInt(FN_SAVE_B4+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B4+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+
+                    if(shp.getString(FN_SAVE_ARGS_B4+""+currentProcess, "").contains("chrome")){
+                        wsBtn4.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+                    }else{
+                        wsBtn4.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                    }
+                }else{
+                    wsBtn4.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                }
+                break;
+
+            case REQUEST_CODE_B5:
+                ed.putInt(FN_SAVE_B5+""+currentProcess, i.getIntExtra("FnResult", fnb.NO_FUNCTION));
+                ed.putString(FN_SAVE_ARGS_B5+""+currentProcess, i.getStringExtra("FnResultArgs"));
+                ed.putString(FN_SAVE_NAME_B5+""+currentProcess, i.getStringExtra("Name"));
+                ed.commit();
+                wsBtn5.setText(fnb.fnMap.get(i.getIntExtra("FnResult", fnb.NO_FUNCTION)));
+                if(!i.getStringExtra("FnResultArgs").equals("")){
+                    wsBtn5.setText(i.getStringExtra("FnResultArgs"));
+                }
+                if(!i.getStringExtra("Name").equals("")){
+                    wsBtn5.setText(i.getStringExtra("Name"));
+                }
+
+                if(shp.getInt(FN_SAVE_B5+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                    wsBtn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+                }else{
+                    wsBtn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+                }
+                if(shp.getInt(FN_SAVE_B5+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B5+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+
+                    if(shp.getString(FN_SAVE_ARGS_B6+""+currentProcess, "").contains("chrome")){
+                        wsBtn5.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+                    }else{
+                        wsBtn5.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                    }
+                }else{
+                    wsBtn5.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                }
+
+                break;
+
+            case REQUEST_CODE_B6:
+                ed.putInt(FN_SAVE_B6+""+currentProcess, i.getIntExtra("FnResult", fnb.NO_FUNCTION));
+                ed.putString(FN_SAVE_ARGS_B6+""+currentProcess, i.getStringExtra("FnResultArgs"));
+                ed.putString(FN_SAVE_NAME_B6+""+currentProcess, i.getStringExtra("Name"));
+                ed.commit();
+                wsBtn6.setText(fnb.fnMap.get(i.getIntExtra("FnResult", fnb.NO_FUNCTION)));
+                if(!i.getStringExtra("FnResultArgs").equals("")){
+                    wsBtn6.setText(i.getStringExtra("FnResultArgs"));
+                }
+                if(!i.getStringExtra("Name").equals("")){
+                    wsBtn6.setText(i.getStringExtra("Name"));
+                }
+
+                if(shp.getInt(FN_SAVE_B6+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                    wsBtn6.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+                }else{
+                    wsBtn6.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+                }
+                if(shp.getInt(FN_SAVE_B6+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B6+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+
+                    if(shp.getString(FN_SAVE_ARGS_B6+""+currentProcess, "").contains("chrome")){
+                        wsBtn6.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+                    }else{
+                        wsBtn6.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                    }
+                }else{
+                    wsBtn6.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                }
+
+                break;
+            case REQUEST_CODE_B7:
+                ed.putInt(FN_SAVE_B7+""+currentProcess, i.getIntExtra("FnResult", fnb.NO_FUNCTION));
+                ed.putString(FN_SAVE_ARGS_B7+""+currentProcess, i.getStringExtra("FnResultArgs"));
+                ed.putString(FN_SAVE_NAME_B7+""+currentProcess, i.getStringExtra("Name"));
+                ed.commit();
+                wsBtn7.setText(fnb.fnMap.get(i.getIntExtra("FnResult", fnb.NO_FUNCTION)));
+                if(!i.getStringExtra("FnResultArgs").equals("")){
+                    wsBtn7.setText(i.getStringExtra("FnResultArgs"));
+                }
+                if(!i.getStringExtra("Name").equals("")){
+                    wsBtn7.setText(i.getStringExtra("Name"));
+                }
+
+                if(shp.getInt(FN_SAVE_B7+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                    wsBtn7.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+                }else{
+                    wsBtn7.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+                }
+                if(shp.getInt(FN_SAVE_B7+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B7+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+
+                    if(shp.getString(FN_SAVE_ARGS_B7+""+currentProcess, "").contains("chrome")){
+                        wsBtn7.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+                    }else{
+                        wsBtn7.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                    }
+                }else{
+                    wsBtn7.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                }
+                break;
+
+            case REQUEST_CODE_B8:
+                ed.putInt(FN_SAVE_B8+""+currentProcess, i.getIntExtra("FnResult", fnb.NO_FUNCTION));
+                ed.putString(FN_SAVE_ARGS_B8+""+currentProcess, i.getStringExtra("FnResultArgs"));
+                ed.putString(FN_SAVE_NAME_B8+""+currentProcess, i.getStringExtra("Name"));
+                ed.commit();
+                wsBtn8.setText(fnb.fnMap.get(i.getIntExtra("FnResult", fnb.NO_FUNCTION)));
+                if(!i.getStringExtra("FnResultArgs").equals("")){
+                    wsBtn8.setText(i.getStringExtra("FnResultArgs"));
+                }
+                if(!i.getStringExtra("Name").equals("")){
+                    wsBtn8.setText(i.getStringExtra("Name"));
+                }
+
+                if(shp.getInt(FN_SAVE_B8+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                    wsBtn8.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+                }else{
+                    wsBtn8.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+                }
+                if(shp.getInt(FN_SAVE_B8+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B8+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+
+                    if(shp.getString(FN_SAVE_ARGS_B9+""+currentProcess, "").contains("chrome")){
+                        wsBtn8.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+                    }else{
+                        wsBtn8.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                    }
+                }else{
+                    wsBtn8.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                }
+
+                break;
+
+            case REQUEST_CODE_B9:
+                ed.putInt(FN_SAVE_B9+""+currentProcess, i.getIntExtra("FnResult", fnb.NO_FUNCTION));
+                ed.putString(FN_SAVE_ARGS_B9+""+currentProcess, i.getStringExtra("FnResultArgs"));
+                ed.putString(FN_SAVE_NAME_B9+""+currentProcess, i.getStringExtra("Name"));
+                ed.commit();
+                wsBtn9.setText(fnb.fnMap.get(i.getIntExtra("FnResult", fnb.NO_FUNCTION)));
+                if(!i.getStringExtra("FnResultArgs").equals("")){
+                    wsBtn9.setText(i.getStringExtra("FnResultArgs"));
+                }
+                if(!i.getStringExtra("Name").equals("")){
+                    wsBtn9.setText(i.getStringExtra("Name"));
+                }
+
+                if(shp.getInt(FN_SAVE_B9+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                    wsBtn9.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+                }else{
+                    wsBtn9.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+                }
+                if(shp.getInt(FN_SAVE_B9+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_CUSTOM||shp.getInt(FN_SAVE_B9+""+currentProcess, fnb.NO_FUNCTION)==fnb.FN_COMMAND_LINE){
+
+                    if(shp.getString(FN_SAVE_ARGS_B9+""+currentProcess, "").contains("chrome")){
+                        wsBtn9.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+                    }else{
+                        wsBtn9.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                    }
+                }else{
+                    wsBtn9.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                }
+
+                break;
+        }
+
+    }
+
 
 }

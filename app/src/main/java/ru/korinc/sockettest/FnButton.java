@@ -18,7 +18,7 @@ public class FnButton {
 	public final static int FN_FIRE_FN=-3;
 	public final static int FN_COMMAND_LINE=-2;
 	public final static int FN_CUSTOM=-1;
-	public final static int NO_FUNCTION=0;
+	public final static int NO_FUNCTION=-7;
 	public final static int FN_SCAN=1;	
 	public final static int FN_ENTER=2;
 	public final static int FN_BKSPC=3; 
@@ -60,7 +60,8 @@ public class FnButton {
 	public final static int FN_END=39; 
 	public final static int FN_PAGE_UP=40; 
 	public final static int FN_PAGE_DWN=41; 
-	public final static int FN_CTRL_P=42; 
+	public final static int FN_CTRL_P=42;
+    public final static int FN_CONTEXT_BUTTONS=43;
 	public static HashMap<Integer, String> fnMap;
 	
 	public  FnButton(ST st) {
@@ -84,6 +85,7 @@ public class FnButton {
 			fnMap.put(FN_LAUNCH_APP, "Launch app");
 			fnMap.put(FN_LAUNCHFROM_TASKBAR, "Launch app from taskbar");
 			fnMap.put(FN_ARROWS, "Arrows");
+            fnMap.put(FN_CONTEXT_BUTTONS, "Context buttons");
 			fnMap.put(FN_CLICK, "Left click");
 			fnMap.put(FN_R_CLICK, "Right click");
 			fnMap.put(FN_ENTER, "Enter");
@@ -231,6 +233,24 @@ public class FnButton {
 					break;
 				}
 				break;
+
+            case FN_CONTEXT_BUTTONS:
+                 switch (st.tr1.getVisibility()) {
+                     case View.VISIBLE:
+                         st.tr1.setVisibility(View.GONE);
+                         st.tr2.setVisibility(View.GONE);
+                         st.tr3.setVisibility(View.GONE);
+
+                         break;
+
+                     case View.GONE:
+                         st.tr1.setVisibility(View.VISIBLE);
+                         st.tr2.setVisibility(View.VISIBLE);
+                         st.tr3.setVisibility(View.VISIBLE);
+
+                         break;
+                 }
+                 break;
 				
 			case FN_BKSPC:
 				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, st.keyboard, "bksps")).start();

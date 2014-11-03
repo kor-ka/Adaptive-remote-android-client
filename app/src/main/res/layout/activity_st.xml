@@ -191,7 +191,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="vertical" >
 
             <android.support.v4.view.ViewPager
@@ -209,13 +209,12 @@
                 android:padding="1dip" />
         </LinearLayout>
 
-        <LinearLayout
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
-            android:orientation="vertical" >
-
-
+            android:id="@+id/workSpace"
+            >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -224,6 +223,136 @@
                 android:text="..."
                 android:textColor="@android:color/holo_orange_light"
                 android:layout_gravity="right" />
+
+            <TableRow
+                android:id="@+id/tableWSRow1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="gone">
+                <Button
+                    android:id="@+id/workSpaceBTN1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/no_fn_btn_seelctor"
+                    android:layout_margin="5dp"
+                    android:text="No function"
+                    />
+
+                <Button
+                    android:id="@+id/workSpaceBTN2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/no_fn_btn_seelctor"
+                    android:layout_margin="5dp"
+                    android:text="No function"
+                     />
+
+                <Button
+                    android:id="@+id/workSpaceBTN3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/no_fn_btn_seelctor"
+                    android:layout_margin="5dp"
+                    android:text="No function"
+                    />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableWSRow2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="gone">
+                <Button
+                    android:id="@+id/workSpaceBTN4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/no_fn_btn_seelctor"
+                    android:layout_margin="5dp"
+                    android:text="No function"
+                    />
+
+                <Button
+                    android:id="@+id/workSpaceBTN5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/no_fn_btn_seelctor"
+                    android:layout_margin="5dp"
+                    android:text="No function"
+                    />
+
+                <Button
+                    android:id="@+id/workSpaceBTN6"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/no_fn_btn_seelctor"
+                    android:layout_margin="5dp"
+                    android:text="No function"
+                    />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableWSRow3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="gone">
+                <Button
+                    android:id="@+id/workSpaceBTN7"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/no_fn_btn_seelctor"
+                    android:layout_margin="5dp"
+                    android:text="No function"
+                    />
+
+                <Button
+                    android:id="@+id/workSpaceBTN8"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/no_fn_btn_seelctor"
+                    android:layout_margin="5dp"
+                    android:text="No function"
+                    />
+
+                <Button
+                    android:id="@+id/workSpaceBTN9"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/no_fn_btn_seelctor"
+                    android:layout_margin="5dp"
+                    android:text="No function"
+                    />
+            </TableRow>
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:orientation="vertical" >
+
+
+
 
             <ImageButton
                 android:id="@+id/buttonUp"
@@ -272,7 +401,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="vertical" >
 
             <com.viewpagerindicator.CirclePageIndicator
