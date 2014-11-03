@@ -137,15 +137,22 @@ class SocketThread implements Runnable {
                     out.flush();
 
                     line = in.readUTF()+" ";
-
-                    st.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            st.setCurrentProcess(line.split("<process>")[1].trim());
-                        }
-                    });
-
+                    in.close();
                     closeSocket();
+
+
+                    //dont need bind buttons while move mouse (it slows down)
+                    if(mode!=ST.ab){
+                        st.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                st.setCurrentProcess(line.split("<process>")[1].trim());
+                            }
+                        });
+                    }
+
+
+
                     // socket = null;
                     // Toast.makeText(getBaseContext(), line + "",
                     // Toast.LENGTH_LONG).show();
