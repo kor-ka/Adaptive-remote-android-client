@@ -71,7 +71,7 @@
             android:layout_weight="1" >
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Client port" />
@@ -212,48 +212,191 @@
             android:layout_weight="4"
             android:orientation="horizontal" >
 
-            <ImageButton
-                android:id="@+id/buttonLeft"
+            <TableLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:src="@drawable/navigation_previous_item"
-                android:text="←"
-                android:visibility="gone" />
+                android:layout_weight="1"
+                android:id="@+id/workSpace"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textStatus"
+                    android:text="..."
+                    android:textColor="@android:color/holo_orange_light"
+                    android:layout_gravity="right" />
+
+                <TableRow
+                    android:id="@+id/tableWSRow1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:visibility="gone">
+                    <Button
+                        android:id="@+id/workSpaceBTN1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="No function"
+                        />
+
+                    <Button
+                        android:id="@+id/workSpaceBTN2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="No function"
+                        />
+
+                    <Button
+                        android:id="@+id/workSpaceBTN3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="No function"
+                        />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableWSRow2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:visibility="gone">
+                    <Button
+                        android:id="@+id/workSpaceBTN4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="No function"
+                        />
+
+                    <Button
+                        android:id="@+id/workSpaceBTN5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="No function"
+                        />
+
+                    <Button
+                        android:id="@+id/workSpaceBTN6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="No function"
+                        />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableWSRow3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:visibility="gone">
+                    <Button
+                        android:id="@+id/workSpaceBTN7"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="No function"
+                        />
+
+                    <Button
+                        android:id="@+id/workSpaceBTN8"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="No function"
+                        />
+
+                    <Button
+                        android:id="@+id/workSpaceBTN9"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="No function"
+                        />
+                </TableRow>
+            </TableLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:orientation="vertical" >
+                android:layout_weight="1"
+                android:orientation="horizontal" >
 
                 <ImageButton
-                    android:id="@+id/buttonUp"
-                    android:layout_width="fill_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/navigation_collapse"
-                    android:text="↑"
+                    android:id="@+id/buttonLeft"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:src="@drawable/navigation_previous_item"
+                    android:text="←"
                     android:visibility="gone" />
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="vertical" >
+
+                    <ImageButton
+                        android:id="@+id/buttonUp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/navigation_collapse"
+                        android:text="↑"
+                        android:visibility="gone" />
+
+                    <ImageButton
+                        android:id="@+id/buttonDown"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/navigation_expand"
+                        android:text="↓"
+                        android:visibility="gone" />
+                </LinearLayout>
+
                 <ImageButton
-                    android:id="@+id/buttonDown"
-                    android:layout_width="fill_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/navigation_expand"
-                    android:text="↓"
+                    android:id="@+id/buttonRight"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:src="@drawable/navigation_next_item"
+                    android:text="→"
                     android:visibility="gone" />
             </LinearLayout>
-
-            <ImageButton
-                android:id="@+id/buttonRight"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:src="@drawable/navigation_next_item"
-                android:text="→"
-                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
