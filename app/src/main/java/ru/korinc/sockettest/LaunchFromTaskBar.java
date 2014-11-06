@@ -30,10 +30,12 @@ public class LaunchFromTaskBar extends Activity {
 	ListView lv;
 	ArrayAdapter<Spannable> adapter ;
 	List<Spannable> map;
+    List<String> process;
 	ArrayList<Bitmap> bitmaps = new ArrayList<Bitmap>();
 	FnButton fbn;
 	final int GET_TASKBAR_APPS = 1;
 	final int OPEN_TASKBAR_APP = 2;
+    final int OPEN_TASKBAR_APP_WINDOW = 4;
 	final int GET_TASKBAR_ICONS = 3;
 
 	@Override
@@ -41,7 +43,8 @@ public class LaunchFromTaskBar extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_launch_from_task_bar);
 		new Thread(new SocketThread(getIntent().getStringExtra("ip"), getIntent().getIntExtra("port",4444), GET_TASKBAR_APPS)).start();
-		
+
+        process = new ArrayList<String>();
 		map = new ArrayList<Spannable>();
 		map.add(spannableFactory.newSpannable("..."));
 		lv= (ListView) findViewById(R.id.launchFromTaskBarLv);
@@ -55,7 +58,12 @@ public class LaunchFromTaskBar extends Activity {
 	  //����������� ������
 		  lv.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-					new Thread(new SocketThread(getIntent().getStringExtra("ip"), getIntent().getIntExtra("port",4444), OPEN_TASKBAR_APP, map.get(position).toString().substring(3),0)).start();
+                    if(!process.get(position).isEmpty()){
+                        new Thread(new SocketThread(getIntent().getStringExtra("ip"), getIntent().getIntExtra("port",4444), OPEN_TASKBAR_APP_WINDOW, map.get(position).toString().substring(3),0)).start();
+                    }else{
+                        new Thread(new SocketThread(getIntent().getStringExtra("ip"), getIntent().getIntExtra("port",4444), OPEN_TASKBAR_APP, map.get(position).toString().substring(3),0)).start();
+                    }
+
 					finish();
 				}
 				
@@ -136,12 +144,20 @@ public class LaunchFromTaskBar extends Activity {
 							
 							runOnUiThread(new Runnable() {
 								public void run() {
-									String line2 = line.substring(0,line.length()-1);
+									String line2 = line.substring(0,line.length()-8);
 									map = new ArrayList<Spannable>();
-									List<String> mapStrings =  Arrays.asList(line2.split(":"));
+									List<String> mapStrings =  Arrays.asList(line2.split("<split1>"));
 									for(String s:mapStrings){
-										
-										map.add(spannableFactory.newSpannable(s));
+
+                                        if(s.contains("<split2>")){
+                                            map.add(spannableFactory.newSpannable(s.substring(s.lastIndexOf("<split2>")+8)));
+                                            process.add(s.substring(0, s.lastIndexOf("<split2>")));
+                                        }else{
+                                            map.add(spannableFactory.newSpannable(s));
+                                            process.add("");
+                                        }
+
+
 									}
 									
 									getIcons();
@@ -186,8 +202,14 @@ public class LaunchFromTaskBar extends Activity {
 							out.writeUTF("commandLine::" + "start \"\" " +"\"%userprofile%/AppData/Roaming/Microsoft/Internet Explorer/Quick Launch/User Pinned/TaskBar/"+appToLaunch+".lnk\"");
 							
 							break;
+
+
+                            case OPEN_TASKBAR_APP_WINDOW:
+                                //nircmdc win min process chrome.exe 0 & nircmdc win normal process chrome.exe 0
+                                out.writeUTF("commandLine::" + "nircmdc win min stitle \""+appToLaunch+"\" 0 & "+ "nircmdc win normal stitle \""+appToLaunch+"\" 0 ");
+                                break;
 						}
-						
+
 						out.flush();
 						
 						socket.close();
@@ -210,7 +232,7 @@ public class LaunchFromTaskBar extends Activity {
 			bitmaps.add(Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565));
 		}
 		for(int i=0; i<map.size(); i++){
-			new Thread(new SocketThread(getIntent().getStringExtra("ip"), getIntent().getIntExtra("port",4444), GET_TASKBAR_ICONS, map.get(i).toString(),i)).start();
+			new Thread(new SocketThread(getIntent().getStringExtra("ip"), getIntent().getIntExtra("port",4444), GET_TASKBAR_ICONS, (!process.get(i).isEmpty())?process.get(i):map.get(i).toString(),i)).start();
 		}
 	}
 	

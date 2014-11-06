@@ -2,10 +2,28 @@
 <pre-dex-items>
 
     <item
-        dex="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/pre-dexed/debug/pocketsphinx-android-5prealpha-nolib-bac4bd0ca2b5e10d2e1c15102cd7f549c6e47f66.jar"
-        jar="/home/korka/AndroidstudioProjects/STA/app/src/main/java/libs/pocketsphinx-android-5prealpha-nolib.jar"
+        dex="D:\Code\STA\app\build\intermediates\pre-dexed\debug\classes-8b0d360a78f7234feb86d40c4d2ea4eff5d2b142.jar"
+        jar="D:\Code\STA\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\classes.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="54fcac1e97536fbe5ace1741e9068ff09864b403"/>
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+    <item
+        dex="D:\Code\STA\app\build\intermediates\pre-dexed\debug\support-annotations-20.0.0-a820218b4dd74f0a6ff85a035081d59443323453.jar"
+        jar="D:\Users\kor_ka\AppData\Local\Android\android-studio\sdk\extras\android\m2repository\com\android\support\support-annotations\20.0.0\support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+    <item
+        dex="D:\Code\STA\app\build\intermediates\pre-dexed\debug\classes-d6cbfa4a1a6d812c68f70d226ed7add60b0415d0.jar"
+        jar="D:\Code\STA\app\build\intermediates\exploded-aar\STA\library\unspecified\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="c039cf5580eb18f66d5c0b1bee76dadb1555dd17"/>
+    <item
+        dex="D:\Code\STA\app\build\intermediates\pre-dexed\debug\internal_impl-20.0.0-d8876f46005cf7fff86c0274ed5ed04281ef01eb.jar"
+        jar="D:\Code\STA\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\libs\internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
 
 </pre-dex-items>
