@@ -39,11 +39,7 @@
             android:label="@string/title_activity_voice_fn_mapping_list"
             android:theme="@android:style/Theme.Holo.Light.Dialog" >
         </activity>
-        <activity
-            android:name="ru.korinc.sockettest.FnSelect"
-            android:label="@string/title_activity_fn_select"
-            android:theme="@android:style/Theme.Holo.Light.Dialog" >
-        </activity>
+
         <activity
             android:name="ru.korinc.sockettest.FnBind"
             android:label="@string/title_activity_fn_select"

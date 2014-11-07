@@ -18,7 +18,7 @@
         jar="D:\Code\STA\app\build\intermediates\exploded-aar\STA\library\unspecified\classes.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="c039cf5580eb18f66d5c0b1bee76dadb1555dd17"/>
+        sha1="69b7af058169510e535758384640d959750d906c"/>
     <item
         dex="D:\Code\STA\app\build\intermediates\pre-dexed\debug\internal_impl-20.0.0-d8876f46005cf7fff86c0274ed5ed04281ef01eb.jar"
         jar="D:\Code\STA\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\libs\internal_impl-20.0.0.jar"

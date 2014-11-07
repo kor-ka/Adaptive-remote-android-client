@@ -29,6 +29,7 @@ import android.widget.ListView;
 public class LaunchFromTaskBar extends Activity {
 	ListView lv;
 	ArrayAdapter<Spannable> adapter ;
+    List<String> winIds;
 	List<Spannable> map;
     List<String> process;
 	ArrayList<Bitmap> bitmaps = new ArrayList<Bitmap>();
@@ -46,6 +47,7 @@ public class LaunchFromTaskBar extends Activity {
 
         process = new ArrayList<String>();
 		map = new ArrayList<Spannable>();
+        winIds = new ArrayList<String>();
 		map.add(spannableFactory.newSpannable("..."));
 		lv= (ListView) findViewById(R.id.launchFromTaskBarLv);
 		// ������� �������
@@ -58,10 +60,10 @@ public class LaunchFromTaskBar extends Activity {
 	  //����������� ������
 		  lv.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-                    if(!process.get(position).isEmpty()){
-                        new Thread(new SocketThread(getIntent().getStringExtra("ip"), getIntent().getIntExtra("port",4444), OPEN_TASKBAR_APP_WINDOW, map.get(position).toString().substring(3),0)).start();
-                    }else{
+                    if(process.get(position).isEmpty()){
                         new Thread(new SocketThread(getIntent().getStringExtra("ip"), getIntent().getIntExtra("port",4444), OPEN_TASKBAR_APP, map.get(position).toString().substring(3),0)).start();
+                    }else{
+                        new Thread(new SocketThread(getIntent().getStringExtra("ip"), getIntent().getIntExtra("port",4444), OPEN_TASKBAR_APP_WINDOW, winIds.get(position),0)).start();
                     }
 
 					finish();
@@ -144,17 +146,21 @@ public class LaunchFromTaskBar extends Activity {
 							
 							runOnUiThread(new Runnable() {
 								public void run() {
-									String line2 = line.substring(0,line.length()-8);
+
 									map = new ArrayList<Spannable>();
-									List<String> mapStrings =  Arrays.asList(line2.split("<split1>"));
+									List<String> mapStrings =  Arrays.asList(line.split("<split1>"));
 									for(String s:mapStrings){
 
                                         if(s.contains("<split2>")){
-                                            map.add(spannableFactory.newSpannable(s.substring(s.lastIndexOf("<split2>")+8)));
+                                            map.add(spannableFactory.newSpannable(s.substring(s.lastIndexOf("<split2>")+8, s.lastIndexOf("<split3>"))));
+
+                                            winIds.add(s.substring(s.lastIndexOf("<split3>")+8));
+
                                             process.add(s.substring(0, s.lastIndexOf("<split2>")));
                                         }else{
                                             map.add(spannableFactory.newSpannable(s));
                                             process.add("");
+                                            winIds.add("");
                                         }
 
 
@@ -206,7 +212,9 @@ public class LaunchFromTaskBar extends Activity {
 
                             case OPEN_TASKBAR_APP_WINDOW:
                                 //nircmdc win min process chrome.exe 0 & nircmdc win normal process chrome.exe 0
-                                out.writeUTF("commandLine::" + "nircmdc win min stitle \""+appToLaunch+"\" 0 & "+ "nircmdc win normal stitle \""+appToLaunch+"\" 0 ");
+                                //out.writeUTF("commandLine::" + "nircmdc win min stitle \""+appToLaunch+"\" 0 & "+ "nircmdc win normal stitle \""+appToLaunch+"\" 0 ");
+                                //setForegroundWindow
+                                out.writeUTF("setForegroundWindow::" + appToLaunch);
                                 break;
 						}
 

@@ -12,11 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 ;
 
-/**
- * A fragment representing a single Task detail screen. This fragment is either
- * contained in a {@link TaskListActivity} in two-pane mode (on tablets) or a
- * {@link TaskDetailActivity} on handsets.
- */
+
 public class FnListFragment extends ListFragment {
 	
 	ArrayAdapter<String> adapter ;
