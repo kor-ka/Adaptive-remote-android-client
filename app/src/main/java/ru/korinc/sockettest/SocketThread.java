@@ -1,5 +1,8 @@
 package ru.korinc.sockettest;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -49,7 +52,7 @@ class SocketThread implements Runnable {
             socket = new Socket();
             socket.connect(new InetSocketAddress(ipAddress, port), 500);
 
-            send();
+            send(mode);
             st.lastFixed = System.currentTimeMillis();
 
         } catch (IOException e) {
@@ -60,7 +63,7 @@ class SocketThread implements Runnable {
 
     }
 
-    public void send() {
+    public void send(int mode) {
 
         while (true) {
 
@@ -132,21 +135,44 @@ class SocketThread implements Runnable {
                             out.writeUTF("launch:" + chr);
                             break;
 
+                        case ST.getProcessIcon:
+                            out.writeUTF("getTaskBarIcons::"+st.currentProcess+".lnk");
+                            final Bitmap bitmap = BitmapFactory.decodeStream(in);
+                            st.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    st.context.setImageBitmap(bitmap);
+                                }
+                            });
+                            in.close();
+                            break;
+
                     }
 
                     out.flush();
 
-                    line = in.readUTF()+" ";
+
+                    line = in.readUTF()+"";
                     in.close();
                     closeSocket();
 
 
                     //dont need bind buttons while move mouse (it slows down)
-                    if(mode!=ST.ab){
+                    if(line!=null && !line.isEmpty()){
                         st.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                st.setCurrentProcess(line.split("<process>")[1].trim());
+                                String[] reply = line.split("<process>");
+                                if(reply.length>=2){
+                                    String proccess = reply[1].trim();
+                                    //
+                                    if(!st.currentProcess.equals(proccess)){
+                                        st.setCurrentProcess(proccess);
+
+                                    }
+
+                                }
+
                             }
                         });
                     }

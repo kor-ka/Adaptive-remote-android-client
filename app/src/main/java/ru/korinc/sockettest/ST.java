@@ -91,6 +91,8 @@ public class ST extends FragmentActivity implements OnClickListener {
     TableRow tr2;
     TableRow tr3;
 
+    public ImageButton context;
+
     TextView status;
     AlertDialog dialog;
     ArrayList<String> ipPortsArray = new ArrayList<String>();
@@ -123,11 +125,13 @@ public class ST extends FragmentActivity implements OnClickListener {
     final static int launch = 8;
     final static int shortcut = 9;
     final static int commandLine = 10;
+    final static int getProcessIcon = 11;
     public static final int REQUEST_CODE_LAUNCH_APP = 1234;
     public static final int REQUEST_CODE_VOICE_INPUT = 12345;
     public static final int REQUEST_CODE_FIRE_FN = 12352;
     public static final int REQUEST_CODE_COMMAND_LINE_VOICE_INPUT = 12353;
     public static final int REQUEST_CODE_VOICE_FN = 12354;
+    public static final int REQUEST_CODE_LAUNCHAPP_FROM_TASKBAR = 12358;
     public String currentProcess = "";
     FnButton fnb;
     private String dialogInputText = "";
@@ -232,6 +236,8 @@ public class ST extends FragmentActivity implements OnClickListener {
         tr2 = (TableRow) findViewById(R.id.tableWSRow2);
         tr3 = (TableRow) findViewById(R.id.tableWSRow3);
 
+        context = (ImageButton) findViewById(R.id.context);
+
         ll = (LinearLayout) findViewById(R.id.ll);
 
         tv = (TextView) findViewById(R.id.tv);
@@ -239,6 +245,13 @@ public class ST extends FragmentActivity implements OnClickListener {
         status = (TextView) findViewById(R.id.textStatus);
 
         fnb = new FnButton(this);
+
+        context.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fnb.press(FnButton.FN_CONTEXT_BUTTONS, "", "");
+            }
+        });
 
         ipEt.setText(shp.getString("ip", ""));
         portEt.setText(shp.getString("port", "1234"));
@@ -603,7 +616,8 @@ public class ST extends FragmentActivity implements OnClickListener {
                     @Override
                     public void run() {
                         if(status!=null){
-                            status.setText("Connecting...");     
+                            status.setText("Connecting...");
+                            setCurrentProcess("");
                         }
                        
                     }
@@ -691,9 +705,14 @@ public class ST extends FragmentActivity implements OnClickListener {
     }
 
     public void setCurrentProcess(String process){
-        currentProcess = process;
-        status.setText(currentProcess);
-        bindContextButtons();
+
+            currentProcess = process;
+            status.setText(currentProcess);
+        new Thread(new SocketThread(ipEt.getText().toString(),
+                Integer.parseInt(portEt.getText().toString()), getProcessIcon, 0, 0, ST.this)).start();
+            bindContextButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""));
+
+
     }
 
 
@@ -1072,13 +1091,12 @@ public class ST extends FragmentActivity implements OnClickListener {
         arr.add(REQUEST_CODE_B7);
         arr.add(REQUEST_CODE_B8);
         arr.add(REQUEST_CODE_B9);
-        if(resultCode==RESULT_OK && arr.contains(requestCode)){saveFnBindResults(intent, requestCode);}
+        if(resultCode==RESULT_OK && arr.contains(requestCode)){saveFnBindResults(intent, requestCode, currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""));}
 
         boolean needReinvokeVoiceFn = false;
         //Fixing voice input
         if (resultCode == RESULT_OK) {
-            ArrayList<String> matchesToFix = intent
-                    .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            ArrayList<String> matchesToFix = intent.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             if (matchesToFix != null && matchesToFix.size() > 0) {
                 String m_Text = "";
                 String m_Text_old = "";
@@ -1109,6 +1127,16 @@ public class ST extends FragmentActivity implements OnClickListener {
                             Toast.LENGTH_SHORT).show();
                 }
 
+
+            }
+        }
+
+        if(requestCode == REQUEST_CODE_LAUNCHAPP_FROM_TASKBAR){
+            switch (resultCode){
+                case RESULT_OK:
+                    new Thread(new SocketThread(ipEt.getText().toString(),
+                            Integer.parseInt(portEt.getText().toString()), ab, 0, 0, ST.this)).start();
+                    break;
 
             }
         }
@@ -1606,7 +1634,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         }
     }
 
-    public void bindContextButtons(){
+    public void bindContextButtons(final String currentProcess){
         OnClickListener ocl = new OnClickListener() {
 
             @Override
@@ -1958,7 +1986,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         }
     }
 
-    public void saveFnBindResults (Intent i, int reqestCode){
+    public void saveFnBindResults (Intent i, int reqestCode, final String currentProcess){
         
         switch (reqestCode) {
             case REQUEST_CODE_B1:

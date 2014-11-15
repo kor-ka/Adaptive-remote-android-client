@@ -1,18 +1,7 @@
 package ru.korinc.sockettest;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -26,6 +15,18 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class LaunchFromTaskBar extends Activity {
 	ListView lv;
 	ArrayAdapter<Spannable> adapter ;
@@ -37,7 +38,7 @@ public class LaunchFromTaskBar extends Activity {
 	final int GET_TASKBAR_APPS = 1;
 	final int OPEN_TASKBAR_APP = 2;
     final int OPEN_TASKBAR_APP_WINDOW = 4;
-	final int GET_TASKBAR_ICONS = 3;
+	static final int GET_TASKBAR_ICONS = 3;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class LaunchFromTaskBar extends Activity {
                     }else{
                         new Thread(new SocketThread(getIntent().getStringExtra("ip"), getIntent().getIntExtra("port",4444), OPEN_TASKBAR_APP_WINDOW, winIds.get(position),0)).start();
                     }
-
+                    setResult(RESULT_OK, new Intent());
 					finish();
 				}
 				
@@ -176,35 +177,12 @@ public class LaunchFromTaskBar extends Activity {
 							break;
 
 						case GET_TASKBAR_ICONS:
-							//TODO fix positions of drowables to matcj map (no maching while async)
-							out.writeUTF("getTaskBarIcons::"+appToLaunch+".lnk");
-							final Bitmap bitmap = BitmapFactory.decodeStream(in);
-							
-							
-							
-							
-							runOnUiThread(new Runnable() {
-								public void run() {
-									
-									
-									Spannable spannable =spannableFactory.newSpannable("1  "+map.get(bitMapPlace).toString());
-									
-									spannable.setSpan(new ImageSpan(getBaseContext(), bitmap),
-					                        0, 1,
-					                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-									
-									map.set(bitMapPlace,spannable);
-									
-									
-								}
-							});	
-							if(map.size()==bitmaps.size()){
-								drawIcons();
-							}
+
+                            getTaskBarIcons(in, out);
 							break;
 						
 							
-						case OPEN_TASKBAR_APP:
+						    case OPEN_TASKBAR_APP:
 							out.writeUTF("commandLine::" + "start \"\" " +"\"%userprofile%/AppData/Roaming/Microsoft/Internet Explorer/Quick Launch/User Pinned/TaskBar/"+appToLaunch+".lnk\"");
 							
 							break;
@@ -233,7 +211,32 @@ public class LaunchFromTaskBar extends Activity {
 			}
 		}
 
-	}
+        private void getTaskBarIcons(DataInputStream in, DataOutputStream out) throws IOException {
+            out.writeUTF("getTaskBarIcons::"+appToLaunch+".lnk");
+            final Bitmap bitmap = BitmapFactory.decodeStream(in);
+
+
+            runOnUiThread(new Runnable() {
+                public void run() {
+
+
+                    Spannable spannable =spannableFactory.newSpannable("1  "+map.get(bitMapPlace).toString());
+
+                    spannable.setSpan(new ImageSpan(getBaseContext(), bitmap),
+0, 1,
+Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                    map.set(bitMapPlace,spannable);
+
+
+                }
+            });
+            if(map.size()==bitmaps.size()){
+                drawIcons();
+            }
+        }
+
+    }
 
 	public void getIcons(){
 		for(int i=0; i<map.size(); i++){

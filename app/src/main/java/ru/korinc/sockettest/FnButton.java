@@ -157,7 +157,7 @@ public class FnButton {
 			 Intent intent1 = new Intent(st, LaunchFromTaskBar.class);
 			 intent1.putExtra("ip", st.ipEt.getText().toString());
 			 intent1.putExtra("port", port);
-	 		 st.startActivity(intent1);
+	 		 st.startActivityForResult(intent1, ST.REQUEST_CODE_LAUNCHAPP_FROM_TASKBAR);
 			 
 	 		break;
 		 

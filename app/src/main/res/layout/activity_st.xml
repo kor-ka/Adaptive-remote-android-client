@@ -8,6 +8,8 @@
     android:layout_height="match_parent"
     tools:context=".ST" >
 
+
+
     <TableLayout
         android:id="@+id/tableLayout1"
         android:layout_width="wrap_content"
@@ -222,7 +224,17 @@
                 android:id="@+id/textStatus"
                 android:text="..."
                 android:textColor="@android:color/holo_orange_light"
-                android:layout_gravity="right" />
+                android:layout_gravity="right"
+                android:visibility="gone"/>
+
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:id="@+id/context"
+                android:background="@android:color/transparent"
+                android:layout_centerInParent="true"/>
 
             <TableRow
                 android:id="@+id/tableWSRow1"
@@ -344,6 +356,7 @@
                     />
             </TableRow>
         </TableLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
