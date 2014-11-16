@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
@@ -47,8 +46,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.ServerSocket;
@@ -603,106 +600,9 @@ public class ST extends FragmentActivity implements OnClickListener {
             ed.commit();
         }
 
-        if(!isPortFixRunning)fixPort();
-
     }
 
-    public void fixPort() {
-        isPortFixRunning = true;
-        new AsyncTask<Integer, Integer, Integer>() {
-            @Override
-            protected Integer doInBackground(Integer... integers) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(status!=null){
-                            status.setText("Connecting...");
-                            setCurrentProcess("");
-                        }
-                       
-                    }
-                });
 
-                long time = System.currentTimeMillis();
-
-                new Thread(new SocketThread(ipEt.getText().toString(),
-                        Integer.parseInt(portEt.getText().toString()), ab, 0, 0, ST.this) {
-                    @Override
-                    public void run() {
-                        boolean isFirstCycle = true;
-                        boolean connected = false;
-                        while (!connected) {
-                            try {
-
-
-                                InetAddress ipAddress = InetAddress.getByName(ipEt.getText().toString());
-                                socket = new Socket();
-                                socket.connect(new InetSocketAddress(ipAddress, port), 500);
-
-
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        portEt.setText(port + "");
-                                    }
-                                });
-
-                                ed.putString("port", port + "");
-                                ed.commit();
-/*
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        if(status!=null){
-                                            status.setText("Connected!");
-
-                                        }
-                                    }
-                                });
-                                */
-                                connected = true;
-                                socket.close();
-                                break;
-
-                            } catch (IOException e) {
-
-                                if (isFirstCycle) {
-                                    isFirstCycle = false;
-                                    port = 1026;
-                                } else if(port>=1031) {
-                                    port = 1026;
-
-                                } else {
-                                    port++;
-                                }
-
-                                try {
-                                    socket.close();
-                                } catch (IOException e1) {
-                                    e1.printStackTrace();
-                                }
-                                e.printStackTrace();
-
-                            }
-                        }
-                        
-
-                    }
-                }).start();
-
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Integer integer) {
-                super.onPostExecute(integer);
-                isPortFixRunning = false;
-                lastFixed = System.currentTimeMillis();
-
-            }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, 1);
-    }
 
     public void setCurrentProcess(String process){
 

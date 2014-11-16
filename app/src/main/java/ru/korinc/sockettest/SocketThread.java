@@ -56,7 +56,7 @@ class SocketThread implements Runnable {
             st.lastFixed = System.currentTimeMillis();
 
         } catch (IOException e) {
-            if(!st.isPortFixRunning&&System.currentTimeMillis()-st.lastFixed>=600)st.fixPort();
+
             e.printStackTrace();
 
         }
@@ -157,7 +157,7 @@ class SocketThread implements Runnable {
                     closeSocket();
 
 
-                    //dont need bind buttons while move mouse (it slows down)
+                    //don't need bind buttons while move mouse (it slows down)
                     if(line!=null && !line.isEmpty()){
                         st.runOnUiThread(new Runnable() {
                             @Override
