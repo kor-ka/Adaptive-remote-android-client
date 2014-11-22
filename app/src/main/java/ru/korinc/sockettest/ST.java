@@ -574,8 +574,8 @@ public class ST extends FragmentActivity implements OnClickListener {
             ed.putInt("VoiceFn:" + "хром", FnButton.FN_COMMAND_LINE);
 
             keys.add("Запустить");
-            ed.putString("VoiceFnArg:" + "Запустить", "Launch app");
-            ed.putInt("VoiceFn:" + "Запустить", FnButton.FN_LAUNCH_APP);
+            ed.putString("VoiceFnArg:" + "запустить", "Launch app");
+            ed.putInt("VoiceFn:" + "запустить", FnButton.FN_LAUNCH_APP);
 
             ed.putStringSet("VoiceFnMap", keys);
             ed.commit();
@@ -1122,11 +1122,13 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                     m_Text = matches.get(0);
                     m_Text += " ";
+                    m_Text = m_Text.toLowerCase();
 
                     Set<String> keys = shp.getStringSet("VoiceFnMap", new HashSet<String>());
 
                     if (keys != null) {
                         for (String key : keys) {
+                            key = key.toLowerCase();
                             if (m_Text.startsWith(key + " ")) {
                                 String args = "";
 

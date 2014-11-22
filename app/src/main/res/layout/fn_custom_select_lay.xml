@@ -60,14 +60,14 @@
 			    android:layout_margin="5dp"
         android:text="That&apos;s what i need!" />
     
-     <EditText
+    <EditText
         android:id="@+id/fnCustomEtName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/fnCustomBtnOk"
         android:hint="Name of button" />
     
-      <TextView
+    <TextView
         android:id="@id/android:empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
