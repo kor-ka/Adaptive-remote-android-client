@@ -73,6 +73,8 @@ public class FnListFragment extends ListFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+	
+	if(!folder.exists())folder.mkdir();
 
         pluginsLV = (ListView) getActivity().findViewById(R.id.plugins_list);
         pluginsLV.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
