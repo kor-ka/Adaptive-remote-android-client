@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -232,6 +233,9 @@ public class ST extends FragmentActivity implements OnClickListener {
         tr1 = (TableRow) findViewById(R.id.tableWSRow1);
         tr2 = (TableRow) findViewById(R.id.tableWSRow2);
         tr3 = (TableRow) findViewById(R.id.tableWSRow3);
+        tr1.setVisibility(View.INVISIBLE);
+        tr2.setVisibility(View.INVISIBLE);
+        tr3.setVisibility(View.INVISIBLE);
 
         context = (ImageButton) findViewById(R.id.context);
 
@@ -600,9 +604,112 @@ public class ST extends FragmentActivity implements OnClickListener {
             ed.commit();
         }
 
+        OnTouchListener contextOTL = new OnTouchListener() {
+           boolean overlayActivated = false;
+            View btnCondidate = wsBtn5;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                       // InAppLog.writeLog(ST.this, "", "On Touch");
+
+                        break;
+
+                    case MotionEvent.ACTION_MOVE:
+
+                        int x = (int)event.getRawX();
+                        int y = (int)event.getRawY();
+
+                      if(!overlayActivated && inViewBounds(wsBtn5, x, y)){
+                          overlayActivated = true;
+                          InAppLog.writeLog(ST.this, "", "Activated!");
+                            btnCondidate = wsBtn5;
+                            fnb.press(FnButton.FN_COMMAND_LINE, "overlay::5::"+wsBtn1.getText().toString()+":"+wsBtn2.getText().toString()+":"+wsBtn3.getText().toString()+":"+wsBtn4.getText().toString()+":"+wsBtn5.getText().toString()+":"+wsBtn6.getText().toString()+":"+wsBtn7.getText().toString()+":"+wsBtn8.getText().toString()+":"+wsBtn9.getText().toString()+":", "");
+                      }
+                        if(overlayActivated){
+                            if(inViewBounds(wsBtn1, x,y) && btnCondidate!=wsBtn1){
+                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::1::", "");
+                                btnCondidate = wsBtn1;
+                            }
+
+                            if(inViewBounds(wsBtn2, x,y) && btnCondidate!=wsBtn2){
+                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::2::", "");
+                                btnCondidate = wsBtn2;
+                            }
+
+                            if(inViewBounds(wsBtn3, x,y) && btnCondidate!=wsBtn3){
+                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::3::", "");
+                                btnCondidate = wsBtn3;
+                            }
+
+                            if(inViewBounds(wsBtn4, x,y) && btnCondidate!=wsBtn4){
+                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::4::", "");
+                                btnCondidate = wsBtn4;
+                            }
+
+                            if(inViewBounds(wsBtn5, x,y) && btnCondidate!=wsBtn5){
+                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::5::", "");
+                                btnCondidate = wsBtn5;
+                            }
+
+                            if(inViewBounds(wsBtn6, x,y) && btnCondidate!=wsBtn6){
+                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::6::", "");
+                                btnCondidate = wsBtn6;
+                            }
+
+                            if(inViewBounds(wsBtn7, x,y) && btnCondidate!=wsBtn7){
+                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::7::", "");
+                                btnCondidate = wsBtn7;
+                            }
+
+                            if(inViewBounds(wsBtn8, x,y) && btnCondidate!=wsBtn8){
+                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::8::", "");
+                                btnCondidate = wsBtn8;
+                            }
+
+                            if(inViewBounds(wsBtn9, x,y) && btnCondidate!=wsBtn9){
+                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::9::", "");
+                                btnCondidate = wsBtn9;
+                            }
+                        }
+
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if(overlayActivated){
+                            overlayActivated = false;
+                            fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
+                            btnCondidate.performClick();
+                        }
+
+                        break;
+
+
+                }
+
+                return false;
+            }
+
+
+        };
+
+        context.setOnTouchListener(contextOTL);
+
+
+        InAppLog.writeLog(ST.this, "", "ST on create");
     }
 
 
+    Rect outRect = new Rect();
+    int[] location = new int[2];
+
+    private boolean inViewBounds(View view, int x, int y){
+        view.getDrawingRect(outRect);
+        view.getLocationOnScreen(location);
+        outRect.offset(location[0], location[1]);
+        return outRect.contains(x, y);
+    }
 
     public void setCurrentProcess(String process){
 

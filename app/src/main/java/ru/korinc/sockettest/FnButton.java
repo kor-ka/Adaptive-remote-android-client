@@ -237,13 +237,13 @@ public class FnButton {
             case FN_CONTEXT_BUTTONS:
                  switch (st.tr1.getVisibility()) {
                      case View.VISIBLE:
-                         st.tr1.setVisibility(View.GONE);
-                         st.tr2.setVisibility(View.GONE);
-                         st.tr3.setVisibility(View.GONE);
+                         st.tr1.setVisibility(View.INVISIBLE);
+                         st.tr2.setVisibility(View.INVISIBLE);
+                         st.tr3.setVisibility(View.INVISIBLE);
 
                          break;
 
-                     case View.GONE:
+                     case View.INVISIBLE:
                          st.tr1.setVisibility(View.VISIBLE);
                          st.tr2.setVisibility(View.VISIBLE);
                          st.tr3.setVisibility(View.VISIBLE);
