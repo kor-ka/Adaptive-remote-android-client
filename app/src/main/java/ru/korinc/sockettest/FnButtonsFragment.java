@@ -10,7 +10,6 @@ import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class FnButtonsFragment extends Fragment {
 	public static final String PAGE_ID_ARG="pageId";
@@ -39,6 +38,8 @@ public class FnButtonsFragment extends Fragment {
 	public FnButtonsFragment() {
 		
 	}
+
+
 	
 
 	 @Override
@@ -130,6 +131,10 @@ public class FnButtonsFragment extends Fragment {
 			b3.setOnClickListener(ocl);
 			b3.setText(st.fnb.fnMap.get(st.shp.getInt(FN_SAVE_B3+""+pageId, st.fnb.NO_FUNCTION)));
 			b3.setOnLongClickListener(olclFn);
+
+            b1.setOnTouchListener(st.overlayOTL);
+            b2.setOnTouchListener(st.overlayOTL);
+            b3.setOnTouchListener(st.overlayOTL);
 			
 			if(st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
 				b1.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));

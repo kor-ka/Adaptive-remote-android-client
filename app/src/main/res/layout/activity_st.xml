@@ -191,6 +191,7 @@
             android:visibility="gone" />
 
         <LinearLayout
+            android:id="@+id/topPagerContainer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
@@ -233,6 +234,7 @@
                 android:layout_height="wrap_content"
 
                 android:id="@+id/context"
+                android:src="@android:drawable/radiobutton_off_background"
                 android:background="@android:color/transparent"
                 android:layout_centerInParent="true"/>
 
@@ -412,6 +414,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/botPagerContainer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"

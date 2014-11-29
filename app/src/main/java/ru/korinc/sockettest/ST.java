@@ -60,6 +60,9 @@ import java.util.List;
 import java.util.Set;
 
 public class ST extends FragmentActivity implements OnClickListener {
+
+    boolean debug = true;
+
     Thread listener;
     EditText ipEt;
     EditText portEt;
@@ -140,6 +143,12 @@ public class ST extends FragmentActivity implements OnClickListener {
     private ViewPager botPager;
     Set<String> keyoVoiceInputFix;
 
+    OverlayOTL overlayOTL;
+
+    LinearLayout topPagerContainerLL;
+    LinearLayout botPagerContainerLL;
+
+
     public boolean isPortFixRunning = false;
     public long lastFixed = System.currentTimeMillis();
 
@@ -183,6 +192,8 @@ public class ST extends FragmentActivity implements OnClickListener {
     private static final String FN_SAVE_NAME_B7 = "cwfnB7name";
     private static final String FN_SAVE_NAME_B8 = "cwfnB8name";
     private static final String FN_SAVE_NAME_B9 = "cwfnB9name";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -545,6 +556,10 @@ public class ST extends FragmentActivity implements OnClickListener {
         botPager.setAdapter(botPagerAdapter);
         botPager.setCurrentItem(1);
 
+        topPagerContainerLL = (LinearLayout) findViewById(R.id.topPagerContainer);
+        botPagerContainerLL = (LinearLayout) findViewById(R.id.botPagerContainer);
+
+
         // Bind the title indicator to the adapter
         CirclePageIndicator topTitleIndicator = (CirclePageIndicator) findViewById(R.id.indicatorTop);
         topTitleIndicator.setViewPager(topPager);
@@ -604,100 +619,14 @@ public class ST extends FragmentActivity implements OnClickListener {
             ed.commit();
         }
 
-        OnTouchListener contextOTL = new OnTouchListener() {
-           boolean overlayActivated = false;
-            View btnCondidate = wsBtn5;
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
+        overlayOTL = new OverlayOTL();
+
+        context.setOnTouchListener(overlayOTL);
+        topPager.setOnTouchListener(overlayOTL);
+        botPager.setOnTouchListener(overlayOTL);
 
 
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                       // InAppLog.writeLog(ST.this, "", "On Touch");
-
-                        break;
-
-                    case MotionEvent.ACTION_MOVE:
-
-                        int x = (int)event.getRawX();
-                        int y = (int)event.getRawY();
-
-                      if(!overlayActivated && inViewBounds(wsBtn5, x, y)){
-                          overlayActivated = true;
-                          InAppLog.writeLog(ST.this, "", "Activated!");
-                            btnCondidate = wsBtn5;
-                            fnb.press(FnButton.FN_COMMAND_LINE, "overlay::5::"+wsBtn1.getText().toString()+":"+wsBtn2.getText().toString()+":"+wsBtn3.getText().toString()+":"+wsBtn4.getText().toString()+":"+wsBtn5.getText().toString()+":"+wsBtn6.getText().toString()+":"+wsBtn7.getText().toString()+":"+wsBtn8.getText().toString()+":"+wsBtn9.getText().toString()+":", "");
-                      }
-                        if(overlayActivated){
-                            if(inViewBounds(wsBtn1, x,y) && btnCondidate!=wsBtn1){
-                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::1::", "");
-                                btnCondidate = wsBtn1;
-                            }
-
-                            if(inViewBounds(wsBtn2, x,y) && btnCondidate!=wsBtn2){
-                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::2::", "");
-                                btnCondidate = wsBtn2;
-                            }
-
-                            if(inViewBounds(wsBtn3, x,y) && btnCondidate!=wsBtn3){
-                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::3::", "");
-                                btnCondidate = wsBtn3;
-                            }
-
-                            if(inViewBounds(wsBtn4, x,y) && btnCondidate!=wsBtn4){
-                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::4::", "");
-                                btnCondidate = wsBtn4;
-                            }
-
-                            if(inViewBounds(wsBtn5, x,y) && btnCondidate!=wsBtn5){
-                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::5::", "");
-                                btnCondidate = wsBtn5;
-                            }
-
-                            if(inViewBounds(wsBtn6, x,y) && btnCondidate!=wsBtn6){
-                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::6::", "");
-                                btnCondidate = wsBtn6;
-                            }
-
-                            if(inViewBounds(wsBtn7, x,y) && btnCondidate!=wsBtn7){
-                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::7::", "");
-                                btnCondidate = wsBtn7;
-                            }
-
-                            if(inViewBounds(wsBtn8, x,y) && btnCondidate!=wsBtn8){
-                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::8::", "");
-                                btnCondidate = wsBtn8;
-                            }
-
-                            if(inViewBounds(wsBtn9, x,y) && btnCondidate!=wsBtn9){
-                                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::9::", "");
-                                btnCondidate = wsBtn9;
-                            }
-                        }
-
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        if(overlayActivated){
-                            overlayActivated = false;
-                            fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
-                            btnCondidate.performClick();
-                        }
-
-                        break;
-
-
-                }
-
-                return false;
-            }
-
-
-        };
-
-        context.setOnTouchListener(contextOTL);
-
-
-        InAppLog.writeLog(ST.this, "", "ST on create");
+        InAppLog.writeLog(ST.this, "", "ST on create", debug);
     }
 
 
@@ -709,6 +638,104 @@ public class ST extends FragmentActivity implements OnClickListener {
         view.getLocationOnScreen(location);
         outRect.offset(location[0], location[1]);
         return outRect.contains(x, y);
+    }
+
+    public class OverlayOTL implements OnTouchListener {
+
+        boolean overlayActivated = false;
+        View btnCondidate = wsBtn5;
+        int startX;
+        int startY;
+        int x;
+        int y;
+        int[] btnCondidateCoord = new int[]{0, 0};
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                                        startX = (int)event.getRawX();
+                    startY = (int)event.getRawY();
+                    InAppLog.writeLog(ST.this, "", "On Touch " + startX + " | " + startY, debug);
+                    break;
+
+                case MotionEvent.ACTION_MOVE:
+
+                    x = (int)event.getRawX();
+                    y = (int)event.getRawY();
+
+                    int moveX = startX - x;
+                    int moveY = startY - y;
+
+                    InAppLog.writeLog(ST.this, "", "Move " + x + " | " + y);
+
+                    if(!overlayActivated && (moveY > 50 || moveY < -50)){
+                        overlayActivated = true;
+                        InAppLog.writeLog(ST.this, "", "Activated!", debug);
+                        startY = y;
+                        startX = x;
+
+                    }
+                    if(overlayActivated){
+                        int moveCondidateX=0;
+                        int moveCondidateY=0;
+                        if(moveX > 10 || moveX < -10){
+                            moveCondidateX = moveX>0?1:-1;
+                            startX = x;
+                            startY = y;
+                        }
+                        if(moveY > 10 || moveY < -10){
+                            moveCondidateY = moveY>0?1:-1;
+                            startX = x;
+                            startY = y;
+                        }
+                        moveCondidate(moveCondidateX, moveCondidateY);
+
+                        if(inViewBounds(v, x,y)){
+                            fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
+                            overlayActivated = false;
+                            InAppLog.writeLog(ST.this, "", "Overlay release by return", debug);
+                        }
+                    }
+
+                    break;
+                case MotionEvent.ACTION_UP:
+                    if(overlayActivated){
+                        InAppLog.writeLog(ST.this, "", "Overlay release", debug);
+                        overlayActivated = false;
+                        fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
+                        btnCondidate.performClick();
+                    }
+
+                break;
+
+            }
+
+
+
+            return false;
+        }
+
+        private void moveCondidate(int x, int y){
+            btnCondidateCoord[0] += x;
+            btnCondidateCoord[1] += y;
+            if(btnCondidateCoord[0]>2) btnCondidateCoord[0] =2;
+            if(btnCondidateCoord[1]>2) btnCondidateCoord[1] =2;
+
+            if(btnCondidateCoord[0]<0) btnCondidateCoord[0] =0;
+            if(btnCondidateCoord[1]<0) btnCondidateCoord[1] =0;
+
+            if (btnCondidateCoord[0] == 0 && btnCondidateCoord[1] == 0) btnCondidate = wsBtn1;
+            if (btnCondidateCoord[0] == 0 && btnCondidateCoord[1] == 1) btnCondidate = wsBtn2;
+            if (btnCondidateCoord[0] == 0 && btnCondidateCoord[1] == 2) btnCondidate = wsBtn3;
+            if (btnCondidateCoord[0] == 1 && btnCondidateCoord[1] == 0) btnCondidate = wsBtn4;
+            if (btnCondidateCoord[0] == 1 && btnCondidateCoord[1] == 1) btnCondidate = wsBtn5;
+            if (btnCondidateCoord[0] == 1 && btnCondidateCoord[1] == 2) btnCondidate = wsBtn6;
+            if (btnCondidateCoord[0] == 2 && btnCondidateCoord[1] == 0) btnCondidate = wsBtn7;
+            if (btnCondidateCoord[0] == 2 && btnCondidateCoord[1] == 1) btnCondidate = wsBtn8;
+            if (btnCondidateCoord[0] == 2 && btnCondidateCoord[1] == 2) btnCondidate = wsBtn9;
+        }
     }
 
     public void setCurrentProcess(String process){
@@ -1598,10 +1625,12 @@ public class ST extends FragmentActivity implements OnClickListener {
         public android.support.v4.app.Fragment getItem(int position) {
             Fragment fr = null;
             Bundle arguments = new Bundle();
+
             arguments.putString(FnButtonsFragment.PAGE_ID_ARG, topOrBot
                     + position);
             fr = new FnButtonsFragment();
             fr.setArguments(arguments);
+
             return fr;
 
         }

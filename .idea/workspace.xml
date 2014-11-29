@@ -25,13 +25,13 @@
     </layouts>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8aece080-7de7-4787-b604-789c48b90d26" name="Default" comment="Plugins!">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/InAppLog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnButton.java" afterPath="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnButton.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/viewpagerindicator/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/viewpagerindicator/R.java" />
+    <list default="true" id="8aece080-7de7-4787-b604-789c48b90d26" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnButtonsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnButtonsFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/ru/korinc/sockettest/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/ru/korinc/sockettest/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/ST.java" afterPath="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/ST.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/SocketThread.java" afterPath="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/SocketThread.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_st.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_st.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_st_land.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_st_land.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="STA.iws" />
@@ -60,22 +60,49 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="FnButtonsFragment.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnButtonsFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2160" max-vertical-offset="5166">
+              <caret line="136" column="14" selection-start-line="136" selection-start-column="14" selection-end-line="136" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="ST.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/ST.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6262976" vertical-offset="9232" max-vertical-offset="37602">
-              <caret line="682" column="56" selection-start-line="682" selection-start-column="56" selection-end-line="682" selection-end-column="56" />
+            <state vertical-scroll-proportion="0.21280277" vertical-offset="12693" max-vertical-offset="40752">
+              <caret line="715" column="0" selection-start-line="715" selection-start-column="0" selection-end-line="715" selection-end-column="0" />
               <folding>
-                <element signature="method#onTouch#0;class#15574:19528" expanded="false" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#2699#2707#0" expanded="true" />
+                <element signature="e#40747#40755#0" expanded="true" />
+                <element signature="e#42240#42249#0" expanded="true" />
+                <element signature="e#57880#57888#0" expanded="true" />
               </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_st.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_st.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="3315" max-vertical-offset="7956">
+              <caret line="193" column="32" selection-start-line="193" selection-start-column="32" selection-end-line="193" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="FnButton.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnButton.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3928" max-vertical-offset="7200">
+            <state vertical-scroll-proportion="0.0" vertical-offset="4410" max-vertical-offset="7308">
               <caret line="245" column="40" selection-start-line="245" selection-start-column="40" selection-end-line="245" selection-end-column="40" />
               <folding />
             </state>
@@ -1441,15 +1468,16 @@
         <option value="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/PhonMapper.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/LaunchFromTaskBar.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_st_land.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/SocketThread.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fn_custom_select_lay.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fn_list_lay.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnListFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/inAppLog.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_st.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnButton.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/SocketThread.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_st_land.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_st.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnButtonsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/ST.java" />
       </list>
     </option>
@@ -1488,7 +1516,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1771,8 +1800,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2058,7 +2086,11 @@
       <created>1416683177964</created>
       <updated>1416683177964</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="overlay">
+      <created>1417128309874</created>
+      <updated>1417128309874</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2088,7 +2120,6 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32908365" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.49960285" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3993559" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2107,11 +2138,12 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18030304" sideWeight="0.49919486" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20289855" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20289855" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32908365" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29951692" sideWeight="0.49960285" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -2137,7 +2169,8 @@
     <MESSAGE value="add current process status" />
     <MESSAGE value="add contextButtons" />
     <MESSAGE value="Plugins!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Plugins!" />
+    <MESSAGE value="overlay" />
+    <option name="LAST_COMMIT_MESSAGE" value="overlay" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2158,7 +2191,11 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="10044" max-vertical-offset="27144">
           <caret line="852" column="28" selection-start-line="852" selection-start-column="28" selection-end-line="852" selection-end-column="28" />
           <folding>
-            <element signature="method#onTouch#0;class#15574:19528" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2699#2707#0" expanded="true" />
+            <element signature="e#40747#40755#0" expanded="true" />
+            <element signature="e#42240#42249#0" expanded="true" />
+            <element signature="e#57880#57888#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2191,7 +2228,11 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="15174" max-vertical-offset="27144">
           <caret line="852" column="28" selection-start-line="852" selection-start-column="28" selection-end-line="852" selection-end-column="28" />
           <folding>
-            <element signature="method#onTouch#0;class#15574:19528" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2699#2707#0" expanded="true" />
+            <element signature="e#40747#40755#0" expanded="true" />
+            <element signature="e#42240#42249#0" expanded="true" />
+            <element signature="e#57880#57888#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2208,7 +2249,11 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="25020">
           <caret line="508" column="8" selection-start-line="508" selection-start-column="8" selection-end-line="508" selection-end-column="8" />
           <folding>
-            <element signature="method#onTouch#0;class#15574:19528" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2699#2707#0" expanded="true" />
+            <element signature="e#40747#40755#0" expanded="true" />
+            <element signature="e#42240#42249#0" expanded="true" />
+            <element signature="e#57880#57888#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2239,7 +2284,11 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="6675" max-vertical-offset="21645">
           <caret line="445" column="45" selection-start-line="445" selection-start-column="45" selection-end-line="445" selection-end-column="45" />
           <folding>
-            <element signature="method#onTouch#0;class#15574:19528" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2699#2707#0" expanded="true" />
+            <element signature="e#40747#40755#0" expanded="true" />
+            <element signature="e#42240#42249#0" expanded="true" />
+            <element signature="e#57880#57888#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2270,19 +2319,23 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="6610" max-vertical-offset="21255">
           <caret line="445" column="45" selection-start-line="445" selection-start-column="45" selection-end-line="445" selection-end-column="45" />
           <folding>
-            <element signature="method#onTouch#0;class#15574:19528" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2699#2707#0" expanded="true" />
+            <element signature="e#40747#40755#0" expanded="true" />
+            <element signature="e#42240#42249#0" expanded="true" />
+            <element signature="e#57880#57888#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fn_custom_command_lay.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.6153846" vertical-offset="237" max-vertical-offset="1050">
           <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/MappingList.java">
@@ -2386,14 +2439,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fn_buttons_fragment.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="828">
           <caret line="14" column="43" selection-start-line="11" selection-start-column="16" selection-end-line="14" selection-end-column="43" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
@@ -2424,24 +2477,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_st_land.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.689655" vertical-offset="3852" max-vertical-offset="7866">
-          <caret line="228" column="44" selection-start-line="228" selection-start-column="44" selection-end-line="228" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/SocketThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27241963" vertical-offset="2431" max-vertical-offset="3510">
-          <caret line="157" column="0" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnCreateCustomFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1566" max-vertical-offset="2592">
@@ -2451,14 +2486,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fn_custom_select_lay.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="731" max-vertical-offset="1728">
           <caret line="58" column="58" selection-start-line="58" selection-start-column="36" selection-end-line="58" selection-end-column="58" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
@@ -2470,14 +2505,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fn_list_lay.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="864">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnCommandLineFragment.java">
@@ -2487,19 +2522,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnButtonsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2940" max-vertical-offset="5058">
-          <caret line="185" column="17" selection-start-line="185" selection-start-column="17" selection-end-line="185" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/sdk/platforms/android-14/android.jar!/android/app/Dialog.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33217993" vertical-offset="276" max-vertical-offset="3294">
           <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2529,17 +2555,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_st.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.75862" vertical-offset="5357" max-vertical-offset="7902">
-          <caret line="323" column="16" selection-start-line="323" selection-start-column="16" selection-end-line="323" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnButton.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3928" max-vertical-offset="7200">
@@ -2548,12 +2563,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/SocketThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="955" max-vertical-offset="3528">
+          <caret line="144" column="114" selection-start-line="144" selection-start-column="114" selection-end-line="144" selection-end-column="114" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_st_land.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.60854095" vertical-offset="3852" max-vertical-offset="7866">
+          <caret line="233" column="78" selection-start-line="233" selection-start-column="77" selection-end-line="233" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_st.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3315" max-vertical-offset="7956">
+          <caret line="193" column="32" selection-start-line="193" selection-start-column="32" selection-end-line="193" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnButtonsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2160" max-vertical-offset="5166">
+          <caret line="136" column="14" selection-start-line="136" selection-start-column="14" selection-end-line="136" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/ST.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6262976" vertical-offset="9232" max-vertical-offset="37602">
-          <caret line="682" column="56" selection-start-line="682" selection-start-column="56" selection-end-line="682" selection-end-column="56" />
+        <state vertical-scroll-proportion="0.21280277" vertical-offset="12693" max-vertical-offset="40752">
+          <caret line="715" column="0" selection-start-line="715" selection-start-column="0" selection-end-line="715" selection-end-column="0" />
           <folding>
-            <element signature="method#onTouch#0;class#15574:19528" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2699#2707#0" expanded="true" />
+            <element signature="e#40747#40755#0" expanded="true" />
+            <element signature="e#42240#42249#0" expanded="true" />
+            <element signature="e#57880#57888#0" expanded="true" />
           </folding>
         </state>
       </provider>
