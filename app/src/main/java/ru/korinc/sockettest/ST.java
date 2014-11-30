@@ -61,7 +61,7 @@ import java.util.Set;
 
 public class ST extends FragmentActivity implements OnClickListener {
 
-    boolean debug = true;
+    boolean debug = false;
 
     Thread listener;
     EditText ipEt;
@@ -649,6 +649,8 @@ public class ST extends FragmentActivity implements OnClickListener {
         int x;
         int y;
         int[] btnCondidateCoord = new int[]{0, 0};
+        int btnCondidateInt = 0;
+        long timeActivated;
         @Override
         public boolean onTouch(View v, MotionEvent event) {
 
@@ -668,31 +670,44 @@ public class ST extends FragmentActivity implements OnClickListener {
                     int moveX = startX - x;
                     int moveY = startY - y;
 
-                    InAppLog.writeLog(ST.this, "", "Move " + x + " | " + y);
+                    //hInAppLog.writeLog(ST.this, "", "Move " + x + " | " + y, debug);
 
-                    if(!overlayActivated && (moveY > 50 || moveY < -50)){
+                    if(!overlayActivated && (moveY > 130 || moveY < -130) && !inViewBounds(topPager, x, y) && !inViewBounds(botPager, x, y)){
+
                         overlayActivated = true;
+                        btnCondidate = wsBtn5;
+                        btnCondidateCoord[0] = 1;
+                        btnCondidateCoord[1] = 1;
+                        fnb.press(FnButton.FN_COMMAND_LINE, "overlay::5::"+wsBtn1.getText().toString()+":"+wsBtn2.getText().toString()+":"+wsBtn3.getText().toString()+":"+wsBtn4.getText().toString()+":"+wsBtn5.getText().toString()+":"+wsBtn6.getText().toString()+":"+wsBtn7.getText().toString()+":"+wsBtn8.getText().toString()+":"+wsBtn9.getText().toString()+":", "");
+                        timeActivated = System.currentTimeMillis();
                         InAppLog.writeLog(ST.this, "", "Activated!", debug);
                         startY = y;
                         startX = x;
 
                     }
                     if(overlayActivated){
-                        int moveCondidateX=0;
-                        int moveCondidateY=0;
-                        if(moveX > 10 || moveX < -10){
-                            moveCondidateX = moveX>0?1:-1;
+                        if(System.currentTimeMillis()-timeActivated>500){
+                            int moveCondidateX=0;
+                            int moveCondidateY=0;
+                            if(moveX > 40 || moveX < -40){
+                                moveCondidateX = moveX>0?-1:1;
+                                startX = x;
+                                startY = y;
+                            }
+                            if(moveY > 40 || moveY < -40){
+                                moveCondidateY = moveY>0?1:-1;
+                                startX = x;
+                                startY = y;
+                            }
+                            moveCondidate(moveCondidateX, moveCondidateY);
+                        }else{
                             startX = x;
                             startY = y;
                         }
-                        if(moveY > 10 || moveY < -10){
-                            moveCondidateY = moveY>0?1:-1;
-                            startX = x;
-                            startY = y;
-                        }
-                        moveCondidate(moveCondidateX, moveCondidateY);
+
 
                         if(inViewBounds(v, x,y)){
+                            fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
                             fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
                             overlayActivated = false;
                             InAppLog.writeLog(ST.this, "", "Overlay release by return", debug);
@@ -705,10 +720,18 @@ public class ST extends FragmentActivity implements OnClickListener {
                         InAppLog.writeLog(ST.this, "", "Overlay release", debug);
                         overlayActivated = false;
                         fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
+                        fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
                         btnCondidate.performClick();
                     }
 
                 break;
+
+                case MotionEvent.ACTION_CANCEL:
+                    InAppLog.writeLog(ST.this, "", "Overlay release (ACTION_CANCEL)", debug);
+                    overlayActivated = false;
+                    fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
+                    fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
+                    break;
 
             }
 
@@ -718,6 +741,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         }
 
         private void moveCondidate(int x, int y){
+            int btnCoordinateOld = btnCondidateInt;
             btnCondidateCoord[0] += x;
             btnCondidateCoord[1] += y;
             if(btnCondidateCoord[0]>2) btnCondidateCoord[0] =2;
@@ -726,15 +750,43 @@ public class ST extends FragmentActivity implements OnClickListener {
             if(btnCondidateCoord[0]<0) btnCondidateCoord[0] =0;
             if(btnCondidateCoord[1]<0) btnCondidateCoord[1] =0;
 
-            if (btnCondidateCoord[0] == 0 && btnCondidateCoord[1] == 0) btnCondidate = wsBtn1;
-            if (btnCondidateCoord[0] == 0 && btnCondidateCoord[1] == 1) btnCondidate = wsBtn2;
-            if (btnCondidateCoord[0] == 0 && btnCondidateCoord[1] == 2) btnCondidate = wsBtn3;
-            if (btnCondidateCoord[0] == 1 && btnCondidateCoord[1] == 0) btnCondidate = wsBtn4;
-            if (btnCondidateCoord[0] == 1 && btnCondidateCoord[1] == 1) btnCondidate = wsBtn5;
-            if (btnCondidateCoord[0] == 1 && btnCondidateCoord[1] == 2) btnCondidate = wsBtn6;
-            if (btnCondidateCoord[0] == 2 && btnCondidateCoord[1] == 0) btnCondidate = wsBtn7;
-            if (btnCondidateCoord[0] == 2 && btnCondidateCoord[1] == 1) btnCondidate = wsBtn8;
-            if (btnCondidateCoord[0] == 2 && btnCondidateCoord[1] == 2) btnCondidate = wsBtn9;
+            if (btnCondidateCoord[0] == 0 && btnCondidateCoord[1] == 0){
+                btnCondidate = wsBtn7;
+                btnCondidateInt = 7;
+            }
+            if (btnCondidateCoord[0] == 0 && btnCondidateCoord[1] == 1){
+                btnCondidate = wsBtn4;
+                btnCondidateInt = 4;
+            }
+            if (btnCondidateCoord[0] == 0 && btnCondidateCoord[1] == 2){
+                btnCondidate = wsBtn1;
+                btnCondidateInt = 1;
+            }
+            if (btnCondidateCoord[0] == 1 && btnCondidateCoord[1] == 0){
+                btnCondidate = wsBtn8;
+                btnCondidateInt = 8;
+            }
+            if (btnCondidateCoord[0] == 1 && btnCondidateCoord[1] == 1){
+                btnCondidate = wsBtn5;
+                btnCondidateInt = 5;
+            }
+            if (btnCondidateCoord[0] == 1 && btnCondidateCoord[1] == 2){
+                btnCondidate = wsBtn2;
+                btnCondidateInt = 2;
+            }
+            if (btnCondidateCoord[0] == 2 && btnCondidateCoord[1] == 0){
+                btnCondidate = wsBtn9;
+                btnCondidateInt = 9;
+            }
+            if (btnCondidateCoord[0] == 2 && btnCondidateCoord[1] == 1){
+                btnCondidate = wsBtn6;
+                btnCondidateInt = 6;
+            }
+            if (btnCondidateCoord[0] == 2 && btnCondidateCoord[1] == 2){
+                btnCondidate = wsBtn3;
+                btnCondidateInt = 3;
+            }
+            if(btnCoordinateOld!=btnCondidateInt)fnb.press(FnButton.FN_COMMAND_LINE, "overlay::"+btnCondidateInt+"::", "");
         }
     }
 
