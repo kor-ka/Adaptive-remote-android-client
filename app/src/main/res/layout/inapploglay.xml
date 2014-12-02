@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:background="#000000"
+                android:alpha="0.5"
+                android:id="@+id/inapploglay">
+
+                <ScrollView
+                        android:layout_height="100dp"
+                        android:layout_width="match_parent"
+                        android:id="@+id/scroll">
+
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Hi there! Now I wanna b your log!"
+                                android:textColor="#DBDBDB"
+                                android:id="@+id/inAppLogTV"/>
+
+                </ScrollView>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Hi there! Now I wona b ur log!"
+                        android:textColor="#DBDBDB"
+                        android:id="@+id/inAppLogTVSL"
+                        android:layout_gravity="left|center"/>
+
+                <ImageButton
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="top|right"
+                        android:background="@drawable/av_pause_over_video"
+                        android:id="@+id/pauseButton"/>
+
+                <ImageButton
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="top|right"
+                        android:background="@drawable/av_play_over_video"
+                        android:id="@+id/playButton"/>
+
+                <ImageButton
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:background="@drawable/navigation_collapse"
+                        android:layout_gravity="bottom|right"
+                        android:id="@+id/collapse"/>
+
+                <ImageButton
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:background="@drawable/navigation_expand"
+                        android:id="@+id/expand"
+                        android:layout_gravity="bottom|right"/>
+
+        </FrameLayout>

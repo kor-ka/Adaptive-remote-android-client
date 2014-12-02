@@ -686,7 +686,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                     }
                     if(overlayActivated){
-                        if(System.currentTimeMillis()-timeActivated>500){
+                        if(System.currentTimeMillis()-timeActivated>100){
                             int moveCondidateX=0;
                             int moveCondidateY=0;
                             if(moveX > 40 || moveX < -40){
@@ -883,12 +883,12 @@ public class ST extends FragmentActivity implements OnClickListener {
         getMenuInflater().inflate(R.menu.st, menu);
 
         if (shp.getBoolean("enterOnVoiceInput", true)) {
-            Menu settings = menu.getItem(2).getSubMenu();
+            Menu settings = menu.getItem(3).getSubMenu();
             settings.getItem(0).setChecked(true);
         }
 
         if (shp.getBoolean("showFnButtons", true)) {
-            Menu settings = menu.getItem(2).getSubMenu();
+            Menu settings = menu.getItem(3).getSubMenu();
             settings.getItem(1).setChecked(true);
         }
 
@@ -969,12 +969,12 @@ public class ST extends FragmentActivity implements OnClickListener {
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
                         InputMethodManager.HIDE_IMPLICIT_ONLY);
                 break;
-
+/*
             case R.id.launchApp:
                 startVoiceRecognitionActivity(REQUEST_CODE_LAUNCH_APP, null);
 
                 break;
-
+*/
             case R.id.voiceInput:
                 startVoiceRecognitionActivity(REQUEST_CODE_VOICE_INPUT, null);
 

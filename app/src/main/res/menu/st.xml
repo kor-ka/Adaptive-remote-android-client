@@ -1,28 +1,36 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
     <item
         android:id="@+id/keyboard"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom"
+        android:showAsAction="always"
         android:title="Keyboard"
-		android:icon="@drawable/hardware_keyboard"
+		android:icon="@drawable/ic_action_hardware_keyboard"
         />
 	
 	<item
         android:id="@+id/voiceInput"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom"
+        android:showAsAction="always"
         android:title="Voice input"
-		android:icon="@drawable/ic_action_device_access_mic"
+		android:icon="@drawable/ic_action_av_mnone"
 	/>
+
+    <item
+        android:id="@+id/action_scan"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="Сonnect to server"
+        android:icon="@drawable/ic_action_hardware_phonelink"/>
 
 	<item
         android:id="@+id/settings"
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="Settings"
-		android:icon="@drawable/action_settings"
-	>
+		android:icon="@drawable/action_settings">
+
 		<menu>
 			<group>
 				<item
@@ -58,31 +66,21 @@
 	
 	
 
-    <item
-        android:id="@+id/launchApp"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="Launch app"/>
+
     
     <item
         android:id="@+id/fireFN"
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="Fire Fn"/>
-    
-     
-    <item
-        android:id="@+id/action_scan"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="Сonnect to server"/>
-    
-  
+
     <item
         android:id="@+id/arrows"
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="Arrows"/>
+
     
+
     
 </menu>
