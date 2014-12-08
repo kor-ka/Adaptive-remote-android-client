@@ -62,6 +62,7 @@ public class FnButton {
 	public final static int FN_PAGE_DWN=41; 
 	public final static int FN_CTRL_P=42;
     public final static int FN_CONTEXT_BUTTONS=43;
+    public final static int FN_CENTER_CLICK =44;
 	public static HashMap<Integer, String> fnMap;
 	
 	public  FnButton(ST st) {
@@ -88,6 +89,7 @@ public class FnButton {
             fnMap.put(FN_CONTEXT_BUTTONS, "Context buttons");
 			fnMap.put(FN_CLICK, "Left click");
 			fnMap.put(FN_R_CLICK, "Right click");
+            fnMap.put(FN_CENTER_CLICK, "Center click");
 			fnMap.put(FN_ENTER, "Enter");
 			fnMap.put(FN_BKSPC, "Backspace");
 			fnMap.put(FN_ESC, "Escape");
@@ -197,9 +199,14 @@ public class FnButton {
 			case FN_R_CLICK:
 											
 				new Thread(new SocketThread( st.ipEt.getText().toString(), port, st.rclick, 0, 0, st)).start();
-				break;	
-				
-			case FN_SCAN:
+				break;
+
+            case FN_CENTER_CLICK:
+
+                 new Thread(new SocketThread( st.ipEt.getText().toString(), port, st.centerClick, 0, 0, st)).start();
+                 break;
+
+            case FN_SCAN:
 				 st.scan.performClick();
 				break;
 				

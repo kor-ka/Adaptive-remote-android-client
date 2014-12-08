@@ -93,6 +93,11 @@ class SocketThread implements Runnable {
 
                             break;
 
+                        case ST.centerClick:
+                            out.writeUTF("centerClick:");
+
+                            break;
+
                         case ST.dndDown:
                             out.writeUTF("dndDown:");
 

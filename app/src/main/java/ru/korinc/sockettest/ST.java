@@ -131,6 +131,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     final static int shortcut = 9;
     final static int commandLine = 10;
     final static int getProcessIcon = 11;
+    final static int centerClick = 12;
     public static final int REQUEST_CODE_LAUNCH_APP = 1234;
     public static final int REQUEST_CODE_VOICE_INPUT = 12345;
     public static final int REQUEST_CODE_FIRE_FN = 12352;
