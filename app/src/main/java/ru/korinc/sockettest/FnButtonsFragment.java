@@ -133,7 +133,7 @@ public class FnButtonsFragment extends Fragment {
 			b3.setOnLongClickListener(olclFn);
 
             b1.setOnTouchListener(st.overlayOTL);
-            b2.setOnTouchListener(st.overlayOTL);
+            b2.setOnTouchListener(st.overlayAltTAbOTL);
             b3.setOnTouchListener(st.overlayOTL);
 			
 			if(st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){

@@ -142,7 +142,7 @@ class SocketThread implements Runnable {
                                 @Override
                                 public void run() {
                                     if(bitmap!=null)st.context.setImageBitmap(bitmap);
-                                    else st.context.setImageResource(android.R.drawable.radiobutton_off_background);
+                                    //else st.context.setImageResource(android.R.drawable.radiobutton_off_background);
                                 }
                             });
                             in.close();
@@ -167,7 +167,7 @@ class SocketThread implements Runnable {
                                 if(reply.length>=2){
                                     String proccess = reply[1].trim();
                                     //
-                                    if(!st.currentProcess.equals(proccess)){
+                                    if(!proccess.isEmpty() && !st.currentProcess.equals(proccess)){
                                         st.setCurrentProcess(proccess);
 
                                     }
