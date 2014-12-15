@@ -1133,10 +1133,8 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                 input.setHint("IP");
                 input.setText(shp.getString("ip", ""));
-                input.setInputType(InputType.TYPE_CLASS_NUMBER
-                        | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-                input.setKeyListener(DigitsKeyListener
-                        .getInstance("0123456789."));
+               input.setInputType(InputType.TYPE_CLASS_PHONE);
+               // input.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
                 input.setLayoutParams(new LinearLayout.LayoutParams(0,
                         LayoutParams.WRAP_CONTENT, 1f));
 
