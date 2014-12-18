@@ -642,6 +642,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     int[] location = new int[2];
 
     private boolean inViewBounds(View view, int x, int y){
+		//TODO добавить возможность игнорировать выход за пределы по одной из осей
         view.getDrawingRect(outRect);
         view.getLocationOnScreen(location);
         outRect.offset(location[0], location[1]);
@@ -858,7 +859,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                 moveCondidateY = moveY > 0 ? 1 : -1;
                                 startX = x;
                                 startY = y;
-                                fnb.press(FnButton.FN_CUSTOM, moveY>0?"Up arrow":"Down arrow", "");
+                                fnb.press(FnButton.FN_CUSTOM, moveY>0?"Left arrow":"Right arrow", "");
                                 this.v.vibrate(50);
                             }
 
