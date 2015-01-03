@@ -58,8 +58,8 @@ public class FnCreateCustomFragment extends ListFragment {
 		fns.add("Enter");
 		fns.add("Space");
 		fns.add("Backspace");
-		fns.add("+");
-		fns.add("-");		
+		fns.add("Plus");
+		fns.add("Minus");		
 		fns.add("Up arrow");
 		fns.add("Down arrow");
 		fns.add("Left arrow");

@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
@@ -58,6 +59,9 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class ST extends FragmentActivity implements OnClickListener {
 
@@ -127,6 +131,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     final static int shortcut = 9;
     final static int commandLine = 10;
     final static int getProcessIcon = 11;
+    final static int centerClick = 12;
     public static final int REQUEST_CODE_LAUNCH_APP = 1234;
     public static final int REQUEST_CODE_VOICE_INPUT = 12345;
     public static final int REQUEST_CODE_FIRE_FN = 12352;
@@ -144,6 +149,8 @@ public class ST extends FragmentActivity implements OnClickListener {
     Set<String> keyoVoiceInputFix;
 
     OverlayOTL overlayOTL;
+    OverlayAltTAbOTL overlayAltTAbOTL;
+
 
     LinearLayout topPagerContainerLL;
     LinearLayout botPagerContainerLL;
@@ -620,6 +627,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         }
 
         overlayOTL = new OverlayOTL();
+        overlayAltTAbOTL = new OverlayAltTAbOTL();
 
         context.setOnTouchListener(overlayOTL);
         topPager.setOnTouchListener(overlayOTL);
@@ -634,6 +642,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     int[] location = new int[2];
 
     private boolean inViewBounds(View view, int x, int y){
+		//TODO добавить возможность игнорировать выход за пределы по одной из осей
         view.getDrawingRect(outRect);
         view.getLocationOnScreen(location);
         outRect.offset(location[0], location[1]);
@@ -651,6 +660,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         int[] btnCondidateCoord = new int[]{0, 0};
         int btnCondidateInt = 0;
         long timeActivated;
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         @Override
         public boolean onTouch(View v, MotionEvent event) {
 
@@ -675,6 +685,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     if(!overlayActivated && (moveY > 130 || moveY < -130) && !inViewBounds(topPager, x, y) && !inViewBounds(botPager, x, y)){
 
                         overlayActivated = true;
+
                         btnCondidate = wsBtn5;
                         btnCondidateCoord[0] = 1;
                         btnCondidateCoord[1] = 1;
@@ -719,6 +730,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     if(overlayActivated){
                         InAppLog.writeLog(ST.this, "", "Overlay release", debug);
                         overlayActivated = false;
+                        this.v.vibrate(100);
                         fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
                         fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
                         btnCondidate.performClick();
@@ -786,8 +798,111 @@ public class ST extends FragmentActivity implements OnClickListener {
                 btnCondidate = wsBtn3;
                 btnCondidateInt = 3;
             }
-            if(btnCoordinateOld!=btnCondidateInt)fnb.press(FnButton.FN_COMMAND_LINE, "overlay::"+btnCondidateInt+"::", "");
+
+
+            if(btnCoordinateOld!=btnCondidateInt){
+                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::"+btnCondidateInt+"::", "");
+                this.v.vibrate(50);
+            }
         }
+    }
+
+    public class OverlayAltTAbOTL implements OnTouchListener {
+
+        boolean overlayActivated = false;
+
+        int startX;
+        int startY;
+        int x;
+        int y;
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        long timeActivated;
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    startX = (int) event.getRawX();
+                    startY = (int) event.getRawY();
+                    InAppLog.writeLog(ST.this, "", "On Touch " + startX + " | " + startY, debug);
+                    break;
+
+                case MotionEvent.ACTION_MOVE:
+
+                    x = (int) event.getRawX();
+                    y = (int) event.getRawY();
+
+                    int moveX = startX - x;
+                    int moveY = startY - y;
+
+                    //hInAppLog.writeLog(ST.this, "", "Move " + x + " | " + y, debug);
+
+                    if (!overlayActivated && (moveY > 200 || moveY < -200) && !inViewBounds(topPager, x, y) && !inViewBounds(botPager, x, y)) {
+
+                        overlayActivated = true;
+                        this.v.vibrate(50);
+                        fnb.press(FnButton.FN_ALT_TAB, "", "");
+                        timeActivated = System.currentTimeMillis();
+                        InAppLog.writeLog(ST.this, "", "ALTTAb Activated!", debug);
+                        startY = y;
+                        startX = x;
+
+                    }
+                    if (overlayActivated) {
+                        if (System.currentTimeMillis() - timeActivated > 100) {
+                            int moveCondidateX = 0;
+                            int moveCondidateY = 0;
+
+                            if (moveY > 40 || moveY < -40) {
+                                moveCondidateY = moveY > 0 ? 1 : -1;
+                                startX = x;
+                                startY = y;
+                                fnb.press(FnButton.FN_CUSTOM, moveY>0?"Left arrow":"Right arrow", "");
+                                this.v.vibrate(50);
+                            }
+
+                        } else {
+                            startX = x;
+                            startY = y;
+                        }
+
+
+                        if (inViewBounds(v, x, y)) {
+                            fnb.press(FnButton.FN_ESC, "", "");
+                            overlayActivated = false;
+                            InAppLog.writeLog(ST.this, "", "ALT TAB Overlay release by return", debug);
+                        }
+                    }
+
+                    break;
+                case MotionEvent.ACTION_UP:
+                    if (overlayActivated) {
+                        InAppLog.writeLog(ST.this, "", "ALT TAB Overlay release", debug);
+                        overlayActivated = false;
+                        fnb.press(FnButton.FN_ENTER, "", "");
+
+                        Executors.newSingleThreadScheduledExecutor().schedule(new SocketThread(ipEt.getText().toString(), Integer.parseInt(portEt.getText().toString()), ab, 0, 0, ST.this), 400, TimeUnit.MILLISECONDS);
+
+                        this.v.vibrate(100);
+
+                    }
+
+                    break;
+
+                case MotionEvent.ACTION_CANCEL:
+                    InAppLog.writeLog(ST.this, "", "ALT TAB Overlay release (ACTION_CANCEL)", debug);
+                    overlayActivated = false;
+                    fnb.press(FnButton.FN_ESC, "", "");
+                    break;
+
+            }
+
+
+            return false;
+        }
+
     }
 
     public void setCurrentProcess(String process){
@@ -1019,10 +1134,8 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                 input.setHint("IP");
                 input.setText(shp.getString("ip", ""));
-                input.setInputType(InputType.TYPE_CLASS_NUMBER
-                        | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-                input.setKeyListener(DigitsKeyListener
-                        .getInstance("0123456789."));
+               input.setInputType(InputType.TYPE_CLASS_PHONE);
+               // input.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
                 input.setLayoutParams(new LinearLayout.LayoutParams(0,
                         LayoutParams.WRAP_CONTENT, 1f));
 

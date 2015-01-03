@@ -14,7 +14,7 @@
         android:orderInCategory="100"
         android:showAsAction="always"
         android:title="Voice input"
-		android:icon="@drawable/ic_action_av_mnone"
+		android:icon="@drawable/ic_action_av_mic"
 	/>
 
     <item
