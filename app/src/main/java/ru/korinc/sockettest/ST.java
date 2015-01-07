@@ -20,8 +20,6 @@ import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.text.method.DigitsKeyListener;
-import android.view.KeyCharacterMap;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -60,14 +58,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class ST extends FragmentActivity implements OnClickListener {
 
-    boolean debug = false;
+    boolean debug = true;
 
-    Thread listener;
     EditText ipEt;
     EditText portEt;
     EditText clientPortEt;
@@ -111,27 +107,11 @@ public class ST extends FragmentActivity implements OnClickListener {
     float fullmovex;
     float fullmovey;
     boolean isDouble = false;
-    KeyCharacterMap mKeyCharacterMap = KeyCharacterMap
-            .load(KeyCharacterMap.VIRTUAL_KEYBOARD);
-    SocketThread st;
-    ServerSocket ss;
+
     LinearLayout ll;
     TextView tv;
     ArrayAdapter<String> adapter;
     ArrayList<String> results;
-    final static int ab = 0;
-    final static int register = 1;
-    final static int wat = 2;
-    final static int click = 3;
-    final static int dndDown = 4;
-    final static int dndUp = 5;
-    final static int rclick = 6;
-    final static int keyboard = 7;
-    final static int launch = 8;
-    final static int shortcut = 9;
-    final static int commandLine = 10;
-    final static int getProcessIcon = 11;
-    final static int centerClick = 12;
     public static final int REQUEST_CODE_LAUNCH_APP = 1234;
     public static final int REQUEST_CODE_VOICE_INPUT = 12345;
     public static final int REQUEST_CODE_FIRE_FN = 12352;
@@ -151,13 +131,8 @@ public class ST extends FragmentActivity implements OnClickListener {
     OverlayOTL overlayOTL;
     OverlayAltTAbOTL overlayAltTAbOTL;
 
-
     LinearLayout topPagerContainerLL;
     LinearLayout botPagerContainerLL;
-
-
-    public boolean isPortFixRunning = false;
-    public long lastFixed = System.currentTimeMillis();
 
 
     private static final String FN_SAVE_B1 = "cwfnB1";
@@ -293,7 +268,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                             | (s.length() == 3 && pressed.length() == 1)) {
 
                         new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                                port, keyboard, pressed)).start();
+                                port, FnButton.keyboard, pressed)).start();
                     }
 
                     keyboardEt.setText("<>");
@@ -302,7 +277,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                     int port = Integer.parseInt(portEt.getText().toString());
                     new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                            port, keyboard, "bksps")).start();
+                            port, FnButton.keyboard, "bksps")).start();
                     keyboardEt.setText("<>");
                     keyboardEt.setSelection(keyboardEt.getText().length());
                 }
@@ -335,12 +310,12 @@ public class ST extends FragmentActivity implements OnClickListener {
                     int port = Integer.parseInt(portEt.getText().toString());
 
                     new Thread(new SocketThread(ipEt.getText().toString(),
-                            port, dndDown, 0, 0, ST.this)).start();
+                            port, FnButton.dndDown, 0, 0, ST.this)).start();
                     isDouble = true;
                     timeLongDown = System.currentTimeMillis();
                     if (timeLongDown - timeLongDownOld < 1000) {
                         new Thread(new SocketThread(ipEt.getText().toString(),
-                                port, rclick, 0, 0, ST.this)).start();
+                                port, FnButton.rclick, 0, 0, ST.this)).start();
                     }
                     timeLongDownOld = System.currentTimeMillis();
                     return true;
@@ -368,25 +343,25 @@ public class ST extends FragmentActivity implements OnClickListener {
                             case R.id.buttonUp:
 
                                 new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                                        port, keyboard, "up")).start();
+                                        port, FnButton.keyboard, "up")).start();
                                 break;
 
                             case R.id.buttonDown:
 
                                 new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                                        port, keyboard, "down")).start();
+                                        port, FnButton.keyboard, "down")).start();
                                 break;
 
                             case R.id.buttonLeft:
 
                                 new Thread( new SocketThread(ST.this, ipEt.getText().toString(),
-                                        port, keyboard, "left")).start();
+                                        port, FnButton.keyboard, "left")).start();
                                 break;
 
                             case R.id.buttonRight:
 
                                 new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                                        port, keyboard, "right")).start();
+                                        port, FnButton.keyboard, "right")).start();
                                 break;
 
                         }
@@ -400,25 +375,25 @@ public class ST extends FragmentActivity implements OnClickListener {
                         case R.id.buttonUp:
 
                             new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                                    port, keyboard, "up")).start();
+                                    port, FnButton.keyboard, "up")).start();
                             break;
 
                         case R.id.buttonDown:
 
                             new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                                    port, keyboard, "down")).start();
+                                    port, FnButton.keyboard, "down")).start();
                             break;
 
                         case R.id.buttonLeft:
 
                             new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                                    port, keyboard, "left")).start();
+                                    port, FnButton.keyboard, "left")).start();
                             break;
 
                         case R.id.buttonRight:
 
                             new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                                    port, keyboard, "right")).start();
+                                    port, FnButton.keyboard, "right")).start();
                             break;
 
                     }
@@ -498,7 +473,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                         port = Integer.parseInt(portEt.getText().toString());
 
                         new Thread(new SocketThread(ipEt.getText().toString(),
-                                port, ab, a, b, ST.this)).start();
+                                port, FnButton.ab, a, b, ST.this)).start();
                         oldx = x;
                         oldy = y;
                         break;
@@ -524,7 +499,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                 && (fullmovex < 30 & fullmovey < 30) && !isDouble) {
                             port = Integer.parseInt(portEt.getText().toString());
                             new Thread(new SocketThread(ipEt.getText().toString(),
-                                    port, click, 0, 0, ST.this)).start();
+                                    port, FnButton.click, 0, 0, ST.this)).start();
 
                         }
 
@@ -534,7 +509,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                             // send dnd up
                             port = Integer.parseInt(portEt.getText().toString());
                             new Thread(new SocketThread(ipEt.getText().toString(),
-                                    port, dndUp, 0, 0, ST.this)).start();
+                                    port, FnButton.dndUp, 0, 0, ST.this)).start();
 
                             isDouble = false;
                         }
@@ -591,15 +566,16 @@ public class ST extends FragmentActivity implements OnClickListener {
         //init voice tables
         Set<String> keys = shp.getStringSet("VoiceFnMap", new HashSet<String>());
         if (keys.isEmpty()) {
-
-            keys.add("Поиск");
-            ed.putInt("VoiceFn:" + "Поиск", FnButton.FN_COMMAND_LINE);
-
+/*
+            keys.add("поиск");
+            ed.putString("VoiceFnArg:" + "поиск", "start chrome \"\"");
+            ed.putInt("VoiceFn:" + "поиск", FnButton.FN_COMMAND_LINE);
+*/
             keys.add("хром");
             ed.putString("VoiceFnArg:" + "хром", "start chrome");
             ed.putInt("VoiceFn:" + "хром", FnButton.FN_COMMAND_LINE);
 
-            keys.add("Запустить");
+            keys.add("запустить");
             ed.putString("VoiceFnArg:" + "запустить", "Launch app");
             ed.putInt("VoiceFn:" + "запустить", FnButton.FN_LAUNCH_APP);
 
@@ -883,7 +859,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                         overlayActivated = false;
                         fnb.press(FnButton.FN_ENTER, "", "");
 
-                        Executors.newSingleThreadScheduledExecutor().schedule(new SocketThread(ipEt.getText().toString(), Integer.parseInt(portEt.getText().toString()), ab, 0, 0, ST.this), 400, TimeUnit.MILLISECONDS);
+                        Executors.newSingleThreadScheduledExecutor().schedule(new SocketThread(ipEt.getText().toString(), Integer.parseInt(portEt.getText().toString()), FnButton.ab, 0, 0, ST.this), 400, TimeUnit.MILLISECONDS);
 
                         this.v.vibrate(100);
 
@@ -910,7 +886,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             currentProcess = process;
             status.setText(currentProcess);
         new Thread(new SocketThread(ipEt.getText().toString(),
-                Integer.parseInt(portEt.getText().toString()), getProcessIcon, 0, 0, ST.this)).start();
+                Integer.parseInt(portEt.getText().toString()), FnButton.getProcessIcon, 0, 0, ST.this)).start();
             bindContextButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""));
 
 
@@ -957,7 +933,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                         for (int i = 1; i <=255 ; i++) {
                             if(breakDiscovering)break;
                             String ipToDesc = broadcastAdress.substring(0, broadcastAdress.lastIndexOf("255"))+i;
-                            new Thread(new SocketThread(ipToDesc/*broadcastAdress*/, j==1032?1025:j, ab, 12, 12, ST.this) {
+                            new Thread(new SocketThread(ipToDesc/*broadcastAdress*/, j==1032?1025:j, FnButton.ab, 12, 12, ST.this) {
 
                                 @Override
                                 public void run() {
@@ -1113,7 +1089,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     bEt.setText(Integer.parseInt(bEt.getText().toString()) + 1 + "");
 
                     new Thread(new SocketThread(ipEt.getText().toString(), port,
-                            ab, a, b, ST.this)).start();
+                            FnButton.ab, a, b, ST.this)).start();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -1256,7 +1232,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                             ed.putString("port", ipPort[1]);
                             ed.commit();
                             breakDiscovering = true;
-                            new Thread(new SocketThread(ipPort[0],Integer.parseInt(ipPort[1]), ab, 0,0,ST.this )).start();
+                            new Thread(new SocketThread(ipPort[0],Integer.parseInt(ipPort[1]), FnButton.ab, 0,0,ST.this )).start();
                         }
                     });
 
@@ -1334,7 +1310,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             switch (resultCode){
                 case RESULT_OK:
                     new Thread(new SocketThread(ipEt.getText().toString(),
-                            Integer.parseInt(portEt.getText().toString()), ab, 0, 0, ST.this)).start();
+                            Integer.parseInt(portEt.getText().toString()), FnButton.ab, 0, 0, ST.this)).start();
                     break;
 
             }
@@ -1352,7 +1328,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     //			m_Text = shp.getString(m_Text, m_Text);
 
                     int port = Integer.parseInt(portEt.getText().toString());
-                    new Thread(new SocketThread(ST.this, ipEt.getText().toString(), port, launch, m_Text)).start();
+                    new Thread(new SocketThread(ST.this, ipEt.getText().toString(), port, FnButton.launch, m_Text)).start();
 
                     break;
 
@@ -1383,7 +1359,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                         m_Text = m_Text.substring(0, m_Text.length() - 6);
                                         needReinvokeVoiceFn = true;
                                     }
-                                    new Thread(new SocketThread(ST.this, ipEt.getText().toString(), port, launch, m_Text)).start();
+                                    new Thread(new SocketThread(ST.this, ipEt.getText().toString(), port, FnButton.launch, m_Text)).start();
                                     //Reinvoke
                                     if (needReinvokeVoiceFn) {
                                         fnb.press(fnb.FN_VOICE_FN, "", "");
@@ -1594,10 +1570,10 @@ public class ST extends FragmentActivity implements OnClickListener {
 
             int port = Integer.parseInt(portEt.getText().toString());
             new Thread(new SocketThread(ST.this, ipEt.getText().toString(), port,
-                    keyboard, m_Text)).start();
+                    FnButton.keyboard, m_Text)).start();
             if (shp.getBoolean("enterOnVoiceInput", true)) {
                 new Thread(new SocketThread(ST.this, ipEt.getText().toString(), port,
-                        keyboard, "\n")).start();
+                        FnButton.keyboard, "\n")).start();
             }
 
         }
@@ -1984,11 +1960,11 @@ public class ST extends FragmentActivity implements OnClickListener {
         wsBtn1.setOnClickListener(ocl);
         wsBtn1.setText(fnb.fnMap.get(shp.getInt(FN_SAVE_B1 + "" + currentProcess, fnb.NO_FUNCTION)));
         wsBtn1.setOnLongClickListener(olclFn);
-        
+
         wsBtn2.setOnClickListener(ocl);
         wsBtn2.setText(fnb.fnMap.get(shp.getInt(FN_SAVE_B2 + "" + currentProcess, fnb.NO_FUNCTION)));
         wsBtn2.setOnLongClickListener(olclFn);
-        
+
         wsBtn3.setOnClickListener(ocl);
         wsBtn3.setText(fnb.fnMap.get(shp.getInt(FN_SAVE_B3 + "" + currentProcess, fnb.NO_FUNCTION)));
         wsBtn3.setOnLongClickListener(olclFn);

@@ -120,7 +120,8 @@ public class FnButtonsFragment extends Fragment {
 					return false;
 				}
 			};
-			
+
+     //Устанавливаем изначально текст по типу кнопки
 			b1.setOnClickListener(ocl);
 			b1.setText(st.fnb.fnMap.get(st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)));
 			
@@ -135,7 +136,8 @@ public class FnButtonsFragment extends Fragment {
             b1.setOnTouchListener(st.overlayOTL);
             b2.setOnTouchListener(st.overlayAltTAbOTL);
             b3.setOnTouchListener(st.overlayOTL);
-			
+
+     //Если пустая - меняем фон
 			if(st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
 				b1.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
 			}
@@ -145,7 +147,9 @@ public class FnButtonsFragment extends Fragment {
 			if(st.shp.getInt(FN_SAVE_B3+""+pageId, st.fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
 				b3.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
 			}
-						
+
+	 //Если шорткат или команда - выяставляем их аргумент
+
 			if(st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)==st.fnb.FN_CUSTOM||st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)==st.fnb.FN_COMMAND_LINE){
 				b1.setText(st.shp.getString(FN_SAVE_ARGS_B1+""+pageId, ""));
 				if(st.shp.getString(FN_SAVE_ARGS_B1+""+pageId, "").contains("chrome")){
@@ -176,7 +180,9 @@ public class FnButtonsFragment extends Fragment {
 			}else{
 				b3.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
 			}
-			
+
+     //Если есть имя - выставляем его
+
 			if(!st.shp.getString(FN_SAVE_NAME_B1+""+pageId, "").equals("")){
 				b1.setText(st.shp.getString(FN_SAVE_NAME_B1+""+pageId, ""));
 			}

@@ -78,43 +78,43 @@ class SocketThread implements Runnable {
                     DataOutputStream out = new DataOutputStream(sout);
 
                     switch (mode) {
-                        case ST.ab:
+                        case FnButton.ab:
                             out.writeUTF("ab:" + a + "lolParseMe" + b);
 
                             break;
 
-                        case ST.click:
+                        case FnButton.click:
                             out.writeUTF("click:");
 
                             break;
 
-                        case ST.rclick:
+                        case FnButton.rclick:
                             out.writeUTF("rclick:");
 
                             break;
 
-                        case ST.centerClick:
+                        case FnButton.centerClick:
                             out.writeUTF("centerClick:");
 
                             break;
 
-                        case ST.dndDown:
+                        case FnButton.dndDown:
                             out.writeUTF("dndDown:");
 
                             break;
 
-                        case ST.dndUp:
+                        case FnButton.dndUp:
                             out.writeUTF("dndUp:");
 
                             break;
 
-                        case ST.register:
+                        case FnButton.register:
 
                             out.writeUTF("registerMe:"
                                     + st.clientPortEt.getText().toString());
                             break;
 
-                        case ST.keyboard:
+                        case FnButton.keyboard:
                             if (chr.equals("\n")) {
                                 try {
                                     Thread.sleep(200);
@@ -125,22 +125,22 @@ class SocketThread implements Runnable {
                             out.writeUTF("keyboard::" + chr);
                             break;
 
-                        case ST.shortcut:
+                        case FnButton.shortcut:
 
                             out.writeUTF("shortcut::" + chr);
                             break;
 
-                        case ST.commandLine:
+                        case FnButton.commandLine:
 
                             out.writeUTF("commandLine::" + chr);
                             break;
 
-                        case ST.launch:
+                        case FnButton.launch:
 
                             out.writeUTF("launch:" + chr);
                             break;
 
-                        case ST.getProcessIcon:
+                        case FnButton.getProcessIcon:
                             out.writeUTF("getTaskBarIcons::"+st.currentProcess+".lnk");
                             final Bitmap bitmap = BitmapFactory.decodeStream(in);
                             st.runOnUiThread(new Runnable() {
