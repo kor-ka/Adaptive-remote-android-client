@@ -1,7 +1,5 @@
 package ru.korinc.sockettest;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -10,8 +8,6 @@ import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
-import android.widget.ImageButton;
 
 
 
@@ -29,7 +25,7 @@ public class FnBind extends FragmentActivity implements OnClickListener
 
 	private ViewPager mPager;
 
-	
+
 	Intent inputintent;
 	private static final int NUM_PAGES = 3;
 

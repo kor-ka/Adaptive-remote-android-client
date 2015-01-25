@@ -35,6 +35,7 @@ public class FnButtonsFragment extends Fragment {
 	
 	 View view;
 	 FnButtonsFragment thisFragment;
+    DbTool db = new DbTool();
 	public FnButtonsFragment() {
 		
 	}
@@ -196,6 +197,10 @@ public class FnButtonsFragment extends Fragment {
 	 
 	 public void saveFnBindResults (Intent i, int reqestCode){
 		 final ST st = (ST) getActivity();
+
+         //Пишем кнопку в базу
+         db.addButton(i.getStringExtra("Name"), i.getIntExtra("FnResult", st.fnb.NO_FUNCTION), i.getStringExtra("FnResultArgs"), -1, getActivity());
+
 		 switch (reqestCode) {
 		case REQUEST_CODE_B1:
 			 	st.ed.putInt(FN_SAVE_B1+""+pageId, i.getIntExtra("FnResult", st.fnb.NO_FUNCTION));
@@ -297,6 +302,8 @@ public class FnButtonsFragment extends Fragment {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		 if(resultCode==ST.RESULT_OK){
 			 saveFnBindResults(data, requestCode);
+
+
 		 }	
 		super.onActivityResult(requestCode, resultCode, data);
 	}

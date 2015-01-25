@@ -27,27 +27,34 @@ public class DbTool{
     public final static String BUTTONS_TABLE_NAME = "name";
     public final static String BUTTONS_TABLE_TYPE = "type";
     public final static String BUTTONS_TABLE_CMD = "cmd";
-    public final static String BUTTONS_TABLE_ORDER = "order";
+    public final static String BUTTONS_TABLE_ORDER = "morder";
 
     public final static String SLIDERS_BTNS_PAGE_ID = "pageId";
     public final static String SLIDERS_BTNS_BTN_ID = "btnId";
 
     public final static String DESKTOPS_BTNS_NAME = "desktopName";
     public final static String DESKTOPS_BTNS_BTN_ID = "btnId";
-    public final static String DESKTOPS_BTNS_ORDER = "order";
+    public final static String DESKTOPS_BTNS_ORDER = "morder";
 
     public void addButton (String name, int type, String cmd, int order, Context context){
         dbHelper = new DBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+
         cv = new ContentValues();
 
-        cv.put("name",BUTTONS_TABLE_NAME);
-        cv.put("type",BUTTONS_TABLE_TYPE);
-        cv.put("cmd",BUTTONS_TABLE_CMD);
-        cv.put("order",BUTTONS_TABLE_ORDER);
+        cv.put(BUTTONS_TABLE_NAME, name);
+        cv.put(BUTTONS_TABLE_TYPE, type);
+        cv.put(BUTTONS_TABLE_CMD, cmd);
+        cv.put(BUTTONS_TABLE_ORDER, order);
 
 
         db.insert(BUTTONS_TABLE, null, cv);
+
+/*
+        String sql = "INSERT INTO " + BUTTONS_TABLE + " (" + BUTTONS_TABLE_NAME + ", " + BUTTONS_TABLE_TYPE + ", "  + BUTTONS_TABLE_CMD + ", " + BUTTONS_TABLE_ORDER + ")" +
+                       " VALUES " + "(" + "\'" + name + "\'" + ", " + type + ", " + "\'" + cmd + "\'" + ", " + order + ");";
+        db.execSQL(sql);
+  */
         db.close();
     }
 
@@ -99,8 +106,8 @@ public class DbTool{
         public void onCreate(SQLiteDatabase db){
             Log.d(TAG, "--- onCreate database ---");
             // создаем таблицу с полями
-            String TEXT = "TEXT";
-            String INTEGER = "INTEGER";
+            String TEXT = " TEXT ";
+            String INTEGER = " INTEGER ";
             String CM = ", ";
             db.execSQL("create table "+BUTTONS_TABLE+" (" + "_id integer primary key autoincrement," + BUTTONS_TABLE_NAME + TEXT + CM +
                                                                                                      BUTTONS_TABLE_TYPE + INTEGER + CM +

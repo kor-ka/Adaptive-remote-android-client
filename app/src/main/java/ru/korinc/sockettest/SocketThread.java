@@ -53,7 +53,7 @@ class SocketThread implements Runnable {
             socket.connect(new InetSocketAddress(ipAddress, port), 500);
 
             send(mode);
-            st.lastFixed = System.currentTimeMillis();
+
 
         } catch (IOException e) {
 
