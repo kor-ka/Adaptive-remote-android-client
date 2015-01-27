@@ -2,7 +2,6 @@ package ru.korinc.sockettest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +16,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.graphics.PorterDuff;
 
 
@@ -25,7 +23,7 @@ public class FnCreateCustomFragment extends ListFragment {
 	
 	ArrayAdapter<String> adapter ;
 	List<String> fns;
-	FnButton fnb;
+	ButtonFnManager fnb;
 	TextView tv;
 	Button btnOk;
 	ImageButton del;

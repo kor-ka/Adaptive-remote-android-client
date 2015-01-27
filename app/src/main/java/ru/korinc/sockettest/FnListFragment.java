@@ -53,7 +53,7 @@ public class FnListFragment extends ListFragment {
 	List<String> fns;
     List<String> fnpl;
     List<Integer> fnpltype;
-	FnButton fnb;
+	ButtonFnManager fnb;
 
     ListView pluginsLV;
     ArrayAdapter<String> pluginsAdapter ;
@@ -147,7 +147,7 @@ public class FnListFragment extends ListFragment {
         pluginsLV.addFooterView(footer);
 		pluginsLV.setAdapter(pluginsAdapter);
 
-		fnb = new FnButton();
+		fnb = new ButtonFnManager();
 		fns = new ArrayList<String>() ;
         fnpl = new ArrayList<String>() ;
         fnpltype = new ArrayList<Integer>() ;

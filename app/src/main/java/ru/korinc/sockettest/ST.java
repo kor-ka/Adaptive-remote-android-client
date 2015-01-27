@@ -119,7 +119,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     public static final int REQUEST_CODE_VOICE_FN = 12354;
     public static final int REQUEST_CODE_LAUNCHAPP_FROM_TASKBAR = 12358;
     public String currentProcess = "";
-    FnButton fnb;
+    ButtonFnManager fnb;
     private String dialogInputText = "";
     private static final int NUM_PAGES = 3;
     ScreenSlidePagerAdapter topPagerAdapter;
@@ -238,12 +238,12 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         status = (TextView) findViewById(R.id.textStatus);
 
-        fnb = new FnButton(this);
+        fnb = new ButtonFnManager(this);
 
         context.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                fnb.press(FnButton.FN_CONTEXT_BUTTONS, "", "");
+                fnb.press(ButtonFnManager.FN_CONTEXT_BUTTONS, "", "");
             }
         });
 
@@ -268,7 +268,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                             | (s.length() == 3 && pressed.length() == 1)) {
 
                         new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                                port, FnButton.keyboard, pressed)).start();
+                                port, ButtonFnManager.keyboard, pressed)).start();
                     }
 
                     keyboardEt.setText("<>");
@@ -277,7 +277,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                     int port = Integer.parseInt(portEt.getText().toString());
                     new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                            port, FnButton.keyboard, "bksps")).start();
+                            port, ButtonFnManager.keyboard, "bksps")).start();
                     keyboardEt.setText("<>");
                     keyboardEt.setSelection(keyboardEt.getText().length());
                 }
@@ -310,12 +310,12 @@ public class ST extends FragmentActivity implements OnClickListener {
                     int port = Integer.parseInt(portEt.getText().toString());
 
                     new Thread(new SocketThread(ipEt.getText().toString(),
-                            port, FnButton.dndDown, 0, 0, ST.this)).start();
+                            port, ButtonFnManager.dndDown, 0, 0, ST.this)).start();
                     isDouble = true;
                     timeLongDown = System.currentTimeMillis();
                     if (timeLongDown - timeLongDownOld < 1000) {
                         new Thread(new SocketThread(ipEt.getText().toString(),
-                                port, FnButton.rclick, 0, 0, ST.this)).start();
+                                port, ButtonFnManager.rclick, 0, 0, ST.this)).start();
                     }
                     timeLongDownOld = System.currentTimeMillis();
                     return true;
@@ -343,25 +343,25 @@ public class ST extends FragmentActivity implements OnClickListener {
                             case R.id.buttonUp:
 
                                 new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                                        port, FnButton.keyboard, "up")).start();
+                                        port, ButtonFnManager.keyboard, "up")).start();
                                 break;
 
                             case R.id.buttonDown:
 
                                 new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                                        port, FnButton.keyboard, "down")).start();
+                                        port, ButtonFnManager.keyboard, "down")).start();
                                 break;
 
                             case R.id.buttonLeft:
 
                                 new Thread( new SocketThread(ST.this, ipEt.getText().toString(),
-                                        port, FnButton.keyboard, "left")).start();
+                                        port, ButtonFnManager.keyboard, "left")).start();
                                 break;
 
                             case R.id.buttonRight:
 
                                 new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                                        port, FnButton.keyboard, "right")).start();
+                                        port, ButtonFnManager.keyboard, "right")).start();
                                 break;
 
                         }
@@ -375,25 +375,25 @@ public class ST extends FragmentActivity implements OnClickListener {
                         case R.id.buttonUp:
 
                             new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                                    port, FnButton.keyboard, "up")).start();
+                                    port, ButtonFnManager.keyboard, "up")).start();
                             break;
 
                         case R.id.buttonDown:
 
                             new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                                    port, FnButton.keyboard, "down")).start();
+                                    port, ButtonFnManager.keyboard, "down")).start();
                             break;
 
                         case R.id.buttonLeft:
 
                             new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                                    port, FnButton.keyboard, "left")).start();
+                                    port, ButtonFnManager.keyboard, "left")).start();
                             break;
 
                         case R.id.buttonRight:
 
                             new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
-                                    port, FnButton.keyboard, "right")).start();
+                                    port, ButtonFnManager.keyboard, "right")).start();
                             break;
 
                     }
@@ -473,7 +473,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                         port = Integer.parseInt(portEt.getText().toString());
 
                         new Thread(new SocketThread(ipEt.getText().toString(),
-                                port, FnButton.ab, a, b, ST.this)).start();
+                                port, ButtonFnManager.ab, a, b, ST.this)).start();
                         oldx = x;
                         oldy = y;
                         break;
@@ -499,7 +499,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                 && (fullmovex < 30 & fullmovey < 30) && !isDouble) {
                             port = Integer.parseInt(portEt.getText().toString());
                             new Thread(new SocketThread(ipEt.getText().toString(),
-                                    port, FnButton.click, 0, 0, ST.this)).start();
+                                    port, ButtonFnManager.click, 0, 0, ST.this)).start();
 
                         }
 
@@ -509,7 +509,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                             // send dnd up
                             port = Integer.parseInt(portEt.getText().toString());
                             new Thread(new SocketThread(ipEt.getText().toString(),
-                                    port, FnButton.dndUp, 0, 0, ST.this)).start();
+                                    port, ButtonFnManager.dndUp, 0, 0, ST.this)).start();
 
                             isDouble = false;
                         }
@@ -573,11 +573,11 @@ public class ST extends FragmentActivity implements OnClickListener {
 */
             keys.add("хром");
             ed.putString("VoiceFnArg:" + "хром", "start chrome");
-            ed.putInt("VoiceFn:" + "хром", FnButton.FN_COMMAND_LINE);
+            ed.putInt("VoiceFn:" + "хром", ButtonFnManager.FN_COMMAND_LINE);
 
             keys.add("запустить");
             ed.putString("VoiceFnArg:" + "запустить", "Launch app");
-            ed.putInt("VoiceFn:" + "запустить", FnButton.FN_LAUNCH_APP);
+            ed.putInt("VoiceFn:" + "запустить", ButtonFnManager.FN_LAUNCH_APP);
 
             ed.putStringSet("VoiceFnMap", keys);
             ed.commit();
@@ -665,7 +665,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                         btnCondidate = wsBtn5;
                         btnCondidateCoord[0] = 1;
                         btnCondidateCoord[1] = 1;
-                        fnb.press(FnButton.FN_COMMAND_LINE, "overlay::5::"+wsBtn1.getText().toString()+":"+wsBtn2.getText().toString()+":"+wsBtn3.getText().toString()+":"+wsBtn4.getText().toString()+":"+wsBtn5.getText().toString()+":"+wsBtn6.getText().toString()+":"+wsBtn7.getText().toString()+":"+wsBtn8.getText().toString()+":"+wsBtn9.getText().toString()+":", "");
+                        fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::5::"+wsBtn1.getText().toString()+":"+wsBtn2.getText().toString()+":"+wsBtn3.getText().toString()+":"+wsBtn4.getText().toString()+":"+wsBtn5.getText().toString()+":"+wsBtn6.getText().toString()+":"+wsBtn7.getText().toString()+":"+wsBtn8.getText().toString()+":"+wsBtn9.getText().toString()+":", "");
                         timeActivated = System.currentTimeMillis();
                         InAppLog.writeLog(ST.this, "", "Activated!", debug);
                         startY = y;
@@ -694,8 +694,8 @@ public class ST extends FragmentActivity implements OnClickListener {
 
 
                         if(inViewBounds(v, x,y)){
-                            fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
-                            fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
+                            fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
+                            fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
                             overlayActivated = false;
                             InAppLog.writeLog(ST.this, "", "Overlay release by return", debug);
                         }
@@ -707,8 +707,8 @@ public class ST extends FragmentActivity implements OnClickListener {
                         InAppLog.writeLog(ST.this, "", "Overlay release", debug);
                         overlayActivated = false;
                         this.v.vibrate(100);
-                        fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
-                        fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
+                        fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
+                        fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
                         btnCondidate.performClick();
                     }
 
@@ -717,8 +717,8 @@ public class ST extends FragmentActivity implements OnClickListener {
                 case MotionEvent.ACTION_CANCEL:
                     InAppLog.writeLog(ST.this, "", "Overlay release (ACTION_CANCEL)", debug);
                     overlayActivated = false;
-                    fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
-                    fnb.press(FnButton.FN_COMMAND_LINE, "overlay::0::", "");
+                    fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
+                    fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
                     break;
 
             }
@@ -777,7 +777,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
 
             if(btnCoordinateOld!=btnCondidateInt){
-                fnb.press(FnButton.FN_COMMAND_LINE, "overlay::"+btnCondidateInt+"::", "");
+                fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::"+btnCondidateInt+"::", "");
                 this.v.vibrate(50);
             }
         }
@@ -819,7 +819,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                         overlayActivated = true;
                         this.v.vibrate(50);
-                        fnb.press(FnButton.FN_ALT_TAB, "", "");
+                        fnb.press(ButtonFnManager.FN_ALT_TAB, "", "");
                         timeActivated = System.currentTimeMillis();
                         InAppLog.writeLog(ST.this, "", "ALTTAb Activated!", debug);
                         startY = y;
@@ -835,7 +835,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                 moveCondidateY = moveY > 0 ? 1 : -1;
                                 startX = x;
                                 startY = y;
-                                fnb.press(FnButton.FN_CUSTOM, moveY>0?"Left arrow":"Right arrow", "");
+                                fnb.press(ButtonFnManager.FN_CUSTOM, moveY>0?"Left arrow":"Right arrow", "");
                                 this.v.vibrate(50);
                             }
 
@@ -846,7 +846,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
 
                         if (inViewBounds(v, x, y)) {
-                            fnb.press(FnButton.FN_ESC, "", "");
+                            fnb.press(ButtonFnManager.FN_ESC, "", "");
                             overlayActivated = false;
                             InAppLog.writeLog(ST.this, "", "ALT TAB Overlay release by return", debug);
                         }
@@ -857,9 +857,9 @@ public class ST extends FragmentActivity implements OnClickListener {
                     if (overlayActivated) {
                         InAppLog.writeLog(ST.this, "", "ALT TAB Overlay release", debug);
                         overlayActivated = false;
-                        fnb.press(FnButton.FN_ENTER, "", "");
+                        fnb.press(ButtonFnManager.FN_ENTER, "", "");
 
-                        Executors.newSingleThreadScheduledExecutor().schedule(new SocketThread(ipEt.getText().toString(), Integer.parseInt(portEt.getText().toString()), FnButton.ab, 0, 0, ST.this), 400, TimeUnit.MILLISECONDS);
+                        Executors.newSingleThreadScheduledExecutor().schedule(new SocketThread(ipEt.getText().toString(), Integer.parseInt(portEt.getText().toString()), ButtonFnManager.ab, 0, 0, ST.this), 400, TimeUnit.MILLISECONDS);
 
                         this.v.vibrate(100);
 
@@ -870,7 +870,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 case MotionEvent.ACTION_CANCEL:
                     InAppLog.writeLog(ST.this, "", "ALT TAB Overlay release (ACTION_CANCEL)", debug);
                     overlayActivated = false;
-                    fnb.press(FnButton.FN_ESC, "", "");
+                    fnb.press(ButtonFnManager.FN_ESC, "", "");
                     break;
 
             }
@@ -886,7 +886,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             currentProcess = process;
             status.setText(currentProcess);
         new Thread(new SocketThread(ipEt.getText().toString(),
-                Integer.parseInt(portEt.getText().toString()), FnButton.getProcessIcon, 0, 0, ST.this)).start();
+                Integer.parseInt(portEt.getText().toString()), ButtonFnManager.getProcessIcon, 0, 0, ST.this)).start();
             bindContextButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""));
 
 
@@ -933,7 +933,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                         for (int i = 1; i <=255 ; i++) {
                             if(breakDiscovering)break;
                             String ipToDesc = broadcastAdress.substring(0, broadcastAdress.lastIndexOf("255"))+i;
-                            new Thread(new SocketThread(ipToDesc/*broadcastAdress*/, j==1032?1025:j, FnButton.ab, 12, 12, ST.this) {
+                            new Thread(new SocketThread(ipToDesc/*broadcastAdress*/, j==1032?1025:j, ButtonFnManager.ab, 12, 12, ST.this) {
 
                                 @Override
                                 public void run() {
@@ -1034,7 +1034,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 break;
 
             case R.id.fireFN:
-                fnb.press(FnButton.FN_FIRE_FN, "", "");
+                fnb.press(ButtonFnManager.FN_FIRE_FN, "", "");
                 break;
 
             case R.id.arrows:
@@ -1089,7 +1089,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     bEt.setText(Integer.parseInt(bEt.getText().toString()) + 1 + "");
 
                     new Thread(new SocketThread(ipEt.getText().toString(), port,
-                            FnButton.ab, a, b, ST.this)).start();
+                            ButtonFnManager.ab, a, b, ST.this)).start();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -1232,7 +1232,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                             ed.putString("port", ipPort[1]);
                             ed.commit();
                             breakDiscovering = true;
-                            new Thread(new SocketThread(ipPort[0],Integer.parseInt(ipPort[1]), FnButton.ab, 0,0,ST.this )).start();
+                            new Thread(new SocketThread(ipPort[0],Integer.parseInt(ipPort[1]), ButtonFnManager.ab, 0,0,ST.this )).start();
                         }
                     });
 
@@ -1310,7 +1310,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             switch (resultCode){
                 case RESULT_OK:
                     new Thread(new SocketThread(ipEt.getText().toString(),
-                            Integer.parseInt(portEt.getText().toString()), FnButton.ab, 0, 0, ST.this)).start();
+                            Integer.parseInt(portEt.getText().toString()), ButtonFnManager.ab, 0, 0, ST.this)).start();
                     break;
 
             }
@@ -1328,7 +1328,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     //			m_Text = shp.getString(m_Text, m_Text);
 
                     int port = Integer.parseInt(portEt.getText().toString());
-                    new Thread(new SocketThread(ST.this, ipEt.getText().toString(), port, FnButton.launch, m_Text)).start();
+                    new Thread(new SocketThread(ST.this, ipEt.getText().toString(), port, ButtonFnManager.launch, m_Text)).start();
 
                     break;
 
@@ -1359,7 +1359,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                         m_Text = m_Text.substring(0, m_Text.length() - 6);
                                         needReinvokeVoiceFn = true;
                                     }
-                                    new Thread(new SocketThread(ST.this, ipEt.getText().toString(), port, FnButton.launch, m_Text)).start();
+                                    new Thread(new SocketThread(ST.this, ipEt.getText().toString(), port, ButtonFnManager.launch, m_Text)).start();
                                     //Reinvoke
                                     if (needReinvokeVoiceFn) {
                                         fnb.press(fnb.FN_VOICE_FN, "", "");
@@ -1502,7 +1502,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 case RESULT_OK:
                     ArrayList<String> matches = intent.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-                    fnb.press(FnButton.FN_COMMAND_LINE, currentCommandLineaArgs.replace("<input>", matches.get(0)), "");
+                    fnb.press(ButtonFnManager.FN_COMMAND_LINE, currentCommandLineaArgs.replace("<input>", matches.get(0)), "");
 
                     break;
 
@@ -1531,7 +1531,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                         m_Text = m_Text.substring(0, m_Text.length() - 6);
                                         needReinvokeVoiceFn = true;
                                     }
-                                    fnb.press(FnButton.FN_COMMAND_LINE, currentCommandLineaArgs.replace("<input>", m_Text), "");
+                                    fnb.press(ButtonFnManager.FN_COMMAND_LINE, currentCommandLineaArgs.replace("<input>", m_Text), "");
                                     //Reinvoke
                                     if (needReinvokeVoiceFn) {
                                         fnb.press(fnb.FN_VOICE_FN, "", "");
@@ -1570,10 +1570,10 @@ public class ST extends FragmentActivity implements OnClickListener {
 
             int port = Integer.parseInt(portEt.getText().toString());
             new Thread(new SocketThread(ST.this, ipEt.getText().toString(), port,
-                    FnButton.keyboard, m_Text)).start();
+                    ButtonFnManager.keyboard, m_Text)).start();
             if (shp.getBoolean("enterOnVoiceInput", true)) {
                 new Thread(new SocketThread(ST.this, ipEt.getText().toString(), port,
-                        FnButton.keyboard, "\n")).start();
+                        ButtonFnManager.keyboard, "\n")).start();
             }
 
         }
@@ -1993,49 +1993,49 @@ public class ST extends FragmentActivity implements OnClickListener {
         wsBtn9.setText(fnb.fnMap.get(shp.getInt(FN_SAVE_B9 + "" + currentProcess, fnb.NO_FUNCTION)));
         wsBtn9.setOnLongClickListener(olclFn);
 
-        if(shp.getInt(FN_SAVE_B1+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+        if(shp.getInt(FN_SAVE_B1+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
             wsBtn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
         }else{
             wsBtn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
         }
-        if(shp.getInt(FN_SAVE_B2+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+        if(shp.getInt(FN_SAVE_B2+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
             wsBtn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
         }else{
             wsBtn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
         }
-        if(shp.getInt(FN_SAVE_B3+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+        if(shp.getInt(FN_SAVE_B3+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
             wsBtn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
         }else{
             wsBtn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
         }
 
-        if(shp.getInt(FN_SAVE_B4+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+        if(shp.getInt(FN_SAVE_B4+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
             wsBtn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
         }else{
             wsBtn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
         }
-        if(shp.getInt(FN_SAVE_B5+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+        if(shp.getInt(FN_SAVE_B5+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
             wsBtn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
         }else{
             wsBtn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
         }
-        if(shp.getInt(FN_SAVE_B6+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+        if(shp.getInt(FN_SAVE_B6+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
             wsBtn6.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
         }else{
             wsBtn6.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
         }
 
-        if(shp.getInt(FN_SAVE_B7+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+        if(shp.getInt(FN_SAVE_B7+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
             wsBtn7.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
         }else{
             wsBtn7.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
         }
-        if(shp.getInt(FN_SAVE_B8+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+        if(shp.getInt(FN_SAVE_B8+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
             wsBtn8.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
         }else{
             wsBtn8.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
         }
-        if(shp.getInt(FN_SAVE_B9+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+        if(shp.getInt(FN_SAVE_B9+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
             wsBtn9.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
         }else{
             wsBtn9.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
@@ -2181,7 +2181,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     wsBtn1.setText(i.getStringExtra("Name"));
                 }
 
-                if(shp.getInt(FN_SAVE_B1+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                if(shp.getInt(FN_SAVE_B1+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
                     wsBtn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
                 }else{
                     wsBtn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
@@ -2211,7 +2211,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     wsBtn2.setText(i.getStringExtra("Name"));
                 }
 
-                if(shp.getInt(FN_SAVE_B2+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                if(shp.getInt(FN_SAVE_B2+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
                     wsBtn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
                 }else{
                     wsBtn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
@@ -2242,7 +2242,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     wsBtn3.setText(i.getStringExtra("Name"));
                 }
 
-                if(shp.getInt(FN_SAVE_B3+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                if(shp.getInt(FN_SAVE_B3+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
                     wsBtn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
                 }else{
                     wsBtn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
@@ -2273,7 +2273,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     wsBtn4.setText(i.getStringExtra("Name"));
                 }
 
-                if(shp.getInt(FN_SAVE_B4+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                if(shp.getInt(FN_SAVE_B4+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
                     wsBtn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
                 }else{
                     wsBtn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
@@ -2303,7 +2303,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     wsBtn5.setText(i.getStringExtra("Name"));
                 }
 
-                if(shp.getInt(FN_SAVE_B5+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                if(shp.getInt(FN_SAVE_B5+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
                     wsBtn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
                 }else{
                     wsBtn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
@@ -2334,7 +2334,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     wsBtn6.setText(i.getStringExtra("Name"));
                 }
 
-                if(shp.getInt(FN_SAVE_B6+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                if(shp.getInt(FN_SAVE_B6+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
                     wsBtn6.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
                 }else{
                     wsBtn6.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
@@ -2364,7 +2364,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     wsBtn7.setText(i.getStringExtra("Name"));
                 }
 
-                if(shp.getInt(FN_SAVE_B7+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                if(shp.getInt(FN_SAVE_B7+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
                     wsBtn7.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
                 }else{
                     wsBtn7.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
@@ -2394,7 +2394,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     wsBtn8.setText(i.getStringExtra("Name"));
                 }
 
-                if(shp.getInt(FN_SAVE_B8+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                if(shp.getInt(FN_SAVE_B8+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
                     wsBtn8.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
                 }else{
                     wsBtn8.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
@@ -2425,7 +2425,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     wsBtn9.setText(i.getStringExtra("Name"));
                 }
 
-                if(shp.getInt(FN_SAVE_B9+""+currentProcess, fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+                if(shp.getInt(FN_SAVE_B9+""+currentProcess, fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
                     wsBtn9.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
                 }else{
                     wsBtn9.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));

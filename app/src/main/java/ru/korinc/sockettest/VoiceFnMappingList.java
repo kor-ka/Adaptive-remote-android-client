@@ -57,13 +57,13 @@ public class VoiceFnMappingList extends Activity{
 		if (keys.isEmpty()){
 			keys.add("хром");
 			ed.putString("VoiceFnArg:"+"хром", "start chrome");
-			ed.putInt("VoiceFn:"+"хром", FnButton.FN_COMMAND_LINE);
+			ed.putInt("VoiceFn:"+"хром", ButtonFnManager.FN_COMMAND_LINE);
 			ed.putStringSet("VoiceFnMap", keys);
 			ed.commit();
 
             keys.add("Поиск");
             ed.putString("VoiceFnArg:"+"хром", "start chrome \"google.ru/search?q=<input>\"");
-            ed.putInt("VoiceFn:"+"хром", FnButton.FN_COMMAND_LINE);
+            ed.putInt("VoiceFn:"+"хром", ButtonFnManager.FN_COMMAND_LINE);
             ed.putStringSet("VoiceFnMap", keys);
             ed.commit();
 		}
@@ -73,7 +73,7 @@ public class VoiceFnMappingList extends Activity{
 			for (String key:keys) {
 				String descrOfCammand = shp.getString("VoiceFnArg:"+key, "null");
 				if(descrOfCammand.isEmpty()){
-					descrOfCammand=FnButton.fnMap.get(shp.getInt("VoiceFn:"+key, 0));
+					descrOfCammand= ButtonFnManager.fnMap.get(shp.getInt("VoiceFn:"+key, 0));
 				}
 				map.add(getSmiledText(getBaseContext(),  key+" = "+descrOfCammand));
 			}
@@ -139,7 +139,7 @@ public class VoiceFnMappingList extends Activity{
 		// TODO Auto-generated method stub
 		if(requestCode==0&&resultCode==RESULT_OK){
 			ed.putString("VoiceFnArg:"+keyEt.getText().toString().toLowerCase(),  data.getStringExtra("FnResultArgs"));
-			ed.putInt("VoiceFn:"+keyEt.getText().toString().toLowerCase(), data.getIntExtra("FnResult", FnButton.NO_FUNCTION));
+			ed.putInt("VoiceFn:"+keyEt.getText().toString().toLowerCase(), data.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION));
 			keys  = shp.getStringSet("VoiceFnMap", new HashSet<String>());
 			keys.add(keyEt.getText().toString().toLowerCase());
 			ed.putStringSet("VoiceFnMap", keys);
@@ -147,7 +147,7 @@ public class VoiceFnMappingList extends Activity{
 			
 			String descrOfCammand = data.getStringExtra("FnResultArgs");
 			if(descrOfCammand.isEmpty()){
-				descrOfCammand=FnButton.fnMap.get(data.getIntExtra("FnResult", FnButton.NO_FUNCTION));
+				descrOfCammand= ButtonFnManager.fnMap.get(data.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION));
 			}
 			map.add(getSmiledText(getBaseContext(),  keyEt.getText().toString()+" = "+descrOfCammand));	
 			

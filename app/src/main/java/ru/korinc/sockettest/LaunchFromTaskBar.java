@@ -34,7 +34,7 @@ public class LaunchFromTaskBar extends Activity {
 	List<Spannable> map;
     List<String> process;
 	ArrayList<Bitmap> bitmaps = new ArrayList<Bitmap>();
-	FnButton fbn;
+	ButtonFnManager fbn;
 	final int GET_TASKBAR_APPS = 1;
 	final int OPEN_TASKBAR_APP = 2;
     final int OPEN_TASKBAR_APP_WINDOW = 4;

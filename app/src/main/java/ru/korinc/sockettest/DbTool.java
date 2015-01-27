@@ -29,34 +29,72 @@ public class DbTool{
     public final static String BUTTONS_TABLE_CMD = "cmd";
     public final static String BUTTONS_TABLE_ORDER = "morder";
 
-    public final static String SLIDERS_BTNS_PAGE_ID = "pageId";
+    public final static String SLIDERS_BTNS_PLACE_ID = "pageId";
     public final static String SLIDERS_BTNS_BTN_ID = "btnId";
 
     public final static String DESKTOPS_BTNS_NAME = "desktopName";
     public final static String DESKTOPS_BTNS_BTN_ID = "btnId";
     public final static String DESKTOPS_BTNS_ORDER = "morder";
 
-    public void addButton (String name, int type, String cmd, int order, Context context){
+    public long addButton (long id ,String name, int type, String cmd, int order, Context context){
         dbHelper = new DBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         cv = new ContentValues();
+        if(id!=-1){
+            cv.put("_id", id);
+            cv.put(BUTTONS_TABLE_NAME, name);
+            cv.put(BUTTONS_TABLE_TYPE, type);
+            cv.put(BUTTONS_TABLE_CMD, cmd);
+            cv.put(BUTTONS_TABLE_ORDER, order);
 
-        cv.put(BUTTONS_TABLE_NAME, name);
-        cv.put(BUTTONS_TABLE_TYPE, type);
-        cv.put(BUTTONS_TABLE_CMD, cmd);
-        cv.put(BUTTONS_TABLE_ORDER, order);
+            db.update(BUTTONS_TABLE, cv, null, null);
+        }else{
+            cv.put(BUTTONS_TABLE_NAME, name);
+            cv.put(BUTTONS_TABLE_TYPE, type);
+            cv.put(BUTTONS_TABLE_CMD, cmd);
+            cv.put(BUTTONS_TABLE_ORDER, order);
 
-
-        db.insert(BUTTONS_TABLE, null, cv);
-
+            id = db.insert(BUTTONS_TABLE, null, cv);
+        }
 /*
         String sql = "INSERT INTO " + BUTTONS_TABLE + " (" + BUTTONS_TABLE_NAME + ", " + BUTTONS_TABLE_TYPE + ", "  + BUTTONS_TABLE_CMD + ", " + BUTTONS_TABLE_ORDER + ")" +
                        " VALUES " + "(" + "\'" + name + "\'" + ", " + type + ", " + "\'" + cmd + "\'" + ", " + order + ");";
         db.execSQL(sql);
   */
         db.close();
+
+        return  id;
     }
+
+    public long getButtonIdByPlace(String place, Context context){
+        dbHelper = new DBHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c = db.query(false, SLIDERS_BTNS_TABLE, new String[]{SLIDERS_BTNS_BTN_ID}, SLIDERS_BTNS_PLACE_ID + " = " +place, null, null,null,null,null);
+        if(c.moveToFirst()){
+            return c.getLong(c.getColumnIndex(SLIDERS_BTNS_BTN_ID));
+        }else return -1;
+    }
+
+    public void bindButtonToPlace(long buttonId, String place, Context context){
+        dbHelper = new DBHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+       cv = new ContentValues();
+        cv.put(SLIDERS_BTNS_BTN_ID, buttonId);
+        cv.put(SLIDERS_BTNS_PLACE_ID, place);
+
+        db.insertWithOnConflict(SLIDERS_BTNS_TABLE, null, cv, db.CONFLICT_IGNORE);
+        db.close();
+    }
+
+    public Cursor getButtonCursor(long id, Context context){
+        dbHelper = new DBHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c = db.query(BUTTONS_TABLE, null, "_id=" + id, null, null, null, null);
+        return c;
+    }
+
 
     public void insert (String table, ContentValues cv, Context context){
         dbHelper = new DBHelper(context);
@@ -114,7 +152,7 @@ public class DbTool{
                                                                                                      BUTTONS_TABLE_CMD + TEXT + CM +
                                                                                                      BUTTONS_TABLE_ORDER + INTEGER +");");
 
-            db.execSQL("create table "+SLIDERS_BTNS_TABLE+" (" + "_id integer primary key autoincrement," + SLIDERS_BTNS_PAGE_ID + TEXT + CM +
+            db.execSQL("create table "+SLIDERS_BTNS_TABLE+" ("  + SLIDERS_BTNS_PLACE_ID + TEXT + " primary key " + CM +
                                                                                                             SLIDERS_BTNS_BTN_ID + INTEGER +");");
 
             db.execSQL("create table "+DESKTOPS_BTNS_TABLE+" (" + "_id integer primary key autoincrement," + DESKTOPS_BTNS_NAME + TEXT + CM +

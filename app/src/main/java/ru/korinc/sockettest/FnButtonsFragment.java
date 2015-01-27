@@ -9,17 +9,21 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 public class FnButtonsFragment extends Fragment {
 	public static final String PAGE_ID_ARG="pageId";
 	String pageId ="";
-	Button b1;
-	Button b2;
-	Button b3;
+	FnButton b1;
+    FnButton b2;
+    FnButton b3;
+
+    private final FnButton[] fnButtons = new FnButton[]{b1,b2,b3};
+
 	private static final String FN_SAVE_B1 = "fnB1";
 	private static final String FN_SAVE_B2 = "fnB2";
 	private static final String FN_SAVE_B3 = "fnB3";
+
+    private static  final String[] FN_SAVE_B = new String[]{FN_SAVE_B1, FN_SAVE_B2, FN_SAVE_B3};
 	
 	public static final int REQUEST_CODE_B1 = 12346;
 	public static final int REQUEST_CODE_B2 = 12347;
@@ -28,10 +32,14 @@ public class FnButtonsFragment extends Fragment {
 	private static final String FN_SAVE_ARGS_B1 = "fnB1args";
 	private static final String FN_SAVE_ARGS_B2 = "fnB2args";
 	private static final String FN_SAVE_ARGS_B3 = "fnB3args";
+
+    private static final String[] FN_SAVE_ARGS_B = new String[]{FN_SAVE_ARGS_B1, FN_SAVE_ARGS_B2, FN_SAVE_ARGS_B3};
 	
 	private static final String FN_SAVE_NAME_B1 = "fnB1name";
 	private static final String FN_SAVE_NAME_B2 = "fnB2name";
 	private static final String FN_SAVE_NAME_B3 = "fnB3name";
+
+    private static final String[] FN_SAVE_NAME_B = new String[]{FN_SAVE_NAME_B1, FN_SAVE_NAME_B2, FN_SAVE_NAME_B3};
 	
 	 View view;
 	 FnButtonsFragment thisFragment;
@@ -55,9 +63,9 @@ public class FnButtonsFragment extends Fragment {
 			super.onCreate(savedInstanceState);
 			this.pageId = getArguments().getString(PAGE_ID_ARG, "top0");
 			this.thisFragment = this;
-			b1 = (Button) view.findViewById(R.id.buttonB1);
-			b2 = (Button)  view.findViewById(R.id.buttonB2);
-			b3 = (Button)  view.findViewById(R.id.buttonB3);
+			b1 = (FnButton) view.findViewById(R.id.buttonB1);
+			b2 = (FnButton)  view.findViewById(R.id.buttonB2);
+			b3 = (FnButton)  view.findViewById(R.id.buttonB3);
 			final ST st = (ST) getActivity();
 			OnClickListener ocl = new OnClickListener() {
 				
@@ -98,58 +106,59 @@ public class FnButtonsFragment extends Fragment {
 			};
 			
 			OnLongClickListener olclFn = new OnLongClickListener() {
-				
+				String place = "";
 				@Override
 				public boolean onLongClick(View v) {
 					int reqToSend=0;
 					switch (v.getId()) {
 					case R.id.buttonB1:
 						reqToSend = REQUEST_CODE_B1;
+                        place = FN_SAVE_B1 + "" + pageId;
 						break;					
 					
 					case R.id.buttonB2:
 						reqToSend = REQUEST_CODE_B2;
+                        place = FN_SAVE_B2 + "" + pageId;
 						break;					
 					
 					case R.id.buttonB3:
 						reqToSend = REQUEST_CODE_B3;
+                        place = FN_SAVE_B3 + "" + pageId;
 						break;					
 										
 				}
+                    db = new DbTool();
+                    long buttonId = db.getButtonIdByPlace(place, getActivity());
 					Intent intent = new Intent(st.getBaseContext(), FnBind.class);
+                    intent.putExtra("id", buttonId);
 					startActivityForResult(intent, reqToSend);
 					return false;
 				}
 			};
 
-     //Устанавливаем изначально текст по типу кнопки
-			b1.setOnClickListener(ocl);
-			b1.setText(st.fnb.fnMap.get(st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)));
-			
-			b1.setOnLongClickListener(olclFn);
-			b2.setOnClickListener(ocl);
-			b2.setText(st.fnb.fnMap.get(st.shp.getInt(FN_SAVE_B2+""+pageId, st.fnb.NO_FUNCTION)));
-			b2.setOnLongClickListener(olclFn);
-			b3.setOnClickListener(ocl);
-			b3.setText(st.fnb.fnMap.get(st.shp.getInt(FN_SAVE_B3+""+pageId, st.fnb.NO_FUNCTION)));
-			b3.setOnLongClickListener(olclFn);
+            //Инитим кнопки
+            for (int i = 0; i < 3; i++) {
+                fnButtons[i].init(FN_SAVE_B[i]+""+pageId, getActivity(), ocl, olclFn);
+            }
 
+            //Ухо на тач - экслюзивно для слйдера
             b1.setOnTouchListener(st.overlayOTL);
             b2.setOnTouchListener(st.overlayAltTAbOTL);
             b3.setOnTouchListener(st.overlayOTL);
 
-     //Если пустая - меняем фон
-			if(st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+     //Дальше - ещё не в ините кнопки, надо перенести
+             //Если пустая - меняем фон
+			if(st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
 				b1.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
 			}
-			if(st.shp.getInt(FN_SAVE_B2+""+pageId, st.fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+			if(st.shp.getInt(FN_SAVE_B2+""+pageId, st.fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
 				b2.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
 			}
-			if(st.shp.getInt(FN_SAVE_B3+""+pageId, st.fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+			if(st.shp.getInt(FN_SAVE_B3+""+pageId, st.fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
 				b3.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
 			}
 
-	 //Если шорткат или команда - выяставляем их аргумент
+	     //Если шорткат или команда - выяставляем их аргумент
 
 			if(st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)==st.fnb.FN_CUSTOM||st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)==st.fnb.FN_COMMAND_LINE){
 				b1.setText(st.shp.getString(FN_SAVE_ARGS_B1+""+pageId, ""));
@@ -182,7 +191,7 @@ public class FnButtonsFragment extends Fragment {
 				b3.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
 			}
 
-     //Если есть имя - выставляем его
+        //Если есть имя - выставляем его
 
 			if(!st.shp.getString(FN_SAVE_NAME_B1+""+pageId, "").equals("")){
 				b1.setText(st.shp.getString(FN_SAVE_NAME_B1+""+pageId, ""));
@@ -199,8 +208,11 @@ public class FnButtonsFragment extends Fragment {
 		 final ST st = (ST) getActivity();
 
          //Пишем кнопку в базу
-         db.addButton(i.getStringExtra("Name"), i.getIntExtra("FnResult", st.fnb.NO_FUNCTION), i.getStringExtra("FnResultArgs"), -1, getActivity());
+         //Сейчас всегда заливаем новую. Потом будем обновлять по id
+         long id = db.addButton(i.getLongExtra("id", -1), i.getStringExtra("Name"), i.getIntExtra("FnResult", st.fnb.NO_FUNCTION), i.getStringExtra("FnResultArgs"), -1, getActivity());
+         db.bindButtonToPlace(id, reqestCode+""+pageId, getActivity());
 
+         //Далше, по сути, инит - после того, как допишу, использовать его
 		 switch (reqestCode) {
 		case REQUEST_CODE_B1:
 			 	st.ed.putInt(FN_SAVE_B1+""+pageId, i.getIntExtra("FnResult", st.fnb.NO_FUNCTION));
@@ -215,7 +227,7 @@ public class FnButtonsFragment extends Fragment {
 					b1.setText(i.getStringExtra("Name"));
 				}
 				
-				if(st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+				if(st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
 					b1.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
 				}else{
 					b1.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
@@ -245,7 +257,7 @@ public class FnButtonsFragment extends Fragment {
 				b2.setText(i.getStringExtra("Name"));
 			}
 			
-			if(st.shp.getInt(FN_SAVE_B2+""+pageId, st.fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+			if(st.shp.getInt(FN_SAVE_B2+""+pageId, st.fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
 				b2.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
 			}else{
 				b2.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
@@ -276,7 +288,7 @@ public class FnButtonsFragment extends Fragment {
 				b3.setText(i.getStringExtra("Name"));
 			}
 			
-			if(st.shp.getInt(FN_SAVE_B3+""+pageId, st.fnb.NO_FUNCTION)==FnButton.NO_FUNCTION){
+			if(st.shp.getInt(FN_SAVE_B3+""+pageId, st.fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
 				b3.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
 			}else{
 				b3.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
