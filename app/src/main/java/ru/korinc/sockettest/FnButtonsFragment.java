@@ -17,7 +17,7 @@ public class FnButtonsFragment extends Fragment {
     FnButton b2;
     FnButton b3;
 
-    private final FnButton[] fnButtons = new FnButton[]{b1,b2,b3};
+    private  FnButton[] fnButtons;
 
 	private static final String FN_SAVE_B1 = "fnB1";
 	private static final String FN_SAVE_B2 = "fnB2";
@@ -40,6 +40,9 @@ public class FnButtonsFragment extends Fragment {
 	private static final String FN_SAVE_NAME_B3 = "fnB3name";
 
     private static final String[] FN_SAVE_NAME_B = new String[]{FN_SAVE_NAME_B1, FN_SAVE_NAME_B2, FN_SAVE_NAME_B3};
+
+    OnLongClickListener olclFn;
+    OnClickListener ocl;
 	
 	 View view;
 	 FnButtonsFragment thisFragment;
@@ -66,46 +69,50 @@ public class FnButtonsFragment extends Fragment {
 			b1 = (FnButton) view.findViewById(R.id.buttonB1);
 			b2 = (FnButton)  view.findViewById(R.id.buttonB2);
 			b3 = (FnButton)  view.findViewById(R.id.buttonB3);
+
+            fnButtons = new FnButton[]{b1,b2,b3};
+
 			final ST st = (ST) getActivity();
-			OnClickListener ocl = new OnClickListener() {
+			ocl = new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
+
+
 				switch (v.getId()) {
 				case R.id.buttonB1:
-					int bindedFunction1 = st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION);
-					if(bindedFunction1 == st.fnb.NO_FUNCTION){
+
+					if(b1.type == st.fnb.NO_FUNCTION){
 						Intent intentB1 = new Intent(st, FnBind.class);
 						startActivityForResult(intentB1, REQUEST_CODE_B1);
 					}else{
-						st.fnb.press(bindedFunction1, st.shp.getString(FN_SAVE_ARGS_B1+""+pageId, "Nope"),"");
+						st.fnb.press(b1.type, b1.args,"");
 					}
 					break;
 				
 				case R.id.buttonB2:
-					int bindedFunction2 = st.shp.getInt(FN_SAVE_B2+""+pageId, st.fnb.NO_FUNCTION);
-					if(bindedFunction2 == st.fnb.NO_FUNCTION){
+					if(b2.type == st.fnb.NO_FUNCTION){
 						Intent intentB2 = new Intent(st, FnBind.class);
 						startActivityForResult(intentB2, REQUEST_CODE_B2);
 					}else{
-						st.fnb.press(bindedFunction2, st.shp.getString(FN_SAVE_ARGS_B2+""+pageId, "Nope"), "");
+						st.fnb.press(b2.type, b2.args, "");
 					}
 					break;
 				
 				case R.id.buttonB3:
-					int bindedFunction3 = st.shp.getInt(FN_SAVE_B3+""+pageId, st.fnb.NO_FUNCTION);
-					if(bindedFunction3 == st.fnb.NO_FUNCTION){
+
+					if(b3.type == st.fnb.NO_FUNCTION){
 						Intent intentB3 = new Intent(st, FnBind.class);
 						startActivityForResult(intentB3, REQUEST_CODE_B3);
 					}else{
-						st.fnb.press(bindedFunction3, st.shp.getString(FN_SAVE_ARGS_B3+""+pageId, "Nope"), "");
+						st.fnb.press(b3.type, b3.args, "");
 					}
 					break;
 				}
 				}
 			};
 			
-			OnLongClickListener olclFn = new OnLongClickListener() {
+			olclFn = new OnLongClickListener() {
 				String place = "";
 				@Override
 				public boolean onLongClick(View v) {
@@ -128,91 +135,55 @@ public class FnButtonsFragment extends Fragment {
 										
 				}
                     db = new DbTool();
-                    long buttonId = db.getButtonIdByPlace(place, getActivity());
+                    long buttonId = db.getButtonIdByPlace(place, getActivity(), getActivity());
 					Intent intent = new Intent(st.getBaseContext(), FnBind.class);
-                    intent.putExtra("id", buttonId);
+                    //intent.putExtra("id", buttonId);
 					startActivityForResult(intent, reqToSend);
 					return false;
 				}
 			};
 
             //Инитим кнопки
-            for (int i = 0; i < 3; i++) {
-                fnButtons[i].init(FN_SAVE_B[i]+""+pageId, getActivity(), ocl, olclFn);
-            }
+         initButtons(ocl, olclFn);
 
-            //Ухо на тач - экслюзивно для слйдера
+         //Ухо на тач - экслюзивно для слйдера
             b1.setOnTouchListener(st.overlayOTL);
             b2.setOnTouchListener(st.overlayAltTAbOTL);
             b3.setOnTouchListener(st.overlayOTL);
 
-     //Дальше - ещё не в ините кнопки, надо перенести
-             //Если пустая - меняем фон
-			if(st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
-				b1.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
-			}
-			if(st.shp.getInt(FN_SAVE_B2+""+pageId, st.fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
-				b2.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
-			}
-			if(st.shp.getInt(FN_SAVE_B3+""+pageId, st.fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
-				b3.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
-			}
-
-	     //Если шорткат или команда - выяставляем их аргумент
-
-			if(st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)==st.fnb.FN_CUSTOM||st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)==st.fnb.FN_COMMAND_LINE){
-				b1.setText(st.shp.getString(FN_SAVE_ARGS_B1+""+pageId, ""));
-				if(st.shp.getString(FN_SAVE_ARGS_B1+""+pageId, "").contains("chrome")){
-					b1.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
-				}else{
-					b1.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-				}
-			}else{
-				b1.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-			}
-			if(st.shp.getInt(FN_SAVE_B2+""+pageId, st.fnb.NO_FUNCTION)==st.fnb.FN_CUSTOM||st.shp.getInt(FN_SAVE_B2+""+pageId, st.fnb.NO_FUNCTION)==st.fnb.FN_COMMAND_LINE){
-				b2.setText(st.shp.getString(FN_SAVE_ARGS_B2+""+pageId, ""));
-				if(st.shp.getString(FN_SAVE_ARGS_B2+""+pageId, "").contains("chrome")){
-					b2.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
-				}else{
-					b2.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-				}
-			}else{
-				b2.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-			}
-			if(st.shp.getInt(FN_SAVE_B3+""+pageId, st.fnb.NO_FUNCTION)==st.fnb.FN_CUSTOM||st.shp.getInt(FN_SAVE_B3+""+pageId, st.fnb.NO_FUNCTION)==st.fnb.FN_COMMAND_LINE){
-				b3.setText(st.shp.getString(FN_SAVE_ARGS_B3+""+pageId, ""));
-				if(st.shp.getString(FN_SAVE_ARGS_B3+""+pageId, "").contains("chrome")){
-					b3.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
-				}else{
-					b3.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-				}
-			}else{
-				b3.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-			}
-
-        //Если есть имя - выставляем его
-
-			if(!st.shp.getString(FN_SAVE_NAME_B1+""+pageId, "").equals("")){
-				b1.setText(st.shp.getString(FN_SAVE_NAME_B1+""+pageId, ""));
-			}
-			if(!st.shp.getString(FN_SAVE_NAME_B2+""+pageId, "").equals("")){
-				b2.setText(st.shp.getString(FN_SAVE_NAME_B2+""+pageId, ""));
-			}
-			if(!st.shp.getString(FN_SAVE_NAME_B3+""+pageId, "").equals("")){
-				b3.setText(st.shp.getString(FN_SAVE_NAME_B3+""+pageId, ""));
-			}
 	 }
-	 
-	 public void saveFnBindResults (Intent i, int reqestCode){
+
+    private void initButtons(OnClickListener ocl, OnLongClickListener olclFn) {
+        for (int i = 0; i < 3; i++) {
+            fnButtons[i].init(FN_SAVE_B[i]+""+pageId, getActivity(), ocl, olclFn);
+        }
+    }
+
+    public void saveFnBindResults (Intent i, int reqestCode){
 		 final ST st = (ST) getActivity();
 
          //Пишем кнопку в базу
          //Сейчас всегда заливаем новую. Потом будем обновлять по id
          long id = db.addButton(i.getLongExtra("id", -1), i.getStringExtra("Name"), i.getIntExtra("FnResult", st.fnb.NO_FUNCTION), i.getStringExtra("FnResultArgs"), -1, getActivity());
-         db.bindButtonToPlace(id, reqestCode+""+pageId, getActivity());
+         String fn_save = "";
 
+         switch (reqestCode){
+             case REQUEST_CODE_B1:
+                 fn_save = FN_SAVE_B1;
+                 break;
+             case REQUEST_CODE_B2:
+                 fn_save = FN_SAVE_B2;
+                 break;
+             case REQUEST_CODE_B3:
+                 fn_save = FN_SAVE_B3;
+                 break;
+         }
+         db.bindButtonToPlace(id, fn_save+""+pageId, getActivity());
+
+
+        initButtons(ocl, olclFn);
          //Далше, по сути, инит - после того, как допишу, использовать его
+        /*
 		 switch (reqestCode) {
 		case REQUEST_CODE_B1:
 			 	st.ed.putInt(FN_SAVE_B1+""+pageId, i.getIntExtra("FnResult", st.fnb.NO_FUNCTION));
@@ -307,7 +278,7 @@ public class FnButtonsFragment extends Fragment {
 		break;		
 		
 		}
-		
+		*/
 	 }
 	 
 	 @Override

@@ -1,7 +1,9 @@
 package ru.korinc.sockettest;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.AttributeSet;
 import android.widget.Button;
 
 /**
@@ -20,19 +22,32 @@ public class FnButton extends Button{
         super(context);
     }
 
+    public FnButton(Context context, AttributeSet attrs){
+        super(context, attrs);
+    }
 
     public FnButton(String name, long id, String args, int type, OnClickListener ocl, OnLongClickListener olcl, Context context) {
         super(context);
         init(name, id, args, type, ocl, olcl);
     }
 
-    public void init(String place, Context context, OnClickListener ocl, OnLongClickListener olcl){
+    public void init(String place, Activity context, OnClickListener ocl, OnLongClickListener olcl){
         DbTool db = new DbTool();
-        this.id = db.getButtonIdByPlace(place, context);
+        this.id = db.getButtonIdByPlace(place, context, context);
         Cursor c = db.getButtonCursor(id, context);
-        this.name = c.getString(c.getColumnIndex(db.BUTTONS_TABLE_NAME));
-        this.args = c.getString(c.getColumnIndex(db.BUTTONS_TABLE_CMD));
-        this.type = c.getInt(c.getColumnIndex(db.BUTTONS_TABLE_TYPE));
+        if(c!=null){
+            this.name = c.getString(c.getColumnIndex(db.BUTTONS_TABLE_NAME));
+            this.args = c.getString(c.getColumnIndex(db.BUTTONS_TABLE_CMD));
+            this.type = c.getInt(c.getColumnIndex(db.BUTTONS_TABLE_TYPE));
+            c.close();
+            db.dbHelper.close();
+        }else{
+            this.name = "";
+            this.args = "";
+            this.type = ButtonFnManager.NO_FUNCTION;
+        }
+
+
 
         this.ocl = ocl;
         this.olcl = olcl;
@@ -40,8 +55,34 @@ public class FnButton extends Button{
         this.setOnClickListener(ocl);
         this.setText(name);
         this.setOnLongClickListener(olcl);
-        c.close();
-        db.dbHelper.close();
+
+        setText(ButtonFnManager.fnMap.get(this.type));
+
+        //Если пустая - меняем фон
+        if(this.type== ButtonFnManager.NO_FUNCTION){
+            setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+        }else{
+            setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+        }
+
+        //Если шорткат или команда - выяставляем их аргумент
+
+        if(this.type==ButtonFnManager.FN_CUSTOM||this.type==ButtonFnManager.FN_COMMAND_LINE){
+            setText(this.args);
+            if(this.args.contains("chrome")){
+                setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
+            }else{
+                setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            }
+        }else{
+            setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        }
+
+        //Если есть имя - выставляем его
+
+        if(!this.name.equals("") && !this.name.isEmpty()){
+            setText(name);
+        }
     }
 
     public void init(String name, long id, String args, int type, OnClickListener ocl, OnLongClickListener olcl){

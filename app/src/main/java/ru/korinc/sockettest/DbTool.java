@@ -1,5 +1,6 @@
 package ru.korinc.sockettest;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -67,15 +68,26 @@ public class DbTool{
         return  id;
     }
 
-    public long getButtonIdByPlace(String place, Context context){
+    public long getButtonIdByPlace(String place, Context context, Activity act){
         dbHelper = new DBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor c = db.query(false, SLIDERS_BTNS_TABLE, new String[]{SLIDERS_BTNS_BTN_ID}, SLIDERS_BTNS_PLACE_ID + " = " +place, null, null,null,null,null);
+
+        Cursor c2log = db.query(false, SLIDERS_BTNS_TABLE, null, null, null, null,null,null,null);
+        if(c2log.moveToFirst()){
+            do{
+                InAppLog.writeLog(act, "", c2log.getString(c2log.getColumnIndex(SLIDERS_BTNS_PLACE_ID))+"|"+c2log.getInt(c2log.getColumnIndex(SLIDERS_BTNS_BTN_ID)));
+            }while (c2log.moveToNext());
+        }
+
+
+        Cursor c = db.query(false, SLIDERS_BTNS_TABLE, new String[]{SLIDERS_BTNS_BTN_ID}, SLIDERS_BTNS_PLACE_ID + " like '" +place+"'", null, null,null,null,null);
         if(c.moveToFirst()){
             return c.getLong(c.getColumnIndex(SLIDERS_BTNS_BTN_ID));
         }else return -1;
     }
 
+
+    //Пишется криво! Не оверрайдит существующие, бомбит всё новое!!
     public void bindButtonToPlace(long buttonId, String place, Context context){
         dbHelper = new DBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -92,7 +104,8 @@ public class DbTool{
         dbHelper = new DBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor c = db.query(BUTTONS_TABLE, null, "_id=" + id, null, null, null, null);
-        return c;
+
+        return c.moveToFirst()?c:null;
     }
 
 
