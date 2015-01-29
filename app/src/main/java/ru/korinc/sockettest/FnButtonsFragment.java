@@ -135,7 +135,7 @@ public class FnButtonsFragment extends Fragment {
 										
 				}
                     db = new DbTool();
-                    long buttonId = db.getButtonIdByPlace(place, getActivity(), getActivity());
+                    long buttonId = db.getButtonIdByPlace(place, getActivity());
 					Intent intent = new Intent(st.getBaseContext(), FnBind.class);
                     //intent.putExtra("id", buttonId);
 					startActivityForResult(intent, reqToSend);
@@ -182,103 +182,7 @@ public class FnButtonsFragment extends Fragment {
 
 
         initButtons(ocl, olclFn);
-         //Далше, по сути, инит - после того, как допишу, использовать его
-        /*
-		 switch (reqestCode) {
-		case REQUEST_CODE_B1:
-			 	st.ed.putInt(FN_SAVE_B1+""+pageId, i.getIntExtra("FnResult", st.fnb.NO_FUNCTION));
-				st.ed.putString(FN_SAVE_ARGS_B1+""+pageId, i.getStringExtra("FnResultArgs"));
-				st.ed.putString(FN_SAVE_NAME_B1+""+pageId, i.getStringExtra("Name"));
-				st.ed.commit();				
-				b1.setText(st.fnb.fnMap.get(i.getIntExtra("FnResult", st.fnb.NO_FUNCTION)));
-				if(!i.getStringExtra("FnResultArgs").equals("")){
-					b1.setText(i.getStringExtra("FnResultArgs"));
-				}
-				if(!i.getStringExtra("Name").equals("")){
-					b1.setText(i.getStringExtra("Name"));
-				}
-				
-				if(st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
-					b1.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
-				}else{
-					b1.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
-				}
-				if(st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)==st.fnb.FN_CUSTOM||st.shp.getInt(FN_SAVE_B1+""+pageId, st.fnb.NO_FUNCTION)==st.fnb.FN_COMMAND_LINE){
-					
-					if(st.shp.getString(FN_SAVE_ARGS_B1+""+pageId, "").contains("chrome")){
-						b1.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
-					}else{
-						b1.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-					}
-				}else{
-					b1.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-				}
-			break;
-			
-		case REQUEST_CODE_B2:
-		 	st.ed.putInt(FN_SAVE_B2+""+pageId, i.getIntExtra("FnResult", st.fnb.NO_FUNCTION));
-			st.ed.putString(FN_SAVE_ARGS_B2+""+pageId, i.getStringExtra("FnResultArgs"));
-			st.ed.putString(FN_SAVE_NAME_B2+""+pageId, i.getStringExtra("Name"));
-			st.ed.commit();
-			b2.setText(st.fnb.fnMap.get(i.getIntExtra("FnResult", st.fnb.NO_FUNCTION)));
-			if(!i.getStringExtra("FnResultArgs").equals("")){
-				b2.setText(i.getStringExtra("FnResultArgs"));
-			}
-			if(!i.getStringExtra("Name").equals("")){
-				b2.setText(i.getStringExtra("Name"));
-			}
-			
-			if(st.shp.getInt(FN_SAVE_B2+""+pageId, st.fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
-				b2.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
-			}else{
-				b2.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
-			}
-			if(st.shp.getInt(FN_SAVE_B2+""+pageId, st.fnb.NO_FUNCTION)==st.fnb.FN_CUSTOM||st.shp.getInt(FN_SAVE_B2+""+pageId, st.fnb.NO_FUNCTION)==st.fnb.FN_COMMAND_LINE){
-				
-				if(st.shp.getString(FN_SAVE_ARGS_B3+""+pageId, "").contains("chrome")){
-					b2.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
-				}else{
-					b2.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-				}
-			}else{
-				b2.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-			}
-			
-		break;
-		
-		case REQUEST_CODE_B3:
-		 	st.ed.putInt(FN_SAVE_B3+""+pageId, i.getIntExtra("FnResult", st.fnb.NO_FUNCTION));
-			st.ed.putString(FN_SAVE_ARGS_B3+""+pageId, i.getStringExtra("FnResultArgs"));
-			st.ed.putString(FN_SAVE_NAME_B3+""+pageId, i.getStringExtra("Name"));
-			st.ed.commit();
-			b3.setText(st.fnb.fnMap.get(i.getIntExtra("FnResult", st.fnb.NO_FUNCTION)));
-			if(!i.getStringExtra("FnResultArgs").equals("")){
-				b3.setText(i.getStringExtra("FnResultArgs"));
-			}
-			if(!i.getStringExtra("Name").equals("")){
-				b3.setText(i.getStringExtra("Name"));
-			}
-			
-			if(st.shp.getInt(FN_SAVE_B3+""+pageId, st.fnb.NO_FUNCTION)== ButtonFnManager.NO_FUNCTION){
-				b3.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
-			}else{
-				b3.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
-			}
-			if(st.shp.getInt(FN_SAVE_B3+""+pageId, st.fnb.NO_FUNCTION)==st.fnb.FN_CUSTOM||st.shp.getInt(FN_SAVE_B3+""+pageId, st.fnb.NO_FUNCTION)==st.fnb.FN_COMMAND_LINE){
-				
-				if(st.shp.getString(FN_SAVE_ARGS_B3+""+pageId, "").contains("chrome")){
-					b3.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
-				}else{
-					b3.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-				}
-			}else{
-				b3.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-			}
-			
-		break;		
-		
-		}
-		*/
+
 	 }
 	 
 	 @Override

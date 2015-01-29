@@ -33,7 +33,7 @@ public class FnButton extends Button{
 
     public void init(String place, Activity context, OnClickListener ocl, OnLongClickListener olcl){
         DbTool db = new DbTool();
-        this.id = db.getButtonIdByPlace(place, context, context);
+        this.id = db.getButtonIdByPlace(place, context);
         Cursor c = db.getButtonCursor(id, context);
         if(c!=null){
             this.name = c.getString(c.getColumnIndex(db.BUTTONS_TABLE_NAME));

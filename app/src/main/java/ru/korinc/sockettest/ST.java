@@ -18,6 +18,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -29,9 +30,11 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -67,7 +70,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ST extends FragmentActivity implements OnClickListener {
 
-    boolean debug = true;
+    boolean debug = false;
 
     EditText ipEt;
     EditText portEt;
@@ -138,6 +141,9 @@ public class ST extends FragmentActivity implements OnClickListener {
 
     LinearLayout topPagerContainerLL;
     LinearLayout botPagerContainerLL;
+
+    private DrawerLayout mDrawerLayout;
+    private GridView mDrawerGrid;
 
 
     private static final String FN_SAVE_B1 = "cwfnB1";
@@ -522,12 +528,30 @@ public class ST extends FragmentActivity implements OnClickListener {
                         break;
                 }
                 tv.setText(sDown + "\n" + sMove + "\n" + sUp);
-                return false;
+                return true;
             }
 
         };
 
         ll.setOnTouchListener(otl);
+
+        //Left Menu
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerGrid = (GridView) findViewById(R.id.right_drawer);
+
+        // Set the adapter for the list view
+        mDrawerGrid.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, new String[]{"1","2","1","2","1","2","1","2","1","2","1","2",}));
+        // Set the list's click listener
+        mDrawerGrid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                View.DragShadowBuilder myShadow = new View.DragShadowBuilder(view);
+                view.setOnDragListener(new DragEventListener().setDrawerLayout(mDrawerLayout));
+                view.startDrag(null, myShadow, null, 0);
+                return false;
+            }
+        });
 
         // Pagers...
         // Instantiate a ViewPager and a PagerAdapter.
