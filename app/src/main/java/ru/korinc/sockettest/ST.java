@@ -1,6 +1,7 @@
 package ru.korinc.sockettest;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -216,6 +218,17 @@ public class ST extends FragmentActivity implements OnClickListener {
         bEt = (EditText) findViewById(R.id.etB);
         keyboardEt = (EditText) findViewById(R.id.etKeyboard);
 
+        EditText[] ets  = new EditText[]{ipEt, portEt, clientPortEt, aEt, bEt, keyboardEt};
+        for (EditText et:ets){
+            et.setOnDragListener( new View.OnDragListener() {
+                @Override
+                public boolean onDrag( View v, DragEvent event) {
+                    return true;
+                }
+            });
+        }
+
+
         scan = (Button) findViewById(R.id.bScan);
         send = (Button) findViewById(R.id.bSend);
 
@@ -246,8 +259,11 @@ public class ST extends FragmentActivity implements OnClickListener {
         ll = (LinearLayout) findViewById(R.id.ll);
 
         tv = (TextView) findViewById(R.id.tv);
+        tv.setVisibility(View.GONE);
 
         status = (TextView) findViewById(R.id.textStatus);
+        status.setVisibility(View.GONE);
+
 
         fnb = new ButtonFnManager(this);
 
@@ -528,7 +544,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                         break;
                 }
                 tv.setText(sDown + "\n" + sMove + "\n" + sUp);
-                return true;
+                return false;
             }
 
         };
@@ -540,15 +556,16 @@ public class ST extends FragmentActivity implements OnClickListener {
         mDrawerGrid = (GridView) findViewById(R.id.right_drawer);
 
         // Set the adapter for the list view
-        mDrawerGrid.setAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, new String[]{"1","2","1","2","1","2","1","2","1","2","1","2",}));
+        DbTool db = new DbTool();
+        mDrawerGrid.setAdapter(new DrawerGridAdapter(this, db.getCursor(DbTool.BUTTONS_TABLE, this)));
         // Set the list's click listener
         mDrawerGrid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                FnButton b = (FnButton) view;
                 View.DragShadowBuilder myShadow = new View.DragShadowBuilder(view);
                 view.setOnDragListener(new DragEventListener().setDrawerLayout(mDrawerLayout));
-                view.startDrag(null, myShadow, null, 0);
+                view.startDrag(new ClipData("", new String[]{""}, new ClipData.Item(new Intent().putExtra("id", b.getBtnId()))), myShadow, null, 0);
                 return false;
             }
         });

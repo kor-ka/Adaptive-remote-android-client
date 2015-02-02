@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ru.korinc.sockettest.FnButton
+        android:maxLines="1"
+        android:id="@+id/gridBtn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/btn_seelctor"
+        android:layout_margin="5dp"
+        android:textColor="#FFFFFF"/>
+</LinearLayout>

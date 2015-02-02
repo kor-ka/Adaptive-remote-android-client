@@ -1,9 +1,11 @@
 package ru.korinc.sockettest;
 
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -71,6 +73,26 @@ public class FnButtonsFragment extends Fragment {
 			b3 = (FnButton)  view.findViewById(R.id.buttonB3);
 
             fnButtons = new FnButton[]{b1,b2,b3};
+
+             for (final FnButton btn:fnButtons){
+                 btn.setOnDragListener( new View.OnDragListener() {
+                     @Override
+                     public boolean onDrag( View v, DragEvent event) {
+                         final int action = event.getAction();
+
+                         // Handles each of the expected events
+                         switch(action) {
+
+                             case DragEvent.ACTION_DROP:
+                                 ClipData.Item item = event.getClipData().getItemAt(0);
+                                 Intent i = item.getIntent();
+                                 btn.init(i.getLongExtra("id", 0), getActivity(), ocl, olclFn);
+                                 break;
+                         }
+                         return true;
+                     }
+                 });
+             }
 
 			final ST st = (ST) getActivity();
 			ocl = new OnClickListener() {
