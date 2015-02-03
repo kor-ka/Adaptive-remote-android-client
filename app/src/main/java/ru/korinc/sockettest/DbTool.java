@@ -47,15 +47,19 @@ public class DbTool{
             cv.put(BUTTONS_TABLE_TYPE, type);
             cv.put(BUTTONS_TABLE_CMD, cmd);
             cv.put(BUTTONS_TABLE_ORDER, order);
-
             db.update(BUTTONS_TABLE, cv, null, null);
         }else{
             cv.put(BUTTONS_TABLE_NAME, name);
             cv.put(BUTTONS_TABLE_TYPE, type);
             cv.put(BUTTONS_TABLE_CMD, cmd);
             cv.put(BUTTONS_TABLE_ORDER, order);
-
-            id = db.insert(BUTTONS_TABLE, null, cv);
+            String and = " AND ";
+            Cursor c = db.query(BUTTONS_TABLE, new String[]{}, BUTTONS_TABLE_NAME + " like '" + name + "'" + and + BUTTONS_TABLE_TYPE + " = " + type + and + BUTTONS_TABLE_CMD + " like '" + cmd + "' ", null, null, null, null);
+            if(c.moveToFirst()){
+                id = c.getLong(c.getColumnIndex("_id"));
+            }else{
+                id = db.insert(BUTTONS_TABLE, null, cv);
+            }
         }
 /*
         String sql = "INSERT INTO " + BUTTONS_TABLE + " (" + BUTTONS_TABLE_NAME + ", " + BUTTONS_TABLE_TYPE + ", "  + BUTTONS_TABLE_CMD + ", " + BUTTONS_TABLE_ORDER + ")" +
@@ -94,18 +98,16 @@ public class DbTool{
     public void bindButtonToPlace(long buttonId, String place, Context context){
         dbHelper = new DBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+        if(buttonId!=-1){
+            cv = new ContentValues();
+            cv.put(SLIDERS_BTNS_BTN_ID, buttonId);
+            cv.put(SLIDERS_BTNS_PLACE_ID, place);
 
-       cv = new ContentValues();
-        cv.put(SLIDERS_BTNS_BTN_ID, buttonId);
-        cv.put(SLIDERS_BTNS_PLACE_ID, place);
-        /*
-        if(getButtonIdByPlace(place, context, null)==-1){
-            db.insert(SLIDERS_BTNS_TABLE, null, cv);
+            db.insertWithOnConflict(SLIDERS_BTNS_TABLE, null, cv, db.CONFLICT_REPLACE);
         }else{
-            db.update(SLIDERS_BTNS_TABLE, cv, SLIDERS_BTNS_PLACE_ID+" like '" + place + "'", null);
+            db.delete(SLIDERS_BTNS_TABLE, SLIDERS_BTNS_PLACE_ID + " like '" + place + "'", null);
         }
-        */
-        db.insertWithOnConflict(SLIDERS_BTNS_TABLE, null, cv, db.CONFLICT_REPLACE);
+
 
         db.close();
     }

@@ -17,6 +17,7 @@ public class FnButton extends Button{
     public int type;
     private OnClickListener ocl;
     private OnLongClickListener olcl;
+    private String place;
 
     public FnButton(Context context){
         super(context);
@@ -33,6 +34,7 @@ public class FnButton extends Button{
 
     public void init(String place, Activity context, OnClickListener ocl, OnLongClickListener olcl){
         DbTool db = new DbTool();
+        this.place = place;
         this.id = db.getButtonIdByPlace(place, context);
         Cursor c = db.getButtonCursor(id, context);
         if(c!=null){
@@ -156,4 +158,7 @@ public class FnButton extends Button{
         return id;
     }
 
+    public String getPlace() {
+        return place;
+    }
 }

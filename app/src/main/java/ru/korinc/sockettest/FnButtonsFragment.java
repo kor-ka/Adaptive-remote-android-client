@@ -72,6 +72,7 @@ public class FnButtonsFragment extends Fragment {
 			b2 = (FnButton)  view.findViewById(R.id.buttonB2);
 			b3 = (FnButton)  view.findViewById(R.id.buttonB3);
 
+
             fnButtons = new FnButton[]{b1,b2,b3};
 
              for (final FnButton btn:fnButtons){
@@ -86,7 +87,12 @@ public class FnButtonsFragment extends Fragment {
                              case DragEvent.ACTION_DROP:
                                  ClipData.Item item = event.getClipData().getItemAt(0);
                                  Intent i = item.getIntent();
+                                 long id=i.getLongExtra("id", 0);
                                  btn.init(i.getLongExtra("id", 0), getActivity(), ocl, olclFn);
+
+                                 DbTool db = new DbTool();
+                                 FnButton fnb = (FnButton) v;
+                                 db.bindButtonToPlace(id, fnb.getPlace(), getActivity());
                                  break;
                          }
                          return true;
@@ -182,28 +188,36 @@ public class FnButtonsFragment extends Fragment {
     }
 
     public void saveFnBindResults (Intent i, int reqestCode){
-		 final ST st = (ST) getActivity();
+        final ST st = (ST) getActivity();
+        String fn_save = "";
 
-         //Пишем кнопку в базу
-         //Сейчас всегда заливаем новую. Потом будем обновлять по id
-         long id = db.addButton(i.getLongExtra("id", -1), i.getStringExtra("Name"), i.getIntExtra("FnResult", st.fnb.NO_FUNCTION), i.getStringExtra("FnResultArgs"), -1, getActivity());
-         String fn_save = "";
+        switch (reqestCode){
+            case REQUEST_CODE_B1:
+                fn_save = FN_SAVE_B1;
+                break;
+            case REQUEST_CODE_B2:
+                fn_save = FN_SAVE_B2;
+                break;
+            case REQUEST_CODE_B3:
+                fn_save = FN_SAVE_B3;
+                break;
+        }
+        if(i.getIntExtra("FnResult", st.fnb.NO_FUNCTION)!=st.fnb.NO_FUNCTION){
+            //Пишем кнопку в базу
+            //Сейчас всегда заливаем новую. Потом будем обновлять по id
+            long id = db.addButton(i.getLongExtra("id", -1), i.getStringExtra("Name"), i.getIntExtra("FnResult", st.fnb.NO_FUNCTION), i.getStringExtra("FnResultArgs"), -1, getActivity());
 
-         switch (reqestCode){
-             case REQUEST_CODE_B1:
-                 fn_save = FN_SAVE_B1;
-                 break;
-             case REQUEST_CODE_B2:
-                 fn_save = FN_SAVE_B2;
-                 break;
-             case REQUEST_CODE_B3:
-                 fn_save = FN_SAVE_B3;
-                 break;
-         }
-         db.bindButtonToPlace(id, fn_save+""+pageId, getActivity());
+            db.bindButtonToPlace(id, fn_save+""+pageId, getActivity());
+            DrawerGridAdapter adapter = (DrawerGridAdapter) st.mDrawerGrid.getAdapter();
+            adapter.getCursor().requery();
+            adapter.notifyDataSetChanged();
 
+        }else{
+            db.bindButtonToPlace(-1,fn_save+""+pageId, st);
+        }
 
         initButtons(ocl, olclFn);
+
 
 	 }
 	 

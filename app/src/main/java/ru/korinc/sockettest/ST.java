@@ -144,8 +144,8 @@ public class ST extends FragmentActivity implements OnClickListener {
     LinearLayout topPagerContainerLL;
     LinearLayout botPagerContainerLL;
 
-    private DrawerLayout mDrawerLayout;
-    private GridView mDrawerGrid;
+    public DrawerLayout mDrawerLayout;
+    public GridView mDrawerGrid;
 
 
     private static final String FN_SAVE_B1 = "cwfnB1";
