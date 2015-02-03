@@ -570,6 +570,14 @@ public class ST extends FragmentActivity implements OnClickListener {
             }
         });
 
+        mDrawerGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                FnButton b = (FnButton) view;
+                fnb.press(b.type, b.args, "");
+            }
+        });
+
         // Pagers...
         // Instantiate a ViewPager and a PagerAdapter.
         topPager = (ViewPager) findViewById(R.id.pagerTop);
