@@ -21,9 +21,12 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
+import android.text.Html;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
 import android.view.DragEvent;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -35,6 +38,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -210,6 +214,76 @@ public class ST extends FragmentActivity implements OnClickListener {
                 .getDefaultSharedPreferences(getApplicationContext());
         ed = shp.edit();
         setContentView(R.layout.activity_st);
+
+        if(shp.getBoolean("firstLaunch", true)){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this,
+                    AlertDialog.THEME_HOLO_LIGHT);
+            builder.setTitle("Ого, да у нас тут новичок!");
+
+
+
+            TextView tv = new TextView(this);
+            tv.setText("Привет! " +
+                    "\n Для начала тебе понадобится сервер для твоего компа. Скачать его можно здесь: ");
+            tv.setPadding(10, 10, 10, 0);
+            tv.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault);
+
+            TextView tvLink = new TextView(this);
+            tvLink.setText( Html.fromHtml("<a href=\"http://sites.google.com/site/adaptiveremote/\">Adptv server</a>"));
+            tvLink.setMovementMethod(LinkMovementMethod.getInstance());
+            tvLink.setPadding(10, 10, 10, 10);
+            tvLink.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault_Large);
+            tvLink.setGravity(Gravity.CENTER_HORIZONTAL);
+
+            final CheckBox chb = new CheckBox(this);
+            chb.setText("Больше не показывать");
+            chb.setChecked(true);
+
+
+            LinearLayout ll = new LinearLayout(this);
+            ll.setOrientation(LinearLayout.VERTICAL);
+
+
+
+            ll.addView(tv);
+            ll.addView(tvLink);
+            ll.addView(chb);
+
+            builder.setView(ll);
+
+            builder.setPositiveButton("Ага",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ed.putBoolean("firstLaunch", !chb.isChecked());
+                            ed.commit();
+                           dialog.dismiss();
+
+                        }
+                    });
+            builder.setNegativeButton("Отправь мне ссылку",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+
+                            Intent sendIntent = new Intent();
+                            sendIntent.setAction(Intent.ACTION_SEND);
+                            sendIntent.putExtra(Intent.EXTRA_TEXT, "http://sites.google.com/site/adaptiveremote/");
+                            sendIntent.setType("text/plain");
+                            startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_link_via)));
+
+                            ed.putBoolean("firstLaunch", !chb.isChecked());
+                            ed.commit();
+                            dialog.dismiss();
+                        }
+                    });
+
+            builder.create().show();
+
+
+        }
+
 
         ipEt = (EditText) findViewById(R.id.etIp);
         portEt = (EditText) findViewById(R.id.etSocket);
