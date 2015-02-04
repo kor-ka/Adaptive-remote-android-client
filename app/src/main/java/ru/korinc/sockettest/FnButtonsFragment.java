@@ -182,7 +182,7 @@ public class FnButtonsFragment extends Fragment {
 	 }
 
     private void initButtons(OnClickListener ocl, OnLongClickListener olclFn) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < fnButtons.length; i++) {
             fnButtons[i].init(FN_SAVE_B[i]+""+pageId, getActivity(), ocl, olclFn);
         }
     }

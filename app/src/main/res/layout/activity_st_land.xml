@@ -256,7 +256,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:visibility="gone">
-                    <Button
+                    <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -267,7 +267,7 @@
                         android:text="No function"
                         />
 
-                    <Button
+                    <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN2"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -278,7 +278,7 @@
                         android:text="No function"
                         />
 
-                    <Button
+                    <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN3"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -296,7 +296,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:visibility="gone">
-                    <Button
+                    <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN4"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -307,7 +307,7 @@
                         android:text="No function"
                         />
 
-                    <Button
+                    <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN5"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -318,7 +318,7 @@
                         android:text="No function"
                         />
 
-                    <Button
+                    <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN6"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -336,7 +336,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:visibility="gone">
-                    <Button
+                    <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN7"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -347,7 +347,7 @@
                         android:text="No function"
                         />
 
-                    <Button
+                    <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN8"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -358,7 +358,7 @@
                         android:text="No function"
                         />
 
-                    <Button
+                    <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN9"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
