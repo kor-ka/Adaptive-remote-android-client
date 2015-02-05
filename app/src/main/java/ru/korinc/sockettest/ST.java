@@ -17,7 +17,8 @@ import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
@@ -31,6 +32,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -65,8 +67,10 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -415,7 +419,12 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                                 //TODO Это пока только для верхнего и оно не работает
                                 for(int f = 0 ; f<topPagerAdapter.getCount(); f++){
-                                    btnsFragment = (FnButtonsFragment) topPagerAdapter.getItem(f);
+                                    btnsFragment = (FnButtonsFragment) topPagerAdapter.getFragment(f);
+                                    if(btnsFragment!=null){
+                                        btnsFragment.initButtons(btnsFragment.ocl, btnsFragment.olclFn, ST.this);
+                                    }
+
+                                    btnsFragment = (FnButtonsFragment) botPagerAdapter.getFragment(f);
                                     if(btnsFragment!=null){
                                         btnsFragment.initButtons(btnsFragment.ocl, btnsFragment.olclFn, ST.this);
                                     }
@@ -2010,27 +2019,30 @@ public class ST extends FragmentActivity implements OnClickListener {
         startActivityForResult(intent, requesrCode);
     }
 
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+    private class ScreenSlidePagerAdapter extends FragmentPagerAdapter {
         String topOrBot = "";
+        private Map<Integer, String> mFragmentTags;
+        private FragmentManager mFragmentManager;
 
         public ScreenSlidePagerAdapter(
                 android.support.v4.app.FragmentManager fragmentManager,
                 String topOrBot) {
             super(fragmentManager);
             this.topOrBot = topOrBot;
+            mFragmentManager = fragmentManager;
+            mFragmentTags = new HashMap<Integer, String>();
         }
 
         @Override
         public android.support.v4.app.Fragment getItem(int position) {
-            Fragment fr = null;
+
             Bundle arguments = new Bundle();
 
             arguments.putString(FnButtonsFragment.PAGE_ID_ARG, topOrBot
                     + position);
-            fr = new FnButtonsFragment();
-            fr.setArguments(arguments);
 
-            return fr;
+
+            return Fragment.instantiate(ST.this, FnButtonsFragment.class.getName(), arguments);
 
         }
 
@@ -2039,30 +2051,22 @@ public class ST extends FragmentActivity implements OnClickListener {
         }
 
         @Override
-        public CharSequence getPageTitle(int position) {
-            String title = "Oops";
-            switch (position) {
-                case 0:
-                    title = "Create shortcut";
-                    break;
-
-                case 1:
-                    title = "Choose existing fn";
-                    break;
-
-                case 2:
-                    title = "Create command line command";
-                    break;
-
-                default:
-                    title = "Oops";
-                    break;
+        public Object instantiateItem(ViewGroup container, int position) {
+            Object obj = super.instantiateItem(container, position);
+            if (obj instanceof Fragment) {
+                // record the fragment tag here.
+                Fragment f = (Fragment) obj;
+                String tag = f.getTag();
+                mFragmentTags.put(position, tag);
             }
+            return obj;
+        }
 
-
-            return title;
-
-
+        public Fragment getFragment(int position) {
+            String tag = mFragmentTags.get(position);
+            if (tag == null)
+                return null;
+            return mFragmentManager.findFragmentByTag(tag);
         }
 
         @Override
