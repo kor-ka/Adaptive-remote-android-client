@@ -1037,7 +1037,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             status.setText(currentProcess);
         new Thread(new SocketThread(ipEt.getText().toString(),
                 Integer.parseInt(portEt.getText().toString()), ButtonFnManager.getProcessIcon, 0, 0, ST.this)).start();
-            bindContextButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""));
+            bindContextButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), 0);
 
 
     }
@@ -1970,10 +1970,20 @@ public class ST extends FragmentActivity implements OnClickListener {
         }
     }
 
-    public void bindContextButtons(final String currentProcess){
-        for (int i = 0; i < fnButtons.length; i++) {
-            fnButtons[i].init(getReqCodeById(fnButtons[i].getId())+""+currentProcess, this, ocl, olclFn);
+    public void bindContextButtons(final String currentProcess, int buttonToUpdate){
+        if(buttonToUpdate==0){
+            for (FnButton b:fnButtons ) {
+                b.init(getReqCodeById(b.getId())+""+currentProcess, this, ocl, olclFn);
+            }
+        }else{
+            for (FnButton b:fnButtons ){
+                if(getReqCodeById(b.getId())==buttonToUpdate){
+                    b.init(getReqCodeById(b.getId())+""+currentProcess, this, ocl, olclFn);
+                    break;
+                }
+            }
         }
+
     }
 
     public void saveFnBindResults (Intent i, int reqestCode, final String currentProcess){
@@ -1993,7 +2003,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             db.bindButtonToPlace(-1,reqestCode+""+currentProcess, this);
         }
 
-        bindContextButtons(currentProcess);
+        bindContextButtons(currentProcess, reqestCode);
 
     }
 
