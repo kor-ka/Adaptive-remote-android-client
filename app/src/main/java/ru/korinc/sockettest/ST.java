@@ -84,6 +84,10 @@ public class ST extends FragmentActivity implements OnClickListener {
     Button scan;
     Button send;
 
+    Button dellBtn;
+    Button editBtn;
+    LinearLayout dragMenuLL;
+
     ImageButton up;
     ImageButton down;
     ImageButton left;
@@ -111,7 +115,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     TableRow tr2;
     TableRow tr3;
 
-    public ImageButton context;
+    public ImageButton contextBtn;
 
     TextView status;
     AlertDialog dialog;
@@ -348,7 +352,72 @@ public class ST extends FragmentActivity implements OnClickListener {
         tr2.setVisibility(View.INVISIBLE);
         tr3.setVisibility(View.INVISIBLE);
 
-        context = (ImageButton) findViewById(R.id.context);
+        dragMenuLL = (LinearLayout) findViewById(R.id.dragMenuLL);
+        editBtn = (Button) findViewById(R.id.editButton);
+        dellBtn = (Button) findViewById(R.id.dellButton);
+
+
+        View.OnDragListener dragListener = new View.OnDragListener() {
+            @Override
+            public boolean onDrag(View view, DragEvent dragEvent) {
+                final int action = dragEvent.getAction();
+
+                // Handles each of the expected events
+                switch(action) {
+
+                    case DragEvent.ACTION_DRAG_STARTED:
+                        dragMenuLL.setVisibility(View.VISIBLE);
+                        return true;
+
+                    case DragEvent.ACTION_DRAG_ENTERED:
+                        view.setBackgroundColor(ST.this.getResources().getColor(android.R.color.holo_blue_light));
+                        view.invalidate();
+
+                        return true;
+
+                    case DragEvent.ACTION_DRAG_LOCATION:
+
+                        return true;
+
+                    case DragEvent.ACTION_DRAG_EXITED:
+                        view.setBackgroundColor(ST.this.getResources().getColor(R.color.transparent_gray));
+                        view.invalidate();
+                        return true;
+
+                    case DragEvent.ACTION_DROP:
+                        switch (view.getId()){
+                            case R.id.editButton:
+                                break;
+
+                            case R.id.dellButton:
+                                break;
+                        }
+                        return true;
+
+                    case DragEvent.ACTION_DRAG_ENDED:
+                        dragMenuLL.setVisibility(View.INVISIBLE);
+                        editBtn.setBackgroundColor(ST.this.getResources().getColor(R.color.transparent_gray));
+                        dellBtn.setBackgroundColor(ST.this.getResources().getColor(R.color.transparent_gray));
+                        editBtn.invalidate();
+                        dellBtn.invalidate();
+                        return true;
+
+                    // An unknown action type was received.
+                    default:
+
+                        break;
+                }
+
+                return false;
+            }
+        };
+
+        editBtn.setOnDragListener(dragListener);
+        dellBtn.setOnDragListener(dragListener);
+        //Костыль, но без этого ACTION_DRAG_STARTED не ловится (вообще хз)
+        addButton.setOnDragListener(dragListener);
+
+        contextBtn = (ImageButton) findViewById(R.id.context);
 
         ll = (LinearLayout) findViewById(R.id.ll);
 
@@ -361,7 +430,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         fnb = new ButtonFnManager(this);
 
-        context.setOnClickListener(new OnClickListener() {
+        contextBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 fnb.press(ButtonFnManager.FN_CONTEXT_BUTTONS, "", "");
@@ -753,7 +822,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         overlayOTL = new OverlayOTL();
         overlayAltTAbOTL = new OverlayAltTAbOTL();
 
-        context.setOnTouchListener(overlayOTL);
+        contextBtn.setOnTouchListener(overlayOTL);
         topPager.setOnTouchListener(overlayOTL);
         botPager.setOnTouchListener(overlayOTL);
 

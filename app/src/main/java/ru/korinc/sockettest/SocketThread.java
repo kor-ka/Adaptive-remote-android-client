@@ -146,8 +146,8 @@ class SocketThread implements Runnable {
                             st.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if(bitmap!=null)st.context.setImageBitmap(bitmap);
-                                    //else st.context.setImageResource(android.R.drawable.radiobutton_off_background);
+                                    if(bitmap!=null)st.contextBtn.setImageBitmap(bitmap);
+                                    //else st.contextBtn.setImageResource(android.R.drawable.radiobutton_off_background);
                                 }
                             });
                             in.close();

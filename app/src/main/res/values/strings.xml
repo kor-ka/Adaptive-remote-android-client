@@ -9,5 +9,5 @@
     <string name="title_activity_fn_select">Fn Select</string>
     <string name="title_activity_launch_from_task_bar">Launch from taskbar</string>
     <string name="send_link_via">Отправить ссылку на сервер через</string>
-
+    <color name="transparent_gray">#44000000</color>
 </resources>
