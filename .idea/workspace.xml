@@ -38,11 +38,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8aece080-7de7-4787-b604-789c48b90d26" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/model_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/model_data.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnButtonsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnButtonsFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/viewpagerindicator/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/viewpagerindicator/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/ru/korinc/sockettest/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/ru/korinc/sockettest/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/ST.java" afterPath="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/ST.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="STA.iws" />
@@ -2361,7 +2356,11 @@
       <created>1423164820425</created>
       <updated>1423164820425</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="d&amp;d drag actions (dell in progress)">
+      <created>1423166559283</created>
+      <updated>1423166559283</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2452,7 +2451,8 @@
     <MESSAGE value="slide menu press (!work)" />
     <MESSAGE value="refactor context buttons to db (!done)" />
     <MESSAGE value="d&amp;d drag actions started" />
-    <option name="LAST_COMMIT_MESSAGE" value="d&amp;d drag actions started" />
+    <MESSAGE value="d&amp;d drag actions (dell in progress)" />
+    <option name="LAST_COMMIT_MESSAGE" value="d&amp;d drag actions (dell in progress)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
