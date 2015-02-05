@@ -14,8 +14,10 @@ import android.widget.CursorAdapter;
 public class DrawerGridAdapter extends CursorAdapter{
 private Cursor c;
 private Context ctx;
-    public DrawerGridAdapter(Context context, Cursor c) {
+private ButtonFnManager fnManager;
+    public DrawerGridAdapter(Context context, Cursor c, ButtonFnManager fnManager) {
         super(context, c);
+        this.fnManager = fnManager;
         this.c = c;
         this.ctx = context;
     }
@@ -37,8 +39,14 @@ private Context ctx;
         holder = new ViewHolder();
 
         holder.b = (FnButton) rowView.findViewById(R.id.gridBtn);
-        holder.b.init(c.getInt(c.getColumnIndex("_id")),ctx, null, null);
-
+        holder.b.init(c.getInt(c.getColumnIndex("_id")),ctx, null, null, fnManager);
+        holder.b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FnButton b = (FnButton) view;
+                b.press();
+            }
+        });
         return rowView;
     }
 

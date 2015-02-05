@@ -18,6 +18,7 @@ public class FnButton extends Button{
     private OnClickListener ocl;
     private OnLongClickListener olcl;
     private String place;
+    private ButtonFnManager fnManager;
 
     public FnButton(Context context){
         super(context);
@@ -32,7 +33,8 @@ public class FnButton extends Button{
         init(name, id, args, type, ocl, olcl);
     }
 
-    public void init(String place, Activity context, OnClickListener ocl, OnLongClickListener olcl){
+    public void init(String place, Activity context, OnClickListener ocl, OnLongClickListener olcl, ButtonFnManager fnManager){
+        this.fnManager = fnManager;
         DbTool db = new DbTool();
         this.place = place;
         this.id = db.getButtonIdByPlace(place, context);
@@ -87,7 +89,8 @@ public class FnButton extends Button{
         }
     }
 
-    public void init(long id, Context context, OnClickListener ocl, OnLongClickListener olcl){
+    public void init(long id, Context context, OnClickListener ocl, OnLongClickListener olcl, ButtonFnManager fnManager){
+        this.fnManager = fnManager;
         DbTool db = new DbTool();
         this.id = id;
         Cursor c = db.getButtonCursor(id, context);
@@ -152,6 +155,10 @@ public class FnButton extends Button{
         this.setOnClickListener(ocl);
         this.setText(name);
         this.setOnLongClickListener(olcl);
+    }
+
+    public void press(){
+        fnManager.press(type, args, "");
     }
 
     public long getBtnId(){

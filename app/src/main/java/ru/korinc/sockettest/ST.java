@@ -329,7 +329,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                             ClipData.Item item = event.getClipData().getItemAt(0);
                             Intent i = item.getIntent();
                             long id=i.getLongExtra("id", 0);
-                            b.init(i.getLongExtra("id", 0), ST.this, ocl, olclFn);
+                            b.init(i.getLongExtra("id", 0), ST.this, ocl, olclFn, fnb);
 
                             DbTool db = new DbTool();
                             FnButton fnb = (FnButton) v;
@@ -651,7 +651,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         // Set the adapter for the list view
         DbTool db = new DbTool();
-        mDrawerGrid.setAdapter(new DrawerGridAdapter(this, db.getCursor(DbTool.BUTTONS_TABLE, this)));
+        mDrawerGrid.setAdapter(new DrawerGridAdapter(this, db.getCursor(DbTool.BUTTONS_TABLE, this), fnb));
         // Set the list's click listener
         mDrawerGrid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -1973,12 +1973,12 @@ public class ST extends FragmentActivity implements OnClickListener {
     public void bindContextButtons(final String currentProcess, int buttonToUpdate){
         if(buttonToUpdate==0){
             for (FnButton b:fnButtons ) {
-                b.init(getReqCodeById(b.getId())+""+currentProcess, this, ocl, olclFn);
+                b.init(getReqCodeById(b.getId())+""+currentProcess, this, ocl, olclFn, fnb);
             }
         }else{
             for (FnButton b:fnButtons ){
                 if(getReqCodeById(b.getId())==buttonToUpdate){
-                    b.init(getReqCodeById(b.getId())+""+currentProcess, this, ocl, olclFn);
+                    b.init(getReqCodeById(b.getId())+""+currentProcess, this, ocl, olclFn, fnb);
                     break;
                 }
             }

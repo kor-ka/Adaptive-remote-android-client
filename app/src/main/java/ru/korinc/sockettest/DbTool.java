@@ -54,7 +54,8 @@ public class DbTool{
             cv.put(BUTTONS_TABLE_CMD, cmd);
             cv.put(BUTTONS_TABLE_ORDER, order);
             String and = " AND ";
-            Cursor c = db.query(BUTTONS_TABLE, new String[]{}, BUTTONS_TABLE_NAME + " like '" + name + "'" + and + BUTTONS_TABLE_TYPE + " = " + type + and + BUTTONS_TABLE_CMD + " like '" + cmd + "' ", null, null, null, null);
+            Cursor c = db.query(BUTTONS_TABLE, new String[]{}, BUTTONS_TABLE_NAME + " like ?" + and + BUTTONS_TABLE_TYPE + " = " + type + and + BUTTONS_TABLE_CMD + " like ?", new String[]{name, cmd
+            }, null, null, null);
             if(c.moveToFirst()){
                 id = c.getLong(c.getColumnIndex("_id"));
             }else{

@@ -74,7 +74,7 @@ public class FnButtonsFragment extends Fragment {
 
 
             fnButtons = new FnButton[]{b1,b2,b3};
-
+            final ST st = (ST) getActivity();
              for (final FnButton btn:fnButtons){
                  btn.setOnDragListener( new View.OnDragListener() {
                      @Override
@@ -88,7 +88,7 @@ public class FnButtonsFragment extends Fragment {
                                  ClipData.Item item = event.getClipData().getItemAt(0);
                                  Intent i = item.getIntent();
                                  long id=i.getLongExtra("id", 0);
-                                 btn.init(i.getLongExtra("id", 0), getActivity(), ocl, olclFn);
+                                 btn.init(i.getLongExtra("id", 0), getActivity(), ocl, olclFn, st.fnb);
 
                                  DbTool db = new DbTool();
                                  FnButton fnb = (FnButton) v;
@@ -100,7 +100,7 @@ public class FnButtonsFragment extends Fragment {
                  });
              }
 
-			final ST st = (ST) getActivity();
+
 			ocl = new OnClickListener() {
 				
 				@Override
@@ -172,7 +172,7 @@ public class FnButtonsFragment extends Fragment {
 			};
 
             //Инитим кнопки
-         initButtons(ocl, olclFn);
+         initButtons(ocl, olclFn, st);
 
          //Ухо на тач - экслюзивно для слйдера
             b1.setOnTouchListener(st.overlayOTL);
@@ -181,9 +181,9 @@ public class FnButtonsFragment extends Fragment {
 
 	 }
 
-    private void initButtons(OnClickListener ocl, OnLongClickListener olclFn) {
+    private void initButtons(OnClickListener ocl, OnLongClickListener olclFn, ST st) {
         for (int i = 0; i < fnButtons.length; i++) {
-            fnButtons[i].init(FN_SAVE_B[i]+""+pageId, getActivity(), ocl, olclFn);
+            fnButtons[i].init(FN_SAVE_B[i]+""+pageId, getActivity(), ocl, olclFn, st.fnb);
         }
     }
 
@@ -216,7 +216,7 @@ public class FnButtonsFragment extends Fragment {
             db.bindButtonToPlace(-1,fn_save+""+pageId, st);
         }
 
-        initButtons(ocl, olclFn);
+        initButtons(ocl, olclFn, st);
 
 
 	 }
