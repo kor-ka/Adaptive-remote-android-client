@@ -370,7 +370,18 @@ public class ST extends FragmentActivity implements OnClickListener {
                         return true;
 
                     case DragEvent.ACTION_DRAG_ENTERED:
-                        view.setBackgroundColor(ST.this.getResources().getColor(android.R.color.holo_blue_light));
+
+                        switch (view.getId()){
+                            case R.id.editButton:
+                                view.setBackgroundColor(ST.this.getResources().getColor(android.R.color.holo_blue_light));
+                                break;
+
+                            case R.id.dellButton:
+                                view.setBackgroundColor(ST.this.getResources().getColor(android.R.color.holo_red_light));
+                                break;
+                        }
+
+
                         view.invalidate();
 
                         return true;
@@ -387,9 +398,30 @@ public class ST extends FragmentActivity implements OnClickListener {
                     case DragEvent.ACTION_DROP:
                         switch (view.getId()){
                             case R.id.editButton:
+                                Toast.makeText(ST.this, "Пока не умею :)", Toast.LENGTH_SHORT);
                                 break;
 
                             case R.id.dellButton:
+                                DbTool db = new DbTool();
+                                ClipData.Item item = dragEvent.getClipData().getItemAt(0);
+                                Intent i = item.getIntent();
+                                long id=i.getLongExtra("id", 0);
+                                db.delRec(db.BUTTONS_TABLE, id, ST.this);
+                                bindContextButtons(currentProcess, 0);
+                                DrawerGridAdapter adapter = (DrawerGridAdapter) mDrawerGrid.getAdapter();
+                                adapter.getCursor().requery();
+                                adapter.notifyDataSetChanged();
+                                FnButtonsFragment btnsFragment;
+
+                                //TODO Это пока только для верхнего и оно не работает
+                                for(int f = 0 ; f<topPagerAdapter.getCount(); f++){
+                                    btnsFragment = (FnButtonsFragment) topPagerAdapter.getItem(f);
+                                    if(btnsFragment!=null){
+                                        btnsFragment.initButtons(btnsFragment.ocl, btnsFragment.olclFn, ST.this);
+                                    }
+                                }
+
+
                                 break;
                         }
                         return true;

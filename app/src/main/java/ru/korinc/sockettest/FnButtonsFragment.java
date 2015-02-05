@@ -88,7 +88,7 @@ public class FnButtonsFragment extends Fragment {
                                  ClipData.Item item = event.getClipData().getItemAt(0);
                                  Intent i = item.getIntent();
                                  long id=i.getLongExtra("id", 0);
-                                 btn.init(i.getLongExtra("id", 0), getActivity(), ocl, olclFn, st.fnb);
+                                 btn.init(id, getActivity(), ocl, olclFn, st.fnb);
 
                                  DbTool db = new DbTool();
                                  FnButton fnb = (FnButton) v;
@@ -181,9 +181,11 @@ public class FnButtonsFragment extends Fragment {
 
 	 }
 
-    private void initButtons(OnClickListener ocl, OnLongClickListener olclFn, ST st) {
-        for (int i = 0; i < fnButtons.length; i++) {
-            fnButtons[i].init(FN_SAVE_B[i]+""+pageId, getActivity(), ocl, olclFn, st.fnb);
+    public void initButtons(OnClickListener ocl, OnLongClickListener olclFn, ST st) {
+        if(fnButtons!=null){
+            for (int i = 0; i < fnButtons.length; i++) {
+                fnButtons[i].init(FN_SAVE_B[i]+""+pageId, getActivity(), ocl, olclFn, st.fnb);
+            }
         }
     }
 
