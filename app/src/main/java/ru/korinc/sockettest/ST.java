@@ -25,6 +25,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.DragEvent;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -33,6 +34,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -174,7 +176,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             ViewConfiguration config = ViewConfiguration.get(this);
             Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
             if (menuKeyField != null) {
-                menuKeyField.setAccessible(true);
+                menuKeyField.setAccessible(false);
                 menuKeyField.setBoolean(config, false);
             }
         } catch (Exception ex) {
@@ -326,12 +328,29 @@ public class ST extends FragmentActivity implements OnClickListener {
             b.setOnClickListener(ocl);
             b.setOnLongClickListener(olclFn);
             b.setOnDragListener( new View.OnDragListener() {
+
+
                 @Override
                 public boolean onDrag( View v, DragEvent event) {
                     final int action = event.getAction();
 
+                    AlphaAnimation enterAnimation=new AlphaAnimation(1,0);
+                    enterAnimation.setDuration(200);
+                    enterAnimation.setFillAfter(true);
+
+                    AlphaAnimation afterDropAnimation=new AlphaAnimation(0,1);
+                    afterDropAnimation.setDuration(200);
+                    afterDropAnimation.setFillAfter(true);
                     // Handles each of the expected events
                     switch(action) {
+
+                        case DragEvent.ACTION_DRAG_ENTERED:
+                            v.startAnimation(enterAnimation);
+                            break;
+
+                        case DragEvent.ACTION_DRAG_EXITED:
+                            v.startAnimation(afterDropAnimation);
+                            break;
 
                         case DragEvent.ACTION_DROP:
                             ClipData.Item item = event.getClipData().getItemAt(0);
@@ -342,6 +361,8 @@ public class ST extends FragmentActivity implements OnClickListener {
                             DbTool db = new DbTool();
                             FnButton fnb = (FnButton) v;
                             db.bindButtonToPlace(id, fnb.getPlace(), ST.this);
+                            v.clearAnimation();
+                            v.startAnimation(afterDropAnimation);
                             break;
                     }
                     return true;
@@ -1232,17 +1253,6 @@ public class ST extends FragmentActivity implements OnClickListener {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.st, menu);
-
-        if (shp.getBoolean("enterOnVoiceInput", true)) {
-            Menu settings = menu.getItem(3).getSubMenu();
-            settings.getItem(0).setChecked(true);
-        }
-
-        if (shp.getBoolean("showFnButtons", true)) {
-            Menu settings = menu.getItem(3).getSubMenu();
-            settings.getItem(1).setChecked(true);
-        }
-
         return true;
     }
 
@@ -1255,6 +1265,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             case R.id.action_scan:
                 scan.performClick();
                 break;
+            /*
             case R.id.enterAfterVoiceInput:
                 if (shp.getBoolean("enterOnVoiceInput", true)) {
                     item.setChecked(false);
@@ -1265,23 +1276,6 @@ public class ST extends FragmentActivity implements OnClickListener {
                 ed.commit();
                 break;
 
-            case R.id.showFnButtons:
-                if (shp.getBoolean("showFnButtons", true)) {
-                    item.setChecked(false);
-
-                    topPager.setVisibility(View.GONE);
-                    botPager.setVisibility(View.GONE);
-
-                } else {
-                    item.setChecked(true);
-
-                    topPager.setVisibility(View.VISIBLE);
-                    botPager.setVisibility(View.VISIBLE);
-
-                }
-                ed.putBoolean("showFnButtons", item.isChecked());
-                ed.commit();
-                break;
 
             case R.id.map:
                 Intent intent = new Intent(this, MappingList.class);
@@ -1292,43 +1286,21 @@ public class ST extends FragmentActivity implements OnClickListener {
                 Intent intent1 = new Intent(this, VoiceFnMappingList.class);
                 startActivity(intent1);
                 break;
-
-            case R.id.fireFN:
-                fnb.press(ButtonFnManager.FN_FIRE_FN, "", "");
-                break;
-
-            case R.id.arrows:
-                switch (up.getVisibility()) {
-                    case View.VISIBLE:
-                        up.setVisibility(View.GONE);
-                        down.setVisibility(View.GONE);
-                        left.setVisibility(View.GONE);
-                        right.setVisibility(View.GONE);
-                        break;
-
-                    case View.GONE:
-                        up.setVisibility(View.VISIBLE);
-                        down.setVisibility(View.VISIBLE);
-                        left.setVisibility(View.VISIBLE);
-                        right.setVisibility(View.VISIBLE);
-                        break;
-                }
-                break;
+            */
 
             case R.id.keyboard:
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
                         InputMethodManager.HIDE_IMPLICIT_ONLY);
                 break;
-/*
-            case R.id.launchApp:
-                startVoiceRecognitionActivity(REQUEST_CODE_LAUNCH_APP, null);
 
-                break;
-*/
             case R.id.voiceInput:
                 startVoiceRecognitionActivity(REQUEST_CODE_VOICE_INPUT, null);
+                break;
 
+            case R.id.settings:
+                if(mDrawerLayout.isDrawerOpen(Gravity.RIGHT))mDrawerLayout.closeDrawers();
+                else mDrawerLayout.openDrawer(Gravity.RIGHT);
                 break;
 
         }

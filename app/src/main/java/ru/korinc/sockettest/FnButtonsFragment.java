@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 
 public class FnButtonsFragment extends Fragment {
 	public static final String PAGE_ID_ARG="pageId";
@@ -77,12 +80,38 @@ public class FnButtonsFragment extends Fragment {
             final ST st = (ST) getActivity();
              for (final FnButton btn:fnButtons){
                  btn.setOnDragListener( new View.OnDragListener() {
+
+
                      @Override
                      public boolean onDrag( View v, DragEvent event) {
                          final int action = event.getAction();
+                         int animationConvert = pageId.startsWith("top")?-1:1;
+                         TranslateAnimation enterAnimation = new TranslateAnimation(
+                                 Animation.ABSOLUTE, 0, Animation.ABSOLUTE,0,
+                                 Animation.ABSOLUTE, 0, Animation.ABSOLUTE,b1.getHeight()*2*animationConvert);
+                         enterAnimation.setDuration(300);
+                         enterAnimation.setFillAfter(true);
+
+                         TranslateAnimation exitAnimation = new TranslateAnimation(
+                                 Animation.ABSOLUTE, 0, Animation.ABSOLUTE,0,
+                                 Animation.ABSOLUTE, b1.getHeight()*2*animationConvert, Animation.ABSOLUTE, 0);
+                         exitAnimation.setDuration(300);
+                         exitAnimation.setFillAfter(true);
+
+                         AlphaAnimation afterDropAnimation=new AlphaAnimation(0,1);
+                         afterDropAnimation.setDuration(200);
+                         afterDropAnimation.setFillAfter(true);
 
                          // Handles each of the expected events
                          switch(action) {
+
+                             case DragEvent.ACTION_DRAG_ENTERED:
+                                 v.startAnimation(enterAnimation);
+                                 break;
+
+                             case DragEvent.ACTION_DRAG_EXITED:
+                                 v.startAnimation(exitAnimation);
+                                 break;
 
                              case DragEvent.ACTION_DROP:
                                  ClipData.Item item = event.getClipData().getItemAt(0);
@@ -93,6 +122,8 @@ public class FnButtonsFragment extends Fragment {
                                  DbTool db = new DbTool();
                                  FnButton fnb = (FnButton) v;
                                  db.bindButtonToPlace(id, fnb.getPlace(), getActivity());
+                                 v.clearAnimation();
+                                 v.startAnimation(afterDropAnimation);
                                  break;
                          }
                          return true;
