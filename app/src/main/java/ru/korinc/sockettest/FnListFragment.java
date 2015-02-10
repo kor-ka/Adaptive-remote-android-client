@@ -60,8 +60,20 @@ public class FnListFragment extends ListFragment {
     List<String> pluginsList;
     Button footer;
     File folder = new File(Environment.getExternalStorageDirectory()+"/Adaptive remote plugins");
+    String btnName = "";
+    long btnId = -1;
 
     boolean itIsPlugin;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if(bundle!=null){
+            btnName = bundle.getString(FnBind.BTN_NAME, "");
+            btnId = bundle.getLong(FnBind.BTN_ID, -1);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -179,7 +191,7 @@ public class FnListFragment extends ListFragment {
              intent.putExtra("FnResult",fnpltype.get(position));
              intent.putExtra("FnResultArgs",fnpl.get(position));
          }
-
+         intent.putExtra(FnBind.BTN_ID, btnId);
          getActivity().setResult(getActivity().RESULT_OK, intent);
 
          getActivity().finish();

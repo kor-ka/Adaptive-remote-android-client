@@ -1,6 +1,7 @@
 package ru.korinc.sockettest;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -13,8 +14,12 @@ import android.view.View.OnClickListener;
 
 public class FnBind extends FragmentActivity implements OnClickListener
 {
-	
-	@Override
+
+    public static final String BTN_ID = "btnId";
+    public static final String BTN_NAME = "btnName";
+    public static final String BTN_CMD = "btnCmd";
+
+    @Override
 	public void onClick(View v)
 	{
 		finish();
@@ -24,7 +29,7 @@ public class FnBind extends FragmentActivity implements OnClickListener
 	ScreenSlidePagerAdapter pagerAdapter;
 
 	private ViewPager mPager;
-
+    Bundle bundle;
 
 	Intent inputintent;
 	private static final int NUM_PAGES = 3;
@@ -34,18 +39,32 @@ public class FnBind extends FragmentActivity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.fragment_dialog);
-			inputintent = getIntent();
+        inputintent = getIntent();
 
-			//Pager...
-			// Instantiate a ViewPager and a PagerAdapter.
-	        mPager = (ViewPager) findViewById(R.id.pager);
+        bundle = new Bundle();
+
+        DbTool db = new DbTool();
+        long id =inputintent.getLongExtra(BTN_ID, -1);
+        Cursor c = db.getButtonCursor(id, this);
+        if(c!=null){
+
+            bundle.putLong(BTN_ID, id);
+            bundle.putString(BTN_NAME, c.getString(c.getColumnIndex(DbTool.BUTTONS_TABLE_NAME)));
+            bundle.putString(BTN_CMD, c.getString(c.getColumnIndex(DbTool.BUTTONS_TABLE_CMD)));
+            c.close();
+        }
 
 
-			pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-			
-			mPager.setAdapter(pagerAdapter);		
-			mPager.setCurrentItem(1);
-		
+        //Pager...
+        // Instantiate a ViewPager and a PagerAdapter.
+        mPager = (ViewPager) findViewById(R.id.pager);
+
+
+        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+
+        mPager.setAdapter(pagerAdapter);
+        mPager.setCurrentItem(1);
+
 	}
 
 	
@@ -68,17 +87,18 @@ public class FnBind extends FragmentActivity implements OnClickListener
 			switch (position) {
 				case 0:
 					fr = new FnCreateCustomFragment();	
-					
+					fr.setArguments(bundle);
 					return fr ;
 
 				case 1:
 					
-					fr = new FnListFragment();	
+					fr = new FnListFragment();
+                    fr.setArguments(bundle);
 					return fr ;
 
 				case 2:
-					fr = new FnCommandLineFragment();	
-					
+					fr = new FnCommandLineFragment();
+                    fr.setArguments(bundle);
 					return fr ;
 
 			}

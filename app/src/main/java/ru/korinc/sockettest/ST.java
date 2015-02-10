@@ -79,6 +79,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ST extends FragmentActivity implements OnClickListener {
 
+
     boolean debug = false;
 
     EditText ipEt;
@@ -147,6 +148,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     public static final int REQUEST_CODE_COMMAND_LINE_VOICE_INPUT = 12353;
     public static final int REQUEST_CODE_VOICE_FN = 12354;
     public static final int REQUEST_CODE_LAUNCHAPP_FROM_TASKBAR = 12358;
+    private static final int REQUEST_CODE_EDIT_BTN = 123987;
     public String currentProcess = "";
     ButtonFnManager fnb;
     private String dialogInputText = "";
@@ -423,7 +425,14 @@ public class ST extends FragmentActivity implements OnClickListener {
                     case DragEvent.ACTION_DROP:
                         switch (view.getId()){
                             case R.id.editButton:
-                                Toast.makeText(ST.this, "Пока не умею :)", Toast.LENGTH_SHORT);
+                                ClipData.Item item2 = dragEvent.getClipData().getItemAt(0);
+                                Intent i2 = item2.getIntent();
+                                long id2=i2.getLongExtra("id", 0);
+
+                                Intent editIntent = new Intent(ST.this, FnBind.class);
+                                editIntent.putExtra(FnBind.BTN_ID, id2);
+
+                                startActivityForResult(editIntent, REQUEST_CODE_EDIT_BTN);
                                 break;
 
                             case R.id.dellButton:
@@ -438,7 +447,6 @@ public class ST extends FragmentActivity implements OnClickListener {
                                 adapter.notifyDataSetChanged();
                                 FnButtonsFragment btnsFragment;
 
-                                //TODO Это пока только для верхнего и оно не работает
                                 for(int f = 0 ; f<topPagerAdapter.getCount(); f++){
                                     btnsFragment = (FnButtonsFragment) topPagerAdapter.getFragment(f);
                                     if(btnsFragment!=null){
@@ -1839,10 +1847,22 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                 case REQUEST_CODE_ADD_BUTTON:
                     DbTool db = new DbTool();
-                    db.addButton(intent.getLongExtra("id", -1), intent.getStringExtra("Name"), intent.getIntExtra("FnResult", fnb.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this);
+                    db.addButton(-1, intent.getStringExtra("Name"), intent.getIntExtra("FnResult", fnb.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this);
                     DrawerGridAdapter adapter = (DrawerGridAdapter) mDrawerGrid.getAdapter();
                     adapter.getCursor().requery();
                     adapter.notifyDataSetChanged();
+                    break;
+
+                case REQUEST_CODE_EDIT_BTN:
+                    DbTool db2 = new DbTool();
+                    if(intent!=null && intent.getLongExtra(FnBind.BTN_ID, -1)!=-1){
+                        db2.addButton(intent.getLongExtra(FnBind.BTN_ID, -1), intent.getStringExtra("Name"), intent.getIntExtra("FnResult", fnb.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this);
+                        DrawerGridAdapter adapter2 = (DrawerGridAdapter) mDrawerGrid.getAdapter();
+                        adapter2.getCursor().requery();
+                        adapter2.notifyDataSetChanged();
+
+                        //TODO Ещё надо обновить остальные кнопки!
+                    }
                     break;
 
             }

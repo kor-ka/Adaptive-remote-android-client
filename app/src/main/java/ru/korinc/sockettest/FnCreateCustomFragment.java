@@ -1,9 +1,7 @@
 package ru.korinc.sockettest;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -16,7 +14,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.graphics.PorterDuff;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FnCreateCustomFragment extends ListFragment {
@@ -28,7 +28,20 @@ public class FnCreateCustomFragment extends ListFragment {
 	Button btnOk;
 	ImageButton del;
 	EditText et;
-	 @Override
+    String btnName = "";
+    long btnId = -1;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if(bundle!=null){
+            btnName = bundle.getString(FnBind.BTN_NAME, "");
+            btnId = bundle.getLong(FnBind.BTN_ID, -1);
+        }
+    }
+
+    @Override
 	  public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	      Bundle savedInstanceState) {
 		
@@ -91,6 +104,7 @@ public class FnCreateCustomFragment extends ListFragment {
 				intent.putExtra("Name",et.getText().toString());
 				intent.putExtra("FnResult",fnb.FN_CUSTOM);
 				intent.putExtra("FnResultArgs", tv.getText().toString());
+                intent.putExtra(FnBind.BTN_ID, btnId);
 				getActivity().setResult(getActivity().RESULT_OK, intent);
 				getActivity().finish();
 				break;
@@ -129,6 +143,7 @@ public class FnCreateCustomFragment extends ListFragment {
 	  del.getBackground().setColorFilter(0x555555, PorterDuff.Mode.SRC_ATOP);
 	  
 	  et = (EditText) getActivity().findViewById(R.id.fnCustomEtName);
+      et.setText(btnName);
 	  Intent i =getActivity().getIntent();
 	  if(i.getIntExtra("requestCode", -1)!=-1&&i.getIntExtra("requestCode",-1)==ST.REQUEST_CODE_FIRE_FN){
 		  et.setVisibility(View.GONE);

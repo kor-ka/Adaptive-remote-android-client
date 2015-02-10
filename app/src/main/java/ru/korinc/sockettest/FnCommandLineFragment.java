@@ -1,16 +1,5 @@
 package ru.korinc.sockettest;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,8 +8,8 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.text.Editable;
 import android.text.Spannable;
-import android.text.TextWatcher;
 import android.text.Spannable.Factory;
+import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +22,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class FnCommandLineFragment extends ListFragment {
@@ -47,8 +47,22 @@ public class FnCommandLineFragment extends ListFragment {
 	SharedPreferences shp;
 	Editor ed;
 	Set<String> commands;
-	private static final String FN_COMMANDS_KEY="FnCommands"; 
-	
+    String btnName = "";
+    long btnId = -1;
+    String btnCmd = "";
+	private static final String FN_COMMANDS_KEY="FnCommands";
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if(bundle!=null){
+            btnName = bundle.getString(FnBind.BTN_NAME, "");
+            btnCmd = bundle.getString(FnBind.BTN_CMD, "");
+            btnId = bundle.getLong(FnBind.BTN_ID, -1);
+        }
+    }
+
 	 @Override
 	  public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	      Bundle savedInstanceState) {
@@ -113,6 +127,7 @@ public class FnCommandLineFragment extends ListFragment {
 					intent.putExtra("Name", etName.getText().toString());
 					intent.putExtra("FnResult",fnb.FN_COMMAND_LINE);
 					intent.putExtra("FnResultArgs", et.getText().toString());
+                    intent.putExtra(FnBind.BTN_ID, btnId);
 					getActivity().setResult(getActivity().RESULT_OK, intent);
 					getActivity().finish();
 					break;
@@ -141,6 +156,7 @@ public class FnCommandLineFragment extends ListFragment {
 	  addInput.setOnClickListener(ocl);
 	  
 	  et=(EditText) getActivity().findViewById(R.id.fn_custom_command_et);
+      et.setText(btnCmd);
 	  et.addTextChangedListener(new TextWatcher() {
 
 			@Override
@@ -165,6 +181,7 @@ public class FnCommandLineFragment extends ListFragment {
 		});
 	  
 	  etName=(EditText) getActivity().findViewById(R.id.fnCommandLineEtName);
+      etName.setText(btnName);
 	  Intent i =getActivity().getIntent();
 	  if(i.getIntExtra("requestCode", -1)!=-1&&i.getIntExtra("requestCode",-1)==ST.REQUEST_CODE_FIRE_FN){
 		  etName.setVisibility(View.GONE);		 

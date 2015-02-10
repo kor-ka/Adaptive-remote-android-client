@@ -386,7 +386,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int action_settings=0x7f06005a;
         public static final int addButton=0x7f06003f;
         public static final int add_mic=0x7f060045;
-        public static final int arrows=0x7f060064;
         public static final int bScan=0x7f060020;
         public static final int bSend=0x7f06001f;
         public static final int botPagerContainer=0x7f060039;
@@ -408,7 +407,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int editButton=0x7f06003d;
         public static final int editKey=0x7f060007;
         public static final int editTextValue=0x7f060008;
-        public static final int enterAfterVoiceInput=0x7f06005f;
         public static final int etA=0x7f06001a;
         public static final int etB=0x7f06001d;
         public static final int etIp=0x7f060010;
@@ -416,7 +414,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int etPort=0x7f060016;
         public static final int etSocket=0x7f060013;
         public static final int expand=0x7f060058;
-        public static final int fireFN=0x7f060063;
         public static final int fnCommandLineBtnOk=0x7f060047;
         public static final int fnCommandLineEtName=0x7f060048;
         public static final int fnCustomBtnOk=0x7f06004c;
@@ -436,7 +433,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int listViewFnSelect=0x7f060005;
         public static final int listViewMap=0x7f06000a;
         public static final int ll=0x7f060021;
-        public static final int map=0x7f060061;
         public static final int none=0x7f060000;
         public static final int pager=0x7f06004f;
         public static final int pagerBot=0x7f06003b;
@@ -449,7 +445,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int rl=0x7f060049;
         public static final int scroll=0x7f060052;
         public static final int settings=0x7f06005e;
-        public static final int showFnButtons=0x7f060060;
         public static final int tableLayout1=0x7f06000d;
         public static final int tableRow1=0x7f06000e;
         public static final int tableRow2=0x7f060011;
@@ -470,7 +465,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int triangle=0x7f060001;
         public static final int tv=0x7f060022;
         public static final int underline=0x7f060002;
-        public static final int voiceFnSettings=0x7f060062;
         public static final int voiceInput=0x7f06005c;
         public static final int voice_fn_button=0x7f060041;
         public static final int workSpace=0x7f060026;
