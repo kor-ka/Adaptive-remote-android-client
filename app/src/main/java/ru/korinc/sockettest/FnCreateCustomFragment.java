@@ -30,6 +30,8 @@ public class FnCreateCustomFragment extends ListFragment {
 	EditText et;
     String btnName = "";
     long btnId = -1;
+    int btnType = 0;
+    String btnCmd;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,8 @@ public class FnCreateCustomFragment extends ListFragment {
         if(bundle!=null){
             btnName = bundle.getString(FnBind.BTN_NAME, "");
             btnId = bundle.getLong(FnBind.BTN_ID, -1);
+            btnType = bundle.getInt(FnBind.BTN_TYPE, 0);
+            btnCmd = bundle.getString(FnBind.BTN_CMD);
         }
     }
 
@@ -149,7 +153,8 @@ public class FnCreateCustomFragment extends ListFragment {
 		  et.setVisibility(View.GONE);
 	  }
 	  tv=(TextView) getActivity().findViewById(R.id.fnCustomSelectTV);
-		 tv.setText("Select something");
+	  tv.setText("Select something");
+      if(btnType == ButtonFnManager.FN_CUSTOM) tv.setText(btnCmd);
 	  
 	}
 	

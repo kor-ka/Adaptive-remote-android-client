@@ -136,14 +136,13 @@ public class FnButtonsFragment extends Fragment {
 				
 				@Override
 				public void onClick(View v) {
-
+                    Intent editIntent = new Intent(st, FnBind.class);
 
 				switch (v.getId()) {
 				case R.id.buttonB1:
 
 					if(b1.type == st.fnb.NO_FUNCTION){
-						Intent intentB1 = new Intent(st, FnBind.class);
-						startActivityForResult(intentB1, REQUEST_CODE_B1);
+						startActivityForResult(editIntent, REQUEST_CODE_B1);
 					}else{
 						st.fnb.press(b1.type, b1.args,"");
 					}
@@ -151,8 +150,7 @@ public class FnButtonsFragment extends Fragment {
 				
 				case R.id.buttonB2:
 					if(b2.type == st.fnb.NO_FUNCTION){
-						Intent intentB2 = new Intent(st, FnBind.class);
-						startActivityForResult(intentB2, REQUEST_CODE_B2);
+						startActivityForResult(editIntent, REQUEST_CODE_B2);
 					}else{
 						st.fnb.press(b2.type, b2.args, "");
 					}
@@ -161,8 +159,7 @@ public class FnButtonsFragment extends Fragment {
 				case R.id.buttonB3:
 
 					if(b3.type == st.fnb.NO_FUNCTION){
-						Intent intentB3 = new Intent(st, FnBind.class);
-						startActivityForResult(intentB3, REQUEST_CODE_B3);
+						startActivityForResult(editIntent, REQUEST_CODE_B3);
 					}else{
 						st.fnb.press(b3.type, b3.args, "");
 					}
@@ -172,31 +169,32 @@ public class FnButtonsFragment extends Fragment {
 			};
 			
 			olclFn = new OnLongClickListener() {
-				String place = "";
+
 				@Override
 				public boolean onLongClick(View v) {
 					int reqToSend=0;
+                    long btnId =-1;
 					switch (v.getId()) {
 					case R.id.buttonB1:
 						reqToSend = REQUEST_CODE_B1;
-                        place = FN_SAVE_B1 + "" + pageId;
+                        btnId = b1.getBtnId();
 						break;					
 					
 					case R.id.buttonB2:
 						reqToSend = REQUEST_CODE_B2;
-                        place = FN_SAVE_B2 + "" + pageId;
+                        btnId = b2.getBtnId();
 						break;					
 					
 					case R.id.buttonB3:
 						reqToSend = REQUEST_CODE_B3;
-                        place = FN_SAVE_B3 + "" + pageId;
+                        btnId = b3.getBtnId();
 						break;					
 										
 				}
                     db = new DbTool();
-                    long buttonId = db.getButtonIdByPlace(place, getActivity());
+
 					Intent intent = new Intent(st.getBaseContext(), FnBind.class);
-                    //intent.putExtra("id", buttonId);
+                    intent.putExtra(FnBind.BTN_ID, btnId);
 					startActivityForResult(intent, reqToSend);
 					return false;
 				}

@@ -18,6 +18,7 @@ public class FnBind extends FragmentActivity implements OnClickListener
     public static final String BTN_ID = "btnId";
     public static final String BTN_NAME = "btnName";
     public static final String BTN_CMD = "btnCmd";
+    public static final String BTN_TYPE = "btnType";
 
     @Override
 	public void onClick(View v)
@@ -51,6 +52,7 @@ public class FnBind extends FragmentActivity implements OnClickListener
             bundle.putLong(BTN_ID, id);
             bundle.putString(BTN_NAME, c.getString(c.getColumnIndex(DbTool.BUTTONS_TABLE_NAME)));
             bundle.putString(BTN_CMD, c.getString(c.getColumnIndex(DbTool.BUTTONS_TABLE_CMD)));
+            bundle.putInt(BTN_TYPE, c.getInt(c.getColumnIndex(DbTool.BUTTONS_TABLE_TYPE)));
             c.close();
         }
 

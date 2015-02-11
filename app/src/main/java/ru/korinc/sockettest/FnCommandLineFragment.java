@@ -50,6 +50,7 @@ public class FnCommandLineFragment extends ListFragment {
     String btnName = "";
     long btnId = -1;
     String btnCmd = "";
+    int btnType = 0;
 	private static final String FN_COMMANDS_KEY="FnCommands";
 
     @Override
@@ -60,6 +61,7 @@ public class FnCommandLineFragment extends ListFragment {
             btnName = bundle.getString(FnBind.BTN_NAME, "");
             btnCmd = bundle.getString(FnBind.BTN_CMD, "");
             btnId = bundle.getLong(FnBind.BTN_ID, -1);
+            btnType = bundle.getInt(FnBind.BTN_TYPE, 0);
         }
     }
 
@@ -156,16 +158,16 @@ public class FnCommandLineFragment extends ListFragment {
 	  addInput.setOnClickListener(ocl);
 	  
 	  et=(EditText) getActivity().findViewById(R.id.fn_custom_command_et);
-      et.setText(btnCmd);
+
 	  et.addTextChangedListener(new TextWatcher() {
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				String s1 = et.getText().toString();
-					if(s1.contains("<input") && !s1.contains("<input>")){
-						et.setText(s1.replace("<input", ""));	
-						et.setSelection(start-6);
-					}					
+                if(s1.contains("<input") && !s1.contains("<input>")){
+                    et.setText(s1.replace("<input", ""));
+                    et.setSelection(start-6);
+                }
 			
 			}
 
@@ -178,8 +180,8 @@ public class FnCommandLineFragment extends ListFragment {
 			@Override
 			public void afterTextChanged(Editable s) {
 			}
-		});
-	  
+	  });
+      if(btnType == ButtonFnManager.FN_COMMAND_LINE )et.setText(getSmiledText(getActivity(), btnCmd));
 	  etName=(EditText) getActivity().findViewById(R.id.fnCommandLineEtName);
       etName.setText(btnName);
 	  Intent i =getActivity().getIntent();
