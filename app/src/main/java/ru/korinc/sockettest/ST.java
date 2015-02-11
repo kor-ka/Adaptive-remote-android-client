@@ -51,27 +51,18 @@ import android.widget.Toast;
 
 import com.viewpagerindicator.CirclePageIndicator;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.SocketException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executors;
@@ -441,7 +432,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                 Intent i = item.getIntent();
                                 long id=i.getLongExtra("id", 0);
                                 db.delRec(DbTool.BUTTONS_TABLE, id, ST.this);
-                                bindContextButtons(currentProcess, 0);
+
 
                                 updateAllBTNS();
 
@@ -888,6 +879,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     }
 
     private void updateAllBTNS() {
+        bindContextButtons(currentProcess, 0);
         DrawerGridAdapter adapter = (DrawerGridAdapter) mDrawerGrid.getAdapter();
         adapter.getCursor().requery();
         adapter.notifyDataSetChanged();
