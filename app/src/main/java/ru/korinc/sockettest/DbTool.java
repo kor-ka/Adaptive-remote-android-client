@@ -42,12 +42,12 @@ public class DbTool{
 
         cv = new ContentValues();
         if(id!=-1){
-            cv.put("_id", id);
+
             cv.put(BUTTONS_TABLE_NAME, name);
             cv.put(BUTTONS_TABLE_TYPE, type);
             cv.put(BUTTONS_TABLE_CMD, cmd);
             cv.put(BUTTONS_TABLE_ORDER, order);
-            db.update(BUTTONS_TABLE, cv, null, null);
+            db.update(BUTTONS_TABLE, cv, "_id=?", new String[]{id+""});
         }else{
             cv.put(BUTTONS_TABLE_NAME, name);
             cv.put(BUTTONS_TABLE_TYPE, type);

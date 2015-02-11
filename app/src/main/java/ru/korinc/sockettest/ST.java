@@ -148,7 +148,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     public static final int REQUEST_CODE_COMMAND_LINE_VOICE_INPUT = 12353;
     public static final int REQUEST_CODE_VOICE_FN = 12354;
     public static final int REQUEST_CODE_LAUNCHAPP_FROM_TASKBAR = 12358;
-    private static final int REQUEST_CODE_EDIT_BTN = 123987;
+    private static final int REQUEST_CODE_EDIT_BTN = 1258;
     public String currentProcess = "";
     ButtonFnManager fnb;
     private String dialogInputText = "";
@@ -306,7 +306,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             @Override
             public void onClick(View v) {
                 FnButton b = (FnButton) v;
-                if(b.type == fnb.NO_FUNCTION){
+                if(b.type == ButtonFnManager.NO_FUNCTION){
                     Intent intentB1 = new Intent(ST.this, FnBind.class);
                     startActivityForResult(intentB1, getReqCodeById(v.getId()));
                 }else {
@@ -440,25 +440,10 @@ public class ST extends FragmentActivity implements OnClickListener {
                                 ClipData.Item item = dragEvent.getClipData().getItemAt(0);
                                 Intent i = item.getIntent();
                                 long id=i.getLongExtra("id", 0);
-                                db.delRec(db.BUTTONS_TABLE, id, ST.this);
+                                db.delRec(DbTool.BUTTONS_TABLE, id, ST.this);
                                 bindContextButtons(currentProcess, 0);
-                                DrawerGridAdapter adapter = (DrawerGridAdapter) mDrawerGrid.getAdapter();
-                                adapter.getCursor().requery();
-                                adapter.notifyDataSetChanged();
-                                FnButtonsFragment btnsFragment;
 
-                                for(int f = 0 ; f<topPagerAdapter.getCount(); f++){
-                                    btnsFragment = (FnButtonsFragment) topPagerAdapter.getFragment(f);
-                                    if(btnsFragment!=null){
-                                        btnsFragment.initButtons(btnsFragment.ocl, btnsFragment.olclFn, ST.this);
-                                    }
-
-                                    btnsFragment = (FnButtonsFragment) botPagerAdapter.getFragment(f);
-                                    if(btnsFragment!=null){
-                                        btnsFragment.initButtons(btnsFragment.ocl, btnsFragment.olclFn, ST.this);
-                                    }
-                                }
-
+                                updateAllBTNS();
 
                                 break;
                         }
@@ -902,6 +887,25 @@ public class ST extends FragmentActivity implements OnClickListener {
         exportDatabse("db");
     }
 
+    private void updateAllBTNS() {
+        DrawerGridAdapter adapter = (DrawerGridAdapter) mDrawerGrid.getAdapter();
+        adapter.getCursor().requery();
+        adapter.notifyDataSetChanged();
+        FnButtonsFragment btnsFragment;
+
+        for(int f = 0 ; f<topPagerAdapter.getCount(); f++){
+            btnsFragment = (FnButtonsFragment) topPagerAdapter.getFragment(f);
+            if(btnsFragment!=null){
+                btnsFragment.initButtons(btnsFragment.ocl, btnsFragment.olclFn, this);
+            }
+
+            btnsFragment = (FnButtonsFragment) botPagerAdapter.getFragment(f);
+            if(btnsFragment!=null){
+                btnsFragment.initButtons(btnsFragment.ocl, btnsFragment.olclFn, this);
+            }
+        }
+    }
+
 
     Rect outRect = new Rect();
     int[] location = new int[2];
@@ -1099,7 +1103,6 @@ public class ST extends FragmentActivity implements OnClickListener {
                     x = (int) event.getRawX();
                     y = (int) event.getRawY();
 
-                    int moveX = startX - x;
                     int moveY = startY - y;
 
                     //hInAppLog.writeLog(ST.this, "", "Move " + x + " | " + y, debug);
@@ -1117,11 +1120,10 @@ public class ST extends FragmentActivity implements OnClickListener {
                     }
                     if (overlayActivated) {
                         if (System.currentTimeMillis() - timeActivated > 100) {
-                            int moveCondidateX = 0;
-                            int moveCondidateY = 0;
+
 
                             if (moveY > 40 || moveY < -40) {
-                                moveCondidateY = moveY > 0 ? 1 : -1;
+
                                 startX = x;
                                 startY = y;
                                 fnb.press(ButtonFnManager.FN_CUSTOM, moveY>0?"Left arrow":"Right arrow", "");
@@ -1601,7 +1603,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                     new Thread(new SocketThread(ST.this, ipEt.getText().toString(), port, ButtonFnManager.launch, m_Text)).start();
                                     //Reinvoke
                                     if (needReinvokeVoiceFn) {
-                                        fnb.press(fnb.FN_VOICE_FN, "", "");
+                                        fnb.press(ButtonFnManager.FN_VOICE_FN, "", "");
                                         needReinvokeVoiceFn = false;
                                     }
                                 }
@@ -1694,7 +1696,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                     if (keys != null) {
                                         for (String key : keys) {
                                             if (m_Text.startsWith(key)) {
-                                                String args = "";
+                                                String args;
 
                                                 if (m_Text.equals(key)) {
                                                     args = "";
@@ -1709,7 +1711,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                     }
                                     //Reinvoke
                                     if (needReinvokeVoiceFn) {
-                                        fnb.press(fnb.FN_VOICE_FN, "", "");
+                                        fnb.press(ButtonFnManager.FN_VOICE_FN, "", "");
                                         needReinvokeVoiceFn = false;
                                     }
 
@@ -1773,7 +1775,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                     fnb.press(ButtonFnManager.FN_COMMAND_LINE, currentCommandLineaArgs.replace("<input>", m_Text), "");
                                     //Reinvoke
                                     if (needReinvokeVoiceFn) {
-                                        fnb.press(fnb.FN_VOICE_FN, "", "");
+                                        fnb.press(ButtonFnManager.FN_VOICE_FN, "", "");
                                         needReinvokeVoiceFn = false;
                                     }
                                 }
@@ -1831,8 +1833,6 @@ public class ST extends FragmentActivity implements OnClickListener {
                 ed.putString("ip", IP);
                 ed.putString("port", port);
                 ed.commit();
-            } else {
-
             }
         }
 
@@ -1841,13 +1841,13 @@ public class ST extends FragmentActivity implements OnClickListener {
             switch (requestCode) {
 
                 case REQUEST_CODE_FIRE_FN:
-                    fnb.press(intent.getIntExtra("FnResult", fnb.NO_FUNCTION),
+                    fnb.press(intent.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION),
                             intent.getStringExtra("FnResultArgs"), "");
                     break;
 
                 case REQUEST_CODE_ADD_BUTTON:
                     DbTool db = new DbTool();
-                    db.addButton(-1, intent.getStringExtra("Name"), intent.getIntExtra("FnResult", fnb.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this);
+                    db.addButton(-1, intent.getStringExtra("Name"), intent.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this);
                     DrawerGridAdapter adapter = (DrawerGridAdapter) mDrawerGrid.getAdapter();
                     adapter.getCursor().requery();
                     adapter.notifyDataSetChanged();
@@ -1856,12 +1856,9 @@ public class ST extends FragmentActivity implements OnClickListener {
                 case REQUEST_CODE_EDIT_BTN:
                     DbTool db2 = new DbTool();
                     if(intent!=null && intent.getLongExtra(FnBind.BTN_ID, -1)!=-1){
-                        db2.addButton(intent.getLongExtra(FnBind.BTN_ID, -1), intent.getStringExtra("Name"), intent.getIntExtra("FnResult", fnb.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this);
-                        DrawerGridAdapter adapter2 = (DrawerGridAdapter) mDrawerGrid.getAdapter();
-                        adapter2.getCursor().requery();
-                        adapter2.notifyDataSetChanged();
+                        db2.addButton(intent.getLongExtra(FnBind.BTN_ID, -1), intent.getStringExtra("Name"), intent.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this);
+                        updateAllBTNS();
 
-                        //TODO Ещё надо обновить остальные кнопки!
                     }
                     break;
 
@@ -1869,12 +1866,12 @@ public class ST extends FragmentActivity implements OnClickListener {
         }
         //Reinvoke voiceInput if needed
         if (needReinvokeVoiceFn) {
-            fnb.press(fnb.FN_VOICE_FN, "", "");
+            fnb.press(ButtonFnManager.FN_VOICE_FN, "", "");
             needReinvokeVoiceFn = false;
         }
     }
 
-
+    /*Когда то я был сервером...
     public class Listener extends Thread {
         protected ServerSocket listenSocket;
         DataOutputStream out;
@@ -1949,6 +1946,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         }
     }
+    */
 
     @Override
     public void onBackPressed() {
@@ -1975,7 +1973,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     // check is app installed
     private boolean appInstalledOrNot(String uri) {
         PackageManager pm = getPackageManager();
-        boolean app_installed = false;
+        boolean app_installed;
         try {
             pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
             app_installed = true;
@@ -2085,11 +2083,11 @@ public class ST extends FragmentActivity implements OnClickListener {
 
     public void saveFnBindResults (Intent i, int reqestCode, final String currentProcess){
         DbTool db = new DbTool();
-        if(i.getIntExtra("FnResult", fnb.NO_FUNCTION)!=fnb.NO_FUNCTION){
+        if(i.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION)!= ButtonFnManager.NO_FUNCTION){
             //Пишем кнопку в базу
             //Сейчас всегда заливаем новую. Потом будем обновлять по id
 
-            long id = db.addButton(i.getLongExtra("id", -1), i.getStringExtra("Name"), i.getIntExtra("FnResult", fnb.NO_FUNCTION), i.getStringExtra("FnResultArgs"), -1, this);
+            long id = db.addButton(i.getLongExtra("id", -1), i.getStringExtra("Name"), i.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), i.getStringExtra("FnResultArgs"), -1, this);
 
             db.bindButtonToPlace(id, reqestCode+""+currentProcess, this);
             DrawerGridAdapter adapter = (DrawerGridAdapter) mDrawerGrid.getAdapter();
