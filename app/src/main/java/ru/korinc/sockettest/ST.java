@@ -101,7 +101,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     FnButton wsBtn8;
     FnButton wsBtn9;
 
-    private  FnButton[] fnButtons;
+    public  FnButton[] fnButtons;
 
     View.OnLongClickListener olclFn;
     OnClickListener ocl;
@@ -291,6 +291,12 @@ public class ST extends FragmentActivity implements OnClickListener {
         wsBtn9 = (FnButton) findViewById(R.id.workSpaceBTN9);
 
         fnButtons = new FnButton[]{wsBtn1,wsBtn2,wsBtn3,wsBtn4,wsBtn5,wsBtn6,wsBtn7,wsBtn8,wsBtn9};
+        int i =0;
+        for(FnButton b:fnButtons){
+            ed.putInt("ButtonId" + i, getReqCodeById(b.getId()));
+            i++;
+        }
+        ed.commit();
 
         ocl = new OnClickListener() {
 

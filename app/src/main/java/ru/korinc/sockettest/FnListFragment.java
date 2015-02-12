@@ -4,10 +4,12 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +64,7 @@ public class FnListFragment extends ListFragment {
     File folder = new File(Environment.getExternalStorageDirectory()+"/Adaptive remote plugins");
     String btnName = "";
     long btnId = -1;
-
+    SharedPreferences shp;
     boolean itIsPlugin;
 
     @Override
@@ -85,6 +87,9 @@ public class FnListFragment extends ListFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+        shp = PreferenceManager
+                .getDefaultSharedPreferences(getActivity().getApplicationContext());
 	
 	if(!folder.exists())folder.mkdir();
 
@@ -438,6 +443,36 @@ public class FnListFragment extends ListFragment {
                   pluginsList.remove(name);
                   pluginsList.add(name);
                   pluginsAdapter.notifyDataSetChanged();
+
+                  JSONObject json = null;
+                  try {
+                      json = new JSONObject(resultJSON);
+                      final JSONArray proc = json.getJSONArray("proc");
+                      final JSONArray buttons= json.getJSONArray("array");
+                      if(proc!=null && buttons!=null){
+                          DbTool db = new DbTool();
+                          int btnsCount = buttons.length()>9?9:buttons.length();
+                          for (int i = 0; i < proc.length(); i++) {
+                              String pr = proc.getString(i);
+                              for (int j = 0; j <btnsCount ; j++) {
+                                String place  = shp.getInt("ButtonId"+j, 0) + pr;
+
+                                JSONObject btn = buttons.getJSONObject(j);
+
+                                db.bindButtonToPlace(
+                                        db.addButton(-1, btn.getString("name"), btn.getInt("type"), btn.getString("cmd"), 0, getActivity()),
+                                        place,
+                                        getActivity()
+                                );
+                              }
+
+                          }
+                      }
+                  } catch (JSONException e) {
+                      e.printStackTrace();
+                  }
+
+
 
                   pluginsLV.performItemClick(pluginsLV, pluginsList.indexOf(name), pluginsLV.getItemIdAtPosition(pluginsList.indexOf(name)));
                   break;
