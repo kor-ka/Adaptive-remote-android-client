@@ -305,7 +305,6 @@ public class ST extends FragmentActivity implements OnClickListener {
                 FnButton b = (FnButton) v;
                 if(b.type == ButtonFnManager.NO_FUNCTION){
                     Intent intentB1 = new Intent(ST.this, FnBind.class);
-                    intentB1.putExtra(FnBind.BTN_ID, b.getBtnId());
                     startActivityForResult(intentB1, getReqCodeById(v.getId()));
                 }else {
                     fnb.press(b.type, b.args, "");
@@ -317,8 +316,9 @@ public class ST extends FragmentActivity implements OnClickListener {
 
             @Override
             public boolean onLongClick(View v) {
-
+                FnButton b = (FnButton) v;
                 Intent intent = new Intent(getBaseContext(), FnBind.class);
+                intent.putExtra(FnBind.BTN_ID, b.getBtnId());
                 startActivityForResult(intent, getReqCodeById(v.getId()));
                 return false;
             }
