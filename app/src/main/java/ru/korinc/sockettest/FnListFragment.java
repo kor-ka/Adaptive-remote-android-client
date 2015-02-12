@@ -511,7 +511,7 @@ public class FnListFragment extends ListFragment {
                                 JSONObject btn = buttons.getJSONObject(j);
 
                                 db.bindButtonToPlace(
-                                        db.addButton(-1, btn.getString("name"), btn.getInt("type"), btn.getString("cmd"), 0, getActivity(), name),
+                                        db.addButton(-1, btn.getString("name"), btn.getInt("type"), btn.getString("cmd"), 0, getActivity(), name, 0),
                                         place,
                                         getActivity()
                                 );

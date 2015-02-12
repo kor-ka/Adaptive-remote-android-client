@@ -1849,7 +1849,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             case REQUEST_CODE_ADD_BUTTON:
                 if (resultCode == RESULT_OK) {
                     DbTool db = new DbTool();
-                    db.addButton(-1, intent.getStringExtra("Name"), intent.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this, null);
+                    db.addButton(-1, intent.getStringExtra("Name"), intent.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this, null, 0);
 
                 }
                 DrawerGridAdapter adapter = (DrawerGridAdapter) mDrawerGrid.getAdapter();
@@ -1861,7 +1861,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 if (resultCode == RESULT_OK) {
                     DbTool db2 = new DbTool();
                     if(intent!=null && intent.getLongExtra(FnBind.BTN_ID, -1)!=-1){
-                        db2.addButton(intent.getLongExtra(FnBind.BTN_ID, -1), intent.getStringExtra("Name"), intent.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this, null);
+                        db2.addButton(intent.getLongExtra(FnBind.BTN_ID, -1), intent.getStringExtra("Name"), intent.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this, null, 0);
                         updateAllBTNS();
 
                     }
@@ -2094,7 +2094,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             //Пишем кнопку в базу
             //Сейчас всегда заливаем новую. Потом будем обновлять по id
 
-            long id = db.addButton(i.getLongExtra("id", -1), i.getStringExtra("Name"), i.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), i.getStringExtra("FnResultArgs"), -1, this, null);
+            long id = db.addButton(i.getLongExtra("id", -1), i.getStringExtra("Name"), i.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), i.getStringExtra("FnResultArgs"), -1, this, null, 0);
 
             db.bindButtonToPlace(id, reqestCode+""+currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), this);
             DrawerGridAdapter adapter = (DrawerGridAdapter) mDrawerGrid.getAdapter();
