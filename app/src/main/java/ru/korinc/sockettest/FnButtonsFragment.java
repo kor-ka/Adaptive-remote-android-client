@@ -236,7 +236,7 @@ public class FnButtonsFragment extends Fragment {
         if(i.getIntExtra("FnResult", st.fnb.NO_FUNCTION)!=st.fnb.NO_FUNCTION){
             //Пишем кнопку в базу
             //Сейчас всегда заливаем новую. Потом будем обновлять по id
-            long id = db.addButton(i.getLongExtra("id", -1), i.getStringExtra("Name"), i.getIntExtra("FnResult", st.fnb.NO_FUNCTION), i.getStringExtra("FnResultArgs"), -1, getActivity());
+            long id = db.addButton(i.getLongExtra("id", -1), i.getStringExtra("Name"), i.getIntExtra("FnResult", st.fnb.NO_FUNCTION), i.getStringExtra("FnResultArgs"), -1, getActivity(), null);
 
             db.bindButtonToPlace(id, fn_save+""+pageId, getActivity());
             DrawerGridAdapter adapter = (DrawerGridAdapter) st.mDrawerGrid.getAdapter();

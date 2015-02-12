@@ -18,7 +18,7 @@ public class DbTool{
 
     DBHelper dbHelper;
     ContentValues cv;
-    final int DB_VERSION = 1;
+    final int DB_VERSION = 2;
 
     public final static String BUTTONS_TABLE = "buttons";
     public final static String SLIDERS_BTNS_TABLE = "sliderButtons";
@@ -27,6 +27,7 @@ public class DbTool{
     public final static String BUTTONS_TABLE_NAME = "name";
     public final static String BUTTONS_TABLE_TYPE = "type";
     public final static String BUTTONS_TABLE_CMD = "cmd";
+    public final static String BUTTONS_TABLE_PLUGIN = "micon";
     public final static String BUTTONS_TABLE_ORDER = "morder";
 
     public final static String SLIDERS_BTNS_PLACE_ID = "pageId";
@@ -36,7 +37,7 @@ public class DbTool{
     public final static String DESKTOPS_BTNS_BTN_ID = "btnId";
     public final static String DESKTOPS_BTNS_ORDER = "morder";
 
-    public long addButton (long id ,String name, int type, String cmd, int order, Context context){
+    public long addButton(long id, String name, int type, String cmd, int order, Context context, String plugin){
         dbHelper = new DBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -53,6 +54,7 @@ public class DbTool{
             cv.put(BUTTONS_TABLE_TYPE, type);
             cv.put(BUTTONS_TABLE_CMD, cmd);
             cv.put(BUTTONS_TABLE_ORDER, order);
+            cv.put(BUTTONS_TABLE_PLUGIN, plugin);
             String and = " AND ";
             Cursor c = db.query(BUTTONS_TABLE, new String[]{}, BUTTONS_TABLE_NAME + " like ?" + and + BUTTONS_TABLE_TYPE + " = " + type + and + BUTTONS_TABLE_CMD + " like ?", new String[]{name, cmd
             }, null, null, null);
@@ -176,6 +178,7 @@ public class DbTool{
             db.execSQL("create table "+BUTTONS_TABLE+" (" + "_id integer primary key autoincrement," + BUTTONS_TABLE_NAME + TEXT + CM +
                                                                                                      BUTTONS_TABLE_TYPE + INTEGER + CM +
                                                                                                      BUTTONS_TABLE_CMD + TEXT + CM +
+                                                                                                     BUTTONS_TABLE_PLUGIN + TEXT + CM +
                                                                                                      BUTTONS_TABLE_ORDER + INTEGER +");");
 
             db.execSQL("create table "+SLIDERS_BTNS_TABLE+" ("  + SLIDERS_BTNS_PLACE_ID + TEXT + " primary key " + CM +
@@ -189,7 +192,9 @@ public class DbTool{
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
-
+            if (newVersion > oldVersion) {
+                db.execSQL("ALTER TABLE "+ BUTTONS_TABLE +" ADD COLUMN "+BUTTONS_TABLE_PLUGIN+" TEXT DEFAULT NULL");
+            }
         }
     }
 

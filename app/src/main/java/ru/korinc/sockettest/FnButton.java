@@ -3,8 +3,11 @@ package ru.korinc.sockettest;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.Button;
+
+import java.io.File;
 
 /**
  * Created by korka on 27.01.15.
@@ -15,6 +18,7 @@ public class FnButton extends Button{
     public long id;
     public String args;
     public int type;
+    public String plugin;
     private OnClickListener ocl;
     private OnLongClickListener olcl;
     private String place;
@@ -28,10 +32,7 @@ public class FnButton extends Button{
         super(context, attrs);
     }
 
-    public FnButton(String name, long id, String args, int type, OnClickListener ocl, OnLongClickListener olcl, Context context) {
-        super(context);
-        init(name, id, args, type, ocl, olcl);
-    }
+
 
     public void init(String place, Activity context, OnClickListener ocl, OnLongClickListener olcl, ButtonFnManager fnManager){
         this.fnManager = fnManager;
@@ -43,12 +44,14 @@ public class FnButton extends Button{
             this.name = c.getString(c.getColumnIndex(db.BUTTONS_TABLE_NAME));
             this.args = c.getString(c.getColumnIndex(db.BUTTONS_TABLE_CMD));
             this.type = c.getInt(c.getColumnIndex(db.BUTTONS_TABLE_TYPE));
+            this.plugin = c.getString(c.getColumnIndex(db.BUTTONS_TABLE_PLUGIN));
             c.close();
             db.dbHelper.close();
         }else{
             this.name = "";
             this.args = "";
             this.type = ButtonFnManager.NO_FUNCTION;
+            this.plugin = "";
         }
 
 
@@ -71,13 +74,15 @@ public class FnButton extends Button{
 
         //Если шорткат или команда - выяставляем их аргумент
 
-        if(this.type==ButtonFnManager.FN_CUSTOM||this.type==ButtonFnManager.FN_COMMAND_LINE){
-            setText(this.args);
-            if(this.args.contains("chrome")){
-                setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
-            }else{
+        if(this.type==ButtonFnManager.FN_CUSTOM||this.type==ButtonFnManager.FN_COMMAND_LINE)setText(this.args);
+
+
+        if(this.plugin!=null && !this.plugin.isEmpty()){
+            File ico  = new File(new File(FnListFragment.PLUGINS_FOLDER_PATH), this.plugin+".png");
+            if(ico.exists())
+                setCompoundDrawablesWithIntrinsicBounds(Drawable.createFromPath(ico.getPath()), null, null, null);
+            else
                 setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-            }
         }else{
             setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
         }
@@ -98,12 +103,14 @@ public class FnButton extends Button{
             this.name = c.getString(c.getColumnIndex(db.BUTTONS_TABLE_NAME));
             this.args = c.getString(c.getColumnIndex(db.BUTTONS_TABLE_CMD));
             this.type = c.getInt(c.getColumnIndex(db.BUTTONS_TABLE_TYPE));
+            this.plugin = c.getString(c.getColumnIndex(db.BUTTONS_TABLE_PLUGIN));
             c.close();
             db.dbHelper.close();
         }else{
             this.name = "";
             this.args = "";
             this.type = ButtonFnManager.NO_FUNCTION;
+            this.plugin = "";
         }
 
 
@@ -126,13 +133,15 @@ public class FnButton extends Button{
 
         //Если шорткат или команда - выяставляем их аргумент
 
-        if(this.type==ButtonFnManager.FN_CUSTOM||this.type==ButtonFnManager.FN_COMMAND_LINE){
-            setText(this.args);
-            if(this.args.contains("chrome")){
-                setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_chrome), null, null, null);
-            }else{
+        if(this.type==ButtonFnManager.FN_CUSTOM||this.type==ButtonFnManager.FN_COMMAND_LINE)setText(this.args);
+
+
+        if(this.plugin!=null && !this.plugin.isEmpty()){
+            File ico  = new File(new File(FnListFragment.PLUGINS_FOLDER_PATH), this.plugin+".png");
+            if(ico.exists())
+                setCompoundDrawablesWithIntrinsicBounds(Drawable.createFromPath(ico.getPath()), null, null, null);
+            else
                 setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-            }
         }else{
             setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
         }
@@ -144,18 +153,7 @@ public class FnButton extends Button{
         }
     }
 
-    public void init(String name, long id, String args, int type, OnClickListener ocl, OnLongClickListener olcl){
-        this.name = name;
-        this.id = id;
-        this.args = args;
-        this.type = type;
-        this.ocl = ocl;
-        this.olcl = olcl;
 
-        this.setOnClickListener(ocl);
-        this.setText(name);
-        this.setOnLongClickListener(olcl);
-    }
 
     public void press(){
         fnManager.press(type, args, "");

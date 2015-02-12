@@ -30,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,6 +40,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
@@ -61,7 +65,8 @@ public class FnListFragment extends ListFragment {
     ArrayAdapter<String> pluginsAdapter ;
     List<String> pluginsList;
     Button footer;
-    File folder = new File(Environment.getExternalStorageDirectory()+"/Adaptive remote plugins");
+    public static final String PLUGINS_FOLDER_PATH = Environment.getExternalStorageDirectory()+"/Adaptive remote plugins";
+    File pluginsFolder = new File(PLUGINS_FOLDER_PATH);
     String btnName = "";
     long btnId = -1;
     SharedPreferences shp;
@@ -91,7 +96,7 @@ public class FnListFragment extends ListFragment {
         shp = PreferenceManager
                 .getDefaultSharedPreferences(getActivity().getApplicationContext());
 	
-	if(!folder.exists())folder.mkdir();
+	if(!pluginsFolder.exists()) pluginsFolder.mkdir();
 
         pluginsLV = (ListView) getActivity().findViewById(R.id.plugins_list);
         pluginsLV.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -106,16 +111,16 @@ public class FnListFragment extends ListFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 pluginsLV.setItemChecked(i, true);
-                if(i == 0) setAdaptiveRemoteContent();
-                else{
+                if (i == 0) setAdaptiveRemoteContent();
+                else {
                     String pluginName = pluginsLV.getItemAtPosition(i).toString();
 
-                    File jsonPluginFile = new File(folder, pluginName);
+                    File jsonPluginFile = new File(pluginsFolder, pluginName);
                     FileInputStream stream = null;
                     try {
                         stream = new FileInputStream(jsonPluginFile);
 
-                    String jsonStr = null;
+                        String jsonStr = null;
 
                         FileChannel fc = stream.getChannel();
                         MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
@@ -125,7 +130,7 @@ public class FnListFragment extends ListFragment {
                         JSONObject pluginJson = new JSONObject(jsonStr);
 
                         JSONArray jArray = pluginJson.getJSONArray("array");
-                           setPLuginContent(jArray);
+                        setPLuginContent(jArray);
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -143,9 +148,12 @@ public class FnListFragment extends ListFragment {
         });
         pluginsList = new ArrayList<String>() ;
         pluginsList.add("adaptive remote");
-        for(File f:folder.listFiles()){
-            String pluginName = f.getName();
-            pluginsList.add(pluginName);
+        for(File f: pluginsFolder.listFiles()){
+            if(!f.getName().contains(".")){
+                String pluginName = f.getName();
+                pluginsList.add(pluginName);
+            }
+
         }
         pluginsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_single_choice, pluginsList);
 
@@ -243,6 +251,8 @@ public class FnListFragment extends ListFragment {
 
         public static final int MODE_LIST = 1;
         public static final int MODE_PLUGIN = 2;
+        public static final int MODE_ICO_LINK = 3;
+
 
         private String resultJSON;
         TestConnection tc= this;
@@ -334,6 +344,42 @@ public class FnListFragment extends ListFragment {
                 }
                 resultJSON = sb.toString();
 
+                //Если есть ссылка на иконку
+                if(mode == MODE_PLUGIN && params[1]!=null){
+                    URL url = new URL(params[1]);
+                    URLConnection conection = url.openConnection();
+                    conection.connect();
+
+                    // this will be useful so that you can show a tipical 0-100%
+                    // progress bar
+                    int lenghtOfFile = conection.getContentLength();
+
+                    // download the file
+                    InputStream input = new BufferedInputStream(url.openStream(),
+                            8192);
+
+                    // Output stream
+                    if(!pluginsFolder.exists()) pluginsFolder.mkdir();
+                    File ico = new File(pluginsFolder, name+".png");
+                    OutputStream output = new FileOutputStream(ico);
+
+                    byte data[] = new byte[1024];
+
+                    long total = 0;
+                    int count;
+                    while ((count = input.read(data)) != -1) {
+                        total += count;
+                        output.write(data, 0, count);
+                    }
+
+                    // flushing output
+                    output.flush();
+
+                    // closing streams
+                    output.close();
+                    input.close();
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
                 this.cancel(true);
@@ -400,7 +446,7 @@ public class FnListFragment extends ListFragment {
                               try {
                                   //Toast.makeText(getActivity(), jArray.getJSONObject(i).getString("link"), Toast.LENGTH_SHORT).show();
                                   choosePlugin.dismiss();
-                                  new TestConnection(MODE_PLUGIN, jArray.getJSONObject(i).getString("name")).execute(jArray.getJSONObject(i).getString("link"));
+                                  new TestConnection(MODE_PLUGIN, jArray.getJSONObject(i).getString("name")).execute(jArray.getJSONObject(i).getString("link"), jArray.getJSONObject(i).getString("icoLink"));
                               } catch (JSONException e) {
                                   e.printStackTrace();
                               }
@@ -417,8 +463,8 @@ public class FnListFragment extends ListFragment {
 
               case MODE_PLUGIN:
 
-                  if(!folder.exists())folder.mkdir();
-                  File fileToSaveJson  = new File(folder, name);
+                  if(!pluginsFolder.exists()) pluginsFolder.mkdir();
+                  File fileToSaveJson  = new File(pluginsFolder, name);
                   byte[] jsonArray = resultJSON.getBytes();
 
 
@@ -460,7 +506,7 @@ public class FnListFragment extends ListFragment {
                                 JSONObject btn = buttons.getJSONObject(j);
 
                                 db.bindButtonToPlace(
-                                        db.addButton(-1, btn.getString("name"), btn.getInt("type"), btn.getString("cmd"), 0, getActivity()),
+                                        db.addButton(-1, btn.getString("name"), btn.getInt("type"), btn.getString("cmd"), 0, getActivity(), name),
                                         place,
                                         getActivity()
                                 );
@@ -475,6 +521,10 @@ public class FnListFragment extends ListFragment {
 
 
                   pluginsLV.performItemClick(pluginsLV, pluginsList.indexOf(name), pluginsLV.getItemIdAtPosition(pluginsList.indexOf(name)));
+                  break;
+
+              case MODE_ICO_LINK:
+
                   break;
           }
 

@@ -885,7 +885,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     }
 
     private void updateAllBTNS() {
-        bindContextButtons(currentProcess, 0);
+        bindContextButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), 0);
         DrawerGridAdapter adapter = (DrawerGridAdapter) mDrawerGrid.getAdapter();
         adapter.getCursor().requery();
         adapter.notifyDataSetChanged();
@@ -1834,34 +1834,42 @@ public class ST extends FragmentActivity implements OnClickListener {
             }
         }
 
-        if (resultCode == RESULT_OK) {
 
-            switch (requestCode) {
 
-                case REQUEST_CODE_FIRE_FN:
+        switch (requestCode) {
+
+            case REQUEST_CODE_FIRE_FN:
+                if (resultCode == RESULT_OK) {
                     fnb.press(intent.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION),
                             intent.getStringExtra("FnResultArgs"), "");
-                    break;
+                }
+                break;
 
-                case REQUEST_CODE_ADD_BUTTON:
+            case REQUEST_CODE_ADD_BUTTON:
+                if (resultCode == RESULT_OK) {
                     DbTool db = new DbTool();
-                    db.addButton(-1, intent.getStringExtra("Name"), intent.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this);
-                    DrawerGridAdapter adapter = (DrawerGridAdapter) mDrawerGrid.getAdapter();
-                    adapter.getCursor().requery();
-                    adapter.notifyDataSetChanged();
-                    break;
+                    db.addButton(-1, intent.getStringExtra("Name"), intent.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this, null);
 
-                case REQUEST_CODE_EDIT_BTN:
+                }
+                DrawerGridAdapter adapter = (DrawerGridAdapter) mDrawerGrid.getAdapter();
+                adapter.getCursor().requery();
+                adapter.notifyDataSetChanged();
+                break;
+
+            case REQUEST_CODE_EDIT_BTN:
+                if (resultCode == RESULT_OK) {
                     DbTool db2 = new DbTool();
                     if(intent!=null && intent.getLongExtra(FnBind.BTN_ID, -1)!=-1){
-                        db2.addButton(intent.getLongExtra(FnBind.BTN_ID, -1), intent.getStringExtra("Name"), intent.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this);
+                        db2.addButton(intent.getLongExtra(FnBind.BTN_ID, -1), intent.getStringExtra("Name"), intent.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this, null);
                         updateAllBTNS();
 
                     }
-                    break;
+                }
 
-            }
+                break;
+
         }
+
         //Reinvoke voiceInput if needed
         if (needReinvokeVoiceFn) {
             fnb.press(ButtonFnManager.FN_VOICE_FN, "", "");
@@ -2085,18 +2093,18 @@ public class ST extends FragmentActivity implements OnClickListener {
             //Пишем кнопку в базу
             //Сейчас всегда заливаем новую. Потом будем обновлять по id
 
-            long id = db.addButton(i.getLongExtra("id", -1), i.getStringExtra("Name"), i.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), i.getStringExtra("FnResultArgs"), -1, this);
+            long id = db.addButton(i.getLongExtra("id", -1), i.getStringExtra("Name"), i.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), i.getStringExtra("FnResultArgs"), -1, this, null);
 
-            db.bindButtonToPlace(id, reqestCode+""+currentProcess, this);
+            db.bindButtonToPlace(id, reqestCode+""+currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), this);
             DrawerGridAdapter adapter = (DrawerGridAdapter) mDrawerGrid.getAdapter();
             adapter.getCursor().requery();
             adapter.notifyDataSetChanged();
 
         }else{
-            db.bindButtonToPlace(-1,reqestCode+""+currentProcess, this);
+            db.bindButtonToPlace(-1,reqestCode+""+currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), this);
         }
 
-        bindContextButtons(currentProcess, reqestCode);
+        bindContextButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), reqestCode);
 
     }
 
