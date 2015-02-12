@@ -344,40 +344,45 @@ public class FnListFragment extends ListFragment {
                 }
                 resultJSON = sb.toString();
 
-                //Если есть ссылка на иконку
+                //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                 if(mode == MODE_PLUGIN && params[1]!=null){
-                    URL url = new URL(params[1]);
-                    URLConnection conection = url.openConnection();
-                    conection.connect();
+                    try {
+                        URL url = new URL(params[1]);
+                        URLConnection conection = url.openConnection();
+                        conection.connect();
 
-                    // this will be useful so that you can show a tipical 0-100%
-                    // progress bar
-                    int lenghtOfFile = conection.getContentLength();
+                        // this will be useful so that you can show a tipical 0-100%
+                        // progress bar
+                        int lenghtOfFile = conection.getContentLength();
 
-                    // download the file
-                    InputStream input = new BufferedInputStream(url.openStream(),
-                            8192);
+                        // download the file
+                        InputStream input = new BufferedInputStream(url.openStream(),
+                                8192);
 
-                    // Output stream
-                    if(!pluginsFolder.exists()) pluginsFolder.mkdir();
-                    File ico = new File(pluginsFolder, name+".png");
-                    OutputStream output = new FileOutputStream(ico);
+                        // Output stream
+                        if(!pluginsFolder.exists()) pluginsFolder.mkdir();
+                        File ico = new File(pluginsFolder, name+".png");
+                        OutputStream output = new FileOutputStream(ico);
 
-                    byte data[] = new byte[1024];
+                        byte data[] = new byte[1024];
 
-                    long total = 0;
-                    int count;
-                    while ((count = input.read(data)) != -1) {
-                        total += count;
-                        output.write(data, 0, count);
+                        long total = 0;
+                        int count;
+                        while ((count = input.read(data)) != -1) {
+                            total += count;
+                            output.write(data, 0, count);
+                        }
+
+                        // flushing output
+                        output.flush();
+
+                        // closing streams
+                        output.close();
+                        input.close();
+                    }catch (Exception e){
+                        //OOops
                     }
 
-                    // flushing output
-                    output.flush();
-
-                    // closing streams
-                    output.close();
-                    input.close();
                 }
 
             } catch (Exception e) {
