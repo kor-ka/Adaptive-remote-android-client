@@ -3,7 +3,9 @@ package ru.korinc.sockettest;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.Button;
@@ -88,9 +90,13 @@ public class FnButton extends Button{
         //Если есть иконка плагина - ставим её
         if(this.plugin!=null && !this.plugin.isEmpty()){
             File ico  = new File(new File(FnListFragment.PLUGINS_FOLDER_PATH), this.plugin+".png");
-            if(ico.exists())
-                setCompoundDrawablesWithIntrinsicBounds(Drawable.createFromPath(ico.getPath()), null, null, null);
-            else
+            if(ico.exists()){
+                int size = getResources().getDimensionPixelSize(R.dimen.plugin_icon);
+                Drawable dr = Drawable.createFromPath(ico.getPath());
+                Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
+                Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, size, size, true));
+                setCompoundDrawablesWithIntrinsicBounds(d, null, null, null);
+            }else
                 setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
         }else{
             setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
@@ -101,9 +107,9 @@ public class FnButton extends Button{
 
         //Если есть цвет, ставим его
         if(this.color!=0){
-            this.getBackground().setColorFilter(this.color, PorterDuff.Mode.DARKEN);
+            this.getBackground().setColorFilter(this.color, PorterDuff.Mode.MULTIPLY);
         }else{
-            this.getBackground().setColorFilter(context.getResources().getColor(android.R.color.holo_blue_light), PorterDuff.Mode.DARKEN);
+            this.getBackground().setColorFilter(context.getResources().getColor(android.R.color.holo_blue_light), PorterDuff.Mode.MULTIPLY);
         }
 
         //Если пустая - меняем фон

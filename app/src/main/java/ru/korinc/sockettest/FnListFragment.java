@@ -498,27 +498,40 @@ public class FnListFragment extends ListFragment {
                   JSONObject json = null;
                   try {
                       json = new JSONObject(resultJSON);
-                      final JSONArray proc = json.getJSONArray("proc");
-                      final JSONArray buttons= json.getJSONArray("array");
-                      if(proc!=null && buttons!=null){
-                          DbTool db = new DbTool();
-                          int btnsCount = buttons.length()>9?9:buttons.length();
+
+                      JSONArray proc = null;
+                      try {
+                          proc  = json.getJSONArray("proc");
+                      }catch (JSONException e){
+                            proc = new JSONArray();
+                            proc.put("");
+                      }
+
+                      int color = 0;
+                      try {
+
+                          color = Color.parseColor(json.getString("color"));
+                      }catch (JSONException e){
+
+                      }
+
+                      JSONArray buttons= json.getJSONArray("array");
+                      DbTool db = new DbTool();
+                      int btnsCount = buttons.length()>9?9:buttons.length();
+
+
                           for (int i = 0; i < proc.length(); i++) {
                               String pr = proc.getString(i);
                               for (int j = 0; j <btnsCount ; j++) {
-                                String place  = shp.getInt("ButtonId"+j, 0) + pr;
-
                                 JSONObject btn = buttons.getJSONObject(j);
-
-                                db.bindButtonToPlace(
-                                        db.addButton(-1, btn.getString("name"), btn.getInt("type"), btn.getString("cmd"), 0, getActivity(), name, 0),
-                                        place,
-                                        getActivity()
-                                );
+                                long id = db.addButton(-1, btn.getString("name"), btn.getInt("type"), btn.getString("cmd"), 0, getActivity(), name, color);
+                                if(!pr.isEmpty()){
+                                    String place  = shp.getInt("ButtonId"+j, 0) + pr;
+                                    db.bindButtonToPlace(id, place, getActivity());
+                                }
                               }
-
                           }
-                      }
+
                   } catch (JSONException e) {
                       e.printStackTrace();
                   }

@@ -49,6 +49,7 @@ public class DbTool{
             cv.put(BUTTONS_TABLE_TYPE, type);
             cv.put(BUTTONS_TABLE_CMD, cmd);
             cv.put(BUTTONS_TABLE_ORDER, order);
+            cv.put(BUTTONS_TABLE_COLOR, color);
             db.update(BUTTONS_TABLE, cv, "_id=?", new String[]{id+""});
         }else{
             cv.put(BUTTONS_TABLE_NAME, name);
