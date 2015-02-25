@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
@@ -176,6 +177,8 @@ public class ST extends FragmentActivity implements OnClickListener {
             // Ignore
         }
 
+        DbTool db = new DbTool();
+
         shp = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
         ed = shp.edit();
@@ -268,6 +271,63 @@ public class ST extends FragmentActivity implements OnClickListener {
             });
         }
 
+        //init voice tables
+
+        Set<String> keys = shp.getStringSet("VoiceFnMap", new HashSet<String>());
+        if (keys.isEmpty()) {
+/*
+            keys.add("поиск");
+            ed.putString("VoiceFnArg:" + "поиск", "start chrome \"\"");
+            ed.putInt("VoiceFn:" + "поиск", FnButton.FN_COMMAND_LINE);
+*/
+            keys.add("хром");
+            ed.putString("VoiceFnArg:" + "хром", "start chrome");
+            ed.putInt("VoiceFn:" + "хром", ButtonFnManager.FN_COMMAND_LINE);
+
+            keys.add("запустить");
+            ed.putString("VoiceFnArg:" + "запустить", "Launch app");
+            ed.putInt("VoiceFn:" + "запустить", ButtonFnManager.FN_LAUNCH_APP);
+
+            ed.putStringSet("VoiceFnMap", keys);
+            ed.commit();
+
+            int[] buttonsToInit = new int[]{
+                    ButtonFnManager.FN_VOICE_FN,
+                    ButtonFnManager.FN_LAUNCHFROM_TASKBAR,
+                    ButtonFnManager.FN_FIRE_FN,
+                    ButtonFnManager.FN_ARROWS,
+                    ButtonFnManager.FN_R_CLICK,
+                    ButtonFnManager.FN_ENTER
+            };
+
+            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[0], "", 0, this, "", 0), "fnB1" + "top1",this);
+            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[1], "", 0, this, "", 0), "fnB2" + "top1",this);
+            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[2], "", 0, this, "", 0), "fnB3" + "top1",this);
+            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[3], "", 0, this, "", 0), "fnB1" + "bot1",this);
+            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[5], "", 0, this, "", 0), "fnB3" + "bot1",this);
+            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[4], "", 0, this, "", 0), "fnB2" + "bot1",this);
+
+        }
+
+        keyoVoiceInputFix = shp.getStringSet("map", new HashSet<String>());
+        if (keyoVoiceInputFix.isEmpty()) {
+
+            keyoVoiceInputFix.add("хром");
+            ed.putString("хром", "chrome");
+
+            keyoVoiceInputFix.add("хром");
+            ed.putString("дропбокс", "dropbox");
+
+            keyoVoiceInputFix.add("ворд");
+            ed.putString("ворд", "word");
+
+            keyoVoiceInputFix.add("ексель");
+            ed.putString("ексель", "excel");
+
+            ed.putStringSet("map", keyoVoiceInputFix);
+            ed.commit();
+        }
+
 
         scan = (Button) findViewById(R.id.bScan);
         send = (Button) findViewById(R.id.bSend);
@@ -358,9 +418,9 @@ public class ST extends FragmentActivity implements OnClickListener {
                             long id=i.getLongExtra("id", 0);
                             b.init(i.getLongExtra("id", 0), ST.this, ocl, olclFn, fnb);
 
-                            DbTool db = new DbTool();
+                            DbTool dbt = new DbTool();
                             FnButton fnb = (FnButton) v;
-                            db.bindButtonToPlace(id, fnb.getPlace(), ST.this);
+                            dbt.bindButtonToPlace(id, fnb.getPlace(), ST.this);
                             v.clearAnimation();
                             v.startAnimation(afterDropAnimation);
                             break;
@@ -772,7 +832,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         mDrawerGrid = (GridView) findViewById(R.id.right_drawer);
 
         // Set the adapter for the list view
-        DbTool db = new DbTool();
+
         mDrawerGrid.setAdapter(new DrawerGridAdapter(this, db.getCursor(DbTool.BUTTONS_TABLE, this), fnb));
         // Set the list's click listener
         mDrawerGrid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -833,44 +893,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         }
 
-        //init voice tables
-        Set<String> keys = shp.getStringSet("VoiceFnMap", new HashSet<String>());
-        if (keys.isEmpty()) {
-/*
-            keys.add("поиск");
-            ed.putString("VoiceFnArg:" + "поиск", "start chrome \"\"");
-            ed.putInt("VoiceFn:" + "поиск", FnButton.FN_COMMAND_LINE);
-*/
-            keys.add("хром");
-            ed.putString("VoiceFnArg:" + "хром", "start chrome");
-            ed.putInt("VoiceFn:" + "хром", ButtonFnManager.FN_COMMAND_LINE);
 
-            keys.add("запустить");
-            ed.putString("VoiceFnArg:" + "запустить", "Launch app");
-            ed.putInt("VoiceFn:" + "запустить", ButtonFnManager.FN_LAUNCH_APP);
-
-            ed.putStringSet("VoiceFnMap", keys);
-            ed.commit();
-        }
-
-        keyoVoiceInputFix = shp.getStringSet("map", new HashSet<String>());
-        if (keyoVoiceInputFix.isEmpty()) {
-
-            keyoVoiceInputFix.add("хром");
-            ed.putString("хром", "chrome");
-
-            keyoVoiceInputFix.add("хром");
-            ed.putString("дропбокс", "dropbox");
-
-            keyoVoiceInputFix.add("ворд");
-            ed.putString("ворд", "word");
-
-            keyoVoiceInputFix.add("ексель");
-            ed.putString("ексель", "excel");
-
-            ed.putStringSet("map", keyoVoiceInputFix);
-            ed.commit();
-        }
 
         overlayOTL = new OverlayOTL();
         overlayAltTAbOTL = new OverlayAltTAbOTL();
@@ -1639,9 +1662,20 @@ public class ST extends FragmentActivity implements OnClickListener {
                     m_Text += " ";
                     m_Text = m_Text.toLowerCase();
 
-                    Set<String> keys = shp.getStringSet("VoiceFnMap", new HashSet<String>());
+                    //Set<String> keys = shp.getStringSet("VoiceFnMap", new HashSet<String>());
+                    DbTool db = new DbTool();
+                    Cursor buttonsNames = db.getCursor(DbTool.BUTTONS_TABLE, this);
 
-                    if (keys != null) {
+                    HashMap<String, Long> map = new HashMap<String, Long>();
+
+                    if(buttonsNames.moveToFirst()){
+                        do {
+                            map.put(buttonsNames.getString(buttonsNames.getColumnIndex(DbTool.BUTTONS_TABLE_NAME)), buttonsNames.getLong(buttonsNames.getColumnIndex("_id")));
+                        }while (buttonsNames.moveToNext());
+
+                    }
+                    Set<String> keys = map.keySet();
+                    if (!keys.isEmpty()) {
                         for (String key : keys) {
                             key = key.toLowerCase();
                             if (m_Text.startsWith(key + " ")) {
@@ -1652,9 +1686,10 @@ public class ST extends FragmentActivity implements OnClickListener {
                                 } else {
                                     args = m_Text.replaceFirst(key + " ", "");
                                 }
-
-                                fnb.press(shp.getInt("VoiceFn:" + key, 0), shp.getString("VoiceFnArg:" + key, "null"), args);
-
+                                Cursor button = db.getButtonCursor(map.get(key), ST.this);
+                                if(button!=null){
+                                    fnb.press(button.getInt(button.getColumnIndex(DbTool.BUTTONS_TABLE_TYPE)), button.getString(button.getColumnIndex(DbTool.BUTTONS_TABLE_CMD)), args);
+                                }
                             }
                         }
                     }
@@ -1686,13 +1721,28 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                                     String m_Text = input.getText().toString();
 
-                                    Set<String> keys = shp.getStringSet("VoiceFnMap", new HashSet<String>());
+                                    //Set<String> keys = shp.getStringSet("VoiceFnMap", new HashSet<String>());a
                                     //Check for Reinvoke
                                     if (m_Text.endsWith(" потом")) {
                                         m_Text = m_Text.substring(0, m_Text.length() - 6);
                                         needReinvokeVoiceFn = true;
                                     }
-                                    if (keys != null) {
+
+                                    //Set<String> keys = shp.getStringSet("VoiceFnMap", new HashSet<String>());
+                                    DbTool db = new DbTool();
+                                    Cursor buttonsNames = db.getCursor(DbTool.BUTTONS_TABLE, ST.this);
+
+                                    HashMap<String, Long> map = new HashMap<String, Long>();
+
+                                    if(buttonsNames.moveToFirst()){
+                                        do {
+                                            map.put(buttonsNames.getString(buttonsNames.getColumnIndex(DbTool.BUTTONS_TABLE_NAME)), buttonsNames.getLong(buttonsNames.getColumnIndex("_id")));
+                                        }while (buttonsNames.moveToNext());
+
+                                    }
+                                    Set<String> keys = map.keySet();
+                                    if (keys!=null && !keys.isEmpty()) {
+
                                         for (String key : keys) {
                                             if (m_Text.startsWith(key)) {
                                                 String args;
@@ -1702,8 +1752,11 @@ public class ST extends FragmentActivity implements OnClickListener {
                                                 } else {
                                                     args = m_Text.replaceFirst(key + " ", "");
                                                 }
+                                                Cursor button = db.getButtonCursor(map.get(key), ST.this);
+                                                if(button!=null){
+                                                    fnb.press(button.getInt(button.getColumnIndex(DbTool.BUTTONS_TABLE_TYPE)), button.getString(button.getColumnIndex(DbTool.BUTTONS_TABLE_CMD)), args);
+                                                }
 
-                                                fnb.press(shp.getInt("VoiceFn:" + key, 0), shp.getString("VoiceFnArg:" + key, "null"), args);
 
                                             }
                                         }

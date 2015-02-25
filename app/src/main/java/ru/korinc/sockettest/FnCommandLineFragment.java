@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.text.Editable;
@@ -152,6 +153,7 @@ public class FnCommandLineFragment extends ListFragment {
 	  };
 	  
 	  btnOk = (Button) getActivity().findViewById(R.id.fnCommandLineBtnOk);
+      btnOk.getBackground().setColorFilter(getActivity().getResources().getColor(android.R.color.holo_blue_light), PorterDuff.Mode.MULTIPLY);
 	  btnOk.setOnClickListener(ocl);
 	  
 	  addInput = (ImageButton) getActivity().findViewById(R.id.add_mic);

@@ -140,6 +140,7 @@ public class FnCreateCustomFragment extends ListFragment {
 	  };
 	  
 	  btnOk = (Button) getActivity().findViewById(R.id.fnCustomBtnOk);
+      btnOk.getBackground().setColorFilter(getActivity().getResources().getColor(android.R.color.holo_blue_light), PorterDuff.Mode.MULTIPLY);
 	  btnOk.setOnClickListener(ocl);
 	  
 	  del = (ImageButton) getActivity().findViewById(R.id.fnCustomDelElement);

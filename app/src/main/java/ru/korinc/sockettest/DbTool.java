@@ -77,6 +77,8 @@ public class DbTool{
         return  id;
     }
 
+
+
     public long getButtonIdByPlace(String place, Context context){
         dbHelper = new DBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -100,7 +102,7 @@ public class DbTool{
     }
 
 
-    //Пишется криво! Не оверрайдит существующие, бомбит всё новое!!
+
     public void bindButtonToPlace(long buttonId, String place, Context context){
         dbHelper = new DBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -117,6 +119,8 @@ public class DbTool{
 
         db.close();
     }
+
+
 
     public Cursor getButtonCursor(long id, Context context){
         dbHelper = new DBHelper(context);
@@ -185,6 +189,8 @@ public class DbTool{
                                                                                                      BUTTONS_TABLE_COLOR + INTEGER + CM +
                                                                                                      BUTTONS_TABLE_ORDER + INTEGER +");");
 
+
+
             db.execSQL("create table "+SLIDERS_BTNS_TABLE+" ("  + SLIDERS_BTNS_PLACE_ID + TEXT + " primary key " + CM +
                                                                                                             SLIDERS_BTNS_BTN_ID + INTEGER +");");
 
@@ -192,6 +198,10 @@ public class DbTool{
                                                                                                             DESKTOPS_BTNS_BTN_ID + INTEGER + CM +
                                                                                                             DESKTOPS_BTNS_ORDER + INTEGER +");");
 
+
+
+
+            Log.d(TAG, "--- onCreate database FINISH ---");
         }
 
         @Override
