@@ -184,7 +184,7 @@
     <LinearLayout
         android:id="@+id/ll"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_alignLeft="@+id/tableLayout1"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
@@ -216,9 +216,14 @@
 
             <com.viewpagerindicator.CirclePageIndicator
                 android:id="@+id/indicatorTop"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
-                android:padding="1dip" />
+                android:paddingLeft="5dip"
+                android:paddingRight="1dip"
+                android:paddingTop="1dip"
+                android:paddingBottom="1dip"
+                 />
         </LinearLayout>
 
         <TableLayout
@@ -229,7 +234,7 @@
             >
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/textStatus"
                 android:text="..."
@@ -245,7 +250,8 @@
                 android:id="@+id/context"
                 android:src="@android:drawable/radiobutton_off_background"
                 android:background="@android:color/transparent"
-                android:layout_centerInParent="true"/>
+                android:layout_gravity="center_horizontal"
+                />
 
             <TableRow
                 android:id="@+id/tableWSRow1"

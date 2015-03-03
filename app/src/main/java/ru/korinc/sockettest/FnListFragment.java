@@ -309,7 +309,7 @@ public class FnListFragment extends ListFragment {
             HttpPost httppost;
             switch (mode){
                 case MODE_LIST:
-                    httppost = new HttpPost("https://dl.dropboxusercontent.com/u/30840341/Adaptive%20remote/plugins/plugins.json");
+                    httppost = new HttpPost("https://raw.githubusercontent.com/kor-ka/Adaptive-remote-server/mouse/plugins/plugins.json");
                 break;
 
                 case MODE_PLUGIN:
@@ -317,7 +317,7 @@ public class FnListFragment extends ListFragment {
                 break;
 
                 default:
-                    httppost = new HttpPost("https://dl.dropboxusercontent.com/u/30840341/Adaptive%20remote/plugins/plugins.json");
+                    httppost = new HttpPost("https://raw.githubusercontent.com/kor-ka/Adaptive-remote-server/mouse/plugins/plugins.json");
                     break;
             }
 
