@@ -1923,7 +1923,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             case REQUEST_CODE_ADD_BUTTON:
                 if (resultCode == RESULT_OK) {
                     DbTool db = new DbTool();
-                    db.addButton(-1, intent.getStringExtra("Name"), intent.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this, null, 0);
+                    db.addButton(-1, intent.getStringExtra("Name"), intent.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this, intent.getStringExtra("plugin"), intent.getIntExtra("color", 0));
 
                 }
                 DrawerGridAdapter adapter = (DrawerGridAdapter) mDrawerGrid.getAdapter();
@@ -1935,7 +1935,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 if (resultCode == RESULT_OK) {
                     DbTool db2 = new DbTool();
                     if(intent!=null && intent.getLongExtra(FnBind.BTN_ID, -1)!=-1){
-                        db2.addButton(intent.getLongExtra(FnBind.BTN_ID, -1), intent.getStringExtra("Name"), intent.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this, null, 0);
+                        db2.addButton(intent.getLongExtra(FnBind.BTN_ID, -1), intent.getStringExtra("Name"), intent.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), intent.getStringExtra("FnResultArgs"), -1, this, intent.getStringExtra("plugin"), intent.getIntExtra("color", 0));
                         updateAllBTNS();
 
                     }

@@ -57,8 +57,8 @@ public class FnListFragment extends ListFragment {
 	
 	ArrayAdapter<String> adapter ;
 	List<String> fns;
-    List<String> fnpl;
-    List<Integer> fnpltype;
+    List<String[]> fnpl;
+    List<Integer[]> fnpltype;
 	ButtonFnManager fnb;
 
     ListView pluginsLV;
@@ -130,7 +130,12 @@ public class FnListFragment extends ListFragment {
                         JSONObject pluginJson = new JSONObject(jsonStr);
 
                         JSONArray jArray = pluginJson.getJSONArray("array");
-                        setPLuginContent(jArray);
+
+                        int color = 0;
+                        try {
+
+                            color = Color.parseColor(pluginJson.getString("color"));}catch (JSONException e) {}
+                        setPLuginContent(jArray, pluginName, color);
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -174,8 +179,8 @@ public class FnListFragment extends ListFragment {
 
 		fnb = new ButtonFnManager();
 		fns = new ArrayList<String>() ;
-        fnpl = new ArrayList<String>() ;
-        fnpltype = new ArrayList<Integer>() ;
+        fnpl = new ArrayList<String[]>() ;
+        fnpltype = new ArrayList<Integer[]>() ;
         setAdaptiveRemoteContent();
 	}
 	
@@ -201,8 +206,10 @@ public class FnListFragment extends ListFragment {
 
          }else{
              intent.putExtra("Name",fns.get(position));
-             intent.putExtra("FnResult",fnpltype.get(position));
-             intent.putExtra("FnResultArgs",fnpl.get(position));
+             intent.putExtra("FnResult",fnpltype.get(position)[0]);
+             intent.putExtra("FnResultArgs",fnpl.get(position)[0]);
+             intent.putExtra("plugin",fnpl.get(position)[1]);
+             intent.putExtra("color",fnpltype.get(position)[1]);
          }
          intent.putExtra(FnBind.BTN_ID, btnId);
          getActivity().setResult(getActivity().RESULT_OK, intent);
@@ -221,7 +228,7 @@ public class FnListFragment extends ListFragment {
         setListAdapter(adapter);
     }
 
-    private void setPLuginContent(JSONArray jArray){
+    private void setPLuginContent(JSONArray jArray, String plugin, int color){
         itIsPlugin = true;
         fns.clear();
         fnpl.clear();
@@ -232,8 +239,8 @@ public class FnListFragment extends ListFragment {
                 row = jArray.getJSONObject(i);
 
             fns.add(row.getString("name"));
-            fnpl.add(row.getString("cmd"));
-            fnpltype.add(row.getInt("type"));
+            fnpl.add(new String[]{row.getString("cmd"), plugin});
+            fnpltype.add(new Integer[]{row.getInt("type"), color});
 
             } catch (JSONException e) {
                 e.printStackTrace();

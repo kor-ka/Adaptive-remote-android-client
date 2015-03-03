@@ -49,7 +49,10 @@ public class DbTool{
             cv.put(BUTTONS_TABLE_TYPE, type);
             cv.put(BUTTONS_TABLE_CMD, cmd);
             cv.put(BUTTONS_TABLE_ORDER, order);
+            if(color!=0)
             cv.put(BUTTONS_TABLE_COLOR, color);
+            if(plugin!=null && !plugin.isEmpty())
+            cv.put(BUTTONS_TABLE_PLUGIN, plugin);
             db.update(BUTTONS_TABLE, cv, "_id=?", new String[]{id+""});
         }else{
             cv.put(BUTTONS_TABLE_NAME, name);

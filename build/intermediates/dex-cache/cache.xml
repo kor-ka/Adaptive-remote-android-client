@@ -2,18 +2,18 @@
 <items version="2" >
 
     <item
-        jar="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="8694693636ab36910c8100ce527c258ff3ebece0">
-        <dex dex="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/pre-dexed/debug/classes-716f9c004371cd80ed1e921d8684966d26a31120.jar" />
-    </item>
-    <item
         jar="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/classes.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="38bf3d2701e82b5b1f65ef3864aebe50e9ba645b">
         <dex dex="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/pre-dexed/debug/classes-d019043d16748d77f599ebfe4b8f2d2b8de0150d.jar" />
+    </item>
+    <item
+        jar="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0">
+        <dex dex="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/pre-dexed/debug/classes-716f9c004371cd80ed1e921d8684966d26a31120.jar" />
     </item>
     <item
         jar="/home/korka/AndroidstudioProjects/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
