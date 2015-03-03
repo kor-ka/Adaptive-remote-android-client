@@ -27,6 +27,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.DragEvent;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -79,7 +80,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     EditText clientPortEt;
     EditText aEt;
     EditText bEt;
-    EditText keyboardEt;
+    ZanyEditText keyboardEt;
     Button scan;
     Button send;
 
@@ -259,7 +260,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         clientPortEt = (EditText) findViewById(R.id.etPort);
         aEt = (EditText) findViewById(R.id.etA);
         bEt = (EditText) findViewById(R.id.etB);
-        keyboardEt = (EditText) findViewById(R.id.etKeyboard);
+        keyboardEt = (ZanyEditText) findViewById(R.id.etKeyboard);
 
         EditText[] ets  = new EditText[]{ipEt, portEt, clientPortEt, aEt, bEt, keyboardEt};
         for (EditText et:ets){
@@ -553,16 +554,19 @@ public class ST extends FragmentActivity implements OnClickListener {
         ipEt.setText(shp.getString("ip", ""));
         portEt.setText(shp.getString("port", "1234"));
 
-        keyboardEt.setText("<>");
+        keyboardEt.setText("");
         keyboardEt.setSelection(keyboardEt.getText().length());
         keyboardEt.addTextChangedListener(new TextWatcher() {
+
+
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                                       int count) {
                 if (s.length() > 0
-                        && keyboardEt.getText().toString().length() > 2) {
-                    String pressed = s.toString().replace("<>", "");
+                        && keyboardEt.getText().toString().length() > 0) {
+                   // String pressed = s.toString().replace("<>", "");
+                    String pressed = s.toString();
                     // int spaces = pressed.length() - pressed.replaceAll(" ",
                     // "").length();
 
@@ -574,26 +578,42 @@ public class ST extends FragmentActivity implements OnClickListener {
                                 port, ButtonFnManager.keyboard, pressed)).start();
                     }
 
-                    keyboardEt.setText("<>");
+                    keyboardEt.setText("");
                     keyboardEt.setSelection(keyboardEt.getText().length());
-                } else if (keyboardEt.getText().toString().equals("<")) {
+                } /*else if (keyboardEt.getText().toString().equals("<")) {
 
                     int port = Integer.parseInt(portEt.getText().toString());
                     new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
                             port, ButtonFnManager.keyboard, "bksps")).start();
                     keyboardEt.setText("<>");
                     keyboardEt.setSelection(keyboardEt.getText().length());
-                }
+                }*/
 
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+            }
+        });
+
+        keyboardEt.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if(keyCode == KeyEvent.KEYCODE_DEL){
+                    int port = Integer.parseInt(portEt.getText().toString());
+                    new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
+                            port, ButtonFnManager.keyboard, "bksps")).start();
+                    //keyboardEt.setText("<>");
+                    //keyboardEt.setSelection(keyboardEt.getText().length());
+                }
+                return false;
             }
         });
 
@@ -1321,8 +1341,9 @@ public class ST extends FragmentActivity implements OnClickListener {
             */
 
             case R.id.keyboard:
+                keyboardEt.requestFocus();
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,
+                imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,
                         InputMethodManager.HIDE_IMPLICIT_ONLY);
                 break;
 

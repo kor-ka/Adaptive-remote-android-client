@@ -99,7 +99,7 @@
                 android:inputType="numberDecimal"
                 android:text="4444" />
 
-            <EditText
+            <ru.korinc.sockettest.ZanyEditText
                 android:id="@+id/etKeyboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
                 android:inputType="textNoSuggestions|textMultiLine" >
 
                 <requestFocus />
-            </EditText>
+            </ru.korinc.sockettest.ZanyEditText>
         </TableRow>
 
         <TableRow
