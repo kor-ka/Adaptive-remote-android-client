@@ -73,7 +73,7 @@ import java.util.concurrent.TimeUnit;
 public class ST extends FragmentActivity implements OnClickListener {
 
 
-    boolean debug = true;
+    boolean debug = false;
 
     EditText ipEt;
     EditText portEt;
@@ -239,7 +239,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                             Intent sendIntent = new Intent();
                             sendIntent.setAction(Intent.ACTION_SEND);
-                            sendIntent.putExtra(Intent.EXTRA_TEXT, "http://sites.google.com/site/adaptiveremote/");
+                            sendIntent.putExtra(Intent.EXTRA_TEXT, "http://kor-ka.github.io/Adaptive-remote-android-client/");
                             sendIntent.setType("text/plain");
                             startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_link_via)));
 
