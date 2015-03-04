@@ -23,6 +23,8 @@ public class ButtonFnManager {
     final static int commandLine = 10;
     final static int getProcessIcon = 11;
     final static int centerClick = 12;
+    final static int wheel = 13;
+
     Context ctx;
 	ST st;
 	public final static int FN_LAUNCHFROM_TASKBAR=-6;
@@ -76,6 +78,8 @@ public class ButtonFnManager {
 	public final static int FN_CTRL_P=42;
     public final static int FN_CONTEXT_BUTTONS=43;
     public final static int FN_CENTER_CLICK =44;
+    public final static int FN_WHELL_DOWN =45;
+    public final static int FN_WHELL_UP =46;
 	public static HashMap<Integer, String> fnMap;
 	
 	public ButtonFnManager(ST st) {
@@ -103,6 +107,8 @@ public class ButtonFnManager {
 			fnMap.put(FN_CLICK, "Left click");
 			fnMap.put(FN_R_CLICK, "Right click");
             fnMap.put(FN_CENTER_CLICK, "Center click");
+            fnMap.put(FN_WHELL_UP, "Wheel up");
+            fnMap.put(FN_WHELL_DOWN, "Wheel down");
 			fnMap.put(FN_ENTER, "Enter");
 			fnMap.put(FN_BKSPC, "Backspace");
 			fnMap.put(FN_ESC, "Escape");
@@ -217,6 +223,14 @@ public class ButtonFnManager {
             case FN_CENTER_CLICK:
 
                  new Thread(new SocketThread( st.ipEt.getText().toString(), port, centerClick, 0, 0, st)).start();
+                 break;
+
+            case FN_WHELL_UP:
+                 new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, wheel, "up")).start();
+                 break;
+
+            case FN_WHELL_DOWN:
+                 new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, wheel, "down")).start();
                  break;
 
             case FN_SCAN:

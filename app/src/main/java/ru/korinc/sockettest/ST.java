@@ -922,10 +922,17 @@ public class ST extends FragmentActivity implements OnClickListener {
         topPager.setOnTouchListener(overlayOTL);
         botPager.setOnTouchListener(overlayOTL);
 
+        OnTouchListener scrollOtl = new ScrollOtl();
+        View leftScroll = findViewById(R.id.leftScroll);
+        View rightScroll = findViewById(R.id.rightScroll);
+        leftScroll.setOnTouchListener(scrollOtl);
+        rightScroll.setOnTouchListener(scrollOtl);
+
+
 
         InAppLog.writeLog(ST.this, "", "ST on create", debug);
 
-        exportDatabse("db");
+        //exportDatabse("db");
     }
 
     private void updateAllBTNS() {
@@ -1213,6 +1220,67 @@ public class ST extends FragmentActivity implements OnClickListener {
         }
 
     }
+
+    public class ScrollOtl implements OnTouchListener {
+
+        boolean overlayActivated = false;
+
+        int startX;
+        int startY;
+        int x;
+        int y;
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        long timeActivated;
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    startX = (int) event.getRawX();
+                    startY = (int) event.getRawY();
+                    InAppLog.writeLog(ST.this, "", "On Touch Scroll" + startX + " | " + startY, debug);
+                    break;
+
+                case MotionEvent.ACTION_MOVE:
+
+                    x = (int) event.getRawX();
+                    y = (int) event.getRawY();
+
+                    int moveY = startY - y;
+
+                    InAppLog.writeLog(ST.this, "", " Scroll Move " + x + " | " + y + "|" + moveY, debug);
+
+
+
+
+
+                    if (moveY > 40 || moveY < -40) {
+
+                        startX = x;
+                        startY = y;
+                        fnb.press(moveY>0?ButtonFnManager.FN_WHELL_UP:ButtonFnManager.FN_WHELL_UP, "", "");
+                        this.v.vibrate(50);
+                    }
+
+
+
+
+                    break;
+
+
+
+
+
+            }
+
+
+            return false;
+        }
+
+    }
+
 
     public void setCurrentProcess(String process){
 

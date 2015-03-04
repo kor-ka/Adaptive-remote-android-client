@@ -485,7 +485,26 @@
 
             </LinearLayout>
 
+    <View
 
+        android:id = "@+id/leftScroll"
+        android:layout_width="20dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+
+
+    </View>
+
+    <View
+
+        android:id = "@+id/rightScroll"
+        android:layout_width="20dp"
+        android:layout_gravity="right"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+    </View>
 
     </FrameLayout>
     <!-- The navigation drawer -->
