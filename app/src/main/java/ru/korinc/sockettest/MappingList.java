@@ -3,6 +3,7 @@ package ru.korinc.sockettest;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -30,6 +33,10 @@ public class MappingList extends Activity implements OnClickListener{
 	EditText valueEt;
 	Set<String> keys;
 	List<String> map;
+    CheckBox enterAfterVoiceInput;
+    CheckBox leftScroll;
+    CheckBox rightScroll;
+
 	ArrayAdapter<String> adapter ;
 	
 	@Override
@@ -43,9 +50,41 @@ public class MappingList extends Activity implements OnClickListener{
 		keyEt = (EditText) findViewById(R.id.editKey);
 		valueEt = (EditText) findViewById(R.id.editTextValue);
 		addToMap = (Button) findViewById(R.id.buttonAddToMap);
+        enterAfterVoiceInput = (CheckBox) findViewById(R.id.enterAfterVoiceInput);
+        leftScroll = (CheckBox) findViewById(R.id.leftScroll);
+        rightScroll = (CheckBox) findViewById(R.id.rightScroll);
+        addToMap.getBackground().setColorFilter(getResources().getColor(android.R.color.holo_blue_light), PorterDuff.Mode.MULTIPLY);
 		addToMap.setOnClickListener(this);
-		
-		keys  = shp.getStringSet("map", new HashSet<String>());
+
+        enterAfterVoiceInput.setChecked(shp.getBoolean("enterOnVoiceInput", true));
+        leftScroll.setChecked(shp.getBoolean("leftScroll", true));
+        rightScroll.setChecked(shp.getBoolean("rightScroll", true));
+
+        enterAfterVoiceInput.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                ed.putBoolean("enterOnVoiceInput", b);
+                ed.commit();
+            }
+        });
+
+        leftScroll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                ed.putBoolean("leftScroll", b);
+                ed.commit();
+            }
+        });
+
+        rightScroll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                ed.putBoolean("rightScroll", b);
+                ed.commit();
+            }
+        });
+
+        keys  = shp.getStringSet("map", new HashSet<String>());
 		if (keys.isEmpty()){
 			keys.add("хром");
 			ed.putString("хром", "chrome");

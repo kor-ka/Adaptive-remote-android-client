@@ -9,6 +9,28 @@
     android:paddingTop="16dp"
     tools:context=".MappingList" >
 
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_after_voiceinput"
+        android:id="@+id/enterAfterVoiceInput"
+        android:checked="false" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/left_scroll"
+        android:id="@+id/leftScroll"
+        android:checked="false" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/right_scroll"
+        android:id="@+id/rightScroll"
+        android:checked="false" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

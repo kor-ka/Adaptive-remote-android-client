@@ -497,6 +497,7 @@
         android:background="@android:color/transparent"/>
 
         <View
+            android:id = "@+id/leftScrollIndicator"
             android:layout_width="1dp"
             android:layout_marginTop="100dp"
             android:layout_marginBottom="100dp"
@@ -522,6 +523,7 @@
      </Button>
 
         <View
+            android:id = "@+id/rightScrollIndicator"
             android:layout_width="1dp"
             android:layout_marginTop="100dp"
             android:layout_marginBottom="100dp"
@@ -552,7 +554,7 @@
 
         <GridView android:id="@+id/right_drawer"
             android:layout_width="match_parent"
-            android:numColumns="3"
+            android:numColumns="2"
             android:layout_height="match_parent"
             android:layout_above="@id/addButton"
             android:choiceMode="singleChoice"

@@ -142,6 +142,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     public static final int REQUEST_CODE_VOICE_FN = 12354;
     public static final int REQUEST_CODE_LAUNCHAPP_FROM_TASKBAR = 12358;
     private static final int REQUEST_CODE_EDIT_BTN = 1258;
+    public static final int REQUEST_CODE_SETTINGS = 1259;
     public String currentProcess = "";
     ButtonFnManager fnb;
     private String dialogInputText = "";
@@ -162,6 +163,10 @@ public class ST extends FragmentActivity implements OnClickListener {
     public GridView mDrawerGrid;
 
     public static final int REQUEST_CODE_ADD_BUTTON = 12359;
+    private Button leftScroll;
+    private Button rightScroll;
+    private View leftScrollIndicator;
+    private View rightScrollIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -298,16 +303,17 @@ public class ST extends FragmentActivity implements OnClickListener {
                     ButtonFnManager.FN_FIRE_FN,
                     ButtonFnManager.FN_ARROWS,
                     ButtonFnManager.FN_R_CLICK,
-                    ButtonFnManager.FN_ENTER
+                    ButtonFnManager.FN_ENTER,
+                    ButtonFnManager.FN_SETTINGS
             };
 
             db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[0], "", 0, this, "", 0), "fnB1" + "top1",this);
             db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[1], "", 0, this, "", 0), "fnB2" + "top1",this);
             db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[2], "", 0, this, "", 0), "fnB3" + "top1",this);
             db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[3], "", 0, this, "", 0), "fnB1" + "bot1",this);
-            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[5], "", 0, this, "", 0), "fnB3" + "bot1",this);
             db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[4], "", 0, this, "", 0), "fnB2" + "bot1",this);
-
+            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[5], "", 0, this, "", 0), "fnB3" + "bot1",this);
+            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[6], "", 0, this, "", 0), "fnB1" + "bot2",this);
         }
 
         keyoVoiceInputFix = shp.getStringSet("map", new HashSet<String>());
@@ -965,20 +971,28 @@ public class ST extends FragmentActivity implements OnClickListener {
         botPager.setOnTouchListener(overlayOTL);
 
         ScrollOtl scrollOtl = new ScrollOtl();
-        Button leftScroll = (Button) findViewById(R.id.leftScroll);
-        Button rightScroll = (Button) findViewById(R.id.rightScroll);
+        leftScroll = (Button) findViewById(R.id.leftScroll);
+        rightScroll = (Button) findViewById(R.id.rightScroll);
+        leftScrollIndicator = findViewById(R.id.leftScrollIndicator);
+        rightScrollIndicator = findViewById(R.id.rightScrollIndicator);
         leftScroll.setOnTouchListener(scrollOtl);
         rightScroll.setOnTouchListener(scrollOtl);
         leftScroll.bringToFront();
         rightScroll.bringToFront();
 
-        leftScroll.setVisibility(shp.getBoolean("leftScroll", true)?View.VISIBLE:View.GONE);
-        rightScroll.setVisibility(shp.getBoolean("rightScroll", true)?View.VISIBLE:View.GONE);
+        setScrollVisability();
 
 
         InAppLog.writeLog(ST.this, "", "ST on create", debug);
 
         //exportDatabse("db");
+    }
+
+    private void setScrollVisability() {
+        leftScroll.setVisibility(shp.getBoolean("leftScroll", true)? View.VISIBLE:View.GONE);
+        rightScroll.setVisibility(shp.getBoolean("rightScroll", true)?View.VISIBLE:View.GONE);
+        leftScrollIndicator.setVisibility(shp.getBoolean("leftScroll", true)?View.VISIBLE:View.GONE);
+        rightScrollIndicator.setVisibility(shp.getBoolean("rightScroll", true)?View.VISIBLE:View.GONE);
     }
 
     private void updateAllBTNS() {
@@ -1094,7 +1108,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     if(overlayActivated){
                         InAppLog.writeLog(ST.this, "", "Overlay release", debug);
                         overlayActivated = false;
-                        this.v.vibrate(100);
+                        this.v.vibrate(20);
                         fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
                         fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
                         btnCondidate.performClick();
@@ -1166,7 +1180,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
             if(btnCoordinateOld!=btnCondidateInt){
                 fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::"+btnCondidateInt+"::", "");
-                this.v.vibrate(50);
+                this.v.vibrate(10);
             }
         }
     }
@@ -1205,7 +1219,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     if (!overlayActivated && (moveY > 200 || moveY < -200) && !inViewBounds(topPager, x, y) && !inViewBounds(botPager, x, y)) {
 
                         overlayActivated = true;
-                        this.v.vibrate(50);
+                        this.v.vibrate(10);
                         fnb.press(ButtonFnManager.FN_ALT_TAB, "", "");
                         timeActivated = System.currentTimeMillis();
                         InAppLog.writeLog(ST.this, "", "ALTTAb Activated!", debug);
@@ -1222,7 +1236,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                 startX = x;
                                 startY = y;
                                 fnb.press(ButtonFnManager.FN_CUSTOM, moveY>0?"Left arrow":"Right arrow", "");
-                                this.v.vibrate(50);
+                                this.v.vibrate(10);
                             }
 
                         } else {
@@ -1247,7 +1261,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                         Executors.newSingleThreadScheduledExecutor().schedule(new SocketThread(ipEt.getText().toString(), Integer.parseInt(portEt.getText().toString()), ButtonFnManager.ab, 0, 0, ST.this), 400, TimeUnit.MILLISECONDS);
 
-                        this.v.vibrate(100);
+                        this.v.vibrate(20);
 
                     }
 
@@ -2043,6 +2057,10 @@ public class ST extends FragmentActivity implements OnClickListener {
                     }
                 }
 
+                break;
+
+            case REQUEST_CODE_SETTINGS:
+                setScrollVisability();
                 break;
 
         }
