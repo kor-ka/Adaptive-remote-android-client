@@ -739,106 +739,148 @@ public class ST extends FragmentActivity implements OnClickListener {
             float oldy;
             float movex;
             float movey;
-
+            int startX;
+            int startY;
             float downx;
             float downy;
-            float x;
-            float y;
+            int x;
+            int y;
             String sDown;
             String sMove;
             String sUp;
+            long doubleTouchUpTime;
 
             long timeDown = System.currentTimeMillis();
             long timeUp = System.currentTimeMillis();
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                x = event.getX();
-                y = event.getY();
+                x = (int) event.getX();
+                y = (int) event.getY();
 
                 int port;
                 int a;
                 int b;
+                if(event.getPointerCount()<2 && System.currentTimeMillis()-doubleTouchUpTime>200){
+                    switch (event.getAction()) {
 
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        timeDown = System.currentTimeMillis();
-                        sDown = "Down: " + x + "," + y + "|" + timeDown;
-                        sMove = "";
-                        sUp = "";
-                        oldx = x;
-                        oldy = y;
-                        downx = x;
-                        downy = y;
+                        case MotionEvent.ACTION_DOWN:
+                            timeDown = System.currentTimeMillis();
+                            sDown = "Down: " + x + "," + y + "|" + timeDown;
+                            sMove = "";
+                            sUp = "";
+                            oldx = x;
+                            oldy = y;
+                            downx = x;
+                            downy = y;
 
-                        break;
+                            break;
 
-                    case MotionEvent.ACTION_MOVE:
-                        sMove = "Move: x_" + x + "\nMove: y_" + y;
-                        movex = (x - oldx);
-                        movey = (y - oldy);
+                        case MotionEvent.ACTION_MOVE:
 
-                        // Need for control long click
-                        fullmovex = x - downx;
-                        fullmovey = y - downy;
-                        if (fullmovex < 0) {
-                            fullmovex = fullmovex * -1;
-                        }
 
-                        if (fullmovey < 0) {
-                            fullmovey = fullmovey * -1;
-                        }
-                        //
 
-                        a = Math.round(movex);
-                        b = Math.round(movey);
+                            sMove = "Move: x_" + x + "\nMove: y_" + y;
+                            movex = (x - oldx);
+                            movey = (y - oldy);
 
-                        port = Integer.parseInt(portEt.getText().toString());
+                            // Need for control long click
+                            fullmovex = x - downx;
+                            fullmovey = y - downy;
+                            if (fullmovex < 0) {
+                                fullmovex = fullmovex * -1;
+                            }
 
-                        new Thread(new SocketThread(ipEt.getText().toString(),
-                                port, ButtonFnManager.ab, a, b, ST.this)).start();
-                        oldx = x;
-                        oldy = y;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL:
-                        timeUp = System.currentTimeMillis();
-                        sMove = "";
-                        sUp = "Up: " + x + "," + y + "|" + timeUp;
-                        fullmovex = x - downx;
-                        fullmovey = y - downy;
+                            if (fullmovey < 0) {
+                                fullmovey = fullmovey * -1;
+                            }
+                            //
 
-                        // Make module
-                        if (fullmovex < 0) {
-                            fullmovex = fullmovex * -1;
-                        }
+                            a = Math.round(movex);
+                            b = Math.round(movey);
 
-                        if (fullmovey < 0) {
-                            fullmovey = fullmovey * -1;
-                        }
-
-                        // Click
-                        if ((timeUp - timeDown) < 200
-                                && (fullmovex < 30 & fullmovey < 30) && !isDouble) {
                             port = Integer.parseInt(portEt.getText().toString());
+
                             new Thread(new SocketThread(ipEt.getText().toString(),
-                                    port, ButtonFnManager.click, 0, 0, ST.this)).start();
+                                    port, ButtonFnManager.ab, a, b, ST.this)).start();
+                            oldx = x;
+                            oldy = y;
+                            break;
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_CANCEL:
+                            timeUp = System.currentTimeMillis();
+                            sMove = "";
+                            sUp = "Up: " + x + "," + y + "|" + timeUp;
+                            fullmovex = x - downx;
+                            fullmovey = y - downy;
 
-                        }
+                            // Make module
+                            if (fullmovex < 0) {
+                                fullmovex = fullmovex * -1;
+                            }
 
-                        // Long click relise
-                        if ((timeUp - timeDown) < 100
-                                && (fullmovex < 20 & fullmovey < 20) && isDouble) {
-                            // send dnd up
-                            port = Integer.parseInt(portEt.getText().toString());
-                            new Thread(new SocketThread(ipEt.getText().toString(),
-                                    port, ButtonFnManager.dndUp, 0, 0, ST.this)).start();
+                            if (fullmovey < 0) {
+                                fullmovey = fullmovey * -1;
+                            }
 
-                            isDouble = false;
-                        }
+                            // Click
+                            if ((timeUp - timeDown) < 200
+                                    && (fullmovex < 30 & fullmovey < 30) && !isDouble) {
+                                port = Integer.parseInt(portEt.getText().toString());
+                                new Thread(new SocketThread(ipEt.getText().toString(),
+                                        port, ButtonFnManager.click, 0, 0, ST.this)).start();
 
-                        break;
+                            }
+
+                            // Long click relise
+                            if ((timeUp - timeDown) < 100
+                                    && (fullmovex < 20 & fullmovey < 20) && isDouble) {
+                                // send dnd up
+                                port = Integer.parseInt(portEt.getText().toString());
+                                new Thread(new SocketThread(ipEt.getText().toString(),
+                                        port, ButtonFnManager.dndUp, 0, 0, ST.this)).start();
+
+                                isDouble = false;
+                            }
+
+                            break;
+                    }
+                }else if (event.getPointerCount()==2){
+                    Vibrator v2 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            startX = (int) event.getRawX();
+                            startY = (int) event.getRawY();
+                            InAppLog.writeLog(ST.this, "", "On Touch Scroll" + startX + " | " + startY, debug);
+                            fullmovex=6;
+                            fullmovey=6;
+                            break;
+
+                        case MotionEvent.ACTION_MOVE:
+
+                            x = (int) event.getRawX();
+                            y = (int) event.getRawY();
+
+                            int moveY = startY - y;
+
+                            InAppLog.writeLog(ST.this, "", " Scroll Move " + x + " | " + y + "|" + moveY, debug);
+
+                            if (moveY > 10 || moveY < -10) {
+
+                                startX = x;
+                                startY = y;
+                                fnb.press(moveY>0?ButtonFnManager.FN_WHELL_UP:ButtonFnManager.FN_WHELL_DOWN, "", "");
+                                v2.vibrate(5);
+                            }
+
+                            doubleTouchUpTime = System.currentTimeMillis();
+
+                            break;
+
+
+                    }
                 }
+
                 tv.setText(sDown + "\n" + sMove + "\n" + sUp);
                 return false;
             }
@@ -929,6 +971,9 @@ public class ST extends FragmentActivity implements OnClickListener {
         rightScroll.setOnTouchListener(scrollOtl);
         leftScroll.bringToFront();
         rightScroll.bringToFront();
+
+        leftScroll.setVisibility(shp.getBoolean("leftScroll", true)?View.VISIBLE:View.GONE);
+        rightScroll.setVisibility(shp.getBoolean("rightScroll", true)?View.VISIBLE:View.GONE);
 
 
         InAppLog.writeLog(ST.this, "", "ST on create", debug);
@@ -1253,12 +1298,12 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                     InAppLog.writeLog(ST.this, "", " Scroll Move " + x + " | " + y + "|" + moveY, debug);
 
-                    if (moveY > 40 || moveY < -40) {
+                    if (moveY > 10 || moveY < -10) {
 
                         startX = x;
                         startY = y;
-                        fnb.press(moveY>0?ButtonFnManager.FN_WHELL_UP:ButtonFnManager.FN_WHELL_UP, "", "");
-                        this.v.vibrate(50);
+                        fnb.press(moveY>0?ButtonFnManager.FN_WHELL_UP:ButtonFnManager.FN_WHELL_DOWN, "", "");
+                        this.v.vibrate(5);
                     }
                     break;
 

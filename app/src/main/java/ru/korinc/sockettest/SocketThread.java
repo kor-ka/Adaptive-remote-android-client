@@ -98,6 +98,11 @@ class SocketThread implements Runnable {
 
                             break;
 
+                        case ButtonFnManager.wheel:
+                            out.writeUTF("wheel::"+chr);
+
+                            break;
+
                         case ButtonFnManager.dndDown:
                             out.writeUTF("dndDown:");
 
