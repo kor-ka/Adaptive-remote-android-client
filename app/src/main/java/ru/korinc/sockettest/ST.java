@@ -73,7 +73,7 @@ import java.util.concurrent.TimeUnit;
 public class ST extends FragmentActivity implements OnClickListener {
 
 
-    boolean debug = false;
+    boolean debug = true;
 
     EditText ipEt;
     EditText portEt;
@@ -922,12 +922,13 @@ public class ST extends FragmentActivity implements OnClickListener {
         topPager.setOnTouchListener(overlayOTL);
         botPager.setOnTouchListener(overlayOTL);
 
-        OnTouchListener scrollOtl = new ScrollOtl();
-        View leftScroll = findViewById(R.id.leftScroll);
-        View rightScroll = findViewById(R.id.rightScroll);
+        ScrollOtl scrollOtl = new ScrollOtl();
+        Button leftScroll = (Button) findViewById(R.id.leftScroll);
+        Button rightScroll = (Button) findViewById(R.id.rightScroll);
         leftScroll.setOnTouchListener(scrollOtl);
         rightScroll.setOnTouchListener(scrollOtl);
-
+        leftScroll.bringToFront();
+        rightScroll.bringToFront();
 
 
         InAppLog.writeLog(ST.this, "", "ST on create", debug);
@@ -1154,7 +1155,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                     int moveY = startY - y;
 
-                    //hInAppLog.writeLog(ST.this, "", "Move " + x + " | " + y, debug);
+                    InAppLog.writeLog(ST.this, "", "Move " + x + " | " + y, debug);
 
                     if (!overlayActivated && (moveY > 200 || moveY < -200) && !inViewBounds(topPager, x, y) && !inViewBounds(botPager, x, y)) {
 
@@ -1252,10 +1253,6 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                     InAppLog.writeLog(ST.this, "", " Scroll Move " + x + " | " + y + "|" + moveY, debug);
 
-
-
-
-
                     if (moveY > 40 || moveY < -40) {
 
                         startX = x;
@@ -1263,15 +1260,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                         fnb.press(moveY>0?ButtonFnManager.FN_WHELL_UP:ButtonFnManager.FN_WHELL_UP, "", "");
                         this.v.vibrate(50);
                     }
-
-
-
-
                     break;
-
-
-
-
 
             }
 
