@@ -73,6 +73,12 @@ import java.util.concurrent.TimeUnit;
 public class ST extends FragmentActivity implements OnClickListener {
 
 
+    public static final String VOL_UP = "volUp";
+    public static final String VOL_DOWN = "volDown";
+    public static final String VOL_UP_DEFAULT_TYPE = "volUpDefaultType";
+    public static final String VOL_UP_DEFAULT_ARGS = "volUpDefaultArgs";
+    public static final String VOL_DOWN_DEFAULT_TYPE = "VOL_DOWN_DEFAULT_TYPE";
+    public static final String VOL_DOWN_DEFAULT_ARGS = "VOL_DOWN_DEFAULT_ARGS";
     boolean debug = false;
 
     EditText ipEt;
@@ -86,6 +92,10 @@ public class ST extends FragmentActivity implements OnClickListener {
 
     Button dellBtn;
     Button editBtn;
+
+    Button volUpBtn;
+    Button volDownBtn;
+
     LinearLayout dragMenuLL;
 
     ImageButton up;
@@ -450,6 +460,9 @@ public class ST extends FragmentActivity implements OnClickListener {
         editBtn = (Button) findViewById(R.id.editButton);
         dellBtn = (Button) findViewById(R.id.dellButton);
 
+        volDownBtn = (Button) findViewById(R.id.VolDownButton);
+        volUpBtn = (Button) findViewById(R.id.VolUpButton);
+
 
         View.OnDragListener dragListener = new View.OnDragListener() {
             @Override
@@ -467,6 +480,8 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                         switch (view.getId()){
                             case R.id.editButton:
+                            case R.id.VolDownButton:
+                            case R.id.VolUpButton:
                                 view.setBackgroundColor(ST.this.getResources().getColor(android.R.color.holo_blue_light));
                                 break;
 
@@ -490,27 +505,86 @@ public class ST extends FragmentActivity implements OnClickListener {
                         return true;
 
                     case DragEvent.ACTION_DROP:
+                        ClipData.Item item = dragEvent.getClipData().getItemAt(0);
+                        Intent i = item.getIntent();
+                        final long id=i.getLongExtra("id", 0);
+                        final DbTool db = new DbTool();
                         switch (view.getId()){
                             case R.id.editButton:
-                                ClipData.Item item2 = dragEvent.getClipData().getItemAt(0);
-                                Intent i2 = item2.getIntent();
-                                long id2=i2.getLongExtra("id", 0);
+
 
                                 Intent editIntent = new Intent(ST.this, FnBind.class);
-                                editIntent.putExtra(FnBind.BTN_ID, id2);
+                                editIntent.putExtra(FnBind.BTN_ID, id);
 
                                 startActivityForResult(editIntent, REQUEST_CODE_EDIT_BTN);
                                 break;
 
                             case R.id.dellButton:
-                                DbTool db = new DbTool();
-                                ClipData.Item item = dragEvent.getClipData().getItemAt(0);
-                                Intent i = item.getIntent();
-                                long id=i.getLongExtra("id", 0);
+
+
                                 db.delRec(DbTool.BUTTONS_TABLE, id, ST.this);
-
-
                                 updateAllBTNS();
+                                break;
+
+                            case R.id.VolUpButton:
+                                AlertDialog alertDialog = new AlertDialog.Builder(ST.this).create();
+                                alertDialog.setTitle("Настройка клавиши звука");
+                                alertDialog.setMessage("Применить для текушего процесса, поставить по умолчанию или сбросить к настройке по умолчанию?");
+                                alertDialog.setButton("для текущего процесса", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        ed.putLong(currentProcess + VOL_UP, id);
+                                        ed.commit();
+                                    }
+                                });
+
+                                alertDialog.setButton2("по умолчанию", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                       Cursor btnCursor =db.getButtonCursor(id, ST.this);
+                                       ed.putInt(VOL_UP_DEFAULT_TYPE, btnCursor.getInt(btnCursor.getColumnIndex(DbTool.BUTTONS_TABLE_TYPE)));
+                                       ed.putString(VOL_UP_DEFAULT_ARGS, btnCursor.getString(btnCursor.getColumnIndex(DbTool.BUTTONS_TABLE_CMD)));
+                                       ed.commit();
+                                    }
+                                });
+
+                                alertDialog.setButton3("сброс", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        ed.putLong(currentProcess + VOL_UP, -1);
+                                        ed.commit();
+                                    }
+                                });
+
+                                alertDialog.show();
+
+                                break;
+
+                            case R.id.VolDownButton:
+                                AlertDialog alertDialog2 = new AlertDialog.Builder(ST.this).create();
+                                alertDialog2.setTitle("Настройка клавиши звука");
+                                alertDialog2.setMessage("Применить для текушего процесса, поставить по умолчанию или сбросить к настройке по умолчанию?");
+                                alertDialog2.setButton("для текущего процесса", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        ed.putLong(currentProcess + VOL_DOWN, id);
+                                        ed.commit();
+                                    }
+                                });
+
+                                alertDialog2.setButton2("по умолчанию", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Cursor btnCursor =db.getButtonCursor(id, ST.this);
+                                        ed.putInt(VOL_DOWN_DEFAULT_TYPE, btnCursor.getInt(btnCursor.getColumnIndex(DbTool.BUTTONS_TABLE_TYPE)));
+                                        ed.putString(VOL_DOWN_DEFAULT_ARGS, btnCursor.getString(btnCursor.getColumnIndex(DbTool.BUTTONS_TABLE_CMD)));
+                                        ed.commit();
+                                    }
+                                });
+
+                                alertDialog2.setButton3("сброс", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        ed.putLong(currentProcess + VOL_DOWN, -1);
+                                        ed.commit();
+                                    }
+                                });
+
+                                alertDialog2.show();
 
                                 break;
                         }
@@ -522,6 +596,11 @@ public class ST extends FragmentActivity implements OnClickListener {
                         dellBtn.setBackgroundColor(ST.this.getResources().getColor(R.color.transparent_gray));
                         editBtn.invalidate();
                         dellBtn.invalidate();
+
+                        volDownBtn.setBackgroundColor(ST.this.getResources().getColor(R.color.transparent_gray));
+                        volUpBtn.setBackgroundColor(ST.this.getResources().getColor(R.color.transparent_gray));
+                        volDownBtn.invalidate();
+                        volUpBtn.invalidate();
                         return true;
 
                     // An unknown action type was received.
@@ -536,6 +615,8 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         editBtn.setOnDragListener(dragListener);
         dellBtn.setOnDragListener(dragListener);
+        volUpBtn.setOnDragListener(dragListener);
+        volDownBtn.setOnDragListener(dragListener);
         //Костыль, но без этого ACTION_DRAG_STARTED не ловится (вообще хз)
         addButton.setOnDragListener(dragListener);
 
@@ -1335,6 +1416,52 @@ public class ST extends FragmentActivity implements OnClickListener {
 
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        DbTool db = new DbTool();
+        switch (keyCode){
+
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                Cursor btnCursor = db.getButtonCursor(shp.getLong(currentProcess+VOL_UP, -1), this);
+                if(btnCursor!=null){
+                    fnb.press(btnCursor.getInt(btnCursor.getColumnIndex(DbTool.BUTTONS_TABLE_TYPE)),
+                            btnCursor.getString(btnCursor.getColumnIndex(DbTool.BUTTONS_TABLE_CMD)),"");
+                }else{
+                    fnb.press(shp.getInt(VOL_UP_DEFAULT_TYPE, ButtonFnManager.FN_COMMAND_LINE), shp.getString(VOL_UP_DEFAULT_ARGS, "nircmdc changesysvolume 2000"), "");
+                }
+               return true;
+
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                Cursor btnCursor2 = db.getButtonCursor(shp.getLong(currentProcess+VOL_DOWN, -1), this);
+                if(btnCursor2!=null){
+                    fnb.press(btnCursor2.getInt(btnCursor2.getColumnIndex(DbTool.BUTTONS_TABLE_TYPE)),
+                            btnCursor2.getString(btnCursor2.getColumnIndex(DbTool.BUTTONS_TABLE_CMD)),"");
+                }else{
+                    fnb.press(shp.getInt(VOL_DOWN_DEFAULT_TYPE, ButtonFnManager.FN_COMMAND_LINE), shp.getString(VOL_DOWN_DEFAULT_ARGS, "nircmdc changesysvolume -2000"), "");
+                }
+                return true;
+
+            default:
+                return super.onKeyDown(keyCode, event);
+        }
+
+
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        switch (keyCode){
+
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                return true;
+
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                return true;
+
+            default:
+                return super.onKeyDown(keyCode, event);
+        }
+    }
 
     public void setCurrentProcess(String process){
 

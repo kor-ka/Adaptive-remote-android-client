@@ -12,5 +12,7 @@
     <string name="enter_after_voiceinput">Enter после голосового ввода</string>
     <string name="left_scroll">Левый скролл</string>
     <string name="right_scroll">Правый скролл</string>
+    <string name="volDown">Звук -</string>
+    <string name="volUp">Звук +</string>
     <color name="transparent_gray">#44000000</color>
 </resources>
