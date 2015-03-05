@@ -168,6 +168,8 @@ public class ST extends FragmentActivity implements OnClickListener {
     private View leftScrollIndicator;
     private View rightScrollIndicator;
 
+    long doubleTouchUpTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -633,7 +635,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             @Override
             public boolean onLongClick(View p1) {
 
-                if (fullmovey < 5 & fullmovex < 5) {
+                if (fullmovey < 5 & fullmovex < 5 && System.currentTimeMillis()-doubleTouchUpTime>200) {
                     // Toast.makeText(getBaseContext(), "long",
                     // Toast.LENGTH_SHORT).show();
                     int port = Integer.parseInt(portEt.getText().toString());
@@ -642,7 +644,11 @@ public class ST extends FragmentActivity implements OnClickListener {
                             port, ButtonFnManager.dndDown, 0, 0, ST.this)).start();
                     isDouble = true;
                     timeLongDown = System.currentTimeMillis();
+                    Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    v.vibrate(25);
                     if (timeLongDown - timeLongDownOld < 1000) {
+                        new Thread(new SocketThread(ipEt.getText().toString(),
+                                port, ButtonFnManager.dndUp, 0, 0, ST.this)).start();
                         new Thread(new SocketThread(ipEt.getText().toString(),
                                 port, ButtonFnManager.rclick, 0, 0, ST.this)).start();
                     }
@@ -754,7 +760,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             String sDown;
             String sMove;
             String sUp;
-            long doubleTouchUpTime;
+
 
             long timeDown = System.currentTimeMillis();
             long timeUp = System.currentTimeMillis();
