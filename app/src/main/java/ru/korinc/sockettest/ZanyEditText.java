@@ -44,17 +44,29 @@ public class ZanyEditText extends EditText {
             super(target, mutable);
         }
 
-        @Override
+/*        @Override
         public boolean sendKeyEvent(KeyEvent event) {
-            if (event.getAction() == KeyEvent.ACTION_DOWN
-                    && event.getKeyCode() == KeyEvent.KEYCODE_DEL) {
+            if ((event.getAction() == KeyEvent.ACTION_DOWN
+                    && event.getKeyCode() == KeyEvent.KEYCODE_DEL)|| (event.getAction() == KeyEvent.ACTION_DOWN
+                    && event.getKeyCode() == KeyEvent.KEYCODE_BACK)) {
                 ZanyEditText.this.setRandomBackgroundColor();
                 // Un-comment if you wish to cancel the backspace:
-        return false;
+                return false;
             }
             return super.sendKeyEvent(event);
         }
+*/
+        @Override
+        public boolean deleteSurroundingText(int beforeLength, int afterLength) {
+            // magic: in latest Android, deleteSurroundingText(1, 0) will be called for backspace
+            if (beforeLength == 1 && afterLength == 0) {
+                // backspace
+                return sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL))
+                        && sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL));
+            }
 
+            return super.deleteSurroundingText(beforeLength, afterLength);
+        }
     }
 
 }

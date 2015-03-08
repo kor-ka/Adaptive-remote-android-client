@@ -690,15 +690,16 @@ public class ST extends FragmentActivity implements OnClickListener {
             public void afterTextChanged(Editable s) {
             }
         });
-
+        final long[] lastBackSpace = {0};
         keyboardEt.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                if(keyCode == KeyEvent.KEYCODE_DEL){
+                if(keyCode == KeyEvent.KEYCODE_DEL && System.currentTimeMillis() - lastBackSpace[0] >5){
                     int port = Integer.parseInt(portEt.getText().toString());
                     new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
                             port, ButtonFnManager.keyboard, "bksps")).start();
+                    lastBackSpace[0] = System.currentTimeMillis();
                     //keyboardEt.setText("<>");
                     //keyboardEt.setSelection(keyboardEt.getText().length());
                 }
