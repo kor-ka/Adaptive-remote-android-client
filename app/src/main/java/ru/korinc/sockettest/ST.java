@@ -79,6 +79,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     public static final String VOL_UP_DEFAULT_ARGS = "volUpDefaultArgs";
     public static final String VOL_DOWN_DEFAULT_TYPE = "VOL_DOWN_DEFAULT_TYPE";
     public static final String VOL_DOWN_DEFAULT_ARGS = "VOL_DOWN_DEFAULT_ARGS";
+    public static final String CURRENT_PROCESS = "currentProcess";
     boolean debug = false;
 
     EditText ipEt;
@@ -194,6 +195,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         } catch (Exception ex) {
             // Ignore
         }
+
 
         DbTool db = new DbTool();
 
@@ -1070,10 +1072,19 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         setScrollVisability();
 
+        if(savedInstanceState!=null){
+            setCurrentProcess(savedInstanceState.getString(CURRENT_PROCESS, ""));
+        }
 
         InAppLog.writeLog(ST.this, "", "ST on create", debug);
 
         //exportDatabse("db");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString(CURRENT_PROCESS, currentProcess);
+        super.onSaveInstanceState(outState);
     }
 
     private void setScrollVisability() {
