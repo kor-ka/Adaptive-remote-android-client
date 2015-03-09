@@ -1470,6 +1470,10 @@ public class ST extends FragmentActivity implements OnClickListener {
             case KeyEvent.KEYCODE_VOLUME_DOWN:
                 return true;
 
+            case KeyEvent.KEYCODE_BACK:
+                onBackPressed();
+                return super.onKeyDown(keyCode, event);
+
             default:
                 return super.onKeyDown(keyCode, event);
         }
@@ -2296,13 +2300,15 @@ public class ST extends FragmentActivity implements OnClickListener {
 
     @Override
     public void onBackPressed() {
-        if (up.getVisibility() == View.GONE) {
-            super.onBackPressed();
-        } else {
+        if(mDrawerLayout.isDrawerOpen(Gravity.RIGHT)){
+            mDrawerLayout.closeDrawers();
+        }else if (up.getVisibility() == View.VISIBLE) {
             up.setVisibility(View.GONE);
             down.setVisibility(View.GONE);
             left.setVisibility(View.GONE);
             right.setVisibility(View.GONE);
+        } else {
+            super.onBackPressed();
         }
 
     }
