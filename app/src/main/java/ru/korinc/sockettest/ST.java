@@ -80,7 +80,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     public static final String VOL_DOWN_DEFAULT_TYPE = "VOL_DOWN_DEFAULT_TYPE";
     public static final String VOL_DOWN_DEFAULT_ARGS = "VOL_DOWN_DEFAULT_ARGS";
     public static final String CURRENT_PROCESS = "currentProcess";
-    boolean debug = false;
+    static boolean debug = false;
 
     EditText ipEt;
     EditText portEt;
@@ -437,7 +437,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                             ClipData.Item item = event.getClipData().getItemAt(0);
                             Intent i = item.getIntent();
                             long id=i.getLongExtra("id", 0);
-                            b.init(i.getLongExtra("id", 0), ST.this, ocl, olclFn, fnb);
+                            b.init(i.getLongExtra("id", 0), ST.this, ocl, olclFn, fnb, null, false);
 
                             DbTool dbt = new DbTool();
                             FnButton fnb = (FnButton) v;
@@ -1214,14 +1214,14 @@ public class ST extends FragmentActivity implements OnClickListener {
                     }
 
                 break;
-
+/*
                 case MotionEvent.ACTION_CANCEL:
                     InAppLog.writeLog(ST.this, "", "Overlay release (ACTION_CANCEL)", debug);
                     overlayActivated = false;
                     fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
                     fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
                     break;
-
+*/
             }
 
 

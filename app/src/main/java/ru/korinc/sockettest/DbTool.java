@@ -18,6 +18,7 @@ public class DbTool{
 
     DBHelper dbHelper;
     ContentValues cv;
+    SQLiteDatabase db;
     final int DB_VERSION = 3;
 
     public final static String BUTTONS_TABLE = "buttons";
@@ -127,7 +128,7 @@ public class DbTool{
 
     public Cursor getButtonCursor(long id, Context context){
         dbHelper = new DBHelper(context);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        if(db==null || !db.isOpen())db = dbHelper.getWritableDatabase();
         Cursor c = db.query(BUTTONS_TABLE, null, "_id=" + id, null, null, null, null);
 
         return c.moveToFirst()?c:null;

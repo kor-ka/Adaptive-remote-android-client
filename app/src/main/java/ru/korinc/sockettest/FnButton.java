@@ -43,17 +43,32 @@ public class FnButton extends Button{
         DbTool db = new DbTool();
         this.place = place;
         this.id = db.getButtonIdByPlace(place, context);
-        init(context, ocl, olcl, db);
+        init(context, ocl, olcl, db, false);
     }
 
-    public void init(long id, Context context, OnClickListener ocl, OnLongClickListener olcl, ButtonFnManager fnManager){
+    public void init(long id, Context context, OnClickListener ocl, OnLongClickListener olcl, ButtonFnManager fnManager, DbTool dbTool, boolean colorInited){
         this.fnManager = fnManager;
-        DbTool db = new DbTool();
+       if (dbTool == null) dbTool = new DbTool();
         this.id = id;
-        init(context, ocl, olcl, db);
+        init(context, ocl, olcl, dbTool, colorInited);
     }
 
-    private void init(Context context, OnClickListener ocl, OnLongClickListener olcl, DbTool db) {
+    private void init(final Context context, OnClickListener ocl, OnLongClickListener olcl, DbTool db, boolean colorInited) {
+
+        final int colorHoloBlue = context.getResources().getColor(android.R.color.holo_blue_light);
+
+        if(!colorInited){
+            ((Activity)context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
+                    FnButton.this.getBackground().setColorFilter(colorHoloBlue, PorterDuff.Mode.MULTIPLY);
+                }
+            });
+        }
+
+
+
         Cursor c = db.getButtonCursor(id, context);
         if(c!=null){
             this.name = c.getString(c.getColumnIndex(db.BUTTONS_TABLE_NAME));
@@ -75,17 +90,50 @@ public class FnButton extends Button{
         this.olcl = olcl;
 
         this.setOnClickListener(ocl);
-        this.setText(name);
+
         this.setOnLongClickListener(olcl);
 
-        setText(ButtonFnManager.fnMap.get(this.type));
 
 
 
-        //Если шорткат или команда - выяставляем их аргумент
 
-        if(this.type==ButtonFnManager.FN_CUSTOM||this.type==ButtonFnManager.FN_COMMAND_LINE)setText(this.args);
+        ((Activity)context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //Если шорткат или команда - выяставляем их аргумент
+                setText(ButtonFnManager.fnMap.get(FnButton.this.type));
+                if(FnButton.this.type==ButtonFnManager.FN_CUSTOM||FnButton.this.type==ButtonFnManager.FN_COMMAND_LINE)setText(FnButton.this.args);
 
+                //Если есть имя - выставляем его
+                if(!FnButton.this.name.equals("") && !FnButton.this.name.isEmpty()){
+                    setText(name);
+                }
+            }
+        });
+
+
+
+
+
+
+        ((Activity)context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //Cтавим фон
+
+                //Если есть цвет, ставим его
+                if(FnButton.this.color!=0){
+                    FnButton.this.getBackground().setColorFilter(FnButton.this.color, PorterDuff.Mode.MULTIPLY);
+                }
+
+                //Если пустая - меняем фон
+                if(FnButton.this.type== ButtonFnManager.NO_FUNCTION){
+                    setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+                }
+
+
+            }
+        });
 
         //Если есть иконка плагина - ставим её
         if(this.plugin!=null && !this.plugin.isEmpty()){
@@ -94,34 +142,33 @@ public class FnButton extends Button{
                 int size = getResources().getDimensionPixelSize(R.dimen.plugin_icon);
                 Drawable dr = Drawable.createFromPath(ico.getPath());
                 Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
-                Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, size, size, true));
-                setCompoundDrawablesWithIntrinsicBounds(d, null, null, null);
+                final Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, size, size, true));
+                ((Activity)context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setCompoundDrawablesWithIntrinsicBounds(d, null, null, null);
+                    }
+                });
+
             }else
-                setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                ((Activity)context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                    }
+                });
+
         }else{
-            setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            ((Activity)context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                }
+            });
+
         }
 
-        //Cтавим фон
-        setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
 
-        //Если есть цвет, ставим его
-        if(this.color!=0){
-            this.getBackground().setColorFilter(this.color, PorterDuff.Mode.MULTIPLY);
-        }else{
-            this.getBackground().setColorFilter(context.getResources().getColor(android.R.color.holo_blue_light), PorterDuff.Mode.MULTIPLY);
-        }
-
-        //Если пустая - меняем фон
-        if(this.type== ButtonFnManager.NO_FUNCTION){
-            setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
-        }
-
-        //Если есть имя - выставляем его
-
-        if(!this.name.equals("") && !this.name.isEmpty()){
-            setText(name);
-        }
     }
 
 

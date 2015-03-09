@@ -117,7 +117,7 @@ public class FnButtonsFragment extends Fragment {
                                  ClipData.Item item = event.getClipData().getItemAt(0);
                                  Intent i = item.getIntent();
                                  long id=i.getLongExtra("id", 0);
-                                 btn.init(id, getActivity(), ocl, olclFn, st.fnb);
+                                 btn.init(id, getActivity(), ocl, olclFn, st.fnb, null, false);
 
                                  DbTool db = new DbTool();
                                  FnButton fnb = (FnButton) v;
