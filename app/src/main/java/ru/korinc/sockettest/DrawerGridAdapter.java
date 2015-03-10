@@ -34,7 +34,7 @@ private DbTool db;
     public View getView(int position, View convertView, ViewGroup parent) {
         c.moveToPosition(position);
 
-        ViewHolder holder;
+        final ViewHolder holder;
         View rowView = convertView;
         LayoutInflater vi = (LayoutInflater)  ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -76,16 +76,19 @@ private DbTool db;
                 return null;
             }
 
-
+            @Override
+            protected void onPostExecute(String s) {
+                holder.b.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FnButton b = (FnButton) view;
+                        b.press();
+                    }
+                });
+            }
         }.execute(holder, id, db);
 
-        holder.b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FnButton b = (FnButton) view;
-                b.press();
-            }
-        });
+
         return rowView;
     }
 
