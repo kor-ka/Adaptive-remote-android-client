@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import net.dinglisch.android.tasker.BundleScrubber;
+import net.dinglisch.android.tasker.TaskerPlugin;
 
 
 public class FnBind extends FragmentActivity implements OnClickListener
@@ -76,6 +77,7 @@ public class FnBind extends FragmentActivity implements OnClickListener
 
             //}
         }
+
 
 
         //Pager...

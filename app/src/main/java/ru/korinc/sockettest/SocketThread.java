@@ -3,6 +3,8 @@ package ru.korinc.sockettest;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import net.dinglisch.android.tasker.FireReceiver;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -14,6 +16,7 @@ import java.net.Socket;
 
 class SocketThread implements Runnable {
 
+    private FireReceiver fr;
     String ip;
     int port;
     int mode;
@@ -44,12 +47,12 @@ class SocketThread implements Runnable {
 
     }
 
-    public SocketThread(String ip, int port, int mode, String chr) {
+    public SocketThread(String ip, int port, int mode, String chr, FireReceiver fr) {
         this.ip = ip;
         this.port = port;
         this.mode = mode;
         this.chr = chr;
-
+        this.fr  = fr;
 
     }
 
@@ -199,6 +202,16 @@ class SocketThread implements Runnable {
 
                             }
                         });
+                    }else if(st==null && fr!=null){
+                        String[] reply = line.split("<process>");
+                        if(reply.length>=2){
+                            String proccess = reply[1].trim();
+                            //
+                            if(!proccess.isEmpty()){
+                               fr.onBtnPressResult(proccess);
+                            }
+
+                        }
                     }
 
 

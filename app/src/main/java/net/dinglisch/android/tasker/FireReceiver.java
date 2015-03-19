@@ -17,13 +17,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.Locale;
 
 import ru.korinc.sockettest.ButtonFnManager;
 import ru.korinc.sockettest.FnBind;
-import ru.korinc.sockettest.ST;
+
 
 public final class FireReceiver extends BroadcastReceiver
 {
@@ -54,10 +53,14 @@ public final class FireReceiver extends BroadcastReceiver
 
         //if (PluginBundleManager.isBundleValid(bundle))
         //{
-        ButtonFnManager btn = new ButtonFnManager(context);
+        ButtonFnManager btn = new ButtonFnManager(context, this);
         btn.press( bundle.getInt(FnBind.BTN_TYPE, ButtonFnManager.NO_FUNCTION), bundle.getString(FnBind.BTN_CMD, ""), "");
 
        // }
+
+    }
+
+    public void onBtnPressResult(String pr){
 
     }
 }

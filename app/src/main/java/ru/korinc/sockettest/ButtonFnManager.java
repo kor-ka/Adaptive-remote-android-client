@@ -7,6 +7,8 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Toast;
 
+import net.dinglisch.android.tasker.FireReceiver;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -26,6 +28,7 @@ public class ButtonFnManager {
     final static int getProcessIcon = 11;
     final static int centerClick = 12;
     final static int wheel = 13;
+    private FireReceiver fr;
 
     Context ctx;
 	ST st;
@@ -91,8 +94,9 @@ public class ButtonFnManager {
 		initiateMap();
 	}
 	
-	public ButtonFnManager(Context ctx) {
+	public ButtonFnManager(Context ctx, FireReceiver fr) {
         this.ctx=ctx;
+        this.fr = fr;
 		initiateMap();
 	}
 	
@@ -454,7 +458,7 @@ public class ButtonFnManager {
                         */
                      Toast.makeText(ctx, "Sorry, cant use <input> for now>", Toast.LENGTH_SHORT).show();
                  }else{
-                     new Thread(new SocketThread(ip, port2, commandLine, args)).start();
+                     new Thread(new SocketThread(ip, port2, commandLine, args, fr)).start();
                  }
 
                  break;
@@ -462,7 +466,7 @@ public class ButtonFnManager {
 
 
              case FN_CUSTOM:
-                 new Thread(new SocketThread(ip, port2, shortcut, args)).start();
+                 new Thread(new SocketThread(ip, port2, shortcut, args,fr)).start();
                  break;
          }
      }
