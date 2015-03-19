@@ -46,13 +46,30 @@
         <activity
             android:name="ru.korinc.sockettest.FnBind"
             android:label="@string/title_activity_fn_select"
+            android:icon="@drawable/ic_launcher"
+            android:exported="true"
             android:theme="@android:style/Theme.Holo.Light.Dialog" >
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
+            </intent-filter>
         </activity>
         <activity
             android:name="ru.korinc.sockettest.LaunchFromTaskBar"
             android:label="@string/title_activity_launch_from_task_bar" 
              android:theme="@android:style/Theme.Holo.Light.Dialog">
         </activity>
+
+        <receiver
+            android:name="net.dinglisch.android.tasker.FireReceiver"
+            android:exported="true"
+            android:process=":background" >
+
+            <!-- this Intent filter allows the plug-in to discovered by Locale -->
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
