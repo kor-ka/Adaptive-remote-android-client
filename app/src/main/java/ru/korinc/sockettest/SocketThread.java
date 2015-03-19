@@ -44,6 +44,15 @@ class SocketThread implements Runnable {
 
     }
 
+    public SocketThread(String ip, int port, int mode, String chr) {
+        this.ip = ip;
+        this.port = port;
+        this.mode = mode;
+        this.chr = chr;
+
+
+    }
+
     @Override
     public void run() {
         try {
@@ -114,7 +123,7 @@ class SocketThread implements Runnable {
                             break;
 
                         case ButtonFnManager.register:
-
+                            if(st!=null)
                             out.writeUTF("registerMe:"
                                     + st.clientPortEt.getText().toString());
                             break;
@@ -146,16 +155,19 @@ class SocketThread implements Runnable {
                             break;
 
                         case ButtonFnManager.getProcessIcon:
-                            out.writeUTF("getTaskBarIcons::"+st.currentProcess+".lnk");
-                            final Bitmap bitmap = BitmapFactory.decodeStream(in);
-                            st.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if(bitmap!=null)st.contextBtn.setImageBitmap(bitmap);
-                                    //else st.contextBtn.setImageResource(android.R.drawable.radiobutton_off_background);
-                                }
-                            });
-                            in.close();
+                            if(st!=null){
+                                out.writeUTF("getTaskBarIcons::"+st.currentProcess+".lnk");
+                                final Bitmap bitmap = BitmapFactory.decodeStream(in);
+                                st.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if(bitmap!=null)st.contextBtn.setImageBitmap(bitmap);
+                                        //else st.contextBtn.setImageResource(android.R.drawable.radiobutton_off_background);
+                                    }
+                                });
+                                in.close();
+                            }
+
                             break;
 
                     }
@@ -169,7 +181,8 @@ class SocketThread implements Runnable {
 
 
                     //don't need bind buttons while move mouse (it slows down)
-                    if(line!=null && !line.isEmpty()){
+
+                    if(st!=null && line!=null && !line.isEmpty()){
                         st.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

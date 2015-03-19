@@ -19,6 +19,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import net.dinglisch.android.tasker.PluginBundleManager;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -177,7 +179,7 @@ public class FnListFragment extends ListFragment {
         pluginsLV.addFooterView(footer);
 		pluginsLV.setAdapter(pluginsAdapter);
 
-		fnb = new ButtonFnManager();
+		fnb = new ButtonFnManager(getActivity());
 		fns = new ArrayList<String>() ;
         fnpl = new ArrayList<String[]>() ;
         fnpltype = new ArrayList<Integer[]>() ;
@@ -186,6 +188,8 @@ public class FnListFragment extends ListFragment {
 	
 	 public void onListItemClick(ListView l, View v, int position, long id) {
          Intent intent = new Intent();
+         final Bundle resultBundle;
+         final String blurb;
          if(!itIsPlugin){
 
 
@@ -204,14 +208,24 @@ public class FnListFragment extends ListFragment {
 				intent.putExtra("FnResult",fnKey);
 				intent.putExtra("FnResultArgs","");
 
+                resultBundle = PluginBundleManager.generateBundle(getActivity().getApplicationContext(), "", "", fnKey);
+                blurb  = ""+fnKey;
+
          }else{
              intent.putExtra("Name",fns.get(position));
              intent.putExtra("FnResult",fnpltype.get(position)[0]);
              intent.putExtra("FnResultArgs",fnpl.get(position)[0]);
              intent.putExtra("plugin",fnpl.get(position)[1]);
              intent.putExtra("color",fnpltype.get(position)[1]);
+
+             resultBundle = PluginBundleManager.generateBundle(getActivity().getApplicationContext(), fns.get(position), fnpl.get(position)[0], fnpltype.get(position)[0]);
+             blurb  = fns.get(position) + " | " + fnpl.get(position)[0] + " | " + fnpltype.get(position)[0];
          }
          intent.putExtra(FnBind.BTN_ID, btnId);
+
+         intent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE, resultBundle);
+         intent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_STRING_BLURB, blurb);
+
          getActivity().setResult(getActivity().RESULT_OK, intent);
 
          getActivity().finish();

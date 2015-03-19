@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import net.dinglisch.android.tasker.BundleScrubber;
 
 
 public class FnBind extends FragmentActivity implements OnClickListener
@@ -44,6 +45,7 @@ public class FnBind extends FragmentActivity implements OnClickListener
 
         bundle = new Bundle();
 
+
         DbTool db = new DbTool();
         long id =inputintent.getLongExtra(BTN_ID, -1);
         Cursor c = db.getButtonCursor(id, this);
@@ -54,6 +56,25 @@ public class FnBind extends FragmentActivity implements OnClickListener
             bundle.putString(BTN_CMD, c.getString(c.getColumnIndex(DbTool.BUTTONS_TABLE_CMD)));
             bundle.putInt(BTN_TYPE, c.getInt(c.getColumnIndex(DbTool.BUTTONS_TABLE_TYPE)));
             c.close();
+        }
+
+
+        BundleScrubber.scrub(getIntent());
+
+        final Bundle localeBundle = getIntent().getBundleExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE);
+        BundleScrubber.scrub(localeBundle);
+
+
+
+        if (null == savedInstanceState && localeBundle!=null && !localeBundle.isEmpty())
+        {
+
+            //if (PluginBundleManager.isBundleValid(localeBundle)){
+                bundle.putString(BTN_NAME, localeBundle.getString(BTN_NAME, ""));
+                bundle.putString(BTN_CMD, localeBundle.getString(BTN_CMD, ""));
+                bundle.putInt(BTN_TYPE, localeBundle.getInt(BTN_TYPE, ButtonFnManager.NO_FUNCTION));
+
+            //}
         }
 
 

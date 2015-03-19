@@ -2,6 +2,8 @@ package ru.korinc.sockettest;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Toast;
 
@@ -89,8 +91,8 @@ public class ButtonFnManager {
 		initiateMap();
 	}
 	
-	public ButtonFnManager() {
-		
+	public ButtonFnManager(Context ctx) {
+        this.ctx=ctx;
 		initiateMap();
 	}
 	
@@ -152,8 +154,9 @@ public class ButtonFnManager {
 	
  public void press(int function, String args, String voiceInputArgs){
 	 
-	 int port = Integer.parseInt(st.portEt.getText().toString());
+
 	 if(st!=null){
+     int port = Integer.parseInt(st.portEt.getText().toString());
 		 switch (function) {
 
          case FN_SETTINGS:
@@ -432,8 +435,38 @@ public class ButtonFnManager {
 				break;
 					
 			}
-	 }
-	
+	 }else{
+         SharedPreferences shp = PreferenceManager.getDefaultSharedPreferences(ctx);
+
+         String ip = shp.getString("ip", "192.168.0.1");
+         int port2 = Integer.parseInt(shp.getString("port", "1026"));
+         switch (function){
+
+
+             case FN_COMMAND_LINE:
+                 if(args.contains("<input>")){
+                     /*
+                     if(!voiceInputArgs.isEmpty()){
+                         new Thread(new SocketThread(st, ip, port2, commandLine, args.replace("<input>", voiceInputArgs))).start();
+                     }else{
+                         st.startVoiceRecognitionActivity(st.REQUEST_CODE_COMMAND_LINE_VOICE_INPUT, args);
+                     }
+                        */
+                     Toast.makeText(ctx, "Sorry, cant use <input> for now>", Toast.LENGTH_SHORT).show();
+                 }else{
+                     new Thread(new SocketThread(ip, port2, commandLine, args)).start();
+                 }
+
+                 break;
+
+
+
+             case FN_CUSTOM:
+                 new Thread(new SocketThread(ip, port2, shortcut, args)).start();
+                 break;
+         }
+     }
+
  }
  
 

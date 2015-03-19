@@ -21,6 +21,10 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
+import ru.korinc.sockettest.ButtonFnManager;
+import ru.korinc.sockettest.FnBind;
+import ru.korinc.sockettest.ST;
+
 public final class FireReceiver extends BroadcastReceiver
 {
 
@@ -32,9 +36,6 @@ public final class FireReceiver extends BroadcastReceiver
          * Always be strict on input parameters! A malicious third-party app could send a malformed Intent.
          */
 
-
-        //MUST DEAL WITH IT!
-        /*
         if (!com.twofortyfouram.locale.Intent.ACTION_FIRE_SETTING.equals(intent.getAction()))
         {
             if (Constants.IS_LOGGABLE)
@@ -50,11 +51,13 @@ public final class FireReceiver extends BroadcastReceiver
         final Bundle bundle = intent.getBundleExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE);
         BundleScrubber.scrub(bundle);
 
-        if (PluginBundleManager.isBundleValid(bundle))
-        {
-            final String message = bundle.getString(PluginBundleManager.BUNDLE_EXTRA_STRING_MESSAGE);
-            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-        }
-        */
+
+        //if (PluginBundleManager.isBundleValid(bundle))
+        //{
+        ButtonFnManager btn = new ButtonFnManager(context);
+        btn.press( bundle.getInt(FnBind.BTN_TYPE, ButtonFnManager.NO_FUNCTION), bundle.getString(FnBind.BTN_CMD, ""), "");
+
+       // }
+
     }
 }

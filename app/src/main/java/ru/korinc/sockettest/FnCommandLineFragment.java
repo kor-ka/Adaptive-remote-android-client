@@ -24,6 +24,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import net.dinglisch.android.tasker.PluginBundleManager;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -131,6 +133,14 @@ public class FnCommandLineFragment extends ListFragment {
 					intent.putExtra("FnResult",fnb.FN_COMMAND_LINE);
 					intent.putExtra("FnResultArgs", et.getText().toString());
                     intent.putExtra(FnBind.BTN_ID, btnId);
+
+                    final Bundle resultBundle =
+                            PluginBundleManager.generateBundle(getActivity().getApplicationContext(), etName.getText().toString(), et.getText().toString(), fnb.FN_COMMAND_LINE);
+                    intent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE, resultBundle);
+
+                    final String blurb =  etName.getText().toString() + " | " +  et.getText().toString() + " | " + fnb.FN_COMMAND_LINE;
+                    intent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_STRING_BLURB, blurb);
+
 					getActivity().setResult(getActivity().RESULT_OK, intent);
 					getActivity().finish();
 					break;
