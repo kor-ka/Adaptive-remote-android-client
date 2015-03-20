@@ -231,6 +231,15 @@ public class FnListFragment extends ListFragment {
          intent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE, resultBundle);
          intent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_STRING_BLURB, blurb);
 
+         if (  TaskerPlugin.Setting.hostSupportsSynchronousExecution( getActivity().getIntent().getExtras() ) )
+             TaskerPlugin.Setting.requestTimeoutMS( intent, 3000 );
+
+         if ( TaskerPlugin.hostSupportsRelevantVariables( getActivity().getIntent().getExtras() ) )
+             TaskerPlugin.addRelevantVariableList( intent, new String [] {
+                     "%context\nContext\nCurrent PC process in focus",
+                     "%btnids()\nContext Button id\nContext Button id",
+             } );
+
          getActivity().setResult(getActivity().RESULT_OK, intent);
 
          getActivity().finish();

@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import ru.korinc.sockettest.FnBind;
+import ru.korinc.sockettest.FnBynId;
 
 
 /**
@@ -139,6 +140,17 @@ public final class PluginBundleManager
         result.putInt(FnBind.BTN_TYPE, type);
 
         //result.putString(BUNDLE_EXTRA_STRING_MESSAGE, message);
+
+        return result;
+    }
+
+    public static Bundle generateBundle(final Context context, String id)
+    {
+        final Bundle result = new Bundle();
+        result.putInt(BUNDLE_EXTRA_INT_VERSION_CODE, Constants.getVersionCode(context));
+
+        //bundle.putString(BTN_NAME, localeBundle.getString(BTN_NAME));
+        result.putString(FnBynId.BTN_ID, id);
 
         return result;
     }

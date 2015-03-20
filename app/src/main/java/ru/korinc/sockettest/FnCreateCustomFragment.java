@@ -120,8 +120,17 @@ public class FnCreateCustomFragment extends ListFragment {
                 if ( TaskerPlugin.Setting.hostSupportsOnFireVariableReplacement( getActivity() ) )
                     TaskerPlugin.Setting.setVariableReplaceKeys( resultBundle, new String [] { FnBind.BTN_CMD } );
 
+                if (  TaskerPlugin.Setting.hostSupportsSynchronousExecution( getActivity().getIntent().getExtras() ) )
+                    TaskerPlugin.Setting.requestTimeoutMS( intent, 3000 );
+
                 final String blurb = et.getText().toString() + " | " + tv.getText().toString() + " | " +  fnb.FN_CUSTOM;
                 intent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_STRING_BLURB, blurb);
+
+                if ( TaskerPlugin.hostSupportsRelevantVariables( getActivity().getIntent().getExtras() ) )
+                    TaskerPlugin.addRelevantVariableList( intent, new String [] {
+                            "%context\nContext\nCurrent PC process in focus",
+                            "%btnids()\nContext Button id\nContext Button id",
+                    } );
 
 				getActivity().setResult(getActivity().RESULT_OK, intent);
 				getActivity().finish();

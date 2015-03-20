@@ -2478,7 +2478,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         }
     }
 
-    private int getReqCodeById(int id){
+    public static int getReqCodeById(int id){
         id = id<0?id*-1:id;
         return id & 0xFFFF;
     }

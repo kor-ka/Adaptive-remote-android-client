@@ -15,17 +15,29 @@ package net.dinglisch.android.tasker;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 import ru.korinc.sockettest.ButtonFnManager;
+import ru.korinc.sockettest.DbTool;
 import ru.korinc.sockettest.FnBind;
+import ru.korinc.sockettest.FnButton;
+import ru.korinc.sockettest.FnBynId;
+import ru.korinc.sockettest.InAppLog;
+import ru.korinc.sockettest.R;
+import ru.korinc.sockettest.ST;
 
 
 public final class FireReceiver extends BroadcastReceiver
 {
+Intent intent;
+Context ctx;
+
 
 
     @Override
@@ -34,6 +46,9 @@ public final class FireReceiver extends BroadcastReceiver
         /*
          * Always be strict on input parameters! A malicious third-party app could send a malformed Intent.
          */
+
+        this.intent = intent;
+        this.ctx = context;
 
         if (!com.twofortyfouram.locale.Intent.ACTION_FIRE_SETTING.equals(intent.getAction()))
         {
@@ -50,17 +65,68 @@ public final class FireReceiver extends BroadcastReceiver
         final Bundle bundle = intent.getBundleExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE);
         BundleScrubber.scrub(bundle);
 
-
-        //if (PluginBundleManager.isBundleValid(bundle))
-        //{
         ButtonFnManager btn = new ButtonFnManager(context, this);
-        btn.press( bundle.getInt(FnBind.BTN_TYPE, ButtonFnManager.NO_FUNCTION), bundle.getString(FnBind.BTN_CMD, ""), "");
+        if (bundle.containsKey(FnBynId.BTN_ID))
+        {
+            FnButton fnbtn= new FnButton(ctx);
+            DbTool db = new DbTool();
 
-       // }
+            Cursor c = db.getButtonCursor(Integer.parseInt(bundle.getString(FnBynId.BTN_ID, "0").trim()), ctx);
+            if(c!=null){
+                btn.press( c.getInt(c.getColumnIndex(DbTool.BUTTONS_TABLE_TYPE)), c.getString(c.getColumnIndex(DbTool.BUTTONS_TABLE_CMD)), "");
+            }
+
+        }else if(bundle.containsKey(FnBind.BTN_TYPE) && bundle.containsKey(FnBind.BTN_CMD)){
+
+            btn.press( bundle.getInt(FnBind.BTN_TYPE, ButtonFnManager.NO_FUNCTION), bundle.getString(FnBind.BTN_CMD, ""), "");
+        }
+
+        if ( isOrderedBroadcast() )
+            setResultCode( TaskerPlugin.Setting.RESULT_CODE_PENDING );
 
     }
 
     public void onBtnPressResult(String pr){
+        /*
+        if ( isOrderedBroadcast() )  {
 
+            setResultCode( TaskerPlugin.Setting.RESULT_CODE_OK );
+
+            if ( TaskerPlugin.Setting.hostSupportsVariableReturn( intent.getExtras() ) ) {
+                Bundle vars = new Bundle();
+                vars.putString( "%context", pr );
+
+                TaskerPlugin.addVariableBundle( getResultExtras( true ), vars );
+            }
+        }
+        */
+        pr = pr.substring(pr.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", "");
+
+        DbTool db = new DbTool();
+
+
+
+        String[] btnIds = new String[]{
+                db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN1) + pr, ctx)+"",
+                db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN2) + pr, ctx)+"",
+                db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN3) + pr, ctx)+"",
+                db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN4) + pr, ctx)+"",
+                db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN5) + pr, ctx)+"",
+                db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN6) + pr, ctx)+"",
+                db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN7) + pr, ctx)+"",
+                db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN8) + pr, ctx)+"",
+                db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN9) + pr, ctx)+"",
+        };
+
+
+
+        Bundle vars = new Bundle();
+
+        vars.putString( "%context", pr );
+        for (int i = 1; i < 10; i++) {
+            vars.putString( "%btnids"+i, btnIds[i-1] );
+        }
+        vars.putStringArrayList("%btnids", new ArrayList<String>(Arrays.asList(btnIds)));
+        TaskerPlugin.Setting.signalFinish( ctx, intent, TaskerPlugin.Setting.RESULT_CODE_OK, vars );
     }
 }

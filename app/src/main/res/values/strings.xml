@@ -15,4 +15,5 @@
     <string name="volDown">Звук -</string>
     <string name="volUp">Звук +</string>
     <color name="transparent_gray">#44000000</color>
+    <string name="title_activity_fn_byn_id">FnBynId</string>
 </resources>
