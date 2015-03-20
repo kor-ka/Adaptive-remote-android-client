@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import net.dinglisch.android.tasker.PluginBundleManager;
+import net.dinglisch.android.tasker.TaskerPlugin;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -179,7 +180,7 @@ public class FnListFragment extends ListFragment {
         pluginsLV.addFooterView(footer);
 		pluginsLV.setAdapter(pluginsAdapter);
 
-		fnb = new ButtonFnManager(getActivity());
+		fnb = new ButtonFnManager(getActivity(), null);
 		fns = new ArrayList<String>() ;
         fnpl = new ArrayList<String[]>() ;
         fnpltype = new ArrayList<Integer[]>() ;
@@ -222,6 +223,10 @@ public class FnListFragment extends ListFragment {
              blurb  = fns.get(position) + " | " + fnpl.get(position)[0] + " | " + fnpltype.get(position)[0];
          }
          intent.putExtra(FnBind.BTN_ID, btnId);
+
+
+         if ( TaskerPlugin.Setting.hostSupportsOnFireVariableReplacement( getActivity() ) )
+             TaskerPlugin.Setting.setVariableReplaceKeys( resultBundle, new String [] { FnBind.BTN_CMD } );
 
          intent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE, resultBundle);
          intent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_STRING_BLURB, blurb);

@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import net.dinglisch.android.tasker.PluginBundleManager;
+import net.dinglisch.android.tasker.TaskerPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,6 +116,9 @@ public class FnCreateCustomFragment extends ListFragment {
                 final Bundle resultBundle =
                         PluginBundleManager.generateBundle(getActivity().getApplicationContext(), et.getText().toString(), tv.getText().toString(), fnb.FN_CUSTOM);
                 intent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE, resultBundle);
+
+                if ( TaskerPlugin.Setting.hostSupportsOnFireVariableReplacement( getActivity() ) )
+                    TaskerPlugin.Setting.setVariableReplaceKeys( resultBundle, new String [] { FnBind.BTN_CMD } );
 
                 final String blurb = et.getText().toString() + " | " + tv.getText().toString() + " | " +  fnb.FN_CUSTOM;
                 intent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_STRING_BLURB, blurb);

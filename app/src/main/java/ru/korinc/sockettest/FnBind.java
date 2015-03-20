@@ -71,9 +71,14 @@ public class FnBind extends FragmentActivity implements OnClickListener
         {
 
             //if (PluginBundleManager.isBundleValid(localeBundle)){
+
+
+
                 bundle.putString(BTN_NAME, localeBundle.getString(BTN_NAME, ""));
                 bundle.putString(BTN_CMD, localeBundle.getString(BTN_CMD, ""));
                 bundle.putInt(BTN_TYPE, localeBundle.getInt(BTN_TYPE, ButtonFnManager.NO_FUNCTION));
+
+
 
             //}
         }
