@@ -118,6 +118,13 @@ Context ctx;
                 db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN9) + pr, ctx)+"",
         };
 
+        String[] btnNames = new String[9];
+        for (int i = 0; i < 9; i++) {
+            Cursor c = db.getButtonCursor(Integer.parseInt(btnIds[i]), ctx);
+            if(c!=null){
+                btnNames[i] = c.getString(c.getColumnIndex(DbTool.BUTTONS_TABLE_NAME));
+            }
+        }
 
 
         Bundle vars = new Bundle();
@@ -126,7 +133,14 @@ Context ctx;
         for (int i = 1; i < 10; i++) {
             vars.putString( "%btnids"+i, btnIds[i-1] );
         }
+
+        for (int i = 1; i < 10; i++) {
+            vars.putString( "%btnnames"+i, btnNames[i-1] );
+        }
+
         vars.putStringArrayList("%btnids", new ArrayList<String>(Arrays.asList(btnIds)));
+        vars.putStringArrayList("%btnnames", new ArrayList<String>(Arrays.asList(btnNames)));
         TaskerPlugin.Setting.signalFinish( ctx, intent, TaskerPlugin.Setting.RESULT_CODE_OK, vars );
+        InAppLog.writeLog(null, "", vars.toString(), false);
     }
 }

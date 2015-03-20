@@ -153,6 +153,7 @@ public class FnCommandLineFragment extends ListFragment {
                         TaskerPlugin.addRelevantVariableList( intent, new String [] {
                                 "%context\nContext\nCurrent PC process in focus",
                                 "%btnids()\nContext Button id\nContext Button id",
+                                "%btnnames()\nContext Button name\nContext Button name",
                         } );
 
 					getActivity().setResult(getActivity().RESULT_OK, intent);

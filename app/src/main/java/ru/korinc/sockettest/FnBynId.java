@@ -67,6 +67,7 @@ public class FnBynId extends Activity implements View.OnClickListener{
             TaskerPlugin.addRelevantVariableList( intent, new String [] {
                     "%context\nContext\nCurrent PC process in focus",
                     "%btnids()\nContext Button id\nContext Button id",
+                    "%btnnames()\nContext Button name\nContext Button name",
             } );
 
         setResult(RESULT_OK, intent);
