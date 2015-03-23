@@ -48,7 +48,7 @@ Context ctx;
          */
 
         this.intent = intent;
-        this.ctx = context;
+        this.ctx = context.getApplicationContext();
 
         if (!com.twofortyfouram.locale.Intent.ACTION_FIRE_SETTING.equals(intent.getAction()))
         {

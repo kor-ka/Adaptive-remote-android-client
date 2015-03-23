@@ -137,7 +137,11 @@ public class ST extends FragmentActivity implements OnClickListener {
     String currentCommandLineaArgs;
 
     SharedPreferences shp;
+    SharedPreferences shpCross;
+
     Editor ed;
+    Editor edCross;
+
     float fullmovex;
     float fullmovey;
     boolean isDouble = false;
@@ -202,6 +206,10 @@ public class ST extends FragmentActivity implements OnClickListener {
         shp = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
         ed = shp.edit();
+
+        shpCross = getSharedPreferences("default", Context.MODE_MULTI_PROCESS);
+        edCross = shpCross.edit();
+
         setContentView(R.layout.activity_st);
 
         if(shp.getBoolean("firstLaunch", true)){
@@ -643,7 +651,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         });
 
         ipEt.setText(shp.getString("ip", ""));
-        portEt.setText(shp.getString("port", "1234"));
+        portEt.setText(shp.getString("port", "1026"));
 
         keyboardEt.setText("");
         keyboardEt.setSelection(keyboardEt.getText().length());
@@ -858,6 +866,12 @@ public class ST extends FragmentActivity implements OnClickListener {
                 int a;
                 int b;
                 if(event.getPointerCount()<2 && System.currentTimeMillis()-doubleTouchUpTime>200){
+                    try{
+                        port = Integer.parseInt(portEt.getText().toString());
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        port = 1234;
+                    }
                     switch (event.getAction()) {
 
                         case MotionEvent.ACTION_DOWN:
@@ -895,7 +909,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                             a = Math.round(movex);
                             b = Math.round(movey);
 
-                            port = Integer.parseInt(portEt.getText().toString());
+
 
                             new Thread(new SocketThread(ipEt.getText().toString(),
                                     port, ButtonFnManager.ab, a, b, ST.this)).start();
@@ -922,7 +936,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                             // Click
                             if ((timeUp - timeDown) < 200
                                     && (fullmovex < 30 & fullmovey < 30) && !isDouble) {
-                                port = Integer.parseInt(portEt.getText().toString());
+
                                 new Thread(new SocketThread(ipEt.getText().toString(),
                                         port, ButtonFnManager.click, 0, 0, ST.this)).start();
 
@@ -932,7 +946,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                             if ((timeUp - timeDown) < 100
                                     && (fullmovex < 20 & fullmovey < 20) && isDouble) {
                                 // send dnd up
-                                port = Integer.parseInt(portEt.getText().toString());
+
                                 new Thread(new SocketThread(ipEt.getText().toString(),
                                         port, ButtonFnManager.dndUp, 0, 0, ST.this)).start();
 
@@ -1718,6 +1732,10 @@ public class ST extends FragmentActivity implements OnClickListener {
                                     ed.putString("port", port);
                                     ed.commit();
 
+                                    edCross.putString("ip", IP);
+                                    edCross.putString("port", port);
+                                    edCross.commit();
+
                                     dialog.dismiss();
                                 } else if (!input.getText().toString()
                                         .equals("")) {
@@ -2171,6 +2189,11 @@ public class ST extends FragmentActivity implements OnClickListener {
                 ed.putString("ip", IP);
                 ed.putString("port", port);
                 ed.commit();
+
+                edCross.putString("ip", IP);
+                edCross.putString("port", port);
+                edCross.commit();
+
             }
         }
 

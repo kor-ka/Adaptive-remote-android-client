@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -440,8 +441,7 @@ public class ButtonFnManager {
 					
 			}
 	 }else{
-         SharedPreferences shp = PreferenceManager.getDefaultSharedPreferences(ctx);
-
+         SharedPreferences shp = ctx.getSharedPreferences("default", Context.MODE_MULTI_PROCESS);
          String ip = shp.getString("ip", "192.168.0.1");
          int port2 = Integer.parseInt(shp.getString("port", "1026"));
          switch (function){

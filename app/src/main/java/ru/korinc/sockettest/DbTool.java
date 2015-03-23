@@ -24,6 +24,7 @@ public class DbTool{
     public final static String BUTTONS_TABLE = "buttons";
     public final static String SLIDERS_BTNS_TABLE = "sliderButtons";
     public final static String DESKTOPS_BTNS_TABLE = "desktopButtons";
+    public final static String IP_AND_PORT = "ipAndPort";
 
     public final static String BUTTONS_TABLE_NAME = "name";
     public final static String BUTTONS_TABLE_TYPE = "type";
@@ -173,6 +174,8 @@ public class DbTool{
     }
 
 
+
+
     class DBHelper extends SQLiteOpenHelper{
 
         public DBHelper(Context context){
@@ -201,6 +204,7 @@ public class DbTool{
             db.execSQL("create table "+DESKTOPS_BTNS_TABLE+" (" + "_id integer primary key autoincrement," + DESKTOPS_BTNS_NAME + TEXT + CM +
                                                                                                             DESKTOPS_BTNS_BTN_ID + INTEGER + CM +
                                                                                                             DESKTOPS_BTNS_ORDER + INTEGER +");");
+
 
 
 
