@@ -277,6 +277,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[4], "", 0, this, "", 0), "fnB2" + "bot1",this);
             db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[5], "", 0, this, "", 0), "fnB3" + "bot1",this);
             db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[6], "", 0, this, "", 0), "fnB1" + "bot2",this);
+                                 db.addButton(-1, "", buttonsToInit[7], "", 0, this, "", 0);
         }
 
         keyoVoiceInputFix = shp.getStringSet("map", new HashSet<String>());
@@ -2177,8 +2178,15 @@ public class ST extends FragmentActivity implements OnClickListener {
                 break;
 
             case REQUEST_CODE_TUTORIAL:
-                if(resultCode==RESULT_OK)
-                    scan.performClick();
+                if(resultCode==RESULT_OK){
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "http://kor-ka.github.io/Adaptive-remote-android-client/");
+                    sendIntent.setType("text/plain");
+                    startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_link_via)));
+                }
+
+
                 break;
 
         }

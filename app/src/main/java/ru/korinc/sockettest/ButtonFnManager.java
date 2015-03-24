@@ -106,7 +106,7 @@ public class ButtonFnManager {
 		 fnMap = new LinkedHashMap<Integer, String>();
 			fnMap.put(NO_FUNCTION, "No function");
             fnMap.put(FN_SETTINGS, "Settings");
-            fnMap.put(FN_SETTINGS, "Help");
+            fnMap.put(FN_HELP, "Help");
 			fnMap.put(FN_VOICE_FN, "Voice Fn");
 			fnMap.put(FN_VOICE_INPUT, "Voice input");
 			fnMap.put(FN_FIRE_FN, "Fire Fn");
