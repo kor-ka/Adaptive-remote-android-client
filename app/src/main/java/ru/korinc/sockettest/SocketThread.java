@@ -2,6 +2,7 @@ package ru.korinc.sockettest;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import net.dinglisch.android.tasker.FireReceiver;
 

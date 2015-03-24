@@ -11,6 +11,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Vibrator;
@@ -587,8 +589,8 @@ public class ST extends FragmentActivity implements OnClickListener {
             }
         });
 
-        ipEt.setText(shp.getString("ip", ""));
-        portEt.setText(shp.getString("port", "1026"));
+        ipEt.setText(shpCross.getString("ip", ""));
+        portEt.setText(shpCross.getString("port", "1026"));
 
         keyboardEt.setText("");
         keyboardEt.setSelection(keyboardEt.getText().length());
@@ -606,11 +608,11 @@ public class ST extends FragmentActivity implements OnClickListener {
                     // int spaces = pressed.length() - pressed.replaceAll(" ",
                     // "").length();
 
-                    int port = Integer.parseInt(portEt.getText().toString());
+                    int port = Integer.parseInt(shpCross.getString("port", "12342"));
                     if (s.length() == pressed.length()
                             | (s.length() == 3 && pressed.length() == 1)) {
 
-                        new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
+                        new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
                                 port, ButtonFnManager.keyboard, pressed)).start();
                     }
 
@@ -618,8 +620,8 @@ public class ST extends FragmentActivity implements OnClickListener {
                     keyboardEt.setSelection(keyboardEt.getText().length());
                 } /*else if (keyboardEt.getText().toString().equals("<")) {
 
-                    int port = Integer.parseInt(portEt.getText().toString());
-                    new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
+                    int port = Integer.parseInt(shpCross.getString("port", "12342"));
+                    new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
                             port, ButtonFnManager.keyboard, "bksps")).start();
                     keyboardEt.setText("<>");
                     keyboardEt.setSelection(keyboardEt.getText().length());
@@ -643,8 +645,8 @@ public class ST extends FragmentActivity implements OnClickListener {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
                 if(keyCode == KeyEvent.KEYCODE_DEL && System.currentTimeMillis() - lastBackSpace[0] >5){
-                    int port = Integer.parseInt(portEt.getText().toString());
-                    new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
+                    int port = Integer.parseInt(shpCross.getString("port", "12342"));
+                    new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
                             port, ButtonFnManager.keyboard, "bksps")).start();
                     lastBackSpace[0] = System.currentTimeMillis();
                     //keyboardEt.setText("<>");
@@ -667,18 +669,18 @@ public class ST extends FragmentActivity implements OnClickListener {
                 if (fullmovey < 5 & fullmovex < 5 && System.currentTimeMillis()-doubleTouchUpTime>200) {
                     // Toast.makeText(getBaseContext(), "long",
                     // Toast.LENGTH_SHORT).show();
-                    int port = Integer.parseInt(portEt.getText().toString());
+                    int port = Integer.parseInt(shpCross.getString("port", "12342"));
 
-                    new Thread(new SocketThread(ipEt.getText().toString(),
+                    new Thread(new SocketThread(shpCross.getString("ip", "198.168.0.1"),
                             port, ButtonFnManager.dndDown, 0, 0, ST.this)).start();
                     isDouble = true;
                     timeLongDown = System.currentTimeMillis();
                     Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                     v.vibrate(25);
                     if (timeLongDown - timeLongDownOld < 1000) {
-                        new Thread(new SocketThread(ipEt.getText().toString(),
+                        new Thread(new SocketThread(shpCross.getString("ip", "198.168.0.1"),
                                 port, ButtonFnManager.dndUp, 0, 0, ST.this)).start();
-                        new Thread(new SocketThread(ipEt.getText().toString(),
+                        new Thread(new SocketThread(shpCross.getString("ip", "198.168.0.1"),
                                 port, ButtonFnManager.rclick, 0, 0, ST.this)).start();
                     }
                     timeLongDownOld = System.currentTimeMillis();
@@ -699,32 +701,32 @@ public class ST extends FragmentActivity implements OnClickListener {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                int port = Integer.parseInt(portEt.getText().toString());
+                int port = Integer.parseInt(shpCross.getString("port", "12342"));
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         timeDown = System.currentTimeMillis();
                         switch (v.getId()) {
                             case R.id.buttonUp:
 
-                                new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
+                                new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
                                         port, ButtonFnManager.keyboard, "up")).start();
                                 break;
 
                             case R.id.buttonDown:
 
-                                new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
+                                new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
                                         port, ButtonFnManager.keyboard, "down")).start();
                                 break;
 
                             case R.id.buttonLeft:
 
-                                new Thread( new SocketThread(ST.this, ipEt.getText().toString(),
+                                new Thread( new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
                                         port, ButtonFnManager.keyboard, "left")).start();
                                 break;
 
                             case R.id.buttonRight:
 
-                                new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
+                                new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
                                         port, ButtonFnManager.keyboard, "right")).start();
                                 break;
 
@@ -738,25 +740,25 @@ public class ST extends FragmentActivity implements OnClickListener {
                     switch (v.getId()) {
                         case R.id.buttonUp:
 
-                            new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
+                            new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
                                     port, ButtonFnManager.keyboard, "up")).start();
                             break;
 
                         case R.id.buttonDown:
 
-                            new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
+                            new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
                                     port, ButtonFnManager.keyboard, "down")).start();
                             break;
 
                         case R.id.buttonLeft:
 
-                            new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
+                            new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
                                     port, ButtonFnManager.keyboard, "left")).start();
                             break;
 
                         case R.id.buttonRight:
 
-                            new Thread(new SocketThread(ST.this, ipEt.getText().toString(),
+                            new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
                                     port, ButtonFnManager.keyboard, "right")).start();
                             break;
 
@@ -804,7 +806,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 int b;
                 if(event.getPointerCount()<2 && System.currentTimeMillis()-doubleTouchUpTime>200){
                     try{
-                        port = Integer.parseInt(portEt.getText().toString());
+                        port = Integer.parseInt(shpCross.getString("port", "1234"));
                     }catch (Exception e){
                         e.printStackTrace();
                         port = 1234;
@@ -848,7 +850,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
 
 
-                            new Thread(new SocketThread(ipEt.getText().toString(),
+                            new Thread(new SocketThread(shpCross.getString("ip", "198.168.0.1"),
                                     port, ButtonFnManager.ab, a, b, ST.this)).start();
                             oldx = x;
                             oldy = y;
@@ -874,7 +876,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                             if ((timeUp - timeDown) < 200
                                     && (fullmovex < 30 & fullmovey < 30) && !isDouble) {
 
-                                new Thread(new SocketThread(ipEt.getText().toString(),
+                                new Thread(new SocketThread(shpCross.getString("ip", "198.168.0.1"),
                                         port, ButtonFnManager.click, 0, 0, ST.this)).start();
 
                             }
@@ -884,7 +886,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                     && (fullmovex < 20 & fullmovey < 20) && isDouble) {
                                 // send dnd up
 
-                                new Thread(new SocketThread(ipEt.getText().toString(),
+                                new Thread(new SocketThread(shpCross.getString("ip", "198.168.0.1"),
                                         port, ButtonFnManager.dndUp, 0, 0, ST.this)).start();
 
                                 isDouble = false;
@@ -1309,7 +1311,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                         overlayActivated = false;
                         fnb.press(ButtonFnManager.FN_ENTER, "", "");
 
-                        Executors.newSingleThreadScheduledExecutor().schedule(new SocketThread(ipEt.getText().toString(), Integer.parseInt(portEt.getText().toString()), ButtonFnManager.ab, 0, 0, ST.this), 400, TimeUnit.MILLISECONDS);
+                        Executors.newSingleThreadScheduledExecutor().schedule(new SocketThread(shpCross.getString("ip", "198.168.0.1"), Integer.parseInt(shpCross.getString("port", "12342")), ButtonFnManager.ab, 0, 0, ST.this), 400, TimeUnit.MILLISECONDS);
 
                         this.v.vibrate(20);
 
@@ -1434,8 +1436,8 @@ public class ST extends FragmentActivity implements OnClickListener {
 
             currentProcess = process;
             status.setText(currentProcess);
-        new Thread(new SocketThread(ipEt.getText().toString(),
-                Integer.parseInt(portEt.getText().toString()), ButtonFnManager.getProcessIcon, 0, 0, ST.this)).start();
+        new Thread(new SocketThread(shpCross.getString("ip", "198.168.0.1"),
+                Integer.parseInt(shpCross.getString("port", "12342")), ButtonFnManager.getProcessIcon, 0, 0, ST.this)).start();
             bindContextButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), 0);
 
 
@@ -1527,7 +1529,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        int port = Integer.parseInt(portEt.getText().toString());
+        int port = Integer.parseInt(shpCross.getString("port", "12342"));
 
         switch (item.getItemId()) {
             case R.id.action_scan:
@@ -1580,7 +1582,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        int port = Integer.parseInt(portEt.getText().toString());
+        int port = Integer.parseInt(shpCross.getString("port", "12342"));
         switch (v.getId()) {
             case R.id.bSend:
                 try {
@@ -1589,7 +1591,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     int b = Integer.parseInt(bEt.getText().toString());
                     bEt.setText(Integer.parseInt(bEt.getText().toString()) + 1 + "");
 
-                    new Thread(new SocketThread(ipEt.getText().toString(), port,
+                    new Thread(new SocketThread(shpCross.getString("ip", "198.168.0.1"), port,
                             ButtonFnManager.ab, a, b, ST.this)).start();
 
                 } catch (Exception e) {
@@ -1610,7 +1612,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 final EditText input = new EditText(this);
 
                 input.setHint("IP");
-                input.setText(shp.getString("ip", ""));
+                input.setText(shpCross.getString("ip", ""));
                input.setInputType(InputType.TYPE_CLASS_PHONE);
                // input.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
                 input.setLayoutParams(new LinearLayout.LayoutParams(0,
@@ -1619,7 +1621,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 final EditText inputPort = new EditText(this);
 
                 inputPort.setHint("Port");
-                inputPort.setText(shp.getString("port", ""));
+                inputPort.setText(shpCross.getString("port", ""));
                 inputPort.setInputType(InputType.TYPE_CLASS_NUMBER);
                 inputPort.setLayoutParams(new LinearLayout.LayoutParams(0,
                         LayoutParams.WRAP_CONTENT, 1f));
@@ -1665,13 +1667,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                     ipEt.setText(IP);
                                     portEt.setText(port);
 
-                                    ed.putString("ip", IP);
-                                    ed.putString("port", port);
-                                    ed.commit();
-
-                                    edCross.putString("ip", IP);
-                                    edCross.putString("port", port);
-                                    edCross.commit();
+                                    saveIpPort(IP, port);
 
                                     dialog.dismiss();
                                 } else if (!input.getText().toString()
@@ -1733,9 +1729,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                             ipEt.setText(ipPort[0]);
                             portEt.setText(ipPort[1]);
 
-                            ed.putString("ip", ipPort[0]);
-                            ed.putString("port", ipPort[1]);
-                            ed.commit();
+                            saveIpPort(ipPort[0], ipPort[1]);
                             breakDiscovering = true;
                             new Thread(new SocketThread(ipPort[0],Integer.parseInt(ipPort[1]), ButtonFnManager.ab, 0,0,ST.this )).start();
                         }
@@ -1760,6 +1754,21 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         }
 
+    }
+
+    private void saveIpPort(String IP, String port) {
+        ed.putString("ip", IP);
+        ed.putString("port", port);
+        ed.commit();
+
+        WifiManager wifiManager = (WifiManager) getSystemService (Context.WIFI_SERVICE);
+        WifiInfo info = wifiManager.getConnectionInfo ();
+        edCross.putString("WIFIIP:" + info.getBSSID(), IP);
+        edCross.putString("WIFIPORT:" + info.getBSSID(), port);
+
+        edCross.putString("ip", IP);
+        edCross.putString("port", port);
+        edCross.commit();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -1813,8 +1822,8 @@ public class ST extends FragmentActivity implements OnClickListener {
         if(requestCode == REQUEST_CODE_LAUNCHAPP_FROM_TASKBAR){
             switch (resultCode){
                 case RESULT_OK:
-                    new Thread(new SocketThread(ipEt.getText().toString(),
-                            Integer.parseInt(portEt.getText().toString()), ButtonFnManager.ab, 0, 0, ST.this)).start();
+                    new Thread(new SocketThread(shpCross.getString("ip", "198.168.0.1"),
+                            Integer.parseInt(shpCross.getString("port", "12342")), ButtonFnManager.ab, 0, 0, ST.this)).start();
                     break;
 
             }
@@ -1831,8 +1840,8 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                     //			m_Text = shp.getString(m_Text, m_Text);
 
-                    int port = Integer.parseInt(portEt.getText().toString());
-                    new Thread(new SocketThread(ST.this, ipEt.getText().toString(), port, ButtonFnManager.launch, m_Text)).start();
+                    int port = Integer.parseInt(shpCross.getString("ip", "12342"));
+                    new Thread(new SocketThread(ST.this, shpCross.getString("port", "198.168.0.1"), port, ButtonFnManager.launch, m_Text)).start();
 
                     break;
 
@@ -1856,14 +1865,14 @@ public class ST extends FragmentActivity implements OnClickListener {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 
-                                    int port = Integer.parseInt(portEt.getText().toString());
+                                    int port = Integer.parseInt(shpCross.getString("port", "12342"));
                                     String m_Text = input.getText().toString();
                                     //Check for Reinvoke
                                     if (m_Text.endsWith(" потом")) {
                                         m_Text = m_Text.substring(0, m_Text.length() - 6);
                                         needReinvokeVoiceFn = true;
                                     }
-                                    new Thread(new SocketThread(ST.this, ipEt.getText().toString(), port, ButtonFnManager.launch, m_Text)).start();
+                                    new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"), port, ButtonFnManager.launch, m_Text)).start();
                                     //Reinvoke
                                     if (needReinvokeVoiceFn) {
                                         fnb.press(ButtonFnManager.FN_VOICE_FN, "", "");
@@ -2102,11 +2111,11 @@ public class ST extends FragmentActivity implements OnClickListener {
 
 //			m_Text = shp.getString(m_Text, m_Text);
 
-            int port = Integer.parseInt(portEt.getText().toString());
-            new Thread(new SocketThread(ST.this, ipEt.getText().toString(), port,
+            int port = Integer.parseInt(shpCross.getString("port", "12342"));
+            new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"), port,
                     ButtonFnManager.keyboard, m_Text)).start();
             if (shp.getBoolean("enterOnVoiceInput", true)) {
-                new Thread(new SocketThread(ST.this, ipEt.getText().toString(), port,
+                new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"), port,
                         ButtonFnManager.keyboard, "\n")).start();
             }
 
@@ -2122,14 +2131,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                 ipEt.setText(IP);
                 portEt.setText(port);
-
-                ed.putString("ip", IP);
-                ed.putString("port", port);
-                ed.commit();
-
-                edCross.putString("ip", IP);
-                edCross.putString("port", port);
-                edCross.commit();
+                saveIpPort(IP, port);
 
             }
         }

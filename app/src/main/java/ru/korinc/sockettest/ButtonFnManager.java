@@ -158,10 +158,13 @@ public class ButtonFnManager {
 	 }
 	
  public void press(int function, String args, String voiceInputArgs){
-	 
+     
+     SharedPreferences shp = ctx.getSharedPreferences("default", Context.MODE_MULTI_PROCESS);
+     String ip = shp.getString("ip", "192.168.0.1");
+     int port = Integer.parseInt(shp.getString("port", "1026"));
 
 	 if(st!=null){
-     int port = Integer.parseInt(st.portEt.getText().toString());
+     
 		 switch (function) {
 
          case FN_SETTINGS:
@@ -170,10 +173,10 @@ public class ButtonFnManager {
 		 
 		 case FN_VOICE_INPUT:
 			 if(!voiceInputArgs.isEmpty()){
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port,
+				new Thread(new SocketThread(st, ip, port,
 							keyboard, voiceInputArgs)).start();
 					if (st.shp.getBoolean("enterOnVoiceInput", true)) {
-						new Thread(new SocketThread(st, st.ipEt.getText().toString(), port,
+						new Thread(new SocketThread(st, ip, port,
 								keyboard, "\n")).start();
 					}
 		 		}else{
@@ -190,7 +193,7 @@ public class ButtonFnManager {
 		 case FN_LAUNCHFROM_TASKBAR:			
 			 
 			 Intent intent1 = new Intent(st, LaunchFromTaskBar.class);
-			 intent1.putExtra("ip", st.ipEt.getText().toString());
+			 intent1.putExtra("ip", ip);
 			 intent1.putExtra("port", port);
 	 		 st.startActivityForResult(intent1, ST.REQUEST_CODE_LAUNCHAPP_FROM_TASKBAR);
 			 
@@ -199,13 +202,13 @@ public class ButtonFnManager {
 		 case FN_COMMAND_LINE:
 			 	if(args.contains("<input>")){
 			 		if(!voiceInputArgs.isEmpty()){
-			 			new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, commandLine, args.replace("<input>", voiceInputArgs))).start();
+			 			new Thread(new SocketThread(st, ip, port, commandLine, args.replace("<input>", voiceInputArgs))).start();
 			 		}else{
 			 			st.startVoiceRecognitionActivity(st.REQUEST_CODE_COMMAND_LINE_VOICE_INPUT, args);
 			 		}
 			 		
 			 	}else{
-			 		new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, commandLine, args)).start();
+			 		new Thread(new SocketThread(st, ip, port, commandLine, args)).start();
 			 	}
 		 		
 		 		break;
@@ -217,7 +220,7 @@ public class ButtonFnManager {
 		 		break;
 		 		
 		 	case FN_CUSTOM:
-		 		new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, shortcut, args)).start();
+		 		new Thread(new SocketThread(st, ip, port, shortcut, args)).start();
 		 		break;
 		 
 			case NO_FUNCTION:
@@ -226,25 +229,25 @@ public class ButtonFnManager {
 
 			case FN_CLICK:
 											
-				new Thread(new SocketThread( st.ipEt.getText().toString(), port, click, 0, 0, st)).start();
+				new Thread(new SocketThread( ip, port, click, 0, 0, st)).start();
 				break;
 			
 			case FN_R_CLICK:
 											
-				new Thread(new SocketThread( st.ipEt.getText().toString(), port, rclick, 0, 0, st)).start();
+				new Thread(new SocketThread( ip, port, rclick, 0, 0, st)).start();
 				break;
 
             case FN_CENTER_CLICK:
 
-                 new Thread(new SocketThread( st.ipEt.getText().toString(), port, centerClick, 0, 0, st)).start();
+                 new Thread(new SocketThread( ip, port, centerClick, 0, 0, st)).start();
                  break;
 
             case FN_WHELL_UP:
-                 new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, wheel, "up")).start();
+                 new Thread(new SocketThread(st, ip, port, wheel, "up")).start();
                  break;
 
             case FN_WHELL_DOWN:
-                 new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, wheel, "down")).start();
+                 new Thread(new SocketThread(st, ip, port, wheel, "down")).start();
                  break;
 
             case FN_SCAN:
@@ -255,7 +258,7 @@ public class ButtonFnManager {
 			case FN_LAUNCH_APP:
 				if(!voiceInputArgs.isEmpty()){
 				
-					new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, launch, voiceInputArgs)).start();
+					new Thread(new SocketThread(st, ip, port, launch, voiceInputArgs)).start();
 					
 				}else{
 					st.startVoiceRecognitionActivity(st.REQUEST_CODE_LAUNCH_APP, null);	
@@ -301,149 +304,147 @@ public class ButtonFnManager {
                  break;
 				
 			case FN_BKSPC:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "bksps")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "bksps")).start();
 				break;
 				
 			case FN_ENTER:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "enter")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "enter")).start();
 				break;
 			
 			case FN_ESC:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "esc")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "esc")).start();
 				break;
 				
 			case FN_CTRL_Z:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "ctrlz")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "ctrlz")).start();
 				break;
 			
 			case FN_CTRL_SHIFT_Z:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "ctrl_shift_z")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "ctrl_shift_z")).start();
 				break;	
 				
 			case FN_CTRL_Y:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "ctrly")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "ctrly")).start();
 				break;
 				
 			case FN_CTRL_C:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "ctrlc")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "ctrlc")).start();
 				break;
 				
 			case FN_CTRL_V:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "ctrlv")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "ctrlv")).start();
 				break;
 			
 			case FN_CTRL_A:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "ctrla")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "ctrla")).start();
 				break;	
 			
 			case FN_CTRL_X:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "ctrlx")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "ctrlx")).start();
 				break;		
 				
 			case FN_CAPS:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "Caps Lock")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "Caps Lock")).start();
 				break;	
 				
 			case FN_NUM:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "Num Lock")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "Num Lock")).start();
 				break;	
 				
 			case FN_WIN:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "Win")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "Win")).start();
 				break;	
 				
 			case FN_DEL:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "Del")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "Del")).start();
 				break;	
 				
 			case FN_INS:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "Insert")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "Insert")).start();
 				break;	
 				
 			case FN_HOME:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "Home")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "Home")).start();
 				break;	
 				
 			case FN_END:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "End")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "End")).start();
 				break;	
 				
 			case FN_PAGE_UP:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "Page Up")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "Page Up")).start();
 				break;	
 				
 			case FN_PAGE_DWN:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "Page Down")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "Page Down")).start();
 				break;	
 				
 			case FN_CTRL_S:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "Ctrl+S")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "Ctrl+S")).start();
 				break;	
 				
 			case FN_CTRL_ALT_DEL:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "Ctrl+Alt+Del")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "Ctrl+Alt+Del")).start();
 				break;	
 				
 			case FN_ALT_ENTER:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "Alt+Enter")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "Alt+Enter")).start();
 				break;	
 				
 			case FN_ALT_TAB:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "Alt+Tab")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "Alt+Tab")).start();
 				break;	
 				
 			case FN_CTRL_P:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "ctrlp")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "ctrlp")).start();
 				break;	
 				
 				
 				
 			case FN_CONTEXT_MENU:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "contextMenu")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "contextMenu")).start();
 				break;
 				
 			case FN_F1:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "f1")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "f1")).start();
 				break;
 			case FN_F2:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "f2")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "f2")).start();
 				break;
 			case FN_F3:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "f3")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "f3")).start();
 				break;
 			case FN_F4:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "f4")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "f4")).start();
 				break;
 			case FN_F5:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "f5")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "f5")).start();
 				break;
 			case FN_F6:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "f6")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "f6")).start();
 				break;
 			case FN_F7:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "f7")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "f7")).start();
 				break;
 			case FN_F8:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "f8")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "f8")).start();
 				break;
 			case FN_F9:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "f9")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "f9")).start();
 				break;
 			case FN_F10:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "f10")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "f10")).start();
 				break;
 			case FN_F11:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "f11")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "f11")).start();
 				break;
 			case FN_F12:
-				new Thread(new SocketThread(st, st.ipEt.getText().toString(), port, keyboard, "f12")).start();
+				new Thread(new SocketThread(st, ip, port, keyboard, "f12")).start();
 				break;
 					
 			}
 	 }else{
-         SharedPreferences shp = ctx.getSharedPreferences("default", Context.MODE_MULTI_PROCESS);
-         String ip = shp.getString("ip", "192.168.0.1");
-         int port2 = Integer.parseInt(shp.getString("port", "1026"));
+         
          switch (function){
 
 
@@ -458,7 +459,7 @@ public class ButtonFnManager {
                         */
                      Toast.makeText(ctx, "Sorry, cant use <input> for now>", Toast.LENGTH_SHORT).show();
                  }else{
-                     new Thread(new SocketThread(ip, port2, commandLine, args, fr)).start();
+                     new Thread(new SocketThread(ip, port, commandLine, args, fr)).start();
                  }
 
                  break;
@@ -466,7 +467,7 @@ public class ButtonFnManager {
 
 
              case FN_CUSTOM:
-                 new Thread(new SocketThread(ip, port2, shortcut, args,fr)).start();
+                 new Thread(new SocketThread(ip, port, shortcut, args,fr)).start();
                  break;
          }
      }
