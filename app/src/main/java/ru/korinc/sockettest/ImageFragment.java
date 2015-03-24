@@ -58,14 +58,14 @@ public class ImageFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_image, container, false);
+        title = (TextView) v.findViewById(R.id.title);
         hintTv1 = (TextView) v.findViewById(R.id.hint1);
         hintTv2 = (TextView) v.findViewById(R.id.hint2);
-        title = (TextView) v.findViewById(R.id.title);
         image = (ImageView) v.findViewById(R.id.image);
 
-                hintTv1.setText(hint1);
-        hintTv2.setText(hint2);
         title.setText(screenTitle);
+        hintTv1.setText(hint1.isEmpty()?"":"1." + hint1);
+        hintTv2.setText(hint2.isEmpty()?"":"2." + hint2);
         image.setImageResource(imageId);
         return v;
 

@@ -81,6 +81,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     public static final String VOL_DOWN_DEFAULT_TYPE = "VOL_DOWN_DEFAULT_TYPE";
     public static final String VOL_DOWN_DEFAULT_ARGS = "VOL_DOWN_DEFAULT_ARGS";
     public static final String CURRENT_PROCESS = "currentProcess";
+    public static final int REQUEST_CODE_TUTORIAL = 1260;
     static boolean debug = false;
 
     EditText ipEt;
@@ -215,7 +216,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         if(shp.getBoolean("firstLaunch", true)){
             Intent intent = new Intent(getBaseContext(), TutorialActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_CODE_TUTORIAL);
             //ed.putBoolean("firstLaunch", false);
             ed.commit();
         }
@@ -265,7 +266,8 @@ public class ST extends FragmentActivity implements OnClickListener {
                     ButtonFnManager.FN_ARROWS,
                     ButtonFnManager.FN_R_CLICK,
                     ButtonFnManager.FN_ENTER,
-                    ButtonFnManager.FN_SETTINGS
+                    ButtonFnManager.FN_SETTINGS,
+                    ButtonFnManager.FN_HELP
             };
 
             db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[0], "", 0, this, "", 0), "fnB1" + "top1",this);
@@ -1783,7 +1785,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         boolean needReinvokeVoiceFn = false;
         //Fixing voice input
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK && requestCode!=REQUEST_CODE_TUTORIAL) {
             ArrayList<String> matchesToFix = intent.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             if (matchesToFix != null && matchesToFix.size() > 0) {
                 String m_Text = "";
@@ -2172,6 +2174,11 @@ public class ST extends FragmentActivity implements OnClickListener {
 
             case REQUEST_CODE_SETTINGS:
                 setScrollVisability();
+                break;
+
+            case REQUEST_CODE_TUTORIAL:
+                if(resultCode==RESULT_OK)
+                    scan.performClick();
                 break;
 
         }

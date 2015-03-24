@@ -87,6 +87,7 @@ public class ButtonFnManager {
     public final static int FN_WHELL_DOWN =45;
     public final static int FN_WHELL_UP =46;
     public final static int FN_SETTINGS =47;
+    public final static int FN_HELP =48;
 	public static HashMap<Integer, String> fnMap;
 	
 	public ButtonFnManager(ST st) {
@@ -105,6 +106,7 @@ public class ButtonFnManager {
 		 fnMap = new LinkedHashMap<Integer, String>();
 			fnMap.put(NO_FUNCTION, "No function");
             fnMap.put(FN_SETTINGS, "Settings");
+            fnMap.put(FN_SETTINGS, "Help");
 			fnMap.put(FN_VOICE_FN, "Voice Fn");
 			fnMap.put(FN_VOICE_INPUT, "Voice input");
 			fnMap.put(FN_FIRE_FN, "Fire Fn");
@@ -169,6 +171,10 @@ public class ButtonFnManager {
 
          case FN_SETTINGS:
              st.startActivityForResult(new Intent(st, MappingList.class), ST.REQUEST_CODE_SETTINGS);
+             break;
+
+         case FN_HELP:
+             st.startActivityForResult(new Intent(st, TutorialActivity.class), ST.REQUEST_CODE_TUTORIAL);
              break;
 		 
 		 case FN_VOICE_INPUT:
