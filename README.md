@@ -1,4 +1,4 @@
 # Adaptive-remote-android-client
 
-[apk here!](https://github.com/kor-ka/Adaptive-remote-android-client/releases) 
+[apk here!](http://kor-ka.github.io/Adaptive-remote-android-client) 
 ---
