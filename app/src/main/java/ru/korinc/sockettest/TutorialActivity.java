@@ -15,7 +15,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 public class TutorialActivity extends FragmentActivity implements View.OnClickListener {
 
-    private static final int NUM_PAGES = 5;
+    private static final int NUM_PAGES = 4;
     String[] pageNames;
     String[] hints1;
     String[] hints2;
@@ -59,9 +59,10 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
         imageRes = new int[]{
                 R.drawable.t1,
                 R.drawable.t2,
+
                 R.drawable.t3,
-                R.drawable.t3,
-                R.drawable.t5,
+                R.drawable.t4,
+
         };
 
         ScreenSlidePagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
