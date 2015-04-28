@@ -41,47 +41,18 @@ public class ButtonFnManager {
 	public final static int FN_CUSTOM=-1;
 	public final static int NO_FUNCTION=-7;
 	public final static int FN_SCAN=1;	
-	public final static int FN_ENTER=2;
-	public final static int FN_BKSPC=3; 
-	public final static int FN_ESC=4;
-	public final static int FN_CTRL_Z=5; 
-	public final static int FN_CTRL_Y=6; 
+
 	public final static int FN_CLICK=7; 
 	public final static int FN_R_CLICK=8; 
 	public final static int FN_LAUNCH_APP=9;
 	public final static int FN_ARROWS=10;
-	public final static int FN_F1=11;
-	public final static int FN_F2=12;
-	public final static int FN_F3=13;
-	public final static int FN_F4=14;
-	public final static int FN_F5=15;
-	public final static int FN_F6=16;
-	public final static int FN_F7=17;
-	public final static int FN_F8=18;
-	public final static int FN_F9=19;
-	public final static int FN_F10=20;
-	public final static int FN_F11=21;
-	public final static int FN_F12=22;
+
 	public final static int FN_CONTEXT_MENU=23;
-	public final static int FN_CTRL_C=24; 
-	public final static int FN_CTRL_V=25; 
-	public final static int FN_CTRL_X=26; 
-	public final static int FN_CTRL_A=27; 
-	public final static int FN_CTRL_ALT_DEL=28; 
-	public final static int FN_CTRL_SHIFT_Z=29; 
-	public final static int FN_CTRL_S=30; 
-	public final static int FN_ALT_ENTER=31; 
-	public final static int FN_CAPS=32; 
-	public final static int FN_ALT_TAB=33; 
-	public final static int FN_WIN=34; 
-	public final static int FN_NUM=35; 
-	public final static int FN_DEL=36; 
-	public final static int FN_INS=37; 
-	public final static int FN_HOME=38; 
-	public final static int FN_END=39; 
-	public final static int FN_PAGE_UP=40; 
-	public final static int FN_PAGE_DWN=41; 
-	public final static int FN_CTRL_P=42;
+
+	public final static int FN_CTRL_ALT_DEL=28;
+
+	public final static int FN_ALT_TAB=33;
+
     public final static int FN_CONTEXT_BUTTONS=43;
     public final static int FN_CENTER_CLICK =44;
     public final static int FN_WHELL_DOWN =45;
@@ -104,59 +75,25 @@ public class ButtonFnManager {
 	
 	 public void initiateMap(){
 		 fnMap = new LinkedHashMap<Integer, String>();
-			fnMap.put(NO_FUNCTION, "No function");
-            fnMap.put(FN_SETTINGS, "Settings");
-            fnMap.put(FN_HELP, "Help");
-			fnMap.put(FN_VOICE_FN, "Voice Fn");
-			fnMap.put(FN_VOICE_INPUT, "Voice input");
-			fnMap.put(FN_FIRE_FN, "Fire Fn");
-			fnMap.put(FN_SCAN, "Connect to server");
-			fnMap.put(FN_LAUNCH_APP, "Launch app");
-			fnMap.put(FN_LAUNCHFROM_TASKBAR, "Launch app from taskbar");
-			fnMap.put(FN_ARROWS, "Arrows");
-            fnMap.put(FN_CONTEXT_BUTTONS, "Context buttons");
-			fnMap.put(FN_CLICK, "Left click");
-			fnMap.put(FN_R_CLICK, "Right click");
-            fnMap.put(FN_CENTER_CLICK, "Center click");
-            fnMap.put(FN_WHELL_UP, "Wheel up");
-            fnMap.put(FN_WHELL_DOWN, "Wheel down");
-			fnMap.put(FN_ENTER, "Enter");
-			fnMap.put(FN_BKSPC, "Backspace");
-			fnMap.put(FN_ESC, "Escape");
-			fnMap.put(FN_CAPS, "Caps Lock"); //
-			fnMap.put(FN_NUM, "Num Lock"); //
-			fnMap.put(FN_WIN, "Win"); //
-			fnMap.put(FN_DEL, "Del"); //
-			fnMap.put(FN_INS, "Insert"); //
-			fnMap.put(FN_HOME, "Home"); //
-			fnMap.put(FN_END, "End"); //
-			fnMap.put(FN_PAGE_UP, "Page Up"); //
-			fnMap.put(FN_PAGE_DWN, "Page Down"); //
-			fnMap.put(FN_CTRL_Z, "Ctrl+Z");
-			fnMap.put(FN_CTRL_SHIFT_Z, "Ctrl+Shift+Z");
-			fnMap.put(FN_CTRL_Y, "Ctrl+Y");
-			fnMap.put(FN_CTRL_C, "Ctrl+C");
-			fnMap.put(FN_CTRL_V, "Ctrl+V");
-			fnMap.put(FN_CTRL_A, "Ctrl+A");
-			fnMap.put(FN_CTRL_X, "Ctrl+X");
-			fnMap.put(FN_CTRL_S, "Ctrl+S");	//
-			fnMap.put(FN_CTRL_P, "Ctrl+P");	
-			fnMap.put(FN_CTRL_ALT_DEL, "Ctrl+Alt+Del");	//
-			fnMap.put(FN_ALT_ENTER, "Alt+Enter");	//
-			fnMap.put(FN_ALT_TAB, "Alt+Tab");	//
-			fnMap.put(FN_CONTEXT_MENU, "Context menu");
-			fnMap.put(FN_F1, "F1");
-			fnMap.put(FN_F2, "F2");
-			fnMap.put(FN_F3, "F3");
-			fnMap.put(FN_F4, "F4");
-			fnMap.put(FN_F5, "F5");
-			fnMap.put(FN_F6, "F6");
-			fnMap.put(FN_F7, "F7");
-			fnMap.put(FN_F8, "F8");
-			fnMap.put(FN_F9, "F9");
-			fnMap.put(FN_F10, "F10");
-			fnMap.put(FN_F11, "F11");
-			fnMap.put(FN_F12, "F12");
+			fnMap.put(NO_FUNCTION, ctx.getString(R.string.no_functon));
+            fnMap.put(FN_SETTINGS, ctx.getString(R.string.title_activity_settings));
+            fnMap.put(FN_HELP, ctx.getString(R.string.title_activity_tutorial));
+			fnMap.put(FN_VOICE_FN, ctx.getString(R.string.btn_voice_fn));
+			fnMap.put(FN_VOICE_INPUT, ctx.getString(R.string.btn_voice_input));
+			fnMap.put(FN_FIRE_FN, ctx.getString(R.string.btn_fire_fn));
+			fnMap.put(FN_SCAN, ctx.getString(R.string.btn_connect_to_server));
+			fnMap.put(FN_LAUNCH_APP, ctx.getString(R.string.btn_launch_app));
+			fnMap.put(FN_LAUNCHFROM_TASKBAR, ctx.getString(R.string.btn_launch_app_from_taskbar));
+			fnMap.put(FN_ARROWS, ctx.getString(R.string.btn_arrows));
+            fnMap.put(FN_CONTEXT_BUTTONS, ctx.getString(R.string.btn_context_btns));
+			fnMap.put(FN_CLICK, ctx.getString(R.string.btn_left_click));
+			fnMap.put(FN_R_CLICK, ctx.getString(R.string.btn_right_click));
+            fnMap.put(FN_CENTER_CLICK, ctx.getString(R.string.btn_center_click));
+            fnMap.put(FN_WHELL_UP, ctx.getString(R.string.btn_wheel_up));
+            fnMap.put(FN_WHELL_DOWN, ctx.getString(R.string.btn_wheel_down));
+			fnMap.put(FN_CTRL_ALT_DEL, "Ctrl+Alt+Del");
+			fnMap.put(FN_ALT_TAB, "Alt+Tab");
+
 	 }
 	
  public void press(int function, String args, String voiceInputArgs){
@@ -309,101 +246,7 @@ public class ButtonFnManager {
                  }
                  break;
 				
-			case FN_BKSPC:
-				new Thread(new SocketThread(st, ip, port, keyboard, "bksps")).start();
-				break;
-				
-			case FN_ENTER:
-				new Thread(new SocketThread(st, ip, port, keyboard, "enter")).start();
-				break;
-			
-			case FN_ESC:
-				new Thread(new SocketThread(st, ip, port, keyboard, "esc")).start();
-				break;
-				
-			case FN_CTRL_Z:
-				new Thread(new SocketThread(st, ip, port, keyboard, "ctrlz")).start();
-				break;
-			
-			case FN_CTRL_SHIFT_Z:
-				new Thread(new SocketThread(st, ip, port, keyboard, "ctrl_shift_z")).start();
-				break;	
-				
-			case FN_CTRL_Y:
-				new Thread(new SocketThread(st, ip, port, keyboard, "ctrly")).start();
-				break;
-				
-			case FN_CTRL_C:
-				new Thread(new SocketThread(st, ip, port, keyboard, "ctrlc")).start();
-				break;
-				
-			case FN_CTRL_V:
-				new Thread(new SocketThread(st, ip, port, keyboard, "ctrlv")).start();
-				break;
-			
-			case FN_CTRL_A:
-				new Thread(new SocketThread(st, ip, port, keyboard, "ctrla")).start();
-				break;	
-			
-			case FN_CTRL_X:
-				new Thread(new SocketThread(st, ip, port, keyboard, "ctrlx")).start();
-				break;		
-				
-			case FN_CAPS:
-				new Thread(new SocketThread(st, ip, port, keyboard, "Caps Lock")).start();
-				break;	
-				
-			case FN_NUM:
-				new Thread(new SocketThread(st, ip, port, keyboard, "Num Lock")).start();
-				break;	
-				
-			case FN_WIN:
-				new Thread(new SocketThread(st, ip, port, keyboard, "Win")).start();
-				break;	
-				
-			case FN_DEL:
-				new Thread(new SocketThread(st, ip, port, keyboard, "Del")).start();
-				break;	
-				
-			case FN_INS:
-				new Thread(new SocketThread(st, ip, port, keyboard, "Insert")).start();
-				break;	
-				
-			case FN_HOME:
-				new Thread(new SocketThread(st, ip, port, keyboard, "Home")).start();
-				break;	
-				
-			case FN_END:
-				new Thread(new SocketThread(st, ip, port, keyboard, "End")).start();
-				break;	
-				
-			case FN_PAGE_UP:
-				new Thread(new SocketThread(st, ip, port, keyboard, "Page Up")).start();
-				break;	
-				
-			case FN_PAGE_DWN:
-				new Thread(new SocketThread(st, ip, port, keyboard, "Page Down")).start();
-				break;	
-				
-			case FN_CTRL_S:
-				new Thread(new SocketThread(st, ip, port, keyboard, "Ctrl+S")).start();
-				break;	
-				
-			case FN_CTRL_ALT_DEL:
-				new Thread(new SocketThread(st, ip, port, keyboard, "Ctrl+Alt+Del")).start();
-				break;	
-				
-			case FN_ALT_ENTER:
-				new Thread(new SocketThread(st, ip, port, keyboard, "Alt+Enter")).start();
-				break;	
-				
-			case FN_ALT_TAB:
-				new Thread(new SocketThread(st, ip, port, keyboard, "Alt+Tab")).start();
-				break;	
-				
-			case FN_CTRL_P:
-				new Thread(new SocketThread(st, ip, port, keyboard, "ctrlp")).start();
-				break;	
+
 				
 				
 				
@@ -411,42 +254,7 @@ public class ButtonFnManager {
 				new Thread(new SocketThread(st, ip, port, keyboard, "contextMenu")).start();
 				break;
 				
-			case FN_F1:
-				new Thread(new SocketThread(st, ip, port, keyboard, "f1")).start();
-				break;
-			case FN_F2:
-				new Thread(new SocketThread(st, ip, port, keyboard, "f2")).start();
-				break;
-			case FN_F3:
-				new Thread(new SocketThread(st, ip, port, keyboard, "f3")).start();
-				break;
-			case FN_F4:
-				new Thread(new SocketThread(st, ip, port, keyboard, "f4")).start();
-				break;
-			case FN_F5:
-				new Thread(new SocketThread(st, ip, port, keyboard, "f5")).start();
-				break;
-			case FN_F6:
-				new Thread(new SocketThread(st, ip, port, keyboard, "f6")).start();
-				break;
-			case FN_F7:
-				new Thread(new SocketThread(st, ip, port, keyboard, "f7")).start();
-				break;
-			case FN_F8:
-				new Thread(new SocketThread(st, ip, port, keyboard, "f8")).start();
-				break;
-			case FN_F9:
-				new Thread(new SocketThread(st, ip, port, keyboard, "f9")).start();
-				break;
-			case FN_F10:
-				new Thread(new SocketThread(st, ip, port, keyboard, "f10")).start();
-				break;
-			case FN_F11:
-				new Thread(new SocketThread(st, ip, port, keyboard, "f11")).start();
-				break;
-			case FN_F12:
-				new Thread(new SocketThread(st, ip, port, keyboard, "f12")).start();
-				break;
+
 					
 			}
 	 }else{

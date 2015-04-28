@@ -36,7 +36,7 @@
         </activity>
         <activity
             android:name=".MappingList"
-            android:label="@string/title_activity_mapping_list"
+            android:label="@string/title_activity_settings"
             android:theme="@android:style/Theme.Holo.Light.Dialog" >
         </activity>
         <activity

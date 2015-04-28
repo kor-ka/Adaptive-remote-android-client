@@ -1,58 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Adaptive remote</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_mapping_list">Fix voice input</string>
-    <string name="title_activity_voice_fn_mapping_list">Voice Fn commands</string>
-    <string name="title_activity_fn_select">Fn Select</string>
-    <string name="title_activity_launch_from_task_bar">Launch from taskbar</string>
-    <string name="send_link_via">Отправить ссылку на сервер через</string>
-    <string name="enter_after_voiceinput">Enter после голосового ввода</string>
-    <string name="left_scroll">Левый скролл</string>
-    <string name="right_scroll">Правый скролл</string>
-    <string name="volDown">Звук -</string>
-    <string name="volUp">Звук +</string>
-    <string name="title_activity_fn_byn_id">FnBynId</string>
-    <string name="title_activity_tutorial">Help</string>
+    <!--garb-->
+    <color name="transparent_gray">#44000000</color>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="app_name">Adaptive remote</string>
+
+    <!--Settings-->
+    <string name="title_activity_settings">Settings</string>
+    <string name="left_scroll">eft scroll</string>
+    <string name="right_scroll">Right scroll</string>
+    <string name="enter_after_voiceinput">Enter after voice input</string>
+    <string name="settings_about_replace">Replase map</string>
+
+    <string name="title_activity_voice_fn_mapping_list">Voice Fn commands</string>
+
+    <string name="title_activity_fn_select">Fn Select</string>
+
+    <string name="title_activity_launch_from_task_bar">Launch from taskbar</string>
+
+    <string name="title_activity_fn_byn_id">FnBynId</string>
+
+    <!--Vol buttons-->
+    <string name="volDown">vol -</string>
+    <string name="volUp">vol +</string>
+    <string name="set_vol_buttons_dialog_title">Vol buttons settings</string>
+    <string name="set_vol_buttons_dialog_body">Enable for current process, set by default or reset?</string>
+    <string name="set_vol_buttons_b1">for current process</string>
+    <string name="set_vol_buttons_b2">by default</string>
+    <string name="set_vol_buttons_b3">reset</string>
+
+    <!--Tutorial-->
+    <string name="title_activity_tutorial">Help</string>
+    <string name="send_link_via">Send link via</string>
+    <string name="tutorial_send_me_link">Send me download server link!</string>
+
+    <string-array name="tutorial_titles">
+        <item>Main screen</item>
+        <item>Side menu, buttons set up</item>
+        <item>Add button dialog</item>
+        <item>Interface integration</item>
+        <item>...</item>
+    </string-array>
 
     <string-array name="tutorial_1">
-        <item>Пустое место - мышь</item>
-        <item>Эта штука - отображает текущее приложение на PC, при нажатии показывает контекстные кнопки для этого приложения</item>
-        <item>Чтобы подключиться к серверу (если он запущен, конечно) жмахни сюда</item>
+        <item>Empty space is touchpad</item>
+        <item>This button shows current PC app and its functions</item>
+        <item>Connect to PC (install server first)</item>
     </string-array>
 
     <string-array name="tutorial_2">
-        <item>Все кнопки настравиваются перетаскиванием кнопок (так себе звучит) из контекстного меню (в нём хранятся все кнопки)</item>
-        <item>Здесь можно добавить добавить новую кнопку (любые шорткаты, или коммандные строчки, например)</item>
+        <item>Drag button to set up main screen</item>
+        <item>Add new button</item>
     </string-array>
 
     <string-array name="tutorial_3">
-        <item>Можно выбрать готовые кнопки, настроить свои, а можно скачать плагин (в плагинах есть много интересного + они сами настраивают контекстные кнопки для приложений)</item>
+        <item>You can choose preset button, make your own or download plugin with ready to use buttons</item>
     </string-array>
 
     <string-array name="tutorial_4">
-        <item>Если провести пальцем от любой кнопки к центру экрана, контекстные кнопки (те, про которые написано на первой картинке) отобразятся на экране PC (псс... не забудь их сначала настроить, или скачать плагин, например)","Псс, если провести пальцем от центральной кнопки, сможешь переключать приложения</item>
+        <item>Slide from left or right button to open app context menu on PC</item>
+        <item>Slide from center button to switch apps on PC</item>
     </string-array>
 
 
 
-    <color name="transparent_gray">#44000000</color>
 
 
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="set_vol_buttons_dialog_title">Настройка клавиши звука</string>
-    <string name="set_vol_buttons_dialog_body">Применить для текушего процесса, поставить по умолчанию или сбросить к настройке по умолчанию?</string>
-    <string name="set_vol_buttons_b1">для текущего процесса</string>
-    <string name="set_vol_buttons_b2">по умолчанию</string>
-    <string name="set_vol_buttons_b3">сброс</string>
+    <!--Voice input-->
     <string name="voice_input_hint_launch_app">What app to launch?</string>
     <string name="voice_input_hint_voice_input">Speak...</string>
     <string name="voice_input_hint_cmd_input">Input...</string>
     <string name="voice_input_hint_voice_fn">What Fn to fire? Input?</string>
 
+    <!--Connect to server-->
+    <string name="connect_dialog_title">Connect to server</string>
+    <string name="connect_dialog_body">IP and port:</string>
+    <string name="connect_dialog_okj">Connect!</string>
+    <string name="connect_dialog_no_port">Port?</string>
+    <string name="connect_dialog_no_ip">IP?</string>
+    <string name="connect_dilog_no_ip_no_port">IP? Port?</string>
+    <string name="connect_dialog_scan_qr">Scan QR</string>
+    <string name="connect_dialog_no_barcode_scanner">Get QR scanner</string>
+
+
+    <!--btn titles-->
+    <string name="no_functon">No function</string>
+    <string name="btn_voice_fn">Voice Fn</string>
+    <string name="btn_voice_input">Voice input</string>
+    <string name="btn_fire_fn">Fire Fn</string>
+    <string name="btn_connect_to_server">Connect to server</string>
+    <string name="btn_launch_app">Launch app</string>
+    <string name="btn_launch_app_from_taskbar">Launch app from taskbar</string>
+    <string name="btn_arrows">Arrows</string>
+    <string name="btn_context_btns">Context buttons</string>
+    <string name="btn_left_click">Left click</string>
+    <string name="btn_right_click">Right click</string>
+    <string name="btn_center_click">Center click</string>
+    <string name="btn_wheel_up">Wheel up</string>
+    <string name="btn_wheel_down">Wheel down</string>
 </resources>

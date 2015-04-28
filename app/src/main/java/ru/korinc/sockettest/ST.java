@@ -266,7 +266,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     ButtonFnManager.FN_FIRE_FN,
                     ButtonFnManager.FN_ARROWS,
                     ButtonFnManager.FN_R_CLICK,
-                    ButtonFnManager.FN_ENTER,
+                    ButtonFnManager.FN_CUSTOM,
                     ButtonFnManager.FN_SETTINGS,
                     ButtonFnManager.FN_HELP
             };
@@ -276,7 +276,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[2], "", 0, this, "", 0), "fnB3" + "top1",this);
             db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[3], "", 0, this, "", 0), "fnB1" + "bot1",this);
             db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[4], "", 0, this, "", 0), "fnB2" + "bot1",this);
-            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[5], "", 0, this, "", 0), "fnB3" + "bot1",this);
+            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[5], "Enter", 0, this, "", 0), "fnB3" + "bot1",this);
             db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[6], "", 0, this, "", 0), "fnB1" + "bot2",this);
             db.addButton(-1, "", buttonsToInit[7], "", 0, this, "", 0);
         }
@@ -1283,7 +1283,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
 
                         if (inViewBounds(v, x, y)) {
-                            fnb.press(ButtonFnManager.FN_ESC, "", "");
+                            fnb.press(ButtonFnManager.FN_CUSTOM, "Esc", "");
                             overlayActivated = false;
                             InAppLog.writeLog(ST.this, "", "ALT TAB Overlay release by return", debug);
                         }
@@ -1294,7 +1294,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     if (overlayActivated) {
                         InAppLog.writeLog(ST.this, "", "ALT TAB Overlay release", debug);
                         overlayActivated = false;
-                        fnb.press(ButtonFnManager.FN_ENTER, "", "");
+                        fnb.press(ButtonFnManager.FN_CUSTOM, "Enter", "");
 
                         Executors.newSingleThreadScheduledExecutor().schedule(new SocketThread(shpCross.getString("ip", "198.168.0.1"), Integer.parseInt(shpCross.getString("port", "12342")), ButtonFnManager.ab, 0, 0, ST.this), 400, TimeUnit.MILLISECONDS);
 
@@ -1307,7 +1307,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 case MotionEvent.ACTION_CANCEL:
                     InAppLog.writeLog(ST.this, "", "ALT TAB Overlay release (ACTION_CANCEL)", debug);
                     overlayActivated = false;
-                    fnb.press(ButtonFnManager.FN_ESC, "", "");
+                    fnb.press(ButtonFnManager.FN_CUSTOM, "Esc", "");
                     break;
 
             }
@@ -1591,7 +1591,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this,
                         AlertDialog.THEME_HOLO_LIGHT);
-                builder.setTitle("Connect to server");
+                builder.setTitle(getString(R.string.connect_dialog_title));
 
                 // Set up the input
                 final EditText input = new EditText(this);
@@ -1612,7 +1612,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                         LayoutParams.WRAP_CONTENT, 1f));
 
                 TextView tv = new TextView(this);
-                tv.setText("Ручной ввод:");
+                tv.setText(getString(R.string.connect_dialog_body));
                 tv.setPadding(10, 10, 10, 0);
                 tv.setTextSize(15);
 
@@ -1632,7 +1632,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 builder.setView(ll);
 
                 // Set up the buttons
-                builder.setPositiveButton("Connect!",
+                builder.setPositiveButton(getString(R.string.connect_dialog_okj),
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog,
@@ -1659,24 +1659,24 @@ public class ST extends FragmentActivity implements OnClickListener {
                                         .equals("")) {
 
                                     Toast.makeText(getBaseContext(),
-                                            "Вы не указали Port :'(",
+                                            getString(R.string.connect_dialog_no_port),
                                             Toast.LENGTH_SHORT).show();
                                 } else if (!inputPort.getText().toString()
                                         .equals("")) {
 
                                     Toast.makeText(getBaseContext(),
-                                            "Вы не указали IP :'(",
+                                            getString(R.string.connect_dialog_no_ip),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
 
                                     Toast.makeText(getBaseContext(),
-                                            "Вы не указали IP и Port :'(",
+                                            getString(R.string.connect_dilog_no_ip_no_port),
                                             Toast.LENGTH_SHORT).show();
                                 }
 
                             }
                         });
-                builder.setNegativeButton((installed) ? "Barcode Scanner" : "Get Barcode Scanner",
+                builder.setNegativeButton((installed) ? getString(R.string.connect_dialog_scan_qr) : getString(R.string.connect_dialog_no_barcode_scanner),
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog,

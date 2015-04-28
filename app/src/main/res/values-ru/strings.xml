@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--garb-->
+    <color name="transparent_gray">#44000000</color>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="app_name">Adaptive remote</string>
+
+    <!--Settings-->
+    <string name="title_activity_settings">Настройки</string>
+    <string name="left_scroll">Левый скролл</string>
+    <string name="right_scroll">Правый скролл</string>
+    <string name="enter_after_voiceinput">Enter после голосового ввода</string>
+    <string name="settings_about_replace">Список для переназначания результатов распознавания голоса (в случае, если не верно интерпритируется голосовой ввод, например \"хром\" вместо \"chrome\").</string>
+
+    <string name="title_activity_voice_fn_mapping_list">Voice Fn commands</string>
+
+    <string name="title_activity_fn_select">Fn Select</string>
+
+    <string name="title_activity_launch_from_task_bar">Панель задач</string>
+
+    <string name="title_activity_fn_byn_id">FnBynId</string>
+
+    <!--Vol buttons-->
+    <string name="volDown">Звук -</string>
+    <string name="volUp">Звук +</string>
+    <string name="set_vol_buttons_dialog_title">Настройка клавиши звука</string>
+    <string name="set_vol_buttons_dialog_body">Применить для текушего процесса, поставить по умолчанию или сбросить к настройке по умолчанию?</string>
+    <string name="set_vol_buttons_b1">для текущего процесса</string>
+    <string name="set_vol_buttons_b2">по умолчанию</string>
+    <string name="set_vol_buttons_b3">сброс</string>
+
+    <!--Tutorial-->
+    <string name="title_activity_tutorial">Помощь</string>
+    <string name="send_link_via">Отправить ссылку на сервер через</string>
+    <string name="tutorial_send_me_link">Отправляй мне ссылку на сервер - и погнали!</string>
+
+    <string-array name="tutorial_titles">
+        <item>Главный экран</item>
+        <item>Боковое меню, настройка кнопок</item>
+        <item>Окно добавления новой кнопки</item>
+        <item>Интегрированный интерфейс</item>
+        <item>Чуть не забыл</item>
+    </string-array>
+
+    <string-array name="tutorial_1">
+        <item>Пустое место - мышь</item>
+        <item>Эта кнопка - отображает текущее приложение на PC, при нажатии показывает контекстные кнопки для этого приложения</item>
+        <item>Подключение к PC (после установки сервера)</item>
+    </string-array>
+
+    <string-array name="tutorial_2">
+        <item>Перетащите кнопки для настройки главного экрана</item>
+        <item>Здесь можно добавить новую кнопку (любые шорткаты, или коммандные строчки, например)</item>
+    </string-array>
+
+    <string-array name="tutorial_3">
+        <item>Можно выбрать готовые кнопки, настроить свои, а можно скачать плагин (в плагинах есть много интересного + они сами настраивают контекстные кнопки для приложений)</item>
+    </string-array>
+
+    <string-array name="tutorial_4">
+        <item>Проведите от левой или правой кнопки к центру для открытия контекстного меню</item>
+        <item>Проведите от центральной кнопки к центру для переключения приложений</item>
+    </string-array>
+
+
+
+
+
+    <!--Voice input-->
+    <string name="voice_input_hint_launch_app">Какое приложение запустить?</string>
+    <string name="voice_input_hint_voice_input">Слушаю...</string>
+    <string name="voice_input_hint_cmd_input">Параметр...</string>
+    <string name="voice_input_hint_voice_fn">Какую команду выполнить? Параметр?</string>
+
+    <!--Connect to server-->
+    <string name="connect_dialog_title">Подключиться к серверу</string>
+    <string name="connect_dialog_body">Ручной ввод:</string>
+    <string name="connect_dialog_okj">Подключиться!</string>
+    <string name="connect_dialog_no_port">Вы не указали Port :\'(</string>
+    <string name="connect_dialog_no_ip">Вы не указали IP :\'(</string>
+    <string name="connect_dilog_no_ip_no_port">Вы не указали IP и Port :\'(</string>
+    <string name="connect_dialog_scan_qr">Сканировать QR</string>
+    <string name="connect_dialog_no_barcode_scanner">Скачать приложение для сканирования QR</string>
+
+    <!--btn titles-->
+    <string name="no_functon">Без функции</string>
+    <string name="btn_voice_fn">Голосовая команда</string>
+    <string name="btn_voice_input">Голосовой ввод</string>
+    <string name="btn_fire_fn">Выполнить...</string>
+    <string name="btn_connect_to_server">Подключиться к серверу</string>
+    <string name="btn_launch_app">Запустить приложение</string>
+    <string name="btn_launch_app_from_taskbar">Панель задач</string>
+    <string name="btn_arrows">Стрелки</string>
+    <string name="btn_context_btns">Контекстные кнопки</string>
+    <string name="btn_left_click">ЛКМ</string>
+    <string name="btn_right_click">ПКМ</string>
+    <string name="btn_center_click">ЦКМ</string>
+    <string name="btn_wheel_up">Прокрутить вверх</string>
+    <string name="btn_wheel_down">Прокрутить вниз</string>
+
+
+</resources>

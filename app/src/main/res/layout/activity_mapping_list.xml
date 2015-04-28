@@ -34,7 +34,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Список для переназначания результатов распознавания голоса (в случае, если не верно интерпритируется голосовой ввод, например &quot;хром&quot; вместо &quot;chrome&quot;)." />
+        android:text="@string/settings_about_replace" />
     
     <LinearLayout
         android:layout_width="match_parent"

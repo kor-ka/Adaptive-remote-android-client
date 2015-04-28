@@ -31,13 +31,8 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
         // Instantiate a ViewPager and a PagerAdapter.
         ViewPager mPager = (ViewPager) findViewById(R.id.pager);
 
-        pageNames = new String[]{
-                "Главный экран",
-                "Боковое меню, настройка кнопок",
-                "Окно добавления новой кнопки",
-                "Интегрированный интерфейс",
-                "Чуть не забыл!"
-        };
+        pageNames =  getResources().getStringArray(R.array.tutorial_titles);
+
         hints = new String[][]{
                 getResources().getStringArray(R.array.tutorial_1),
                 getResources().getStringArray(R.array.tutorial_2),
@@ -85,7 +80,7 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
 
         btn = (Button) findViewById(R.id.btn);
         btn.getBackground().setColorFilter(getResources().getColor(android.R.color.holo_blue_light), PorterDuff.Mode.MULTIPLY);
-        btn.setText("Отправляй мне ссылку на сервер - и погнали!");
+        btn.setText(getString(R.string.tutorial_send_me_link));
         btn.setOnClickListener(this);
     }
 
