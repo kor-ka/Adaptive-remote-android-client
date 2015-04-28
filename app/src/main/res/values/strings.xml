@@ -14,13 +14,45 @@
     <string name="right_scroll">Правый скролл</string>
     <string name="volDown">Звук -</string>
     <string name="volUp">Звук +</string>
-
-    <color name="transparent_gray">#44000000</color>
-
     <string name="title_activity_fn_byn_id">FnBynId</string>
     <string name="title_activity_tutorial">Help</string>
 
+
+    <string-array name="tutorial_1">
+        <item>Пустое место - мышь</item>
+        <item>Эта штука - отображает текущее приложение на PC, при нажатии показывает контекстные кнопки для этого приложения</item>
+        <item>Чтобы подключиться к серверу (если он запущен, конечно) жмахни сюда</item>
+    </string-array>
+
+    <string-array name="tutorial_2">
+        <item>Все кнопки настравиваются перетаскиванием кнопок (так себе звучит) из контекстного меню (в нём хранятся все кнопки)</item>
+        <item>Здесь можно добавить добавить новую кнопку (любые шорткаты, или коммандные строчки, например)</item>
+    </string-array>
+
+    <string-array name="tutorial_3">
+        <item>Можно выбрать готовые кнопки, настроить свои, а можно скачать плагин (в плагинах есть много интересного + они сами настраивают контекстные кнопки для приложений)</item>
+    </string-array>
+
+    <string-array name="tutorial_4">
+        <item>Если провести пальцем от любой кнопки к центру экрана, контекстные кнопки (те, про которые написано на первой картинке) отобразятся на экране PC (псс... не забудь их сначала настроить, или скачать плагин, например)","Псс, если провести пальцем от центральной кнопки, сможешь переключать приложения</item>
+    </string-array>
+
+
+
+    <color name="transparent_gray">#44000000</color>
+
+
+
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="set_vol_buttons_dialog_title">Настройка клавиши звука</string>
+    <string name="set_vol_buttons_dialog_body">Применить для текушего процесса, поставить по умолчанию или сбросить к настройке по умолчанию?</string>
+    <string name="set_vol_buttons_b1">для текущего процесса</string>
+    <string name="set_vol_buttons_b2">по умолчанию</string>
+    <string name="set_vol_buttons_b3">сброс</string>
+    <string name="voice_input_hint_launch_app">What app to launch?</string>
+    <string name="voice_input_hint_voice_input">Speak...</string>
+    <string name="voice_input_hint_cmd_input">Input...</string>
+    <string name="voice_input_hint_voice_fn">What Fn to fire? Input?</string>
 
 </resources>

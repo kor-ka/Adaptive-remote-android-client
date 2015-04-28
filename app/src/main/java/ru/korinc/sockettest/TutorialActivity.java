@@ -17,8 +17,8 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
 
     private static final int NUM_PAGES = 4;
     String[] pageNames;
-    String[] hints1;
-    String[] hints2;
+    String[][] hints;
+
     int[] imageRes;
     Button btn;
 
@@ -38,24 +38,31 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
                 "Интегрированный интерфейс",
                 "Чуть не забыл!"
         };
+        hints = new String[][]{
+                getResources().getStringArray(R.array.tutorial_1),
+                getResources().getStringArray(R.array.tutorial_2),
+                getResources().getStringArray(R.array.tutorial_3),
+                getResources().getStringArray(R.array.tutorial_4),
 
-        hints1 = new String[]{
-            "Пустое место - мышь",
-            "Все кнопки настравиваются перетаскиванием кнопок (так себе звучит) из контекстного меню (в нём хранятся все кнопки)",
-            "Можно выбрать готовые кнопки, настроить свои, а можно скачать плагин (в плагинах есть много интересного + они сами настраивают контекстные кнопки для приложений)",
-            "Если провести пальцем от любой кнопки к центру экрана, контекстные кнопки (те, про которые написано на первой картинке) отобразятся на экране PC (псс... не забудь их сначала настроить, или скачать плагин, например)",
-            "Чтобы подключиться к серверу (если он запущен, конечно) жмахни сюда"
+        };
+/*
+        hints = new String[]{
+
+
+
+
+
         };
 
         hints2 = new String[]{
-            "Эта штука - отображает текущее приложение на PC, при нажатии показывает контекстные кнопки для этого приложения",
-            "Здесь можно добавить добавить новую кнопку (любые шорткаты, или коммандные строчки, например)",
-            "",
-            "Псс, если провести пальцем от центральной кнопки, сможешь переключать приложения",
+
+
+
+
             ""
 
         };
-
+*/
         imageRes = new int[]{
                 R.drawable.t1,
                 R.drawable.t2,
@@ -98,7 +105,7 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
         @Override
         public Fragment getItem(int position) {
 
-            return ImageFragment.newInstance(hints1[position], hints2[position], pageNames[position], imageRes[position]);
+            return ImageFragment.newInstance(hints[position], pageNames[position], imageRes[position]);
         }
 
         @Override

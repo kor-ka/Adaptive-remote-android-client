@@ -12,28 +12,28 @@ import android.widget.TextView;
 public class ImageFragment extends android.support.v4.app.Fragment {
 
     private static final String SCREEN_TITTLE = "screenTitle";
-    private static final String HINT_1 = "hint1";
-    private static final String HINT_2 = "hint2";
+    private static final String HINTS = "hints";
+
     private static final String IMAGE_ID = "imageId";
 
 
     private String screenTitle;
-    private String hint1;
-    private String hint2;
+    private String[] hints;
+
     private int imageId;
 
     ImageView image;
-    TextView hintTv1;
-    TextView hintTv2;
+    TextView hintsTv;
+
     TextView title;
 
 
-    public static ImageFragment newInstance(String param1, String param2, String param3, int imageId) {
+    public static ImageFragment newInstance(String[] hints, String title, int imageId) {
         ImageFragment fragment = new ImageFragment();
         Bundle args = new Bundle();
-        args.putString(SCREEN_TITTLE, param3);
-        args.putString(HINT_1, param1);
-        args.putString(HINT_2, param2);
+        args.putString(SCREEN_TITTLE, title);
+        args.putStringArray(HINTS, hints);
+
         args.putInt(IMAGE_ID, imageId);
         fragment.setArguments(args);
         return fragment;
@@ -48,8 +48,7 @@ public class ImageFragment extends android.support.v4.app.Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             screenTitle = getArguments().getString(SCREEN_TITTLE);
-            hint1 = getArguments().getString(HINT_1);
-            hint2 = getArguments().getString(HINT_2);
+            hints = getArguments().getStringArray(HINTS);
             imageId = getArguments().getInt(IMAGE_ID);
         }
     }
@@ -59,13 +58,18 @@ public class ImageFragment extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_image, container, false);
         title = (TextView) v.findViewById(R.id.title);
-        hintTv1 = (TextView) v.findViewById(R.id.hint1);
-        hintTv2 = (TextView) v.findViewById(R.id.hint2);
+        hintsTv = (TextView) v.findViewById(R.id.hints);
+
         image = (ImageView) v.findViewById(R.id.image);
 
         title.setText(screenTitle);
-        hintTv1.setText(hint1.isEmpty()?"":"1." + hint1);
-        hintTv2.setText(hint2.isEmpty()?"":"2." + hint2);
+        hintsTv.setText("");
+        int i = 0;
+        for(String hint:hints){
+            hintsTv.append(++i+". " + hint + "\n");
+        }
+
+
         image.setImageResource(imageId);
         return v;
 

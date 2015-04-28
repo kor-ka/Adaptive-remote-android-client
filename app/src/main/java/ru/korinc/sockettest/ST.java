@@ -217,7 +217,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         if(shp.getBoolean("firstLaunch", true)){
             Intent intent = new Intent(getBaseContext(), TutorialActivity.class);
             startActivityForResult(intent, REQUEST_CODE_TUTORIAL);
-            //ed.putBoolean("firstLaunch", false);
+            ed.putBoolean("firstLaunch", false);
             ed.commit();
         }
 
@@ -239,25 +239,26 @@ public class ST extends FragmentActivity implements OnClickListener {
             });
         }
 
-        //init voice tables
 
-        Set<String> keys = shp.getStringSet("VoiceFnMap", new HashSet<String>());
-        if (keys.isEmpty()) {
-/*
-            keys.add("поиск");
-            ed.putString("VoiceFnArg:" + "поиск", "start chrome \"\"");
-            ed.putInt("VoiceFn:" + "поиск", FnButton.FN_COMMAND_LINE);
-*/
-            keys.add("хром");
-            ed.putString("VoiceFnArg:" + "хром", "start chrome");
-            ed.putInt("VoiceFn:" + "хром", ButtonFnManager.FN_COMMAND_LINE);
 
-            keys.add("запустить");
-            ed.putString("VoiceFnArg:" + "запустить", "Launch app");
-            ed.putInt("VoiceFn:" + "запустить", ButtonFnManager.FN_LAUNCH_APP);
+        keyoVoiceInputFix = shp.getStringSet("map", new HashSet<String>());
+        if (keyoVoiceInputFix.isEmpty()) {
 
-            ed.putStringSet("VoiceFnMap", keys);
+            keyoVoiceInputFix.add("хром");
+            ed.putString("хром", "chrome");
+
+            keyoVoiceInputFix.add("хром");
+            ed.putString("дропбокс", "dropbox");
+
+            keyoVoiceInputFix.add("ворд");
+            ed.putString("ворд", "word");
+
+            keyoVoiceInputFix.add("ексель");
+            ed.putString("ексель", "excel");
+
+            ed.putStringSet("map", keyoVoiceInputFix);
             ed.commit();
+
 
             int[] buttonsToInit = new int[]{
                     ButtonFnManager.FN_VOICE_FN,
@@ -277,26 +278,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[4], "", 0, this, "", 0), "fnB2" + "bot1",this);
             db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[5], "", 0, this, "", 0), "fnB3" + "bot1",this);
             db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[6], "", 0, this, "", 0), "fnB1" + "bot2",this);
-                                 db.addButton(-1, "", buttonsToInit[7], "", 0, this, "", 0);
-        }
-
-        keyoVoiceInputFix = shp.getStringSet("map", new HashSet<String>());
-        if (keyoVoiceInputFix.isEmpty()) {
-
-            keyoVoiceInputFix.add("хром");
-            ed.putString("хром", "chrome");
-
-            keyoVoiceInputFix.add("хром");
-            ed.putString("дропбокс", "dropbox");
-
-            keyoVoiceInputFix.add("ворд");
-            ed.putString("ворд", "word");
-
-            keyoVoiceInputFix.add("ексель");
-            ed.putString("ексель", "excel");
-
-            ed.putStringSet("map", keyoVoiceInputFix);
-            ed.commit();
+            db.addButton(-1, "", buttonsToInit[7], "", 0, this, "", 0);
         }
 
 
@@ -480,16 +462,16 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                             case R.id.VolUpButton:
                                 AlertDialog alertDialog = new AlertDialog.Builder(ST.this).create();
-                                alertDialog.setTitle("Настройка клавиши звука");
-                                alertDialog.setMessage("Применить для текушего процесса, поставить по умолчанию или сбросить к настройке по умолчанию?");
-                                alertDialog.setButton("для текущего процесса", new DialogInterface.OnClickListener() {
+                                alertDialog.setTitle(getString(R.string.set_vol_buttons_dialog_title));
+                                alertDialog.setMessage(getString(R.string.set_vol_buttons_dialog_body));
+                                alertDialog.setButton(getString(R.string.set_vol_buttons_b1), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         ed.putLong(currentProcess + VOL_UP, id);
                                         ed.commit();
                                     }
                                 });
 
-                                alertDialog.setButton2("по умолчанию", new DialogInterface.OnClickListener() {
+                                alertDialog.setButton2(getString(R.string.set_vol_buttons_b2), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                        Cursor btnCursor =db.getButtonCursor(id, ST.this);
                                        ed.putInt(VOL_UP_DEFAULT_TYPE, btnCursor.getInt(btnCursor.getColumnIndex(DbTool.BUTTONS_TABLE_TYPE)));
@@ -498,7 +480,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                     }
                                 });
 
-                                alertDialog.setButton3("сброс", new DialogInterface.OnClickListener() {
+                                alertDialog.setButton3(getString(R.string.set_vol_buttons_b3), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         ed.putLong(currentProcess + VOL_UP, -1);
                                         ed.commit();
@@ -511,16 +493,16 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                             case R.id.VolDownButton:
                                 AlertDialog alertDialog2 = new AlertDialog.Builder(ST.this).create();
-                                alertDialog2.setTitle("Настройка клавиши звука");
-                                alertDialog2.setMessage("Применить для текушего процесса, поставить по умолчанию или сбросить к настройке по умолчанию?");
-                                alertDialog2.setButton("для текущего процесса", new DialogInterface.OnClickListener() {
+                                alertDialog2.setTitle(getString(R.string.set_vol_buttons_dialog_title));
+                                alertDialog2.setMessage(getString(R.string.set_vol_buttons_dialog_body));
+                                alertDialog2.setButton(getString(R.string.set_vol_buttons_b1), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         ed.putLong(currentProcess + VOL_DOWN, id);
                                         ed.commit();
                                     }
                                 });
 
-                                alertDialog2.setButton2("по умолчанию", new DialogInterface.OnClickListener() {
+                                alertDialog2.setButton2(getString(R.string.set_vol_buttons_b2), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         Cursor btnCursor =db.getButtonCursor(id, ST.this);
                                         ed.putInt(VOL_DOWN_DEFAULT_TYPE, btnCursor.getInt(btnCursor.getColumnIndex(DbTool.BUTTONS_TABLE_TYPE)));
@@ -529,7 +511,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                     }
                                 });
 
-                                alertDialog2.setButton3("сброс", new DialogInterface.OnClickListener() {
+                                alertDialog2.setButton3(getString(R.string.set_vol_buttons_b3), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         ed.putLong(currentProcess + VOL_DOWN, -1);
                                         ed.commit();
@@ -2318,20 +2300,20 @@ public class ST extends FragmentActivity implements OnClickListener {
                 RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
         switch (requesrCode) {
             case REQUEST_CODE_LAUNCH_APP:
-                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "What app to launch?");
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.voice_input_hint_launch_app));
                 break;
 
             case REQUEST_CODE_VOICE_INPUT:
-                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak...");
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.voice_input_hint_voice_input));
                 break;
 
             case REQUEST_CODE_COMMAND_LINE_VOICE_INPUT:
-                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Input...");
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.voice_input_hint_cmd_input));
                 currentCommandLineaArgs = args;
                 break;
 
             case REQUEST_CODE_VOICE_FN:
-                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "What Fn to fire? Input?");
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.voice_input_hint_voice_fn));
                 break;
         }
 
