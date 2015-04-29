@@ -245,8 +245,16 @@ public class ButtonFnManager {
                          break;
                  }
                  break;
-				
 
+             case FN_CTRL_ALT_DEL:
+                 new Thread(new SocketThread(st, ip, port, keyboard, "Ctrl+Alt+Del")).start();
+                 break;
+
+
+
+             case FN_ALT_TAB:
+                 new Thread(new SocketThread(st, ip, port, keyboard, "Alt+Tab")).start();
+                 break;
 				
 				
 				
