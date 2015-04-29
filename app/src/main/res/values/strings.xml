@@ -101,4 +101,9 @@
     <string name="btn_center_click">Center click</string>
     <string name="btn_wheel_up">Wheel up</string>
     <string name="btn_wheel_down">Wheel down</string>
+    <string name="fn_bind_tab_title_shortcut">Create shortcut</string>
+    <string name="fn_bind_tab_title_choose">Choose existing fn</string>
+    <string name="fn_bind_tab_title_cmd">Create command line command</string>
+    <string name="fn_custom_empty_text">Select something</string>
+    <string name="fn_create_ok_btn">That\'s what i need!</string>
 </resources>

@@ -100,5 +100,12 @@
     <string name="btn_wheel_up">Прокрутить вверх</string>
     <string name="btn_wheel_down">Прокрутить вниз</string>
 
+    <!-- fn_bind -->
+    <string name="fn_bind_tab_title_shortcut">Создать шорткат</string>
+    <string name="fn_bind_tab_title_choose">Выбрать функцию</string>
+    <string name="fn_bind_tab_title_cmd">cmd</string>
+    <string name="fn_custom_empty_text">Выберите что-нибудь...</string>
+    <string name="fn_create_ok_btn">То, что надо!</string>
+
 
 </resources>

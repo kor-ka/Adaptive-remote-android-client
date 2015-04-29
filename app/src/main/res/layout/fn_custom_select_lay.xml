@@ -58,7 +58,7 @@
          android:textColor="#FFFFFF"
 			    android:background="@drawable/btn_seelctor"
 			    android:layout_margin="5dp"
-        android:text="That&apos;s what i need!" />
+        android:text="@string/fn_create_ok_btn" />
     
     <EditText
         android:id="@+id/fnCustomEtName"

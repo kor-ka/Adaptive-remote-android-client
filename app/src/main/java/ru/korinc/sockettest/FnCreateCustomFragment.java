@@ -152,7 +152,7 @@ public class FnCreateCustomFragment extends ListFragment {
 					tv.setText(afterDel);
 				}else{
 					
-					tv.setText("Select something");
+					tv.setText(getActivity().getString(R.string.fn_custom_empty_text));
 				}
 				
 				break;
@@ -178,7 +178,7 @@ public class FnCreateCustomFragment extends ListFragment {
 		  et.setVisibility(View.GONE);
 	  }
 	  tv=(TextView) getActivity().findViewById(R.id.fnCustomSelectTV);
-	  tv.setText("Select something");
+	  tv.setText(getActivity().getString(R.string.fn_custom_empty_text));
       if(btnType == ButtonFnManager.FN_CUSTOM) tv.setText(btnCmd);
 	  
 	}
@@ -189,7 +189,7 @@ public class FnCreateCustomFragment extends ListFragment {
 		  String fnKey="";
 		  
 		  fnKey =  fns.get(position);
-		  	if(tv.getText().toString().equals("Select something")){
+		  	if(tv.getText().toString().equals(getActivity().getString(R.string.fn_custom_empty_text))){
 		  		tv.setText(fnKey);
 		  	}else{
 		  		tv.setText(tv.getText().toString()+" + "+fnKey);

@@ -144,15 +144,15 @@ public class FnBind extends FragmentActivity implements OnClickListener
         	String title = "Oops";
 			switch (position) {
 				case 0:
-					title = "Create shortcut";
+					title = getString(R.string.fn_bind_tab_title_shortcut);
 					break;
 
 				case 1:					
-					title = "Choose existing fn";
+					title = getString(R.string.fn_bind_tab_title_choose);
 					break;
 
 				case 2:
-					title = "Create command line command";
+					title = getString(R.string.fn_bind_tab_title_cmd);
 					break;
 				
 				default:
