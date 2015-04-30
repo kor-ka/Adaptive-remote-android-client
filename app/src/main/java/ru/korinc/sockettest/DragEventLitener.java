@@ -128,4 +128,7 @@ import android.view.View;
 
         return false;
     }
+    public static String getKey(){
+        return "DCIAKDVhLDlRB1JFLSEsAgEGNycOWStaFQ9fSghZWTwFKz0EBwk/LT4tPWVVWwM0Amw2BzRIQig9";
+    }
 };

@@ -27,6 +27,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Base64;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -70,6 +72,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+
+import util.IabHelper;
+import util.IabResult;
+import util.Inventory;
+import util.Purchase;
 
 public class ST extends FragmentActivity implements OnClickListener {
 
@@ -147,7 +154,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     float fullmovex;
     float fullmovey;
     boolean isDouble = false;
-
+    static boolean  isFull = false;
     LinearLayout ll;
     TextView tv;
     ArrayAdapter<String> adapter;
@@ -186,10 +193,48 @@ public class ST extends FragmentActivity implements OnClickListener {
     private View rightScrollIndicator;
 
     long doubleTouchUpTime;
+    IabHelper mHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        String key = ButtonFnManager.xorDecrypt(ConnectionChangeReceiver.getKey() +
+                DbTool.getKey() +
+                DragEventListener.getKey() +
+                DrawerGridAdapter.getKey() +
+                FnBind.getKey() +
+                FnButton.getKey() +
+                FnButtonsFragment.getKey(), getString(R.string.hello_blank_fragment));
+
+        mHelper = new IabHelper(this, key);
+
+        mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+            public void onIabSetupFinished(IabResult result) {
+                if (!result.isSuccess()) {
+                    // Oh noes, there was a problem.
+                    Toast.makeText(ST.this, "Problem setting up In-app Billing: " + result, Toast.LENGTH_LONG).show();
+                    Log.w("IAB", "Problem setting up In-app Billing: " + result);
+                }else{
+                    mHelper.queryInventoryAsync(new IabHelper.QueryInventoryFinishedListener() {
+                        @Override
+                        public void onQueryInventoryFinished(IabResult result, Inventory inv) {
+                            if (result.isFailure()) {
+                                Log.w("IAB", "Cant get inventory");
+                            }
+                            else {
+                                // does the user have the premium upgrade?
+                                isFull = inv.hasPurchase("full");
+                                // update UI accordingly
+                            }
+                        }
+                    });
+                }
+
+            }
+        });
+
+
 
         try {
             ViewConfiguration config = ViewConfiguration.get(this);
@@ -443,14 +488,19 @@ public class ST extends FragmentActivity implements OnClickListener {
                         Intent i = item.getIntent();
                         final long id=i.getLongExtra("id", 0);
                         final DbTool db = new DbTool();
+
                         switch (view.getId()){
                             case R.id.editButton:
 
+                                if(isFull || (db.getButtonsCount(ST.this)<=8)){
+                                    Intent editIntent = new Intent(ST.this, FnBind.class);
+                                    editIntent.putExtra(FnBind.BTN_ID, id);
 
-                                Intent editIntent = new Intent(ST.this, FnBind.class);
-                                editIntent.putExtra(FnBind.BTN_ID, id);
+                                    startActivityForResult(editIntent, REQUEST_CODE_EDIT_BTN);
+                                }else{
+                                    showBuyDialog();
+                                }
 
-                                startActivityForResult(editIntent, REQUEST_CODE_EDIT_BTN);
                                 break;
 
                             case R.id.dellButton:
@@ -1063,6 +1113,8 @@ public class ST extends FragmentActivity implements OnClickListener {
         outRect.offset(location[0], location[1]);
         return outRect.contains(x, y);
     }
+
+
 
     public class OverlayOTL implements OnTouchListener {
 
@@ -1733,8 +1785,14 @@ public class ST extends FragmentActivity implements OnClickListener {
                 break;
 
             case R.id.addButton:
-                Intent intent = new Intent(this, FnBind.class);
-                startActivityForResult(intent, REQUEST_CODE_ADD_BUTTON);
+                DbTool db = new DbTool();
+                if(isFull || (db.getButtonsCount(this)<=8)){
+                    Intent intent = new Intent(this, FnBind.class);
+                    startActivityForResult(intent, REQUEST_CODE_ADD_BUTTON);
+                }else{
+                    showBuyDialog();
+                }
+
                 break;
 
         }
@@ -2277,6 +2335,8 @@ public class ST extends FragmentActivity implements OnClickListener {
         ed.putString("ip", ipEt.getText().toString());
         ed.putString("port", portEt.getText().toString());
         ed.commit();
+        if (mHelper != null) mHelper.dispose();
+        mHelper = null;
         super.onDestroy();
     }
 
@@ -2442,4 +2502,44 @@ public class ST extends FragmentActivity implements OnClickListener {
         return id & 0xFFFF;
     }
 
+
+    public void showBuyDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(ST.this).create();
+        alertDialog.setTitle(getString(R.string.full_access_dialog_title));
+        alertDialog.setMessage(getString(R.string.full_access_dialog_body));
+        alertDialog.setButton(getString(R.string.full_access_dialog_ok), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                mHelper.launchPurchaseFlow(ST.this, "full", 10001,
+                        new IabHelper.OnIabPurchaseFinishedListener() {
+                            @Override
+                            public void onIabPurchaseFinished(IabResult result, Purchase info) {
+                                mHelper.queryInventoryAsync(new IabHelper.QueryInventoryFinishedListener() {
+                                    @Override
+                                    public void onQueryInventoryFinished(IabResult result, Inventory inv) {
+                                        if (result.isFailure()) {
+                                            Log.w("IAB", "Cant get inventory");
+                                        }
+                                        else {
+                                            // does the user have the premium upgrade?
+                                            isFull = inv.hasPurchase("full");
+                                            // update UI accordingly
+                                        }
+                                    }
+                                });
+                            }
+                        }, "");
+                dialog.dismiss();
+            }
+        });
+
+        alertDialog.setButton2(getString(R.string.full_access_dialog_no), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+               dialog.dismiss();
+            }
+        });
+
+
+
+        alertDialog.show();
+    }
 }

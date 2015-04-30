@@ -107,5 +107,11 @@
     <string name="fn_custom_empty_text">Выберите что-нибудь...</string>
     <string name="fn_create_ok_btn">То, что надо!</string>
 
+    <!-- buy fill access dialog-->
+    <string name="full_access_dialog_title">Полный доступ</string>
+    <string name="full_access_dialog_body">У вас закончились бесплатные кнопки. Для того чтобы добавить новые или редактровать существующие купите полный доступ.</string>
+    <string name="full_access_dialog_ok">Полный доступ</string>
+    <string name="full_access_dialog_no">Не сегодня</string>
+
 
 </resources>

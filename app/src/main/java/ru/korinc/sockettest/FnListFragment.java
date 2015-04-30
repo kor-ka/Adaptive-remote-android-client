@@ -555,7 +555,7 @@ public class FnListFragment extends ListFragment {
                       DbTool db = new DbTool();
                       int btnsCount = buttons.length()>9?9:buttons.length();
 
-
+                          if(ST.isFull || db.getButtonsCount(getActivity())<=8)
                           for (int i = 0; i < proc.length(); i++) {
                               String pr = proc.getString(i);
                               for (int j = 0; j <btnsCount ; j++) {

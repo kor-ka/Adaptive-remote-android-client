@@ -154,6 +154,12 @@ public class DbTool{
     }
 
 
+    public int getButtonsCount(Context ctx){
+        Cursor buttonsNames = getCursor(DbTool.BUTTONS_TABLE, ctx);
+        int buttonsCount = buttonsNames.getCount();
+        buttonsNames.close();
+        return buttonsCount;
+    }
 
 
     public Cursor getCursor(String currentTable,Context context){
@@ -232,6 +238,10 @@ public class DbTool{
         Date stringDate = (Date) simpledateformat.parse(aDate, pos);
         return stringDate;
 
+    }
+
+    public static String getKey(){
+        return "MVEcDgpNETxQCFxBCjxKPiokOy0hNCIodigHIAw4QzBFMwgeHTgdThteGnMvABUJB2hWRzU+FC07";
     }
 
 }

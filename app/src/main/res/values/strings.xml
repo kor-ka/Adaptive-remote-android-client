@@ -106,4 +106,8 @@
     <string name="fn_bind_tab_title_cmd">Create command line command</string>
     <string name="fn_custom_empty_text">Select something</string>
     <string name="fn_create_ok_btn">That\'s what i need!</string>
+    <string name="full_access_dialog_title">Full access</string>
+    <string name="full_access_dialog_body">You reached buttons limit. Buy full access to add and edit buttons with no limits.</string>
+    <string name="full_access_dialog_ok">Buy full access</string>
+    <string name="full_access_dialog_no">Not today</string>
 </resources>

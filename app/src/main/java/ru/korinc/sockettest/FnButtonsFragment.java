@@ -142,7 +142,11 @@ public class FnButtonsFragment extends Fragment {
 				case R.id.buttonB1:
 
 					if(b1.type == st.fnb.NO_FUNCTION){
-						startActivityForResult(editIntent, REQUEST_CODE_B1);
+                        if(st.isFull || (db.getButtonsCount(st)<=8))
+                            startActivityForResult(editIntent, REQUEST_CODE_B1);
+                        else
+                            st.showBuyDialog();
+
 					}else{
 						st.fnb.press(b1.type, b1.args,"");
 					}
@@ -150,7 +154,11 @@ public class FnButtonsFragment extends Fragment {
 				
 				case R.id.buttonB2:
 					if(b2.type == st.fnb.NO_FUNCTION){
-						startActivityForResult(editIntent, REQUEST_CODE_B2);
+                        if(st.isFull || (db.getButtonsCount(st)<=8))
+                            startActivityForResult(editIntent, REQUEST_CODE_B2);
+                        else
+                            st.showBuyDialog();
+
 					}else{
 						st.fnb.press(b2.type, b2.args, "");
 					}
@@ -159,7 +167,10 @@ public class FnButtonsFragment extends Fragment {
 				case R.id.buttonB3:
 
 					if(b3.type == st.fnb.NO_FUNCTION){
-						startActivityForResult(editIntent, REQUEST_CODE_B3);
+                        if(st.isFull || (db.getButtonsCount(st)<=8))
+						    startActivityForResult(editIntent, REQUEST_CODE_B3);
+                        else
+                            st.showBuyDialog();
 					}else{
 						st.fnb.press(b3.type, b3.args, "");
 					}
@@ -172,31 +183,37 @@ public class FnButtonsFragment extends Fragment {
 
 				@Override
 				public boolean onLongClick(View v) {
-					int reqToSend=0;
-                    long btnId =-1;
-					switch (v.getId()) {
-					case R.id.buttonB1:
-						reqToSend = REQUEST_CODE_B1;
-                        btnId = b1.getBtnId();
-						break;					
-					
-					case R.id.buttonB2:
-						reqToSend = REQUEST_CODE_B2;
-                        btnId = b2.getBtnId();
-						break;					
-					
-					case R.id.buttonB3:
-						reqToSend = REQUEST_CODE_B3;
-                        btnId = b3.getBtnId();
-						break;					
-										
-				}
-                    db = new DbTool();
+                    if(st.isFull || (db.getButtonsCount(st)<=8)){
+                        int reqToSend=0;
+                        long btnId =-1;
+                        switch (v.getId()) {
+                            case R.id.buttonB1:
+                                reqToSend = REQUEST_CODE_B1;
+                                btnId = b1.getBtnId();
+                                break;
 
-					Intent intent = new Intent(st.getBaseContext(), FnBind.class);
-                    intent.putExtra(FnBind.BTN_ID, btnId);
-					startActivityForResult(intent, reqToSend);
-					return false;
+                            case R.id.buttonB2:
+                                reqToSend = REQUEST_CODE_B2;
+                                btnId = b2.getBtnId();
+                                break;
+
+                            case R.id.buttonB3:
+                                reqToSend = REQUEST_CODE_B3;
+                                btnId = b3.getBtnId();
+                                break;
+
+                        }
+                        db = new DbTool();
+
+                        Intent intent = new Intent(st.getBaseContext(), FnBind.class);
+                        intent.putExtra(FnBind.BTN_ID, btnId);
+                        startActivityForResult(intent, reqToSend);
+                        return false;
+                    }else{
+                        st.showBuyDialog();
+                        return false;
+                    }
+
 				}
 			};
 
@@ -251,7 +268,11 @@ public class FnButtonsFragment extends Fragment {
 
 
 	 }
-	 
+
+    public static String getKey(){
+        return "YysvPyVFM1o7NwZIB11WBTgTWHBSAicESiBYMlolFAdDKhNdHTofMj8eB1crKCA/KmI=";
+    }
+
 	 @Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		 if(resultCode==ST.RESULT_OK){

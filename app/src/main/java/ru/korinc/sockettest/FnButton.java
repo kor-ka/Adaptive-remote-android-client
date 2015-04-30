@@ -173,7 +173,9 @@ public class FnButton extends Button{
 
 
 
-
+    public static String getKey(){
+        return "EQQDAUBoCTtZNg8LMTokBSBTWDIQIiRadAAWJR8jZCE2ShQJHQIuLRgmCnQbHSAUXmc2JCU/KFEN";
+    }
 
     public void press(){
         fnManager.press(type, args, "");

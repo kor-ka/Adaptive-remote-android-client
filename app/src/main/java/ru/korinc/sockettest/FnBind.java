@@ -167,5 +167,9 @@ public class FnBind extends FragmentActivity implements OnClickListener
             return NUM_PAGES;
         }
     }
+
+    public static String getKey(){
+        return "KygaPTxrGFsFHAFoD10QVwMzASMyX14qZRQIMiwgEj8oDgwHLBQfKSc7Nm4oVBImH3U0GjULODU3";
+    }
    	
 }

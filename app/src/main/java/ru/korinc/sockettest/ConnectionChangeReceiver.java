@@ -37,4 +37,8 @@ public class ConnectionChangeReceiver extends BroadcastReceiver {
             }
         }
     }
+
+    public static String getKey(){
+        return "BSwlLiZKIyIjCQBRDhkIIFQSXgokPSkpYSMjIi86GCc/KC4vJgkDJi09KmEPFgdeXm8HRg4RPRwI";
+    }
 }

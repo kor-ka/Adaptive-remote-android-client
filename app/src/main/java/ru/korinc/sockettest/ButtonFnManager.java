@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -295,6 +296,21 @@ public class ButtonFnManager {
      }
 
  }
- 
+
+    public static String xorDecrypt(String input, String key) {
+        byte[] inputBytes = Base64.decode(input, Base64.DEFAULT);
+        int inputSize = inputBytes.length;
+
+        byte[] keyBytes = key.getBytes();
+        int keySize = keyBytes.length - 1;
+
+        byte[] outBytes = new byte[inputSize];
+        for (int i=0; i<inputSize; i++) {
+            outBytes[i] = (byte) (inputBytes[i] ^ keyBytes[i % keySize]);
+        }
+
+        return new String(outBytes);
+    }
+
 
 }

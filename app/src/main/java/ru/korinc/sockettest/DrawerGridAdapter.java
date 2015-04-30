@@ -101,4 +101,8 @@ private DbTool db;
     public void bindView(View view, Context context, Cursor cursor) {
 
     }
+
+    public static String getKey(){
+        return "IAc5JAAWAyIGOTJ1IhA4FgVUHSQsDwZETzAWAhQGbAMXAiQpETsOXFg8LEsxByYeIXIWJVdMKU5b";
+    }
 }
