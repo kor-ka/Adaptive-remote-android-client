@@ -27,7 +27,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Base64;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.Gravity;
@@ -216,19 +215,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     Toast.makeText(ST.this, "Problem setting up In-app Billing: " + result, Toast.LENGTH_LONG).show();
                     Log.w("IAB", "Problem setting up In-app Billing: " + result);
                 }else{
-                    mHelper.queryInventoryAsync(new IabHelper.QueryInventoryFinishedListener() {
-                        @Override
-                        public void onQueryInventoryFinished(IabResult result, Inventory inv) {
-                            if (result.isFailure()) {
-                                Log.w("IAB", "Cant get inventory");
-                            }
-                            else {
-                                // does the user have the premium upgrade?
-                                isFull = inv.hasPurchase("full");
-                                // update UI accordingly
-                            }
-                        }
-                    });
+                    checkInventory();
                 }
 
             }
@@ -1069,6 +1056,24 @@ public class ST extends FragmentActivity implements OnClickListener {
         //exportDatabse("db");
     }
 
+    private void checkInventory() {
+        mHelper.queryInventoryAsync(new IabHelper.QueryInventoryFinishedListener() {
+            @Override
+            public void onQueryInventoryFinished(IabResult result, Inventory inv) {
+                if (result.isFailure()) {
+                    Log.w("IAB", "Cant get inventory");
+                }
+                else {
+                    // does the user have the premium upgrade?
+                    if(inv.hasPurchase("full"))
+                        isFull = inv.getPurchase("full").getPurchaseState()==0;
+
+                    // update UI accordingly
+                }
+            }
+        });
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putString(CURRENT_PROCESS, currentProcess);
@@ -1815,6 +1820,13 @@ public class ST extends FragmentActivity implements OnClickListener {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        // Pass on the activity result to the helper for handling
+        if (!mHelper.handleActivityResult(requestCode, resultCode, intent)) {
+            // not handled, so handle it ourselves (here's where you'd
+            // perform any handling of activity results not related to in-app
+            // billing...
+            super.onActivityResult(requestCode, resultCode, intent);
+
         super.onActivityResult(requestCode, resultCode, intent);
 
         //bind contextButtonsArrayList<Integer>
@@ -2236,6 +2248,11 @@ public class ST extends FragmentActivity implements OnClickListener {
             fnb.press(ButtonFnManager.FN_VOICE_FN, "", "");
             needReinvokeVoiceFn = false;
         }
+
+        }
+        else {
+            Log.d("IAB", "onActivityResult handled by IABUtil.");
+        }
     }
 
     /*Когда то я был сервером...
@@ -2327,6 +2344,8 @@ public class ST extends FragmentActivity implements OnClickListener {
         } else {
             super.onBackPressed();
         }
+
+
 
     }
 
@@ -2513,19 +2532,8 @@ public class ST extends FragmentActivity implements OnClickListener {
                         new IabHelper.OnIabPurchaseFinishedListener() {
                             @Override
                             public void onIabPurchaseFinished(IabResult result, Purchase info) {
-                                mHelper.queryInventoryAsync(new IabHelper.QueryInventoryFinishedListener() {
-                                    @Override
-                                    public void onQueryInventoryFinished(IabResult result, Inventory inv) {
-                                        if (result.isFailure()) {
-                                            Log.w("IAB", "Cant get inventory");
-                                        }
-                                        else {
-                                            // does the user have the premium upgrade?
-                                            isFull = inv.hasPurchase("full");
-                                            // update UI accordingly
-                                        }
-                                    }
-                                });
+                                if(info!=null)
+                                    isFull = info.getPurchaseState()==0;
                             }
                         }, "");
                 dialog.dismiss();
