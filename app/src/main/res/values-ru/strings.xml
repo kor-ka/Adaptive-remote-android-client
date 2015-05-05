@@ -112,6 +112,8 @@
     <string name="full_access_dialog_body">У вас закончились бесплатные кнопки. Для того чтобы добавить новые или редактровать существующие купите полный доступ.</string>
     <string name="full_access_dialog_ok">Полный доступ</string>
     <string name="full_access_dialog_no">Не сегодня</string>
+    <string name="drag_drop_edit">Редактировать</string>
+    <string name="drag_drop_del">Удалить</string>
 
 
 </resources>

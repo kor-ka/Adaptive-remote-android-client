@@ -2,32 +2,32 @@
 <items version="2" >
 
     <item
-        jar="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/classes.jar"
+        jar="D:\Code\AndroidstudioProjects\Adaptive-remote-android-client\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="38bf3d2701e82b5b1f65ef3864aebe50e9ba645b">
-        <dex dex="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/pre-dexed/debug/classes-d019043d16748d77f599ebfe4b8f2d2b8de0150d.jar" />
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="D:\Code\AndroidstudioProjects\Adaptive-remote-android-client\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-ec9501df4bb26796559a052c90e3195ebaf5b13f.jar" />
     </item>
     <item
-        jar="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        jar="C:\Users\kor_ka\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="8694693636ab36910c8100ce527c258ff3ebece0">
-        <dex dex="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/pre-dexed/debug/classes-716f9c004371cd80ed1e921d8684966d26a31120.jar" />
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="D:\Code\AndroidstudioProjects\Adaptive-remote-android-client\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-a2f3438ab946b6957c94555a14500b4daabd9db6.jar" />
     </item>
     <item
-        jar="/home/korka/AndroidstudioProjects/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        jar="D:\Code\AndroidstudioProjects\Adaptive-remote-android-client\app\build\intermediates\exploded-aar\Adaptive-remote-android-client\library\unspecified\classes.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa">
-        <dex dex="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-dda4b64c931cfe98e07772d1944098b7f0c02540.jar" />
+        sha1="b69cbd54cd65b819be193577bb9b949afa27caff">
+        <dex dex="D:\Code\AndroidstudioProjects\Adaptive-remote-android-client\app\build\intermediates\pre-dexed\debug\classes-7296611c01a3daed86ce1892a3bffe1219006530.jar" />
     </item>
     <item
-        jar="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
+        jar="D:\Code\AndroidstudioProjects\Adaptive-remote-android-client\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d">
-        <dex dex="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-48f1857098dbc63bde9594c4efee16bfa2de488a.jar" />
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="D:\Code\AndroidstudioProjects\Adaptive-remote-android-client\app\build\intermediates\pre-dexed\debug\classes-87d9c79a6fd47cd4c8101d728cbac3191f60a1a4.jar" />
     </item>
 
 </items>

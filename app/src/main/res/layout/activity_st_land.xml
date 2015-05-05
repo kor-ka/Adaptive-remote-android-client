@@ -264,7 +264,7 @@
                         android:textColor="#FFFFFF"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
-                        android:text="No function"
+                        android:text="@string/no_functon"
                         />
 
                     <ru.korinc.sockettest.FnButton
@@ -275,7 +275,7 @@
                         android:textColor="#FFFFFF"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
-                        android:text="No function"
+                        android:text="@string/no_functon"
                         />
 
                     <ru.korinc.sockettest.FnButton
@@ -286,7 +286,7 @@
                         android:textColor="#FFFFFF"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
-                        android:text="No function"
+                        android:text="@string/no_functon"
                         />
                 </TableRow>
 
@@ -304,7 +304,7 @@
                         android:textColor="#FFFFFF"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
-                        android:text="No function"
+                        android:text="@string/no_functon"
                         />
 
                     <ru.korinc.sockettest.FnButton
@@ -315,7 +315,7 @@
                         android:textColor="#FFFFFF"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
-                        android:text="No function"
+                        android:text="@string/no_functon"
                         />
 
                     <ru.korinc.sockettest.FnButton
@@ -326,7 +326,7 @@
                         android:textColor="#FFFFFF"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
-                        android:text="No function"
+                        android:text="@string/no_functon"
                         />
                 </TableRow>
 
@@ -344,7 +344,7 @@
                         android:textColor="#FFFFFF"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
-                        android:text="No function"
+                        android:text="@string/no_functon"
                         />
 
                     <ru.korinc.sockettest.FnButton
@@ -355,7 +355,7 @@
                         android:textColor="#FFFFFF"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
-                        android:text="No function"
+                        android:text="@string/no_functon"
                         />
 
                     <ru.korinc.sockettest.FnButton
@@ -366,7 +366,7 @@
                         android:textColor="#FFFFFF"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
-                        android:text="No function"
+                        android:text="@string/no_functon"
                         />
                 </TableRow>
             </TableLayout>
@@ -461,7 +461,7 @@
                     android:id="@+id/editButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Редактировать"
+                    android:text="@string/drag_drop_edit"
                     android:drawableLeft="@android:drawable/ic_menu_edit"
                     android:background="@color/transparent_gray"
                     android:textColor="@android:color/white"
@@ -473,7 +473,7 @@
                     android:id="@+id/dellButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Удалить"
+                    android:text="@string/drag_drop_del"
                     android:drawableLeft="@android:drawable/ic_menu_close_clear_cancel"
                     android:background="#44000000"
                     android:textColor="@android:color/white"

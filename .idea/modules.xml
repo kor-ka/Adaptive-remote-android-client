@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Adaptive-remote-android-client.iml" filepath="$PROJECT_DIR$/Adaptive-remote-android-client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/STA.iml" filepath="$PROJECT_DIR$/STA.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
     </modules>

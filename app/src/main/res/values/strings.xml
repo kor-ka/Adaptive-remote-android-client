@@ -110,4 +110,8 @@
     <string name="full_access_dialog_body">You reached buttons limit. Buy full access to add and edit buttons with no limits.</string>
     <string name="full_access_dialog_ok">Buy full access</string>
     <string name="full_access_dialog_no">Not today</string>
+
+
+    <string name="drag_drop_edit">Edit</string>
+    <string name="drag_drop_del">Delete</string>
 </resources>

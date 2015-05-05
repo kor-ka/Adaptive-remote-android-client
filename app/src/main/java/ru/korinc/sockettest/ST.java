@@ -1820,14 +1820,28 @@ public class ST extends FragmentActivity implements OnClickListener {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+
+        if (requestCode == 0) {
+            if (resultCode == RESULT_OK) {
+                String contents = intent.getStringExtra("SCAN_RESULT");
+                String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+                String[] adressParts = contents.split(":");
+                String IP = adressParts[0];
+                String port = adressParts[1];
+
+                ipEt.setText(IP);
+                portEt.setText(port);
+                saveIpPort(IP, port);
+
+            }
+        }
+
         // Pass on the activity result to the helper for handling
         if (!mHelper.handleActivityResult(requestCode, resultCode, intent)) {
             // not handled, so handle it ourselves (here's where you'd
             // perform any handling of activity results not related to in-app
             // billing...
             super.onActivityResult(requestCode, resultCode, intent);
-
-        super.onActivityResult(requestCode, resultCode, intent);
 
         //bind contextButtonsArrayList<Integer>
         ArrayList<Integer> arr = new ArrayList<Integer>();
@@ -2176,20 +2190,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         }
 
-        if (requestCode == 0) {
-            if (resultCode == RESULT_OK) {
-                String contents = intent.getStringExtra("SCAN_RESULT");
-                String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
-                String[] adressParts = contents.split(":");
-                String IP = adressParts[0];
-                String port = adressParts[1];
 
-                ipEt.setText(IP);
-                portEt.setText(port);
-                saveIpPort(IP, port);
-
-            }
-        }
 
 
 
