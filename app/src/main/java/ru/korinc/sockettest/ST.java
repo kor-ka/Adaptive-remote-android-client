@@ -1,6 +1,8 @@
 package ru.korinc.sockettest;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,6 +24,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
@@ -72,6 +76,7 @@ import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import ru.korinc.sockettest.util.NotificationReceiver;
 import util.IabHelper;
 import util.IabResult;
 import util.Inventory;
@@ -88,7 +93,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     public static final String VOL_DOWN_DEFAULT_ARGS = "VOL_DOWN_DEFAULT_ARGS";
     public static final String CURRENT_PROCESS = "currentProcess";
     public static final int REQUEST_CODE_TUTORIAL = 1260;
-    static boolean debug = false;
+    static boolean debug = true;
 
     EditText ipEt;
     EditText portEt;
@@ -1483,6 +1488,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             bindContextButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), 0);
 
 
+
     }
 
 
@@ -1837,7 +1843,13 @@ public class ST extends FragmentActivity implements OnClickListener {
         }
 
         // Pass on the activity result to the helper for handling
-        if (!mHelper.handleActivityResult(requestCode, resultCode, intent)) {
+        boolean handleIAB = false;
+        try{
+            mHelper.handleActivityResult(requestCode, resultCode, intent);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if (!handleIAB) {
             // not handled, so handle it ourselves (here's where you'd
             // perform any handling of activity results not related to in-app
             // billing...
@@ -2458,9 +2470,40 @@ public class ST extends FragmentActivity implements OnClickListener {
 
     public void bindContextButtons(final String currentProcess, int buttonToUpdate){
         if(buttonToUpdate==0){
+            ArrayList<NotificationCompat.Action> actions = new ArrayList<NotificationCompat.Action>();
             for (FnButton b:fnButtons ) {
                 b.init(getReqCodeById(b.getId())+""+currentProcess, this, ocl, olclFn, fnb);
+                Intent i = new Intent("kor_inc.adaptiveremote.btnpress");
+                i.setAction("kor_inc.adaptiveremote.btnpress");
+                i.putExtra("id", b.id);
+                i.setClass(this, NotificationReceiver.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int) b.id, i, PendingIntent.FLAG_UPDATE_CURRENT);
+                if(b.name!= getString(R.string.no_functon))actions.add(new NotificationCompat.Action(android.R.drawable.ic_dialog_dialer, b.name, pendingIntent));
             }
+            if(actions.size()>0 && debug){
+                // Create a WearableExtender to add functionality for wearables
+                NotificationCompat.WearableExtender wearableExtender =
+                        new NotificationCompat.WearableExtender()
+                                .setHintHideIcon(true)
+                                .addActions(actions);
+
+                // Create a NotificationCompat.Builder to build a standard notification
+                // then extend it with the WearableExtender
+                Notification notif = new NotificationCompat.Builder(this)
+                        .setContentTitle("Current process is " + currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""))
+                                //     .setContentText(subject)
+                        .setSmallIcon(R.drawable.ic_launcher)
+                        .extend(wearableExtender)
+                        .build();
+
+                // Get an instance of the NotificationManager service
+                NotificationManagerCompat notificationManager =
+                        NotificationManagerCompat.from(this);
+
+                // Issue the notification with notification manager.
+                notificationManager.notify(123, notif);
+            }
+
         }else{
             for (FnButton b:fnButtons ){
                 if(getReqCodeById(b.getId())==buttonToUpdate){
@@ -2469,6 +2512,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 }
             }
         }
+
 
     }
 

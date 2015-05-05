@@ -270,6 +270,29 @@ public class ButtonFnManager {
          
          switch (function){
 
+             case FN_CLICK:
+
+                 new Thread(new SocketThread( ip, port, click, 0, 0, st)).start();
+                 break;
+
+             case FN_R_CLICK:
+
+                 new Thread(new SocketThread( ip, port, rclick, 0, 0, st)).start();
+                 break;
+
+             case FN_CENTER_CLICK:
+
+                 new Thread(new SocketThread( ip, port, centerClick, 0, 0, st)).start();
+                 break;
+
+             case FN_WHELL_UP:
+                 new Thread(new SocketThread(st, ip, port, wheel, "up")).start();
+                 break;
+
+             case FN_WHELL_DOWN:
+                 new Thread(new SocketThread(st, ip, port, wheel, "down")).start();
+                 break;
+
 
              case FN_COMMAND_LINE:
                  if(args.contains("<input>")){

@@ -87,6 +87,18 @@
             android:theme="@android:style/Theme.Holo.Light.Dialog" >
         </activity>
 
+
+        <receiver
+            android:name=".util.NotificationReceiver"
+            android:enabled="true"
+            android:exported="false">
+
+            <intent-filter>
+                <action android:name="kor_inc.adaptiveremote.btnpress" />
+            </intent-filter>
+        </receiver>
+
+
         <receiver
             android:name=".ConnectionChangeReceiver"
             android:enabled="true"

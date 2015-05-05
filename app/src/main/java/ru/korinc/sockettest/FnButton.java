@@ -100,13 +100,19 @@ public class FnButton extends Button{
         ((Activity)context).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                //Если шорткат или команда - выяставляем их аргумент
-                setText(ButtonFnManager.fnMap.get(FnButton.this.type));
-                if(FnButton.this.type==ButtonFnManager.FN_CUSTOM||FnButton.this.type==ButtonFnManager.FN_COMMAND_LINE)setText(FnButton.this.args);
+
 
                 //Если есть имя - выставляем его
                 if(!FnButton.this.name.equals("") && !FnButton.this.name.isEmpty()){
                     setText(name);
+                }else{
+                    //Если шорткат или команда - выяставляем их аргумент
+                    setText(ButtonFnManager.fnMap.get(FnButton.this.type));
+                    name = ButtonFnManager.fnMap.get(FnButton.this.type);
+                    if(FnButton.this.type==ButtonFnManager.FN_CUSTOM||FnButton.this.type==ButtonFnManager.FN_COMMAND_LINE){
+                        setText(FnButton.this.args);
+                        name = FnButton.this.args;
+                    }
                 }
             }
         });
