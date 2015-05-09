@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item >
+        <shape android:shape="line">
+            <stroke android:width="1dip" android:color="@android:color/black" />
+        </shape>
+    </item>
+
+    <item android:top="26px">
+        <shape android:shape="line" >
+            <stroke android:width="1dip" android:color="@android:color/black" />
+        </shape>
+    </item>
+
+    <item android:top="52px">
+        <shape android:shape="line" >
+            <stroke android:width="1dip" android:color="@android:color/black" />
+        </shape>
+    </item>
+
+
+
+</layer-list>

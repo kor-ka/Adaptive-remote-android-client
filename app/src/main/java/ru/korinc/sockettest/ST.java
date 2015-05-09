@@ -49,10 +49,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -101,8 +103,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     EditText aEt;
     EditText bEt;
     ZanyEditText keyboardEt;
-    Button scan;
-    Button send;
+
 
     Button dellBtn;
     Button editBtn;
@@ -112,16 +113,13 @@ public class ST extends FragmentActivity implements OnClickListener {
 
     LinearLayout dragMenuLL;
 
-    ImageButton up;
-    ImageButton down;
-    ImageButton left;
-    ImageButton right;
+
 
     FnButton wsBtn1;
     FnButton wsBtn2;
     FnButton wsBtn3;
     FnButton wsBtn4;
-    FnButton wsBtn5;
+
     FnButton wsBtn6;
     FnButton wsBtn7;
     FnButton wsBtn8;
@@ -139,9 +137,9 @@ public class ST extends FragmentActivity implements OnClickListener {
     TableRow tr2;
     TableRow tr3;
 
-    public ImageButton contextBtn;
 
-    TextView status;
+
+
     AlertDialog dialog;
     ArrayList<String> ipPortsArray = new ArrayList<String>();
     boolean breakDiscovering = false;
@@ -159,8 +157,8 @@ public class ST extends FragmentActivity implements OnClickListener {
     float fullmovey;
     boolean isDouble = false;
     static boolean  isFull = false;
-    LinearLayout ll;
-    TextView tv;
+    RelativeLayout ll;
+
     ArrayAdapter<String> adapter;
     ArrayList<String> results;
     public static final int REQUEST_CODE_LAUNCH_APP = 1234;
@@ -174,27 +172,18 @@ public class ST extends FragmentActivity implements OnClickListener {
     public String currentProcess = "";
     ButtonFnManager fnb;
     private String dialogInputText = "";
-    private static final int NUM_PAGES = 3;
-    ScreenSlidePagerAdapter topPagerAdapter;
-    private ViewPager topPager;
-    ScreenSlidePagerAdapter botPagerAdapter;
-    private ViewPager botPager;
+
+
     Set<String> keyoVoiceInputFix;
 
     OverlayOTL overlayOTL;
     OverlayAltTAbOTL overlayAltTAbOTL;
 
-    LinearLayout topPagerContainerLL;
-    LinearLayout botPagerContainerLL;
-
     public DrawerLayout mDrawerLayout;
     public GridView mDrawerGrid;
 
     public static final int REQUEST_CODE_ADD_BUTTON = 12359;
-    private Button leftScroll;
-    private Button rightScroll;
-    private View leftScrollIndicator;
-    private View rightScrollIndicator;
+
 
     long doubleTouchUpTime;
     IabHelper mHelper;
@@ -319,13 +308,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         }
 
 
-        scan = (Button) findViewById(R.id.bScan);
-        send = (Button) findViewById(R.id.bSend);
 
-        up = (ImageButton) findViewById(R.id.buttonUp);
-        down = (ImageButton) findViewById(R.id.buttonDown);
-        left = (ImageButton) findViewById(R.id.buttonLeft);
-        right = (ImageButton) findViewById(R.id.buttonRight);
 
         addButton = (Button) findViewById(R.id.addButton);
         addButton.setOnClickListener(this);
@@ -334,13 +317,13 @@ public class ST extends FragmentActivity implements OnClickListener {
         wsBtn2 = (FnButton) findViewById(R.id.workSpaceBTN2);
         wsBtn3 = (FnButton) findViewById(R.id.workSpaceBTN3);
         wsBtn4 = (FnButton) findViewById(R.id.workSpaceBTN4);
-        wsBtn5 = (FnButton) findViewById(R.id.workSpaceBTN5);
+
         wsBtn6 = (FnButton) findViewById(R.id.workSpaceBTN6);
         wsBtn7 = (FnButton) findViewById(R.id.workSpaceBTN7);
         wsBtn8 = (FnButton) findViewById(R.id.workSpaceBTN8);
         wsBtn9 = (FnButton) findViewById(R.id.workSpaceBTN9);
 
-        fnButtons = new FnButton[]{wsBtn1,wsBtn2,wsBtn3,wsBtn4,wsBtn5,wsBtn6,wsBtn7,wsBtn8,wsBtn9};
+        fnButtons = new FnButton[]{wsBtn1,wsBtn2,wsBtn3,wsBtn4,wsBtn6,wsBtn7,wsBtn8,wsBtn9};
         int i =0;
         for(FnButton b:fnButtons){
             ed.putInt("ButtonId" + i, getReqCodeById(b.getId()));
@@ -596,25 +579,13 @@ public class ST extends FragmentActivity implements OnClickListener {
         //Костыль, но без этого ACTION_DRAG_STARTED не ловится (вообще хз)
         addButton.setOnDragListener(dragListener);
 
-        contextBtn = (ImageButton) findViewById(R.id.context);
 
-        ll = (LinearLayout) findViewById(R.id.ll);
 
-        tv = (TextView) findViewById(R.id.tv);
-        tv.setVisibility(View.GONE);
-
-        status = (TextView) findViewById(R.id.textStatus);
-        status.setVisibility(View.GONE);
-
+        ll = (RelativeLayout) findViewById(R.id.ll);
 
         fnb = new ButtonFnManager(this);
 
-        contextBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fnb.press(ButtonFnManager.FN_CONTEXT_BUTTONS, "", "");
-            }
-        });
+
 
         ipEt.setText(shpCross.getString("ip", ""));
         portEt.setText(shpCross.getString("port", "1026"));
@@ -719,88 +690,6 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         });
 
-        scan.setOnClickListener(this);
-        send.setOnClickListener(this);
-
-        OnTouchListener otlArrows = new OnTouchListener() {
-            long timeDown = System.currentTimeMillis();
-            int i = 1;
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int port = Integer.parseInt(shpCross.getString("port", "12342"));
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        timeDown = System.currentTimeMillis();
-                        switch (v.getId()) {
-                            case R.id.buttonUp:
-
-                                new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
-                                        port, ButtonFnManager.keyboard, "up")).start();
-                                break;
-
-                            case R.id.buttonDown:
-
-                                new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
-                                        port, ButtonFnManager.keyboard, "down")).start();
-                                break;
-
-                            case R.id.buttonLeft:
-
-                                new Thread( new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
-                                        port, ButtonFnManager.keyboard, "left")).start();
-                                break;
-
-                            case R.id.buttonRight:
-
-                                new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
-                                        port, ButtonFnManager.keyboard, "right")).start();
-                                break;
-
-                        }
-                }
-
-                if (System.currentTimeMillis() - timeDown > 500 && i == 1) {
-
-                    i = 2;
-
-                    switch (v.getId()) {
-                        case R.id.buttonUp:
-
-                            new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
-                                    port, ButtonFnManager.keyboard, "up")).start();
-                            break;
-
-                        case R.id.buttonDown:
-
-                            new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
-                                    port, ButtonFnManager.keyboard, "down")).start();
-                            break;
-
-                        case R.id.buttonLeft:
-
-                            new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
-                                    port, ButtonFnManager.keyboard, "left")).start();
-                            break;
-
-                        case R.id.buttonRight:
-
-                            new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
-                                    port, ButtonFnManager.keyboard, "right")).start();
-                            break;
-
-                    }
-                } else {
-                    i = 1;
-                }
-                return false;
-            }
-        };
-
-        up.setOnTouchListener(otlArrows);
-        down.setOnTouchListener(otlArrows);
-        left.setOnTouchListener(otlArrows);
-        right.setOnTouchListener(otlArrows);
 
         results = new ArrayList<String>();
 
@@ -957,7 +846,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                     }
                 }
 
-                tv.setText(sDown + "\n" + sMove + "\n" + sUp);
+
                 return false;
             }
 
@@ -992,65 +881,19 @@ public class ST extends FragmentActivity implements OnClickListener {
             }
         });
 
-        // Pagers...
-        // Instantiate a ViewPager and a PagerAdapter.
-        topPager = (ViewPager) findViewById(R.id.pagerTop);
-        topPagerAdapter = new ScreenSlidePagerAdapter(
-                getSupportFragmentManager(), "top");
-        topPager.setAdapter(topPagerAdapter);
-        topPager.setCurrentItem(1);
-
-        botPager = (ViewPager) findViewById(R.id.pagerBot);
-        botPagerAdapter = new ScreenSlidePagerAdapter(
-                getSupportFragmentManager(), "bot");
-        botPager.setAdapter(botPagerAdapter);
-        botPager.setCurrentItem(1);
-
-        topPagerContainerLL = (LinearLayout) findViewById(R.id.topPagerContainer);
-        botPagerContainerLL = (LinearLayout) findViewById(R.id.botPagerContainer);
 
 
-        // Bind the title indicator to the adapter
-        CirclePageIndicator topTitleIndicator = (CirclePageIndicator) findViewById(R.id.indicatorTop);
-        topTitleIndicator.setViewPager(topPager);
-        topTitleIndicator.setStrokeColor(getResources().getColor(android.R.color.holo_blue_light));
-        topTitleIndicator.setFillColor(getResources().getColor(android.R.color.holo_blue_light));
 
-        CirclePageIndicator botTitleIndicator = (CirclePageIndicator) findViewById(R.id.indicatorBot);
-        botTitleIndicator.setViewPager(botPager);
-        botTitleIndicator.setStrokeColor(getResources().getColor(android.R.color.holo_blue_light));
-        botTitleIndicator.setFillColor(getResources().getColor(android.R.color.holo_blue_light));
-
-        if (shp.getBoolean("showFnButtons", true)) {
-            topPager.setVisibility(View.VISIBLE);
-            botPager.setVisibility(View.VISIBLE);
-
-        } else {
-            topPager.setVisibility(View.GONE);
-            botPager.setVisibility(View.GONE);
-
-        }
 
 
 
         overlayOTL = new OverlayOTL();
         overlayAltTAbOTL = new OverlayAltTAbOTL();
 
-        contextBtn.setOnTouchListener(overlayOTL);
-        topPager.setOnTouchListener(overlayOTL);
-        botPager.setOnTouchListener(overlayOTL);
 
-        ScrollOtl scrollOtl = new ScrollOtl();
-        leftScroll = (Button) findViewById(R.id.leftScroll);
-        rightScroll = (Button) findViewById(R.id.rightScroll);
-        leftScrollIndicator = findViewById(R.id.leftScrollIndicator);
-        rightScrollIndicator = findViewById(R.id.rightScrollIndicator);
-        leftScroll.setOnTouchListener(scrollOtl);
-        rightScroll.setOnTouchListener(scrollOtl);
-        leftScroll.bringToFront();
-        rightScroll.bringToFront();
 
-        setScrollVisability();
+
+
 
         if(savedInstanceState!=null){
             setCurrentProcess(savedInstanceState.getString(CURRENT_PROCESS, ""));
@@ -1085,12 +928,6 @@ public class ST extends FragmentActivity implements OnClickListener {
         super.onSaveInstanceState(outState);
     }
 
-    private void setScrollVisability() {
-        leftScroll.setVisibility(shp.getBoolean("leftScroll", true)? View.VISIBLE:View.GONE);
-        rightScroll.setVisibility(shp.getBoolean("rightScroll", true)?View.VISIBLE:View.GONE);
-        leftScrollIndicator.setVisibility(shp.getBoolean("leftScroll", true)?View.VISIBLE:View.GONE);
-        rightScrollIndicator.setVisibility(shp.getBoolean("rightScroll", true)?View.VISIBLE:View.GONE);
-    }
 
     private void updateAllBTNS() {
         bindContextButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), 0);
@@ -1284,101 +1121,6 @@ public class ST extends FragmentActivity implements OnClickListener {
         }
     }
 
-    public class OverlayAltTAbOTL implements OnTouchListener {
-
-        boolean overlayActivated = false;
-
-        int startX;
-        int startY;
-        int x;
-        int y;
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        long timeActivated;
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-
-
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    startX = (int) event.getRawX();
-                    startY = (int) event.getRawY();
-                    InAppLog.writeLog(ST.this, "", "On Touch " + startX + " | " + startY, debug);
-                    break;
-
-                case MotionEvent.ACTION_MOVE:
-
-                    x = (int) event.getRawX();
-                    y = (int) event.getRawY();
-
-                    int moveY = startY - y;
-
-                    InAppLog.writeLog(ST.this, "", "Move " + x + " | " + y, debug);
-
-                    if (!overlayActivated && (moveY > 200 || moveY < -200) && !inViewBounds(topPager, x, y) && !inViewBounds(botPager, x, y)) {
-
-                        overlayActivated = true;
-                        this.v.vibrate(10);
-                        fnb.press(ButtonFnManager.FN_ALT_TAB, "", "");
-                        timeActivated = System.currentTimeMillis();
-                        InAppLog.writeLog(ST.this, "", "ALTTAb Activated!", debug);
-                        startY = y;
-                        startX = x;
-
-                    }
-                    if (overlayActivated) {
-                        if (System.currentTimeMillis() - timeActivated > 100) {
-
-
-                            if (moveY > 40 || moveY < -40) {
-
-                                startX = x;
-                                startY = y;
-                                fnb.press(ButtonFnManager.FN_CUSTOM, moveY>0?"Left arrow":"Right arrow", "");
-                                this.v.vibrate(10);
-                            }
-
-                        } else {
-                            startX = x;
-                            startY = y;
-                        }
-
-
-                        if (inViewBounds(v, x, y)) {
-                            fnb.press(ButtonFnManager.FN_CUSTOM, "Esc", "");
-                            overlayActivated = false;
-                            InAppLog.writeLog(ST.this, "", "ALT TAB Overlay release by return", debug);
-                        }
-                    }
-
-                    break;
-                case MotionEvent.ACTION_UP:
-                    if (overlayActivated) {
-                        InAppLog.writeLog(ST.this, "", "ALT TAB Overlay release", debug);
-                        overlayActivated = false;
-                        fnb.press(ButtonFnManager.FN_CUSTOM, "Enter", "");
-
-                        Executors.newSingleThreadScheduledExecutor().schedule(new SocketThread(shpCross.getString("ip", "198.168.0.1"), Integer.parseInt(shpCross.getString("port", "12342")), ButtonFnManager.ab, 0, 0, ST.this), 400, TimeUnit.MILLISECONDS);
-
-                        this.v.vibrate(20);
-
-                    }
-
-                    break;
-
-                case MotionEvent.ACTION_CANCEL:
-                    InAppLog.writeLog(ST.this, "", "ALT TAB Overlay release (ACTION_CANCEL)", debug);
-                    overlayActivated = false;
-                    fnb.press(ButtonFnManager.FN_CUSTOM, "Esc", "");
-                    break;
-
-            }
-
-
-            return false;
-        }
-
-    }
 
     public class ScrollOtl implements OnTouchListener {
 
