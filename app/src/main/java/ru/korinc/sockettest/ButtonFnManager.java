@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Base64;
-import android.view.View;
 import android.widget.Toast;
 
 import net.dinglisch.android.tasker.FireReceiver;
@@ -211,23 +210,7 @@ public class ButtonFnManager {
 				
 
 
-            case FN_CONTEXT_BUTTONS:
-                 switch (st.tr1.getVisibility()) {
-                     case View.VISIBLE:
-                         st.tr1.setVisibility(View.INVISIBLE);
-                         st.tr2.setVisibility(View.INVISIBLE);
-                         st.tr3.setVisibility(View.INVISIBLE);
 
-                         break;
-
-                     case View.INVISIBLE:
-                         st.tr1.setVisibility(View.VISIBLE);
-                         st.tr2.setVisibility(View.VISIBLE);
-                         st.tr3.setVisibility(View.VISIBLE);
-
-                         break;
-                 }
-                 break;
 
              case FN_CTRL_ALT_DEL:
                  new Thread(new SocketThread(st, ip, port, keyboard, "Ctrl+Alt+Del")).start();

@@ -44,12 +44,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,7 +83,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     public static final String VOL_DOWN_DEFAULT_ARGS = "VOL_DOWN_DEFAULT_ARGS";
     public static final String CURRENT_PROCESS = "currentProcess";
     public static final int REQUEST_CODE_TUTORIAL = 1260;
-    static boolean debug = true;
+    static boolean debug = false;
 
     EditText ipEt;
     EditText portEt;
@@ -103,7 +102,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     LinearLayout dragMenuLL;
 
 
-    ImageView context;
+    FrameLayout oneBtn;
 
     FnButton wsBtn1;
     FnButton wsBtn2;
@@ -123,9 +122,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
     Button addButton;
 
-    TableRow tr1;
-    TableRow tr2;
-    TableRow tr3;
+
 
 
 
@@ -298,7 +295,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         }
 
 
-        context = (ImageView) findViewById(R.id.context);
+        oneBtn = (FrameLayout) findViewById(R.id.oneBtn);
 
 
 
@@ -395,12 +392,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             });
         }
 
-        tr1 = (TableRow) findViewById(R.id.tableWSRow1);
-        tr2 = (TableRow) findViewById(R.id.tableWSRow2);
-        tr3 = (TableRow) findViewById(R.id.tableWSRow3);
-        tr1.setVisibility(View.INVISIBLE);
-        tr2.setVisibility(View.INVISIBLE);
-        tr3.setVisibility(View.INVISIBLE);
+
 
         dragMenuLL = (LinearLayout) findViewById(R.id.dragMenuLL);
         editBtn = (Button) findViewById(R.id.editButton);
@@ -634,7 +626,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                if(keyCode == KeyEvent.KEYCODE_DEL && System.currentTimeMillis() - lastBackSpace[0] >5){
+                if (keyCode == KeyEvent.KEYCODE_DEL && System.currentTimeMillis() - lastBackSpace[0] > 5) {
                     int port = Integer.parseInt(shpCross.getString("port", "12342"));
                     new Thread(new SocketThread(ST.this, shpCross.getString("ip", "198.168.0.1"),
                             port, ButtonFnManager.keyboard, "bksps")).start();
@@ -881,7 +873,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         overlayOTL = new OverlayOTL();
 
-        context.setOnTouchListener(overlayOTL);
+        oneBtn.setOnTouchListener(overlayOTL);
 
 
 
@@ -966,6 +958,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                                         startX = (int)event.getRawX();
                     startY = (int)event.getRawY();
                     overlayActivated = true;
+                    this.v.vibrate(20);
                     InAppLog.writeLog(ST.this, "", "On Touch " + startX + " | " + startY, debug);
                     break;
 
@@ -1001,12 +994,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                         }
 
 
-                        if(inViewBounds(v, x,y)){
-                            fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
-                            fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
-                            overlayActivated = false;
-                            InAppLog.writeLog(ST.this, "", "Overlay release by return", debug);
-                        }
+
                     }
 
                     break;
@@ -1014,10 +1002,13 @@ public class ST extends FragmentActivity implements OnClickListener {
                     if(overlayActivated){
                         InAppLog.writeLog(ST.this, "", "Overlay release", debug);
                         overlayActivated = false;
-                        this.v.vibrate(20);
+
                         fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
                         fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
-                        if(btnCondidate!=null)btnCondidate.performClick();
+                        if(btnCondidate!=null){
+                            this.v.vibrate(20);
+                            btnCondidate.performClick();
+                        }
                     }
 
                 break;
@@ -1033,7 +1024,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
 
 
-            return false;
+            return true;
         }
 
         private void moveCondidate(int x, int y){
@@ -1087,7 +1078,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
             if(btnCoordinateOld!=btnCondidateInt){
                 fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::"+btnCondidateInt+"::", "");
-                this.v.vibrate(10);
+                this.v.vibrate(20);
             }
         }
     }

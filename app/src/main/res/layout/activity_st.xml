@@ -260,31 +260,34 @@
                     <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN1"
                         android:layout_width="100dp"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:textColor="#FFFFFF"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
+                        android:visibility="invisible"
                         />
 
                     <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN2"
                         android:layout_width="100dp"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:textColor="#FFFFFF"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
+                        android:visibility="invisible"
                          />
 
                     <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN3"
                         android:layout_width="100dp"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:textColor="#FFFFFF"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
+                        android:visibility="invisible"
                         />
                 </TableRow>
 
@@ -297,25 +300,31 @@
                     <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN4"
                         android:layout_width="100dp"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
 
                         android:textColor="#FFFFFF"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
+                        android:visibility="invisible"
                         />
 
                     <FrameLayout
                         android:layout_width="100dp"
                         android:layout_height="50dp"
-                        android:layout_gravity="center">
+                        android:layout_gravity="center"
+                        android:id="@+id/oneBtn">
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
                         <ImageView
                             android:layout_width="10dp"
                             android:layout_height="10dp"
-                            android:id="@+id/context"
 
-                            android:background="@drawable/one_btn_bgrnd"
-                            android:layout_gravity="center_vertical"
+
+                            android:src="@drawable/one_btn_bgrnd"
+                            android:layout_gravity="center"
                             />
                     </FrameLayout>
 
@@ -323,11 +332,12 @@
                     <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN6"
                         android:layout_width="100dp"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:textColor="#FFFFFF"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
+                        android:visibility="invisible"
                         />
                 </TableRow>
 
@@ -340,31 +350,34 @@
                     <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN7"
                         android:layout_width="100dp"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:textColor="#FFFFFF"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
+                        android:visibility="invisible"
                         />
 
                     <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN8"
                         android:layout_width="100dp"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:textColor="#FFFFFF"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
+                        android:visibility="invisible"
                         />
 
                     <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN9"
                         android:layout_width="100dp"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:textColor="#FFFFFF"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
+                        android:visibility="invisible"
                         />
                 </TableRow>
             </TableLayout>
