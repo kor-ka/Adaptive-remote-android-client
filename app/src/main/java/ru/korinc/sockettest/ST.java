@@ -20,13 +20,9 @@ import android.os.Environment;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.InputType;
@@ -42,24 +38,20 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
-import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.viewpagerindicator.CirclePageIndicator;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -73,10 +65,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import ru.korinc.sockettest.util.NotificationReceiver;
 import util.IabHelper;
@@ -114,6 +103,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     LinearLayout dragMenuLL;
 
 
+    ImageView context;
 
     FnButton wsBtn1;
     FnButton wsBtn2;
@@ -177,7 +167,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     Set<String> keyoVoiceInputFix;
 
     OverlayOTL overlayOTL;
-    OverlayAltTAbOTL overlayAltTAbOTL;
+
 
     public DrawerLayout mDrawerLayout;
     public GridView mDrawerGrid;
@@ -198,7 +188,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 DrawerGridAdapter.getKey() +
                 FnBind.getKey() +
                 FnButton.getKey() +
-                FnButtonsFragment.getKey(), getString(R.string.hello_blank_fragment));
+                "YysvPyVFM1o7NwZIB11WBTgTWHBSAicESiBYMlolFAdDKhNdHTofMj8eB1crKCA/KmI=", getString(R.string.hello_blank_fragment));
 
         mHelper = new IabHelper(this, key);
 
@@ -307,6 +297,8 @@ public class ST extends FragmentActivity implements OnClickListener {
             db.addButton(-1, "", buttonsToInit[7], "", 0, this, "", 0);
         }
 
+
+        context = (ImageView) findViewById(R.id.context);
 
 
 
@@ -888,8 +880,8 @@ public class ST extends FragmentActivity implements OnClickListener {
 
 
         overlayOTL = new OverlayOTL();
-        overlayAltTAbOTL = new OverlayAltTAbOTL();
 
+        context.setOnTouchListener(overlayOTL);
 
 
 
@@ -934,19 +926,9 @@ public class ST extends FragmentActivity implements OnClickListener {
         DrawerGridAdapter adapter = (DrawerGridAdapter) mDrawerGrid.getAdapter();
         adapter.getCursor().requery();
         adapter.notifyDataSetChanged();
-        FnButtonsFragment btnsFragment;
 
-        for(int f = 0 ; f<topPagerAdapter.getCount(); f++){
-            btnsFragment = (FnButtonsFragment) topPagerAdapter.getFragment(f);
-            if(btnsFragment!=null){
-                btnsFragment.initButtons(btnsFragment.ocl, btnsFragment.olclFn, this);
-            }
 
-            btnsFragment = (FnButtonsFragment) botPagerAdapter.getFragment(f);
-            if(btnsFragment!=null){
-                btnsFragment.initButtons(btnsFragment.ocl, btnsFragment.olclFn, this);
-            }
-        }
+
     }
 
 
@@ -966,7 +948,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     public class OverlayOTL implements OnTouchListener {
 
         boolean overlayActivated = false;
-        View btnCondidate = wsBtn5;
+        View btnCondidate = null;
         int startX;
         int startY;
         int x;
@@ -983,6 +965,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 case MotionEvent.ACTION_DOWN:
                                         startX = (int)event.getRawX();
                     startY = (int)event.getRawY();
+                    overlayActivated = true;
                     InAppLog.writeLog(ST.this, "", "On Touch " + startX + " | " + startY, debug);
                     break;
 
@@ -996,20 +979,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                     //hInAppLog.writeLog(ST.this, "", "Move " + x + " | " + y, debug);
 
-                    if(!overlayActivated && (moveY > 130 || moveY < -130) && !inViewBounds(topPager, x, y) && !inViewBounds(botPager, x, y)){
 
-                        overlayActivated = true;
-
-                        btnCondidate = wsBtn5;
-                        btnCondidateCoord[0] = 1;
-                        btnCondidateCoord[1] = 1;
-                        fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::5::"+wsBtn1.getText().toString()+":"+wsBtn2.getText().toString()+":"+wsBtn3.getText().toString()+":"+wsBtn4.getText().toString()+":"+wsBtn5.getText().toString()+":"+wsBtn6.getText().toString()+":"+wsBtn7.getText().toString()+":"+wsBtn8.getText().toString()+":"+wsBtn9.getText().toString()+":", "");
-                        timeActivated = System.currentTimeMillis();
-                        InAppLog.writeLog(ST.this, "", "Activated!", debug);
-                        startY = y;
-                        startX = x;
-
-                    }
                     if(overlayActivated){
                         if(System.currentTimeMillis()-timeActivated>100){
                             int moveCondidateX=0;
@@ -1047,7 +1017,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                         this.v.vibrate(20);
                         fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
                         fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
-                        btnCondidate.performClick();
+                        if(btnCondidate!=null)btnCondidate.performClick();
                     }
 
                 break;
@@ -1092,8 +1062,9 @@ public class ST extends FragmentActivity implements OnClickListener {
                 btnCondidate = wsBtn8;
                 btnCondidateInt = 8;
             }
+
             if (btnCondidateCoord[0] == 1 && btnCondidateCoord[1] == 1){
-                btnCondidate = wsBtn5;
+                btnCondidate = null;
                 btnCondidateInt = 5;
             }
             if (btnCondidateCoord[0] == 1 && btnCondidateCoord[1] == 2){
@@ -1122,53 +1093,6 @@ public class ST extends FragmentActivity implements OnClickListener {
     }
 
 
-    public class ScrollOtl implements OnTouchListener {
-
-        boolean overlayActivated = false;
-
-        int startX;
-        int startY;
-        int x;
-        int y;
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        long timeActivated;
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-
-
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    startX = (int) event.getRawX();
-                    startY = (int) event.getRawY();
-                    InAppLog.writeLog(ST.this, "", "On Touch Scroll" + startX + " | " + startY, debug);
-                    break;
-
-                case MotionEvent.ACTION_MOVE:
-
-                    x = (int) event.getRawX();
-                    y = (int) event.getRawY();
-
-                    int moveY = startY - y;
-
-                    InAppLog.writeLog(ST.this, "", " Scroll Move " + x + " | " + y + "|" + moveY, debug);
-
-                    if (moveY > 10 || moveY < -10) {
-
-                        startX = x;
-                        startY = y;
-                        fnb.press(moveY>0?ButtonFnManager.FN_WHELL_UP:ButtonFnManager.FN_WHELL_DOWN, "", "");
-                        this.v.vibrate(5);
-                    }
-                    break;
-
-            }
-
-
-            return false;
-        }
-
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -1224,7 +1148,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     public void setCurrentProcess(String process){
 
             currentProcess = process;
-            status.setText(currentProcess);
+
         new Thread(new SocketThread(shpCross.getString("ip", "198.168.0.1"),
                 Integer.parseInt(shpCross.getString("port", "12342")), ButtonFnManager.getProcessIcon, 0, 0, ST.this)).start();
             bindContextButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), 0);
@@ -1323,7 +1247,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         switch (item.getItemId()) {
             case R.id.action_scan:
-                scan.performClick();
+                scan();
                 break;
             /*
             case R.id.enterAfterVoiceInput:
@@ -1374,168 +1298,9 @@ public class ST extends FragmentActivity implements OnClickListener {
     public void onClick(View v) {
         int port = Integer.parseInt(shpCross.getString("port", "12342"));
         switch (v.getId()) {
-            case R.id.bSend:
-                try {
-
-                    int a = Integer.parseInt(aEt.getText().toString());
-                    int b = Integer.parseInt(bEt.getText().toString());
-                    bEt.setText(Integer.parseInt(bEt.getText().toString()) + 1 + "");
-
-                    new Thread(new SocketThread(shpCross.getString("ip", "198.168.0.1"), port,
-                            ButtonFnManager.ab, a, b, ST.this)).start();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-
-            case R.id.bScan:
-
-                final boolean installed = appInstalledOrNot("com.google.zxing.client.android");
 
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(this,
-                        AlertDialog.THEME_HOLO_LIGHT);
-                builder.setTitle(getString(R.string.connect_dialog_title));
 
-                // Set up the input
-                final EditText input = new EditText(this);
-
-                input.setHint("IP");
-                input.setText(shpCross.getString("ip", ""));
-               input.setInputType(InputType.TYPE_CLASS_PHONE);
-               // input.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
-                input.setLayoutParams(new LinearLayout.LayoutParams(0,
-                        LayoutParams.WRAP_CONTENT, 1f));
-
-                final EditText inputPort = new EditText(this);
-
-                inputPort.setHint("Port");
-                inputPort.setText(shpCross.getString("port", ""));
-                inputPort.setInputType(InputType.TYPE_CLASS_NUMBER);
-                inputPort.setLayoutParams(new LinearLayout.LayoutParams(0,
-                        LayoutParams.WRAP_CONTENT, 1f));
-
-                TextView tv = new TextView(this);
-                tv.setText(getString(R.string.connect_dialog_body));
-                tv.setPadding(10, 10, 10, 0);
-                tv.setTextSize(15);
-
-
-                LinearLayout ll = new LinearLayout(this);
-                ll.setOrientation(LinearLayout.VERTICAL);
-
-                LinearLayout llHorizontal = new LinearLayout(this);
-                llHorizontal.setOrientation(LinearLayout.HORIZONTAL);
-
-                llHorizontal.addView(input);
-                llHorizontal.addView(inputPort);
-
-                ll.addView(tv);
-                ll.addView(llHorizontal);
-
-                builder.setView(ll);
-
-                // Set up the buttons
-                builder.setPositiveButton(getString(R.string.connect_dialog_okj),
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-
-                                dialogInputText = input.getText().toString()
-                                        + ":" + inputPort.getText().toString();
-
-                                if (!input.getText().toString().equals("")
-                                        && !inputPort.getText().toString()
-                                        .equals("")) {
-                                    String[] adressParts = dialogInputText
-                                            .split(":");
-                                    String IP = adressParts[0];
-                                    String port = adressParts[1];
-
-                                    ipEt.setText(IP);
-                                    portEt.setText(port);
-
-                                    saveIpPort(IP, port);
-
-                                    dialog.dismiss();
-                                } else if (!input.getText().toString()
-                                        .equals("")) {
-
-                                    Toast.makeText(getBaseContext(),
-                                            getString(R.string.connect_dialog_no_port),
-                                            Toast.LENGTH_SHORT).show();
-                                } else if (!inputPort.getText().toString()
-                                        .equals("")) {
-
-                                    Toast.makeText(getBaseContext(),
-                                            getString(R.string.connect_dialog_no_ip),
-                                            Toast.LENGTH_SHORT).show();
-                                } else {
-
-                                    Toast.makeText(getBaseContext(),
-                                            getString(R.string.connect_dilog_no_ip_no_port),
-                                            Toast.LENGTH_SHORT).show();
-                                }
-
-                            }
-                        });
-                builder.setNegativeButton((installed) ? getString(R.string.connect_dialog_scan_qr) : getString(R.string.connect_dialog_no_barcode_scanner),
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                if (!installed) {
-                                    String url = "https://play.google.com/store/apps/details?id=com.google.zxing.client.android";
-                                    Intent i = new Intent(Intent.ACTION_VIEW);
-                                    i.setData(Uri.parse(url));
-                                    startActivity(i);
-                                    dialog.cancel();
-
-                                } else {
-
-                                    Intent intent = new Intent(
-                                            "com.google.zxing.client.android.SCAN");
-                                    intent.setPackage("com.google.zxing.client.android");
-                                    intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-
-                                    startActivityForResult(intent, 0);
-                                }
-
-                            }
-                        });
-
-                final ArrayAdapter<String> serversArrayAdapter = new ArrayAdapter<String>(
-                        ST.this,
-                        android.R.layout.select_dialog_singlechoice);
-
-                builder.setAdapter(serversArrayAdapter,
-                    new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            String[] ipPort = ipPortsArray.get(which).split(":");
-                            ipEt.setText(ipPort[0]);
-                            portEt.setText(ipPort[1]);
-
-                            saveIpPort(ipPort[0], ipPort[1]);
-                            breakDiscovering = true;
-                            new Thread(new SocketThread(ipPort[0],Integer.parseInt(ipPort[1]), ButtonFnManager.ab, 0,0,ST.this )).start();
-                        }
-                    });
-
-                dialog = builder.create();
-
-                dialog.show();
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        discoverServers();
-                    }
-                }).start();
-                break;
 
             case R.id.addButton:
                 DbTool db = new DbTool();
@@ -1550,6 +1315,153 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         }
 
+    }
+
+    public void scan() {
+        final boolean installed = appInstalledOrNot("com.google.zxing.client.android");
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this,
+                AlertDialog.THEME_HOLO_LIGHT);
+        builder.setTitle(getString(R.string.connect_dialog_title));
+
+        // Set up the input
+        final EditText input = new EditText(this);
+
+        input.setHint("IP");
+        input.setText(shpCross.getString("ip", ""));
+        input.setInputType(InputType.TYPE_CLASS_PHONE);
+        // input.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
+        input.setLayoutParams(new LayoutParams(0,
+                LayoutParams.WRAP_CONTENT, 1f));
+
+        final EditText inputPort = new EditText(this);
+
+        inputPort.setHint("Port");
+        inputPort.setText(shpCross.getString("port", ""));
+        inputPort.setInputType(InputType.TYPE_CLASS_NUMBER);
+        inputPort.setLayoutParams(new LayoutParams(0,
+                LayoutParams.WRAP_CONTENT, 1f));
+
+        TextView tv = new TextView(this);
+        tv.setText(getString(R.string.connect_dialog_body));
+        tv.setPadding(10, 10, 10, 0);
+        tv.setTextSize(15);
+
+
+        LinearLayout ll = new LinearLayout(this);
+        ll.setOrientation(LinearLayout.VERTICAL);
+
+        LinearLayout llHorizontal = new LinearLayout(this);
+        llHorizontal.setOrientation(LinearLayout.HORIZONTAL);
+
+        llHorizontal.addView(input);
+        llHorizontal.addView(inputPort);
+
+        ll.addView(tv);
+        ll.addView(llHorizontal);
+
+        builder.setView(ll);
+
+        // Set up the buttons
+        builder.setPositiveButton(getString(R.string.connect_dialog_okj),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+
+                        dialogInputText = input.getText().toString()
+                                + ":" + inputPort.getText().toString();
+
+                        if (!input.getText().toString().equals("")
+                                && !inputPort.getText().toString()
+                                .equals("")) {
+                            String[] adressParts = dialogInputText
+                                    .split(":");
+                            String IP = adressParts[0];
+                            String port = adressParts[1];
+
+                            ipEt.setText(IP);
+                            portEt.setText(port);
+
+                            saveIpPort(IP, port);
+
+                            dialog.dismiss();
+                        } else if (!input.getText().toString()
+                                .equals("")) {
+
+                            Toast.makeText(getBaseContext(),
+                                    getString(R.string.connect_dialog_no_port),
+                                    Toast.LENGTH_SHORT).show();
+                        } else if (!inputPort.getText().toString()
+                                .equals("")) {
+
+                            Toast.makeText(getBaseContext(),
+                                    getString(R.string.connect_dialog_no_ip),
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+
+                            Toast.makeText(getBaseContext(),
+                                    getString(R.string.connect_dilog_no_ip_no_port),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+        builder.setNegativeButton((installed) ? getString(R.string.connect_dialog_scan_qr) : getString(R.string.connect_dialog_no_barcode_scanner),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        if (!installed) {
+                            String url = "https://play.google.com/store/apps/details?id=com.google.zxing.client.android";
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(url));
+                            startActivity(i);
+                            dialog.cancel();
+
+                        } else {
+
+                            Intent intent = new Intent(
+                                    "com.google.zxing.client.android.SCAN");
+                            intent.setPackage("com.google.zxing.client.android");
+                            intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+
+                            startActivityForResult(intent, 0);
+                        }
+
+                    }
+                });
+
+        final ArrayAdapter<String> serversArrayAdapter = new ArrayAdapter<String>(
+                ST.this,
+                android.R.layout.select_dialog_singlechoice);
+
+        builder.setAdapter(serversArrayAdapter,
+            new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String[] ipPort = ipPortsArray.get(which).split(":");
+                    ipEt.setText(ipPort[0]);
+                    portEt.setText(ipPort[1]);
+
+                    saveIpPort(ipPort[0], ipPort[1]);
+                    breakDiscovering = true;
+                    new Thread(new SocketThread(ipPort[0],Integer.parseInt(ipPort[1]), ButtonFnManager.ab, 0,0,ST.this )).start();
+                }
+            });
+
+        dialog = builder.create();
+
+        dialog.show();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                discoverServers();
+            }
+        }).start();
     }
 
     private void saveIpPort(String IP, String port) {
@@ -1981,7 +1893,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 break;
 
             case REQUEST_CODE_SETTINGS:
-                setScrollVisability();
+
                 break;
 
             case REQUEST_CODE_TUTORIAL:
@@ -2091,11 +2003,6 @@ public class ST extends FragmentActivity implements OnClickListener {
     public void onBackPressed() {
         if(mDrawerLayout.isDrawerOpen(Gravity.RIGHT)){
             mDrawerLayout.closeDrawers();
-        }else if (up.getVisibility() == View.VISIBLE) {
-            up.setVisibility(View.GONE);
-            down.setVisibility(View.GONE);
-            left.setVisibility(View.GONE);
-            right.setVisibility(View.GONE);
         } else {
             super.onBackPressed();
         }
@@ -2154,61 +2061,6 @@ public class ST extends FragmentActivity implements OnClickListener {
         startActivityForResult(intent, requesrCode);
     }
 
-    private class ScreenSlidePagerAdapter extends FragmentPagerAdapter {
-        String topOrBot = "";
-        private Map<Integer, String> mFragmentTags;
-        private FragmentManager mFragmentManager;
-
-        public ScreenSlidePagerAdapter(
-                android.support.v4.app.FragmentManager fragmentManager,
-                String topOrBot) {
-            super(fragmentManager);
-            this.topOrBot = topOrBot;
-            mFragmentManager = fragmentManager;
-            mFragmentTags = new HashMap<Integer, String>();
-        }
-
-        @Override
-        public android.support.v4.app.Fragment getItem(int position) {
-
-            Bundle arguments = new Bundle();
-
-            arguments.putString(FnButtonsFragment.PAGE_ID_ARG, topOrBot
-                    + position);
-
-
-            return Fragment.instantiate(ST.this, FnButtonsFragment.class.getName(), arguments);
-
-        }
-
-        public int getItemPosition(Object object) {
-            return POSITION_NONE;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            Object obj = super.instantiateItem(container, position);
-            if (obj instanceof Fragment) {
-                // record the fragment tag here.
-                Fragment f = (Fragment) obj;
-                String tag = f.getTag();
-                mFragmentTags.put(position, tag);
-            }
-            return obj;
-        }
-
-        public Fragment getFragment(int position) {
-            String tag = mFragmentTags.get(position);
-            if (tag == null)
-                return null;
-            return mFragmentManager.findFragmentByTag(tag);
-        }
-
-        @Override
-        public int getCount() {
-            return NUM_PAGES;
-        }
-    }
 
     public void bindContextButtons(final String currentProcess, int buttonToUpdate){
         if(buttonToUpdate==0){

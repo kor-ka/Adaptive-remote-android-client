@@ -3,9 +3,7 @@ package ru.korinc.sockettest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -195,7 +193,7 @@ public class ButtonFnManager {
                  break;
 
             case FN_SCAN:
-				 st.scan.performClick();
+				 st.scan();
 				break;
 				
 				
@@ -211,23 +209,7 @@ public class ButtonFnManager {
 				break;
 				
 				
-			case FN_ARROWS:
-				switch (st.up.getVisibility()) {
-				case View.VISIBLE:
-					st.up.setVisibility(View.GONE);
-					st.down.setVisibility(View.GONE);
-					st.left.setVisibility(View.GONE);
-					st.right.setVisibility(View.GONE);
-					break;
 
-				case View.GONE:
-					st.up.setVisibility(View.VISIBLE);
-					st.down.setVisibility(View.VISIBLE);
-					st.left.setVisibility(View.VISIBLE);
-					st.right.setVisibility(View.VISIBLE);
-					break;
-				}
-				break;
 
             case FN_CONTEXT_BUTTONS:
                  switch (st.tr1.getVisibility()) {

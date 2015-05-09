@@ -2,7 +2,6 @@ package ru.korinc.sockettest;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import net.dinglisch.android.tasker.FireReceiver;
 
@@ -165,7 +164,7 @@ class SocketThread implements Runnable {
                                 st.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        if(bitmap!=null)st.contextBtn.setImageBitmap(bitmap);
+                                        if(bitmap!=null)st.context.setImageBitmap(bitmap);
                                         //else st.contextBtn.setImageResource(android.R.drawable.radiobutton_off_background);
                                     }
                                 });

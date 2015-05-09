@@ -111,7 +111,7 @@ Context ctx;
                 db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN2) + pr, ctx)+"",
                 db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN3) + pr, ctx)+"",
                 db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN4) + pr, ctx)+"",
-                db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN5) + pr, ctx)+"",
+
                 db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN6) + pr, ctx)+"",
                 db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN7) + pr, ctx)+"",
                 db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN8) + pr, ctx)+"",
