@@ -46,6 +46,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
@@ -103,6 +104,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
 
     FrameLayout oneBtn;
+    ImageView menuBtn;
 
     FnButton wsBtn1;
     FnButton wsBtn2;
@@ -297,7 +299,8 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         oneBtn = (FrameLayout) findViewById(R.id.oneBtn);
 
-
+        menuBtn = (ImageView) findViewById(R.id.menu_btn);
+        menuBtn.setOnClickListener(this);
 
         addButton = (Button) findViewById(R.id.addButton);
         addButton.setOnClickListener(this);
@@ -1290,7 +1293,10 @@ public class ST extends FragmentActivity implements OnClickListener {
         int port = Integer.parseInt(shpCross.getString("port", "12342"));
         switch (v.getId()) {
 
-
+            case R.id.menu_btn:
+                if(mDrawerLayout.isDrawerOpen(Gravity.RIGHT))mDrawerLayout.closeDrawers();
+                else mDrawerLayout.openDrawer(Gravity.RIGHT);
+                break;
 
 
             case R.id.addButton:
