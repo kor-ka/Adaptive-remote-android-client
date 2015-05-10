@@ -36,6 +36,8 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -63,6 +65,8 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import util.IabHelper;
 import util.IabResult;
@@ -175,6 +179,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
     long doubleTouchUpTime;
     IabHelper mHelper;
+    private boolean searching = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -254,45 +259,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
 
 
-        keyoVoiceInputFix = shp.getStringSet("map", new HashSet<String>());
-        if (keyoVoiceInputFix.isEmpty()) {
 
-            keyoVoiceInputFix.add("хром");
-            ed.putString("хром", "chrome");
-
-            keyoVoiceInputFix.add("хром");
-            ed.putString("дропбокс", "dropbox");
-
-            keyoVoiceInputFix.add("ворд");
-            ed.putString("ворд", "word");
-
-            keyoVoiceInputFix.add("ексель");
-            ed.putString("ексель", "excel");
-
-            ed.putStringSet("map", keyoVoiceInputFix);
-            ed.commit();
-
-
-            int[] buttonsToInit = new int[]{
-                    ButtonFnManager.FN_VOICE_FN,
-                    ButtonFnManager.FN_LAUNCHFROM_TASKBAR,
-                    ButtonFnManager.FN_FIRE_FN,
-                    ButtonFnManager.FN_ARROWS,
-                    ButtonFnManager.FN_R_CLICK,
-                    ButtonFnManager.FN_CUSTOM,
-                    ButtonFnManager.FN_SETTINGS,
-                    ButtonFnManager.FN_HELP
-            };
-
-            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[0], "", 0, this, "", 0), "fnB1" + "top1",this);
-            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[1], "", 0, this, "", 0), "fnB2" + "top1",this);
-            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[2], "", 0, this, "", 0), "fnB3" + "top1",this);
-            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[3], "", 0, this, "", 0), "fnB1" + "bot1",this);
-            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[4], "", 0, this, "", 0), "fnB2" + "bot1",this);
-            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[5], "Enter", 0, this, "", 0), "fnB3" + "bot1",this);
-            db.bindButtonToPlace(db.addButton(-1, "", buttonsToInit[6], "", 0, this, "", 0), "fnB1" + "bot2",this);
-            db.addButton(-1, "", buttonsToInit[7], "", 0, this, "", 0);
-        }
 
 
         oneBtn = (ImageView) findViewById(R.id.oneBtn);
@@ -321,10 +288,48 @@ public class ST extends FragmentActivity implements OnClickListener {
         for(FnButton b: contextButtons){
             ed.putInt("ButtonId" + i, getReqCodeById(b.getId()));
             i++;
-
-            workSpace.setVisibility(View.INVISIBLE);
         }
+        for(FnButton b: staticButtons){
+            ed.putInt("ButtonId" + i, getReqCodeById(b.getId()));
+            i++;
+        }
+        workSpace.setVisibility(View.INVISIBLE);
         ed.commit();
+
+        keyoVoiceInputFix = shp.getStringSet("map", new HashSet<String>());
+        if (keyoVoiceInputFix.isEmpty()) {
+
+            keyoVoiceInputFix.add("хром");
+            ed.putString("хром", "chrome");
+
+            keyoVoiceInputFix.add("хром");
+            ed.putString("дропбокс", "dropbox");
+
+            keyoVoiceInputFix.add("ворд");
+            ed.putString("ворд", "word");
+
+            keyoVoiceInputFix.add("ексель");
+            ed.putString("ексель", "excel");
+
+            ed.putStringSet("map", keyoVoiceInputFix);
+            ed.commit();
+
+
+
+
+
+
+
+            db.addButton(-1, "", ButtonFnManager.FN_HELP, "", 0, this, "", 0);
+            db.addButton(-1, "", ButtonFnManager.FN_FIRE_FN, "", 0, this, "", 0);
+            db.addButton(-1, "", ButtonFnManager.FN_VOICE_FN, "", 0, this, "", 0);
+            db.addButton(-1, "", ButtonFnManager.FN_SETTINGS, "", 0, this, "", 0);
+            db.addButton(-1, "", ButtonFnManager.FN_SCAN, "", 0, this, "", 0);
+
+            db.bindButtonToPlace(db.addButton(-1, "", ButtonFnManager.FN_LAUNCHFROM_TASKBAR, "", 0, this, "", 0), getReqCodeById(staticButtons[0].getId())+"",this);
+            db.bindButtonToPlace(db.addButton(-1, "", ButtonFnManager.FN_R_CLICK, "", 0, this, "", 0), getReqCodeById(staticButtons[1].getId())+"",this);
+            db.bindButtonToPlace(db.addButton(-1, "", ButtonFnManager.FN_ALT_TAB, "", 0, this, "", 0), getReqCodeById(staticButtons[2].getId())+"",this);
+        }
 
         ocl = new OnClickListener() {
 
@@ -406,6 +411,13 @@ public class ST extends FragmentActivity implements OnClickListener {
         };
 
         for(final FnButton b: contextButtons){
+            b.setOnClickListener(ocl);
+            b.setOnLongClickListener(olclFn);
+
+            b.setOnDragListener( btnOndraOnDragListener);
+        }
+
+        for(final FnButton b: staticButtons){
             b.setOnClickListener(ocl);
             b.setOnLongClickListener(olclFn);
 
@@ -798,6 +810,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                                 new Thread(new SocketThread(shpCross.getString("ip", "198.168.0.1"),
                                         port, ButtonFnManager.click, 0, 0, ST.this)).start();
+                                Executors.newSingleThreadScheduledExecutor().schedule(new SocketThread(shpCross.getString("ip", "198.168.0.1"), Integer.parseInt(shpCross.getString("port", "12342")), ButtonFnManager.ab, 0, 0, ST.this), 400, TimeUnit.MILLISECONDS);
 
                             }
 
@@ -893,19 +906,60 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         overlayOTL = new OverlayOTL();
 
-        oneBtn.setOnTouchListener(overlayOTL);
-
-
-
-
-
         if(savedInstanceState!=null){
             setCurrentProcess(savedInstanceState.getString(CURRENT_PROCESS, ""));
         }
 
+        if(currentProcess==null || currentProcess.isEmpty()){
+
+            startSearch();
+        }else{
+            setupOneBtn();
+        }
+
+
+
+
+
+
+
+
+
         InAppLog.writeLog(ST.this, "", "ST on create", debug);
 
         //exportDatabse("db");
+    }
+
+    private void startSearch() {
+        //Для начала проверим сохранённый сервак, если есть
+        //TODO
+        searching = true;
+        Animation myFadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.blink);
+        oneBtn.startAnimation(myFadeInAnimation);
+        oneBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scan();
+            }
+        });
+        new Thread(new SocketThread(shpCross.getString("ip", "198.168.0.1"), Integer.parseInt(shpCross.getString("port", "12342")), ButtonFnManager.ab, 0, 0, ST.this)).start();
+        discoverServers();
+
+        /*
+        Executors.newSingleThreadScheduledExecutor().schedule(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }, 400, TimeUnit.MILLISECONDS);
+        */
+    }
+
+    private void setupOneBtn() {
+        bindButtons(currentProcess,0);
+        oneBtn.setOnTouchListener(overlayOTL);
+        oneBtn.setOnClickListener(null);
+        oneBtn.setImageResource(R.drawable.one_btn_bgrnd);
     }
 
     private void checkInventory() {
@@ -934,7 +988,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
 
     private void updateAllBTNS() {
-        bindContextButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), 0);
+        bindButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), 0);
         DrawerGridAdapter adapter = (DrawerGridAdapter) mDrawerGrid.getAdapter();
         adapter.getCursor().requery();
         adapter.notifyDataSetChanged();
@@ -1170,13 +1224,22 @@ public class ST extends FragmentActivity implements OnClickListener {
     public void setCurrentProcess(String process){
 
             currentProcess = process;
-
+            if(searching){
+                finishSerach();
+            }
         new Thread(new SocketThread(shpCross.getString("ip", "198.168.0.1"),
                 Integer.parseInt(shpCross.getString("port", "12342")), ButtonFnManager.getProcessIcon, 0, 0, ST.this)).start();
-            bindContextButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), 0);
+            bindButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), 0);
 
 
 
+    }
+
+    private void finishSerach() {
+        searching = false;
+        oneBtn.clearAnimation();
+
+        setupOneBtn();
     }
 
 
@@ -1211,7 +1274,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         return found_bcast_address;
     }
 
-    private void discoverServers() {
+    private void discoverServersForDialog() {
                 ipPortsArray.clear();
                 String broadcastAdress = getBroadcast();
                    breakDiscovering = false;
@@ -1252,6 +1315,50 @@ public class ST extends FragmentActivity implements OnClickListener {
 
 
                 }
+    }
+
+    private void discoverServers() {
+        ipPortsArray.clear();
+        String broadcastAdress = getBroadcast();
+        breakDiscovering = false;
+        if(broadcastAdress!=null){
+            for (int j = 1026; j <= 1032; j++) {
+                if(!searching)break;
+                for (int i = 1; i <=255 ; i++) {
+                    if(!searching)break;
+                    final String ipToDesc = broadcastAdress.substring(0, broadcastAdress.lastIndexOf("255"))+i;
+                    new Thread(new SocketThread(ipToDesc/*broadcastAdress*/, j==1032?1025:j, ButtonFnManager.ab, 12, 12, ST.this) {
+
+                        @Override
+                        public void run() {
+
+                            super.run();
+
+                            try {
+                                //final String s = in.readUTF();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if(line!=null&&line.startsWith("ok")) {
+                                            saveIpPort(ipToDesc, port+"");
+                                            finishSerach();
+                                        }
+
+                                    }
+                                });
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }).start();
+                }
+
+            }
+
+
+        }
     }
 
 
@@ -1347,7 +1454,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this,
-                AlertDialog.THEME_HOLO_LIGHT);
+                AlertDialog.THEME_HOLO_DARK);
         builder.setTitle(getString(R.string.connect_dialog_title));
 
         // Set up the input
@@ -1410,7 +1517,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                             portEt.setText(port);
 
                             saveIpPort(IP, port);
-
+                            startSearch();
                             dialog.dismiss();
                         } else if (!input.getText().toString()
                                 .equals("")) {
@@ -1484,7 +1591,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                discoverServers();
+                discoverServersForDialog();
             }
         }).start();
     }
@@ -1517,7 +1624,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                 ipEt.setText(IP);
                 portEt.setText(port);
                 saveIpPort(IP, port);
-
+                startSearch();
             }
         }
 
@@ -1535,11 +1642,18 @@ public class ST extends FragmentActivity implements OnClickListener {
             super.onActivityResult(requestCode, resultCode, intent);
 
         //bind contextButtonsArrayList<Integer>
-        ArrayList<Integer> arr = new ArrayList<Integer>();
+        ArrayList<Integer> contextArr = new ArrayList<Integer>();
+        ArrayList<Integer> statictArr = new ArrayList<Integer>();
        for(FnButton b: contextButtons){
-           arr.add(getReqCodeById(b.getId()));
+           contextArr.add(getReqCodeById(b.getId()));
        }
-        if(resultCode==RESULT_OK && arr.contains(requestCode)){saveFnBindResults(intent, requestCode, currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""));}
+        for(FnButton b: staticButtons){
+            statictArr.add(getReqCodeById(b.getId()));
+        }
+        if(resultCode==RESULT_OK && contextArr.contains(requestCode)){
+            saveContextBindResults(intent, requestCode, currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""));}
+        if(resultCode==RESULT_OK && statictArr.contains(requestCode)){
+            saveStaticBindResults(intent, requestCode, currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""));}
 
         boolean needReinvokeVoiceFn = false;
         //Fixing voice input
@@ -2087,11 +2201,15 @@ public class ST extends FragmentActivity implements OnClickListener {
     }
 
 
-    public void bindContextButtons(final String currentProcess, int buttonToUpdate){
+    public void bindButtons(final String currentProcess, int buttonToUpdate){
         if(buttonToUpdate==0){
             ArrayList<NotificationCompat.Action> actions = new ArrayList<NotificationCompat.Action>();
             for (FnButton b: contextButtons) {
                 b.init(getReqCodeById(b.getId())+""+currentProcess, this, ocl, olclFn, fnb);
+
+            }
+            for (FnButton b: staticButtons) {
+                b.init(getReqCodeById(b.getId())+"", this, ocl, olclFn, fnb);
 
             }
 
@@ -2102,12 +2220,19 @@ public class ST extends FragmentActivity implements OnClickListener {
                     break;
                 }
             }
+
+            for (FnButton b: staticButtons){
+                if(getReqCodeById(b.getId())==buttonToUpdate){
+                    b.init(getReqCodeById(b.getId())+"", this, ocl, olclFn, fnb);
+                    break;
+                }
+            }
         }
 
 
     }
 
-    public void saveFnBindResults (Intent i, int reqestCode, final String currentProcess){
+    public void saveContextBindResults(Intent i, int reqestCode, final String currentProcess){
         DbTool db = new DbTool();
         if(i.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION)!= ButtonFnManager.NO_FUNCTION){
             //Пишем кнопку в базу
@@ -2123,7 +2248,27 @@ public class ST extends FragmentActivity implements OnClickListener {
             db.bindButtonToPlace(-1,reqestCode+""+currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), this);
         }
 
-        bindContextButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), reqestCode);
+        bindButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), reqestCode);
+
+    }
+
+    public void saveStaticBindResults(Intent i, int reqestCode, final String currentProcess){
+        DbTool db = new DbTool();
+        if(i.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION)!= ButtonFnManager.NO_FUNCTION){
+            //Пишем кнопку в базу
+
+            long id = db.addButton(i.getLongExtra("id", -1), i.getStringExtra("Name"), i.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), i.getStringExtra("FnResultArgs"), -1, this, null, 0);
+
+            db.bindButtonToPlace(id, reqestCode+"", this);
+            DrawerGridAdapter adapter = (DrawerGridAdapter) mDrawerGrid.getAdapter();
+            adapter.getCursor().requery();
+            adapter.notifyDataSetChanged();
+
+        }else{
+            db.bindButtonToPlace(-1,reqestCode+"", this);
+        }
+
+        bindButtons(currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""), reqestCode);
 
     }
 

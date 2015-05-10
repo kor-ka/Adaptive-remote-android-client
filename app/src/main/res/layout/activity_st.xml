@@ -183,7 +183,7 @@
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                        android:textColor="@android:color/transparent"
-                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:background="@drawable/no_fn_btn_background"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
 
@@ -194,7 +194,7 @@
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                        android:textColor="@android:color/transparent"
-                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:background="@drawable/no_fn_btn_background"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
 
@@ -205,7 +205,7 @@
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                        android:textColor="@android:color/transparent"
-                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:background="@drawable/no_fn_btn_background"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
 
@@ -223,7 +223,7 @@
                         android:layout_height="match_parent"
 
                        android:textColor="@android:color/transparent"
-                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:background="@drawable/no_fn_btn_background"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
 
@@ -234,7 +234,7 @@
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                        android:textColor="@android:color/transparent"
-                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:background="@drawable/no_fn_btn_background"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
                         android:visibility="invisible"
@@ -246,7 +246,7 @@
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                        android:textColor="@android:color/transparent"
-                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:background="@drawable/no_fn_btn_background"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
 
@@ -257,15 +257,14 @@
                     android:id="@+id/tableWSRow3"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-
-                    >
+                    android:background="#75d6d6d6">
                     <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN7"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                        android:textColor="@android:color/transparent"
                         
-                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:background="@drawable/no_fn_btn_background"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
 
@@ -276,7 +275,7 @@
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                        android:textColor="@android:color/transparent"
-                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:background="@drawable/no_fn_btn_background"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
 
@@ -287,7 +286,7 @@
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                        android:textColor="@android:color/transparent"
-                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:background="@drawable/no_fn_btn_background"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
 

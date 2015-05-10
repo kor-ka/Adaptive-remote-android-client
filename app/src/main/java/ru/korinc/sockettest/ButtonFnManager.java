@@ -82,8 +82,7 @@ public class ButtonFnManager {
 			fnMap.put(FN_SCAN, ctx.getString(R.string.btn_connect_to_server));
 			fnMap.put(FN_LAUNCH_APP, ctx.getString(R.string.btn_launch_app));
 			fnMap.put(FN_LAUNCHFROM_TASKBAR, ctx.getString(R.string.btn_launch_app_from_taskbar));
-			fnMap.put(FN_ARROWS, ctx.getString(R.string.btn_arrows));
-            fnMap.put(FN_CONTEXT_BUTTONS, ctx.getString(R.string.btn_context_btns));
+
 			fnMap.put(FN_CLICK, ctx.getString(R.string.btn_left_click));
 			fnMap.put(FN_R_CLICK, ctx.getString(R.string.btn_right_click));
             fnMap.put(FN_CENTER_CLICK, ctx.getString(R.string.btn_center_click));

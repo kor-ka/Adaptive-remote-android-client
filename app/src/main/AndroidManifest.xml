@@ -49,7 +49,7 @@
             android:exported="true"
             android:icon="@drawable/ic_launcher"
             android:label="@string/title_activity_fn_select"
-            android:theme="@android:style/Theme.Holo.Light.Dialog" >
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
             <intent-filter>
                 <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
             </intent-filter>
@@ -81,11 +81,7 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".TutorialActivity"
-            android:label="@string/title_activity_tutorial"
-            android:theme="@android:style/Theme.Holo.Light.Dialog" >
-        </activity>
+
 
 
         <receiver
