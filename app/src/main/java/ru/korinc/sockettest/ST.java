@@ -13,6 +13,7 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Vibrator;
@@ -470,7 +471,7 @@ public class ST extends FragmentActivity implements OnClickListener {
                         return true;
 
                     case DragEvent.ACTION_DRAG_EXITED:
-                        view.setBackgroundColor(ST.this.getResources().getColor(R.color.transparent_gray));
+                        view.setBackgroundColor(ST.this.getResources().getColor(android.R.color.transparent));
                         view.invalidate();
                         return true;
 
@@ -931,8 +932,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     }
 
     private void startSearch() {
-        //Для начала проверим сохранённый сервак, если есть
-        //TODO
+
         searching = true;
         Animation myFadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.blink);
         oneBtn.startAnimation(myFadeInAnimation);
@@ -942,8 +942,19 @@ public class ST extends FragmentActivity implements OnClickListener {
                 scan();
             }
         });
+
+        //Для начала проверим сохранённый сервак, если есть
         new Thread(new SocketThread(shpCross.getString("ip", "198.168.0.1"), Integer.parseInt(shpCross.getString("port", "12342")), ButtonFnManager.ab, 0, 0, ST.this)).start();
-        discoverServers();
+
+
+        new AsyncTask<Void, Void, Void>(){
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                discoverServers();
+                return null;
+            }
+        }.execute();
 
         /*
         Executors.newSingleThreadScheduledExecutor().schedule(new Runnable() {
@@ -1327,13 +1338,11 @@ public class ST extends FragmentActivity implements OnClickListener {
                 for (int i = 1; i <=255 ; i++) {
                     if(!searching)break;
                     final String ipToDesc = broadcastAdress.substring(0, broadcastAdress.lastIndexOf("255"))+i;
-                    new Thread(new SocketThread(ipToDesc/*broadcastAdress*/, j==1032?1025:j, ButtonFnManager.ab, 12, 12, ST.this) {
 
+                    new Thread(new SocketThread(ipToDesc, j==1032?1025:j, ButtonFnManager.ab, 0, 0, ST.this){
                         @Override
                         public void run() {
-
                             super.run();
-
                             try {
                                 //final String s = in.readUTF();
                                 runOnUiThread(new Runnable() {
@@ -1351,8 +1360,8 @@ public class ST extends FragmentActivity implements OnClickListener {
                                 e.printStackTrace();
                             }
                         }
-
                     }).start();
+
                 }
 
             }
