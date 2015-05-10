@@ -57,12 +57,21 @@ public class FnButton extends Button{
 
         final int colorHoloBlue = context.getResources().getColor(android.R.color.holo_blue_light);
 
+
+        ((Activity)context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setTextColor(colorHoloBlue);
+            }
+        });
+
         if(!colorInited){
             ((Activity)context).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_seelctor));
                     FnButton.this.getBackground().setColorFilter(colorHoloBlue, PorterDuff.Mode.MULTIPLY);
+
                 }
             });
         }
@@ -130,49 +139,20 @@ public class FnButton extends Button{
                 //Если есть цвет, ставим его
                 if(FnButton.this.color!=0){
                     FnButton.this.getBackground().setColorFilter(FnButton.this.color, PorterDuff.Mode.MULTIPLY);
+                    setTextColor(FnButton.this.color);
                 }
 
                 //Если пустая - меняем фон
                 if(FnButton.this.type== ButtonFnManager.NO_FUNCTION){
                     setBackgroundDrawable(getResources().getDrawable(R.drawable.no_fn_btn_seelctor));
+                    setTextColor(getResources().getColor(android.R.color.transparent));
                 }
 
 
             }
         });
 
-        //Если есть иконка плагина - ставим её
-        if(this.plugin!=null && !this.plugin.isEmpty()){
-            File ico  = new File(new File(FnListFragment.PLUGINS_FOLDER_PATH), this.plugin+".png");
-            if(ico.exists()){
-                int size = getResources().getDimensionPixelSize(R.dimen.plugin_icon);
-                Drawable dr = Drawable.createFromPath(ico.getPath());
-                Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
-                final Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, size, size, true));
-                ((Activity)context).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setCompoundDrawablesWithIntrinsicBounds(d, null, null, null);
-                    }
-                });
 
-            }else
-                ((Activity)context).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-                    }
-                });
-
-        }else{
-            ((Activity)context).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-                }
-            });
-
-        }
 
 
     }

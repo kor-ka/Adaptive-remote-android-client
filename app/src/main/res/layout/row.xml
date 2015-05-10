@@ -10,5 +10,5 @@
         android:layout_height="match_parent"
         android:background="@drawable/btn_seelctor"
         android:layout_margin="5dp"
-        android:textColor="#FFFFFF"/>
+        android:textColor="@android:color/holo_blue_light"/>
 </LinearLayout>

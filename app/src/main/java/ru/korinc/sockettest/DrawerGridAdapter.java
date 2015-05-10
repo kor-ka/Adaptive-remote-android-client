@@ -53,6 +53,7 @@ private DbTool db;
         int color = c.getInt(c.getColumnIndex(db.BUTTONS_TABLE_COLOR));
         if(color!=0){
             holder.b.getBackground().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+            holder.b.setTextColor(color);
         }
 
         //Ставим текст

@@ -50,6 +50,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -103,7 +104,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     LinearLayout dragMenuLL;
 
 
-    FrameLayout oneBtn;
+    ImageView oneBtn;
     ImageView menuBtn;
 
     FnButton wsBtn1;
@@ -115,6 +116,8 @@ public class ST extends FragmentActivity implements OnClickListener {
     FnButton wsBtn7;
     FnButton wsBtn8;
     FnButton wsBtn9;
+
+    TableLayout workSpace;
 
     public  FnButton[] fnButtons;
 
@@ -230,8 +233,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         setContentView(R.layout.activity_st);
 
         if(shp.getBoolean("firstLaunch", true)){
-            Intent intent = new Intent(getBaseContext(), TutorialActivity.class);
-            startActivityForResult(intent, REQUEST_CODE_TUTORIAL);
+           //TODO FIRST LAUNCH
             ed.putBoolean("firstLaunch", false);
             ed.commit();
         }
@@ -297,7 +299,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         }
 
 
-        oneBtn = (FrameLayout) findViewById(R.id.oneBtn);
+        oneBtn = (ImageView) findViewById(R.id.oneBtn);
 
         menuBtn = (ImageView) findViewById(R.id.menu_btn);
         menuBtn.setOnClickListener(this);
@@ -315,11 +317,15 @@ public class ST extends FragmentActivity implements OnClickListener {
         wsBtn8 = (FnButton) findViewById(R.id.workSpaceBTN8);
         wsBtn9 = (FnButton) findViewById(R.id.workSpaceBTN9);
 
+        workSpace = (TableLayout) findViewById(R.id.workSpace);
+
         fnButtons = new FnButton[]{wsBtn1,wsBtn2,wsBtn3,wsBtn4,wsBtn6,wsBtn7,wsBtn8,wsBtn9};
         int i =0;
         for(FnButton b:fnButtons){
             ed.putInt("ButtonId" + i, getReqCodeById(b.getId()));
             i++;
+
+            workSpace.setVisibility(View.INVISIBLE);
         }
         ed.commit();
 
@@ -349,53 +355,67 @@ public class ST extends FragmentActivity implements OnClickListener {
             }
         };
 
+        View.OnDragListener btnOndraOnDragListener = new View.OnDragListener() {
+
+
+            @Override
+            public boolean onDrag( View v, DragEvent event) {
+                final int action = event.getAction();
+
+                AlphaAnimation enterAnimation=new AlphaAnimation(1,0);
+                enterAnimation.setDuration(200);
+                enterAnimation.setFillAfter(true);
+
+                AlphaAnimation afterDropAnimation=new AlphaAnimation(0,1);
+                afterDropAnimation.setDuration(200);
+                afterDropAnimation.setFillAfter(true);
+                // Handles each of the expected events
+                switch(action) {
+
+                    case DragEvent.ACTION_DRAG_STARTED:
+
+                        workSpace.setVisibility(View.VISIBLE);
+                        InAppLog.writeLog(ST.this, "DRAG", "DRAG start", debug);
+                        return true;
+
+                    case DragEvent.ACTION_DRAG_ENDED:
+                        workSpace.setVisibility(View.INVISIBLE);
+                        InAppLog.writeLog(ST.this, "DRAG", "DRAG END", debug);
+                       return true;
+
+                    case DragEvent.ACTION_DRAG_ENTERED:
+                        v.startAnimation(enterAnimation);
+                        break;
+
+                    case DragEvent.ACTION_DRAG_EXITED:
+                        v.startAnimation(afterDropAnimation);
+                        break;
+
+                    case DragEvent.ACTION_DROP:
+                        ClipData.Item item = event.getClipData().getItemAt(0);
+                        Intent i = item.getIntent();
+                        long id=i.getLongExtra("id", 0);
+                        ((FnButton)v).init(i.getLongExtra("id", 0), ST.this, ocl, olclFn, fnb, null, false);
+
+                        DbTool dbt = new DbTool();
+                        FnButton fnb = (FnButton) v;
+                        dbt.bindButtonToPlace(id, fnb.getPlace(), ST.this);
+                        v.clearAnimation();
+                        v.startAnimation(afterDropAnimation);
+                        break;
+                }
+                return true;
+            }
+        };
+
         for(final FnButton b:fnButtons){
             b.setOnClickListener(ocl);
             b.setOnLongClickListener(olclFn);
-            b.setOnDragListener( new View.OnDragListener() {
 
-
-                @Override
-                public boolean onDrag( View v, DragEvent event) {
-                    final int action = event.getAction();
-
-                    AlphaAnimation enterAnimation=new AlphaAnimation(1,0);
-                    enterAnimation.setDuration(200);
-                    enterAnimation.setFillAfter(true);
-
-                    AlphaAnimation afterDropAnimation=new AlphaAnimation(0,1);
-                    afterDropAnimation.setDuration(200);
-                    afterDropAnimation.setFillAfter(true);
-                    // Handles each of the expected events
-                    switch(action) {
-
-                        case DragEvent.ACTION_DRAG_ENTERED:
-                            v.startAnimation(enterAnimation);
-                            break;
-
-                        case DragEvent.ACTION_DRAG_EXITED:
-                            v.startAnimation(afterDropAnimation);
-                            break;
-
-                        case DragEvent.ACTION_DROP:
-                            ClipData.Item item = event.getClipData().getItemAt(0);
-                            Intent i = item.getIntent();
-                            long id=i.getLongExtra("id", 0);
-                            b.init(i.getLongExtra("id", 0), ST.this, ocl, olclFn, fnb, null, false);
-
-                            DbTool dbt = new DbTool();
-                            FnButton fnb = (FnButton) v;
-                            dbt.bindButtonToPlace(id, fnb.getPlace(), ST.this);
-                            v.clearAnimation();
-                            v.startAnimation(afterDropAnimation);
-                            break;
-                    }
-                    return true;
-                }
-            });
+            b.setOnDragListener( btnOndraOnDragListener);
         }
 
-
+          menuBtn.setOnDragListener(btnOndraOnDragListener);
 
         dragMenuLL = (LinearLayout) findViewById(R.id.dragMenuLL);
         editBtn = (Button) findViewById(R.id.editButton);
@@ -949,7 +969,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         int x;
         int y;
         int[] btnCondidateCoord = new int[]{0, 0};
-        int btnCondidateInt = 0;
+        int btnCondidateInt = 5;
         long timeActivated;
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         @Override
@@ -962,6 +982,17 @@ public class ST extends FragmentActivity implements OnClickListener {
                     startY = (int)event.getRawY();
                     overlayActivated = true;
                     this.v.vibrate(20);
+
+                    btnCondidate = null;
+                    btnCondidateCoord[0] = 1;
+                    btnCondidateCoord[1] = 1;
+                    btnCondidateInt = 5;
+                    fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::5::"+wsBtn1.getText().toString()+":"+wsBtn2.getText().toString()+":"+wsBtn3.getText().toString()+":"+wsBtn4.getText().toString()+":"+"x"+":"+wsBtn6.getText().toString()+":"+wsBtn7.getText().toString()+":"+wsBtn8.getText().toString()+":"+wsBtn9.getText().toString()+":", "");
+                    timeActivated = System.currentTimeMillis();
+                    InAppLog.writeLog(ST.this, "", "Activated!", debug);
+                    startY = y;
+                    startX = x;
+
                     InAppLog.writeLog(ST.this, "", "On Touch " + startX + " | " + startY, debug);
                     break;
 

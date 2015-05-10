@@ -109,7 +109,7 @@ public class ButtonFnManager {
              break;
 
          case FN_HELP:
-             st.startActivityForResult(new Intent(st, TutorialActivity.class), ST.REQUEST_CODE_TUTORIAL);
+             //TODO SHOW HELP
              break;
 		 
 		 case FN_VOICE_INPUT:

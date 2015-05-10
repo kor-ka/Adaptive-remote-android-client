@@ -11,88 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <LinearLayout
-            android:id="@+id/dragMenuLL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="invisible"
-            android:orientation="vertical"
-            android:layout_marginTop="50dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <Button
-                    android:id="@+id/editButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/drag_drop_edit"
-                    android:drawableLeft="@android:drawable/ic_menu_edit"
-                    android:background="@color/transparent_gray"
-                    android:textColor="@android:color/white"
-                    android:layout_margin="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"/>
-
-                <Button
-                    android:id="@+id/dellButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/drag_drop_del"
-                    android:drawableLeft="@android:drawable/ic_menu_close_clear_cancel"
-                    android:background="#44000000"
-                    android:textColor="@android:color/white"
-                    android:layout_margin="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"/>
-
-            </LinearLayout>
-
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/VolDownButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="#44000000"
-                        android:textColor="@android:color/white"
-                        android:layout_margin="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:layout_weight="1"
-                        android:text="@string/volDown" />
-
-                    <Button
-                        android:id="@+id/VolUpButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/volUp"
-                        android:background="@color/transparent_gray"
-                        android:textColor="@android:color/white"
-                        android:layout_margin="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:layout_weight="1" />
-
-
-                </LinearLayout>
-
-        </LinearLayout>
-
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ST"
             android:background="@android:color/white"
-            android:padding="10dp"
             android:layout_gravity="right|top"
             android:id="@+id/ll">
 
@@ -248,12 +172,9 @@
 
 
 
-
-
-
                 <TableRow
                     android:id="@+id/tableWSRow1"
-                    android:layout_width="300dp"
+
                     android:layout_height="50dp"
 
                     >
@@ -261,89 +182,80 @@
                         android:id="@+id/workSpaceBTN1"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:textColor="#FFFFFF"
+                       android:textColor="@android:color/transparent"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
-                        android:visibility="invisible"
+
                         />
 
                     <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN2"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:textColor="#FFFFFF"
+                       android:textColor="@android:color/transparent"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
-                        android:visibility="invisible"
+
                          />
 
                     <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN3"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:textColor="#FFFFFF"
+                       android:textColor="@android:color/transparent"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
-                        android:visibility="invisible"
+
                         />
                 </TableRow>
 
                 <TableRow
                     android:id="@+id/tableWSRow2"
-                    android:layout_width="300dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50dp"
-
-                   >
+>
                     <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN4"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
 
-                        android:textColor="#FFFFFF"
+                       android:textColor="@android:color/transparent"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="@string/no_functon"
+
+                        />
+
+                    <ru.korinc.sockettest.FnButton
+                        android:id="@+id/workSpaceBTNNoBtn"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                       android:textColor="@android:color/transparent"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
                         android:visibility="invisible"
                         />
-
-                    <FrameLayout
-                        android:layout_width="100dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center"
-                        android:id="@+id/oneBtn">
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
-
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-
-
-                            android:src="@drawable/one_btn_bgrnd"
-                            android:layout_gravity="center"
-                            />
-                    </FrameLayout>
 
 
                     <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN6"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:textColor="#FFFFFF"
+                       android:textColor="@android:color/transparent"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
-                        android:visibility="invisible"
+
                         />
                 </TableRow>
 
                 <TableRow
                     android:id="@+id/tableWSRow3"
-                    android:layout_width="300dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50dp"
 
                     >
@@ -351,47 +263,145 @@
                         android:id="@+id/workSpaceBTN7"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:textColor="#FFFFFF"
+                       android:textColor="@android:color/transparent"
+                        
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
-                        android:visibility="invisible"
+
                         />
 
                     <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN8"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:textColor="#FFFFFF"
+                       android:textColor="@android:color/transparent"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
-                        android:visibility="invisible"
+
                         />
 
                     <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN9"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:textColor="#FFFFFF"
+                       android:textColor="@android:color/transparent"
                         android:background="@drawable/no_fn_btn_seelctor"
                         android:layout_margin="5dp"
                         android:text="@string/no_functon"
-                        android:visibility="invisible"
+
                         />
                 </TableRow>
+
             </TableLayout>
 
             <ImageView
                 android:layout_width="30dp"
-                android:layout_height="40dp"
+                android:layout_height="15dp"
                 android:id="@+id/menu_btn"
                 android:background="@drawable/menu_bgrnd"
                 android:layout_alignParentTop="true"
-                android:layout_alignRight="@+id/workSpace" />
+                android:layout_alignParentRight="true"
+                android:layout_margin="20dp" />
 
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_alignTop="@id/workSpace"
+                android:layout_alignBottom="@id/workSpace"
+
+                >
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+
+
+                    android:src="@drawable/one_btn_bgrnd"
+                    android:layout_gravity="center"
+                    android:id="@+id/oneBtn"
+                    android:padding="20dp" />
+            </FrameLayout>
 
         </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/dragMenuLL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/editButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/drag_drop_edit"
+                    android:drawableLeft="@android:drawable/ic_menu_edit"
+                    android:background="@color/transparent_gray"
+                    android:textColor="@android:color/white"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"/>
+
+                <Button
+                    android:id="@+id/dellButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/drag_drop_del"
+                    android:drawableLeft="@android:drawable/ic_menu_close_clear_cancel"
+                    android:background="#44000000"
+                    android:textColor="@android:color/white"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"/>
+
+            </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/VolDownButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#44000000"
+                        android:textColor="@android:color/white"
+                        android:layout_margin="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_weight="1"
+                        android:text="@string/volDown" />
+
+                    <Button
+                        android:id="@+id/VolUpButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/volUp"
+                        android:background="@color/transparent_gray"
+                        android:textColor="@android:color/white"
+                        android:layout_margin="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_weight="1" />
+
+
+                </LinearLayout>
+
+        </LinearLayout>
 
 
     </FrameLayout>
@@ -407,8 +417,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="+"
-            android:textColor="@android:color/white"
-            android:background="@android:color/holo_blue_light"
+            android:textColor="@android:color/black"
+            android:background="@android:color/white"
             />
 
         <GridView android:id="@+id/right_drawer"
@@ -419,7 +429,7 @@
             android:choiceMode="singleChoice"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"
-            android:background="#aaa"/>
+            android:background="@android:color/white"/>
         </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>

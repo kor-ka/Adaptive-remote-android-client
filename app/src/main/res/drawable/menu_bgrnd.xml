@@ -13,7 +13,7 @@
         </shape>
     </item>
 
-    <item android:top="52px">
+    <item android:bottom="26px">
         <shape android:shape="line" >
             <stroke android:width="1dip" android:color="@android:color/black" />
         </shape>
