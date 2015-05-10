@@ -1,8 +1,6 @@
 package ru.korinc.sockettest;
 
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.PendingIntent;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,7 +20,6 @@ import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.InputType;
@@ -44,7 +41,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -68,7 +64,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import ru.korinc.sockettest.util.NotificationReceiver;
 import util.IabHelper;
 import util.IabResult;
 import util.Inventory;
@@ -119,7 +114,8 @@ public class ST extends FragmentActivity implements OnClickListener {
 
     TableLayout workSpace;
 
-    public  FnButton[] fnButtons;
+    public  FnButton[] contextButtons;
+    public  FnButton[] staticButtons;
 
     View.OnLongClickListener olclFn;
     OnClickListener ocl;
@@ -319,9 +315,10 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         workSpace = (TableLayout) findViewById(R.id.workSpace);
 
-        fnButtons = new FnButton[]{wsBtn1,wsBtn2,wsBtn3,wsBtn4,wsBtn6,wsBtn7,wsBtn8,wsBtn9};
+        contextButtons = new FnButton[]{wsBtn1,wsBtn2,wsBtn3,wsBtn4,wsBtn6};
+        staticButtons = new FnButton[]{wsBtn7,wsBtn8,wsBtn9};
         int i =0;
-        for(FnButton b:fnButtons){
+        for(FnButton b: contextButtons){
             ed.putInt("ButtonId" + i, getReqCodeById(b.getId()));
             i++;
 
@@ -408,7 +405,7 @@ public class ST extends FragmentActivity implements OnClickListener {
             }
         };
 
-        for(final FnButton b:fnButtons){
+        for(final FnButton b: contextButtons){
             b.setOnClickListener(ocl);
             b.setOnLongClickListener(olclFn);
 
@@ -1539,7 +1536,7 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         //bind contextButtonsArrayList<Integer>
         ArrayList<Integer> arr = new ArrayList<Integer>();
-       for(FnButton b:fnButtons){
+       for(FnButton b: contextButtons){
            arr.add(getReqCodeById(b.getId()));
        }
         if(resultCode==RESULT_OK && arr.contains(requestCode)){saveFnBindResults(intent, requestCode, currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""));}
@@ -2093,41 +2090,13 @@ public class ST extends FragmentActivity implements OnClickListener {
     public void bindContextButtons(final String currentProcess, int buttonToUpdate){
         if(buttonToUpdate==0){
             ArrayList<NotificationCompat.Action> actions = new ArrayList<NotificationCompat.Action>();
-            for (FnButton b:fnButtons ) {
+            for (FnButton b: contextButtons) {
                 b.init(getReqCodeById(b.getId())+""+currentProcess, this, ocl, olclFn, fnb);
-                Intent i = new Intent("kor_inc.adaptiveremote.btnpress");
-                i.setAction("kor_inc.adaptiveremote.btnpress");
-                i.putExtra("id", b.id);
-                i.setClass(this, NotificationReceiver.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int) b.id, i, PendingIntent.FLAG_UPDATE_CURRENT);
-                if(b.name!= getString(R.string.no_functon))actions.add(new NotificationCompat.Action(android.R.drawable.ic_dialog_dialer, b.name, pendingIntent));
-            }
-            if(actions.size()>0 && debug){
-                // Create a WearableExtender to add functionality for wearables
-                NotificationCompat.WearableExtender wearableExtender =
-                        new NotificationCompat.WearableExtender()
-                                .setHintHideIcon(true)
-                                .addActions(actions);
 
-                // Create a NotificationCompat.Builder to build a standard notification
-                // then extend it with the WearableExtender
-                Notification notif = new NotificationCompat.Builder(this)
-                        .setContentTitle("Current process is " + currentProcess.substring(currentProcess.lastIndexOf("\\") + 1).replace(".exe", "").replace(".EXE", ""))
-                                //     .setContentText(subject)
-                        .setSmallIcon(R.drawable.ic_launcher)
-                        .extend(wearableExtender)
-                        .build();
-
-                // Get an instance of the NotificationManager service
-                NotificationManagerCompat notificationManager =
-                        NotificationManagerCompat.from(this);
-
-                // Issue the notification with notification manager.
-                notificationManager.notify(123, notif);
             }
 
         }else{
-            for (FnButton b:fnButtons ){
+            for (FnButton b: contextButtons){
                 if(getReqCodeById(b.getId())==buttonToUpdate){
                     b.init(getReqCodeById(b.getId())+""+currentProcess, this, ocl, olclFn, fnb);
                     break;
@@ -2142,7 +2111,6 @@ public class ST extends FragmentActivity implements OnClickListener {
         DbTool db = new DbTool();
         if(i.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION)!= ButtonFnManager.NO_FUNCTION){
             //Пишем кнопку в базу
-            //Сейчас всегда заливаем новую. Потом будем обновлять по id
 
             long id = db.addButton(i.getLongExtra("id", -1), i.getStringExtra("Name"), i.getIntExtra("FnResult", ButtonFnManager.NO_FUNCTION), i.getStringExtra("FnResultArgs"), -1, this, null, 0);
 
