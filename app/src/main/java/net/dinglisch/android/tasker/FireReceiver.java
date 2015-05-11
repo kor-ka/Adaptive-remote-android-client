@@ -118,8 +118,8 @@ Context ctx;
                 db.getButtonIdByPlace(ST.getReqCodeById(R.id.workSpaceBTN9) + pr, ctx)+"",
         };
 
-        String[] btnNames = new String[9];
-        for (int i = 0; i < 9; i++) {
+        String[] btnNames = new String[8];
+        for (int i = 0; i < 8; i++) {
             Cursor c = db.getButtonCursor(Integer.parseInt(btnIds[i]), ctx);
             if(c!=null){
                 btnNames[i] = c.getString(c.getColumnIndex(DbTool.BUTTONS_TABLE_NAME));
@@ -130,11 +130,11 @@ Context ctx;
         Bundle vars = new Bundle();
 
         vars.putString( "%context", pr );
-        for (int i = 1; i < 10; i++) {
+        for (int i = 1; i < 9; i++) {
             vars.putString( "%btnids"+i, btnIds[i-1] );
         }
 
-        for (int i = 1; i < 10; i++) {
+        for (int i = 1; i < 9   ; i++) {
             vars.putString( "%btnnames"+i, btnNames[i-1] );
         }
 

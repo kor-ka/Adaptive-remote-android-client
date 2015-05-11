@@ -175,7 +175,8 @@
                 <TableRow
                     android:id="@+id/tableWSRow1"
 
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="65dp"
 
                     >
                     <ru.korinc.sockettest.FnButton
@@ -216,6 +217,7 @@
                     android:id="@+id/tableWSRow2"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
+                    android:minHeight="65dp"
 >
                     <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN4"
@@ -257,7 +259,8 @@
                     android:id="@+id/tableWSRow3"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:background="#75d6d6d6">
+                    android:background="#75d6d6d6"
+                    android:minHeight="65dp">
                     <ru.korinc.sockettest.FnButton
                         android:id="@+id/workSpaceBTN7"
                         android:layout_width="100dp"
@@ -315,14 +318,14 @@
                 >
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
 
 
                     android:src="@drawable/one_btn_bgrnd"
                     android:layout_gravity="center"
                     android:id="@+id/oneBtn"
-                    android:padding="20dp" />
+                    android:padding="30dp" />
             </FrameLayout>
 
         </RelativeLayout>
@@ -345,7 +348,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/drag_drop_edit"
-                    android:drawableLeft="@android:drawable/ic_menu_edit"
                     android:background="@android:color/transparent"
                     android:textColor="@android:color/black"
                     android:layout_margin="5dp"
@@ -357,12 +359,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/drag_drop_del"
-                    android:drawableLeft="@android:drawable/ic_menu_close_clear_cancel"
                     android:background="@android:color/transparent"
                     android:textColor="@android:color/black"
                     android:layout_margin="5dp"
                     android:paddingLeft="5dp"
-                    android:paddingRight="5dp"/>
+                    android:paddingRight="5dp"
+                    android:clickable="false" />
 
             </LinearLayout>
 

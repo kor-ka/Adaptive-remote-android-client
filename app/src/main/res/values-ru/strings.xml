@@ -34,7 +34,7 @@
     <!--Tutorial-->
     <string name="title_activity_tutorial">Помощь</string>
     <string name="send_link_via">Отправить ссылку на сервер через</string>
-    <string name="tutorial_send_me_link">Отправляй мне ссылку на сервер - и погнали!</string>
+    <string name="tutorial_send_me_link">Отправляй мне ссылку на приложение для PC - и погнали!</string>
 
     <string-array name="tutorial_titles">
         <item>Главный экран</item>
@@ -75,7 +75,7 @@
     <string name="voice_input_hint_voice_fn">Какую команду выполнить? Параметр?</string>
 
     <!--Connect to server-->
-    <string name="connect_dialog_title">Подключиться к серверу</string>
+    <string name="connect_dialog_title">Подключиться к PC</string>
     <string name="connect_dialog_body">Ручной ввод:</string>
     <string name="connect_dialog_okj">Подключиться!</string>
     <string name="connect_dialog_no_port">Вы не указали Port :\'(</string>
@@ -114,6 +114,9 @@
     <string name="full_access_dialog_no">Не сегодня</string>
     <string name="drag_drop_edit">Редактировать</string>
     <string name="drag_drop_del">Удалить</string>
+    <string name="hold_one_btn_hint">Не отпускай, смотри на экран PC :)</string>
+    <string name="tutorial_you_need_pc_app">Для работы приложения необходио запустить приложение на PC</string>
+    <string name="first_launch">Первый запуск</string>
 
 
 </resources>

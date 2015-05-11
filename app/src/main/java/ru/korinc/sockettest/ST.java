@@ -26,6 +26,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -235,7 +236,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         setContentView(R.layout.activity_st);
 
         if(shp.getBoolean("firstLaunch", true)){
-           //TODO FIRST LAUNCH
+            showFirstLaunchDialog();
             ed.putBoolean("firstLaunch", false);
             ed.commit();
         }
@@ -315,14 +316,8 @@ public class ST extends FragmentActivity implements OnClickListener {
             ed.putStringSet("map", keyoVoiceInputFix);
             ed.commit();
 
-
-
-
-
-
-
-            db.addButton(-1, "", ButtonFnManager.FN_HELP, "", 0, this, "", 0);
             db.addButton(-1, "", ButtonFnManager.FN_FIRE_FN, "", 0, this, "", 0);
+            db.addButton(-1, "", ButtonFnManager.FN_HELP, "", 0, this, "", 0);
             db.addButton(-1, "", ButtonFnManager.FN_VOICE_FN, "", 0, this, "", 0);
             db.addButton(-1, "", ButtonFnManager.FN_SETTINGS, "", 0, this, "", 0);
             db.addButton(-1, "", ButtonFnManager.FN_SCAN, "", 0, this, "", 0);
@@ -568,13 +563,13 @@ public class ST extends FragmentActivity implements OnClickListener {
 
                     case DragEvent.ACTION_DRAG_ENDED:
                         dragMenuLL.setVisibility(View.INVISIBLE);
-                        editBtn.setBackgroundColor(ST.this.getResources().getColor(R.color.transparent_gray));
-                        dellBtn.setBackgroundColor(ST.this.getResources().getColor(R.color.transparent_gray));
+                        editBtn.setBackgroundColor(ST.this.getResources().getColor(android.R.color.transparent));
+                        dellBtn.setBackgroundColor(ST.this.getResources().getColor(android.R.color.transparent));
                         editBtn.invalidate();
                         dellBtn.invalidate();
 
-                        volDownBtn.setBackgroundColor(ST.this.getResources().getColor(R.color.transparent_gray));
-                        volUpBtn.setBackgroundColor(ST.this.getResources().getColor(R.color.transparent_gray));
+                        volDownBtn.setBackgroundColor(ST.this.getResources().getColor(android.R.color.transparent));
+                        volUpBtn.setBackgroundColor(ST.this.getResources().getColor(android.R.color.transparent));
                         volDownBtn.invalidate();
                         volUpBtn.invalidate();
                         return true;
@@ -931,6 +926,25 @@ public class ST extends FragmentActivity implements OnClickListener {
         //exportDatabse("db");
     }
 
+    public void showFirstLaunchDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(ST.this).create();
+        alertDialog.setTitle(getString(R.string.first_launch));
+        alertDialog.setMessage(getString(R.string.tutorial_you_need_pc_app));
+        alertDialog.setButton(getString(R.string.tutorial_send_me_link), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "https://dl.dropboxusercontent.com/u/30840341/Adaptive%20remote/Adaptive%20remote%20server.jar");
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_link_via)));
+                dialog.dismiss();
+            }
+        });
+
+
+        alertDialog.show();
+    }
+
     private void startSearch() {
 
         searching = true;
@@ -1033,6 +1047,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         int[] btnCondidateCoord = new int[]{0, 0};
         int btnCondidateInt = 5;
         long timeActivated;
+        int minMoveToSwitch = getPxByDp(30);
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -1073,12 +1088,12 @@ public class ST extends FragmentActivity implements OnClickListener {
                         if(System.currentTimeMillis()-timeActivated>100){
                             int moveCondidateX=0;
                             int moveCondidateY=0;
-                            if(moveX > 40 || moveX < -40){
+                            if(moveX > minMoveToSwitch || moveX < -minMoveToSwitch){
                                 moveCondidateX = moveX>0?-1:1;
                                 startX = x;
                                 startY = y;
                             }
-                            if(moveY > 40 || moveY < -40){
+                            if(moveY > minMoveToSwitch || moveY < -minMoveToSwitch){
                                 moveCondidateY = moveY>0?1:-1;
                                 startX = x;
                                 startY = y;
@@ -1098,7 +1113,12 @@ public class ST extends FragmentActivity implements OnClickListener {
                     if(overlayActivated){
                         InAppLog.writeLog(ST.this, "", "Overlay release", debug);
                         overlayActivated = false;
-
+                        //Показываем пдсказку, если пользователь просто кликнул
+                        if(System.currentTimeMillis()-timeActivated<300 && btnCondidate==null){
+                            Toast toast = Toast.makeText(ST.this,getString(R.string.hold_one_btn_hint), Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        }
                         fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
                         fnb.press(ButtonFnManager.FN_COMMAND_LINE, "overlay::0::", "");
                         if(btnCondidate!=null){
@@ -1122,6 +1142,11 @@ public class ST extends FragmentActivity implements OnClickListener {
 
             return true;
         }
+
+        private int getPxByDp(int i){
+           return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, i, getResources().getDisplayMetrics());
+        }
+
 
         private void moveCondidate(int x, int y){
             int btnCoordinateOld = btnCondidateInt;
@@ -1285,48 +1310,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         return found_bcast_address;
     }
 
-    private void discoverServersForDialog() {
-                ipPortsArray.clear();
-                String broadcastAdress = getBroadcast();
-                   breakDiscovering = false;
-                if(broadcastAdress!=null){
-                    for (int j = 1026; j <= 1032; j++) {
-                        for (int i = 1; i <=255 ; i++) {
-                            if(breakDiscovering)break;
-                            String ipToDesc = broadcastAdress.substring(0, broadcastAdress.lastIndexOf("255"))+i;
-                            new Thread(new SocketThread(ipToDesc/*broadcastAdress*/, j==1032?1025:j, ButtonFnManager.ab, 12, 12, ST.this) {
 
-                                @Override
-                                public void run() {
-
-                                    super.run();
-
-                                    try {
-                                        //final String s = in.readUTF();
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                if(line!=null&&line.startsWith("ok")) {
-                                                    ((ArrayAdapter) dialog.getListView().getAdapter()).add(line.substring(0, line.lastIndexOf("<process>")).substring(2));
-                                                    ipPortsArray.add(ip + ":" + port);
-                                                }
-
-                                            }
-                                        });
-
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-
-                            }).start();
-                        }
-
-                    }
-
-
-                }
-    }
 
     private void discoverServers() {
         ipPortsArray.clear();
@@ -1463,8 +1447,10 @@ public class ST extends FragmentActivity implements OnClickListener {
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this,
-                AlertDialog.THEME_HOLO_DARK);
+                AlertDialog.THEME_HOLO_LIGHT);
         builder.setTitle(getString(R.string.connect_dialog_title));
+
+        final TextView tvNeedPcApp = new TextView(this);
 
         // Set up the input
         final EditText input = new EditText(this);
@@ -1498,6 +1484,8 @@ public class ST extends FragmentActivity implements OnClickListener {
 
         llHorizontal.addView(input);
         llHorizontal.addView(inputPort);
+
+
 
         ll.addView(tv);
         ll.addView(llHorizontal);
@@ -1574,35 +1562,13 @@ public class ST extends FragmentActivity implements OnClickListener {
                     }
                 });
 
-        final ArrayAdapter<String> serversArrayAdapter = new ArrayAdapter<String>(
-                ST.this,
-                android.R.layout.select_dialog_singlechoice);
 
-        builder.setAdapter(serversArrayAdapter,
-            new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String[] ipPort = ipPortsArray.get(which).split(":");
-                    ipEt.setText(ipPort[0]);
-                    portEt.setText(ipPort[1]);
-
-                    saveIpPort(ipPort[0], ipPort[1]);
-                    breakDiscovering = true;
-                    new Thread(new SocketThread(ipPort[0],Integer.parseInt(ipPort[1]), ButtonFnManager.ab, 0,0,ST.this )).start();
-                }
-            });
 
         dialog = builder.create();
 
         dialog.show();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                discoverServersForDialog();
-            }
-        }).start();
+
     }
 
     private void saveIpPort(String IP, String port) {

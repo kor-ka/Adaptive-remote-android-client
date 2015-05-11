@@ -35,7 +35,7 @@
     <!--Tutorial-->
     <string name="title_activity_tutorial">Help</string>
     <string name="send_link_via">Send link via</string>
-    <string name="tutorial_send_me_link">Send me download server link!</string>
+    <string name="tutorial_send_me_link">Send me download PC app link!</string>
 
     <string-array name="tutorial_titles">
         <item>Main screen</item>
@@ -76,7 +76,7 @@
     <string name="voice_input_hint_voice_fn">What Fn to fire? Input?</string>
 
     <!--Connect to server-->
-    <string name="connect_dialog_title">Connect to server</string>
+    <string name="connect_dialog_title">Connect to PC</string>
     <string name="connect_dialog_body">IP and port:</string>
     <string name="connect_dialog_okj">Connect!</string>
     <string name="connect_dialog_no_port">Port?</string>
@@ -114,4 +114,8 @@
 
     <string name="drag_drop_edit">Edit</string>
     <string name="drag_drop_del">Delete</string>
+
+    <string name="hold_one_btn_hint">Hold, look at PC screen :)</string>
+    <string name="tutorial_you_need_pc_app">To use remote you need to run the application on your PC</string>
+    <string name="first_launch">First launch</string>
 </resources>

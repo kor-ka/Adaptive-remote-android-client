@@ -75,7 +75,7 @@ public class ButtonFnManager {
 		 fnMap = new LinkedHashMap<Integer, String>();
 			fnMap.put(NO_FUNCTION, ctx.getString(R.string.no_functon));
             fnMap.put(FN_SETTINGS, ctx.getString(R.string.title_activity_settings));
-            fnMap.put(FN_HELP, ctx.getString(R.string.title_activity_tutorial));
+            fnMap.put(FN_HELP, ctx.getString(R.string.first_launch  ));
 			fnMap.put(FN_VOICE_FN, ctx.getString(R.string.btn_voice_fn));
 			fnMap.put(FN_VOICE_INPUT, ctx.getString(R.string.btn_voice_input));
 			fnMap.put(FN_FIRE_FN, ctx.getString(R.string.btn_fire_fn));
@@ -108,7 +108,7 @@ public class ButtonFnManager {
              break;
 
          case FN_HELP:
-             //TODO SHOW HELP
+                st.showFirstLaunchDialog();
              break;
 		 
 		 case FN_VOICE_INPUT:
