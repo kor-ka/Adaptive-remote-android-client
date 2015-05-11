@@ -74,9 +74,9 @@ public class ButtonFnManager {
 	 public void initiateMap(){
 		 fnMap = new LinkedHashMap<Integer, String>();
 			fnMap.put(NO_FUNCTION, ctx.getString(R.string.no_functon));
-            fnMap.put(FN_SETTINGS, ctx.getString(R.string.title_activity_settings));
+
             fnMap.put(FN_HELP, ctx.getString(R.string.first_launch  ));
-			fnMap.put(FN_VOICE_FN, ctx.getString(R.string.btn_voice_fn));
+
 			fnMap.put(FN_VOICE_INPUT, ctx.getString(R.string.btn_voice_input));
 			fnMap.put(FN_FIRE_FN, ctx.getString(R.string.btn_fire_fn));
 			fnMap.put(FN_SCAN, ctx.getString(R.string.btn_connect_to_server));
@@ -90,7 +90,7 @@ public class ButtonFnManager {
             fnMap.put(FN_WHELL_DOWN, ctx.getString(R.string.btn_wheel_down));
 			fnMap.put(FN_CTRL_ALT_DEL, "Ctrl+Alt+Del");
 			fnMap.put(FN_ALT_TAB, "Alt+Tab");
-
+            fnMap.put(FN_VOICE_FN, ctx.getString(R.string.btn_voice_fn));
 	 }
 	
  public void press(int function, String args, String voiceInputArgs){

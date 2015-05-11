@@ -88,7 +88,7 @@
     <string name="no_functon">Без функции</string>
     <string name="btn_voice_fn">Голосовая команда</string>
     <string name="btn_voice_input">Голосовой ввод</string>
-    <string name="btn_fire_fn">Выполнить...</string>
+    <string name="btn_fire_fn">Выполнить</string>
     <string name="btn_connect_to_server">Подключиться к серверу</string>
     <string name="btn_launch_app">Запустить приложение</string>
     <string name="btn_launch_app_from_taskbar">Панель задач</string>

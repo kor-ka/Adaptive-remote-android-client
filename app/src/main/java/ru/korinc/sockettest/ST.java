@@ -319,8 +319,8 @@ public class ST extends FragmentActivity implements OnClickListener {
             db.addButton(-1, "", ButtonFnManager.FN_FIRE_FN, "", 0, this, "", 0);
             db.addButton(-1, "", ButtonFnManager.FN_HELP, "", 0, this, "", 0);
             db.addButton(-1, "", ButtonFnManager.FN_VOICE_FN, "", 0, this, "", 0);
-            db.addButton(-1, "", ButtonFnManager.FN_SETTINGS, "", 0, this, "", 0);
-            db.addButton(-1, "", ButtonFnManager.FN_SCAN, "", 0, this, "", 0);
+
+
 
             db.bindButtonToPlace(db.addButton(-1, "", ButtonFnManager.FN_LAUNCHFROM_TASKBAR, "", 0, this, "", 0), getReqCodeById(staticButtons[0].getId())+"",this);
             db.bindButtonToPlace(db.addButton(-1, "", ButtonFnManager.FN_R_CLICK, "", 0, this, "", 0), getReqCodeById(staticButtons[1].getId())+"",this);
@@ -1606,7 +1606,7 @@ public class ST extends FragmentActivity implements OnClickListener {
         // Pass on the activity result to the helper for handling
         boolean handleIAB = false;
         try{
-            mHelper.handleActivityResult(requestCode, resultCode, intent);
+            if(requestCode!=0)mHelper.handleActivityResult(requestCode, resultCode, intent);
         }catch (Exception e){
             e.printStackTrace();
         }
