@@ -58,100 +58,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: ru.korinc.sockettest" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8aece080-7de7-4787-b604-789c48b90d26" name="Default" comment="menu buttons - clickable!">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_1_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_22_1_1.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_21_0_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_3.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/BuildConfig.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/BuildConfig.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/BuildConfig.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/BuildConfig.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$attr.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$attr.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$attr.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$attr.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$bool.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$bool.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$bool.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$bool.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$color.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$color.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$color.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$color.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$dimen.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$dimen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$dimen.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$dimen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$drawable.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$drawable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$drawable.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$drawable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$id.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$id.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$integer.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$integer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$integer.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$integer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$style.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$style.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$style.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$style.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$styleable.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R$styleable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$styleable.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R$styleable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/debug/com/viewpagerindicator/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R.class" afterPath="$PROJECT_DIR$/library/build/intermediates/classes/release/com/viewpagerindicator/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/bundles/release/classes.jar" afterPath="$PROJECT_DIR$/library/build/intermediates/bundles/release/classes.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/aidl/debug/dependency.store" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/aidl/debug/dependency.store" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable-hdpi-v4/ic_launcher.png" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable-hdpi-v4/ic_launcher.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable-mdpi-v4/ic_launcher.png" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable-mdpi-v4/ic_launcher.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable-xhdpi-v4/ic_launcher.png" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable-xhdpi-v4/ic_launcher.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable-xxhdpi-v4/ic_launcher.png" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable-xxhdpi-v4/ic_launcher.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable-xxxhdpi-v4/ic_launcher.png" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable-xxxhdpi-v4/ic_launcher.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Adaptive-remote-android-client.iml" afterPath="$PROJECT_DIR$/Adaptive-remote-android-client.iml" />
+    <list default="true" id="8aece080-7de7-4787-b604-789c48b90d26" name="Default" comment="fix iab">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/ru/korinc/sockettest/BuildConfig.java" afterPath="$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/ru/korinc/sockettest/BuildConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/ru/korinc/sockettest/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/ru/korinc/sockettest/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/ST.java" afterPath="$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/ST.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_fn_select.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_fn_select.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_launch_from_task_bar.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_launch_from_task_bar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_mapping_list.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_mapping_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_st.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_st.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_st_land.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_st_land.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_voice_fn_mapping_list.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_voice_fn_mapping_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/btn_background.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/btn_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/btn_background_pressed.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/btn_background_pressed.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/btn_seelctor.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/btn_seelctor.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/fn_buttons_fragment.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/fn_buttons_fragment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/fn_custom_command_lay.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/fn_custom_command_lay.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/fn_custom_select_lay.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/fn_custom_select_lay.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/fn_list_lay.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/fn_list_lay.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/menu/fn_select.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/menu/fn_select.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/fragment_dialog.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/fragment_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/inapploglay.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/inapploglay.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/menu/launch_from_task_bar.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/menu/launch_from_task_bar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/library.iml" afterPath="$PROJECT_DIR$/library/library.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/menu/mapping_list.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/menu/mapping_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeAssets/debug/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeAssets/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/incremental/mergeAssets/debug/merger.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/incremental/mergeAssets/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/incremental/mergeAssets/release/merger.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/incremental/mergeAssets/release/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/incremental/mergeResources/debug/merger.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/incremental/mergeResources/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/incremental/mergeResources/release/merger.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/incremental/mergeResources/release/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/incremental/packageResources/release/merger.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/incremental/packageResources/release/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/no_fn_btn_background.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/no_fn_btn_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/no_fn_btn_background_pressed.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/no_fn_btn_background_pressed.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/no_fn_btn_seelctor.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/no_fn_btn_seelctor.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/menu/st.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/menu/st.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values/values.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-land/values.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-land/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-sw720dp-land-v13/values.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-sw720dp-land-v13/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-v11/values.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-v11/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-v14/values.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-v14/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/bundles/release/res/values/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/bundles/release/res/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/res/debug/values/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/res/debug/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/res/release/values/values.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/res/release/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/vpi__dark_theme.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/vpi__dark_theme.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/bundles/release/res/color/vpi__dark_theme.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/bundles/release/res/color/vpi__dark_theme.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/res/debug/color/vpi__dark_theme.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/res/debug/color/vpi__dark_theme.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/res/release/color/vpi__dark_theme.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/res/release/color/vpi__dark_theme.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/vpi__light_theme.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/vpi__light_theme.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/bundles/release/res/color/vpi__light_theme.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/bundles/release/res/color/vpi__light_theme.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/res/debug/color/vpi__light_theme.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/res/debug/color/vpi__light_theme.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/res/release/color/vpi__light_theme.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/res/release/color/vpi__light_theme.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/vpi__tab_indicator.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/vpi__tab_indicator.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/bundles/release/res/drawable/vpi__tab_indicator.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/bundles/release/res/drawable/vpi__tab_indicator.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/res/debug/drawable/vpi__tab_indicator.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/res/debug/drawable/vpi__tab_indicator.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build/intermediates/res/release/drawable/vpi__tab_indicator.xml" afterPath="$PROJECT_DIR$/library/build/intermediates/res/release/drawable/vpi__tab_indicator.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="STA.iws" />
@@ -222,101 +131,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.09137056">
+            <state vertical-scroll-proportion="0.0">
               <caret line="3" column="27" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FireReceiver.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/net/dinglisch/android/tasker/FireReceiver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="75" column="16" selection-start-line="75" selection-start-column="16" selection-end-line="75" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_st.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_st.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="281" column="0" selection-start-line="281" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_st_land.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_st_land.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="475" column="50" selection-start-line="475" selection-start-column="50" selection-end-line="475" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="115" column="48" selection-start-line="115" selection-start-column="48" selection-end-line="115" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="81" selection-start-line="17" selection-start-column="81" selection-end-line="17" selection-end-column="81" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ST.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ST.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/ST.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="2374" column="13" selection-start-line="2374" selection-start-column="13" selection-end-line="2374" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FnListFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/FnListFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="557" column="79" selection-start-line="557" selection-start-column="79" selection-end-line="557" selection-end-column="79" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#20738#20739#0" expanded="false" />
-                <element signature="e#20807#20808#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values-ru/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="113" column="51" selection-start-line="113" selection-start-column="51" selection-end-line="113" selection-end-column="51" />
+            <state vertical-scroll-proportion="0.4568528">
+              <caret line="95" column="32" selection-start-line="95" selection-start-column="32" selection-end-line="95" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -2087,6 +1916,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2230,9 +2060,8 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="AndroidView" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2484,12 +2313,6 @@
       <created>1409483068384</created>
       <option name="number" value="Default" />
       <updated>1409483068384</updated>
-    </task>
-    <task id="LOCAL-00011" summary="add contextButtons">
-      <created>1415095183402</created>
-      <option name="number" value="00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1415095183402</updated>
     </task>
     <task id="LOCAL-00012" summary="add contextButtons">
       <created>1416095925211</created>
@@ -2779,7 +2602,13 @@
       <option name="project" value="LOCAL" />
       <updated>1430410685634</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="fix iab">
+      <created>1434894293587</created>
+      <option name="number" value="00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1434894293588</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2809,7 +2638,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.49960285" order="16" side_tool="false" content_ui="tabs" />
-      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.50039715" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32777777" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -2825,14 +2654,14 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18486056" sideWeight="0.49919486" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32777777" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20289855" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32889125" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32889125" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30222222" sideWeight="0.49960285" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39666668" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -2854,7 +2683,6 @@
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="add plugin icons on btns #2" />
     <MESSAGE value="keyboard fixes" />
     <MESSAGE value="layout fixes + close #21" />
     <MESSAGE value="close #5" />
@@ -2879,7 +2707,8 @@
     <MESSAGE value="menu buttons - clickable!" />
     <MESSAGE value="IAB" />
     <MESSAGE value="obs" />
-    <option name="LAST_COMMIT_MESSAGE" value="obs" />
+    <MESSAGE value="fix iab" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix iab" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2902,6 +2731,17 @@
           <caret line="557" column="79" selection-start-line="557" selection-start-column="79" selection-end-line="557" selection-end-column="79" />
           <folding>
             <element signature="imports" expanded="false" />
+            <element signature="e#3304#3523#0" expanded="false" />
+            <element signature="e#3522#3523#0" expanded="false" />
+            <element signature="e#3567#5337#0" expanded="false" />
+            <element signature="e#5336#5337#0" expanded="false" />
+            <element signature="e#6047#6244#0" expanded="false" />
+            <element signature="e#6243#6244#0" expanded="false" />
+            <element signature="e#10896#11101#0" expanded="false" />
+            <element signature="e#11100#11101#0" expanded="false" />
+            <element signature="e#16055#16063#0" expanded="false" />
+            <element signature="e#16531#17330#0" expanded="false" />
+            <element signature="e#17329#17330#0" expanded="false" />
             <element signature="e#20738#20739#0" expanded="false" />
             <element signature="e#20807#20808#0" expanded="false" />
           </folding>
@@ -3210,6 +3050,17 @@
           <caret line="557" column="79" selection-start-line="557" selection-start-column="79" selection-end-line="557" selection-end-column="79" />
           <folding>
             <element signature="imports" expanded="false" />
+            <element signature="e#3304#3523#0" expanded="false" />
+            <element signature="e#3522#3523#0" expanded="false" />
+            <element signature="e#3567#5337#0" expanded="false" />
+            <element signature="e#5336#5337#0" expanded="false" />
+            <element signature="e#6047#6244#0" expanded="false" />
+            <element signature="e#6243#6244#0" expanded="false" />
+            <element signature="e#10896#11101#0" expanded="false" />
+            <element signature="e#11100#11101#0" expanded="false" />
+            <element signature="e#16055#16063#0" expanded="false" />
+            <element signature="e#16531#17330#0" expanded="false" />
+            <element signature="e#17329#17330#0" expanded="false" />
             <element signature="e#20738#20739#0" expanded="false" />
             <element signature="e#20807#20808#0" expanded="false" />
           </folding>
@@ -3278,18 +3129,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/ST.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="2374" column="13" selection-start-line="2374" selection-start-column="13" selection-end-line="2374" selection-end-column="13" />
+          <caret line="3" column="27" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/korinc/sockettest/ST.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09137056">
-          <caret line="3" column="27" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
+        <state vertical-scroll-proportion="0.4568528">
+          <caret line="95" column="32" selection-start-line="95" selection-start-column="32" selection-end-line="95" selection-end-column="32" />
           <folding />
         </state>
       </provider>

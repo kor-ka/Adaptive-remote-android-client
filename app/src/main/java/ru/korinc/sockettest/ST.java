@@ -93,7 +93,7 @@ public class ST extends FragmentActivity implements OnClickListener {
     public static final String VOL_DOWN_DEFAULT_ARGS = "VOL_DOWN_DEFAULT_ARGS";
     public static final String CURRENT_PROCESS = "currentProcess";
     public static final int REQUEST_CODE_TUTORIAL = 1260;
-    static boolean debug = true;
+    static boolean debug = false;
 
     EditText ipEt;
     EditText portEt;
