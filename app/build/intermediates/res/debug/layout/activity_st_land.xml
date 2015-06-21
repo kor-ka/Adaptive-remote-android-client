@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- The main content view -->
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ST" >
@@ -71,7 +84,7 @@
             android:layout_weight="1" >
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Client port" />
@@ -86,7 +99,7 @@
                 android:inputType="numberDecimal"
                 android:text="4444" />
 
-            <EditText
+            <ru.korinc.sockettest.ZanyEditText
                 android:id="@+id/etKeyboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,7 +107,7 @@
                 android:inputType="textNoSuggestions|textMultiLine" >
 
                 <requestFocus />
-            </EditText>
+            </ru.korinc.sockettest.ZanyEditText>
         </TableRow>
 
         <TableRow
@@ -212,48 +225,201 @@
             android:layout_weight="4"
             android:orientation="horizontal" >
 
-            <ImageButton
-                android:id="@+id/buttonLeft"
+            <TableLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:src="@drawable/navigation_previous_item"
-                android:text="←"
-                android:visibility="gone" />
+                android:layout_weight="1"
+                android:id="@+id/workSpace"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textStatus"
+                    android:text="..."
+                    android:textColor="@android:color/holo_orange_light"
+                    android:layout_gravity="right"
+                    android:visibility="gone"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/radiobutton_off_background"
+                    android:id="@+id/context"
+                    android:background="@android:color/transparent"
+                    android:layout_centerInParent="true"/>
+
+
+                <TableRow
+                    android:id="@+id/tableWSRow1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:visibility="gone">
+                    <ru.korinc.sockettest.FnButton
+                        android:id="@+id/workSpaceBTN1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="@string/no_functon"
+                        />
+
+                    <ru.korinc.sockettest.FnButton
+                        android:id="@+id/workSpaceBTN2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="@string/no_functon"
+                        />
+
+                    <ru.korinc.sockettest.FnButton
+                        android:id="@+id/workSpaceBTN3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="@string/no_functon"
+                        />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableWSRow2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:visibility="gone">
+                    <ru.korinc.sockettest.FnButton
+                        android:id="@+id/workSpaceBTN4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="@string/no_functon"
+                        />
+
+                    <ru.korinc.sockettest.FnButton
+                        android:id="@+id/workSpaceBTN5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="@string/no_functon"
+                        />
+
+                    <ru.korinc.sockettest.FnButton
+                        android:id="@+id/workSpaceBTN6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="@string/no_functon"
+                        />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableWSRow3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:visibility="gone">
+                    <ru.korinc.sockettest.FnButton
+                        android:id="@+id/workSpaceBTN7"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="@string/no_functon"
+                        />
+
+                    <ru.korinc.sockettest.FnButton
+                        android:id="@+id/workSpaceBTN8"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="@string/no_functon"
+                        />
+
+                    <ru.korinc.sockettest.FnButton
+                        android:id="@+id/workSpaceBTN9"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/no_fn_btn_seelctor"
+                        android:layout_margin="5dp"
+                        android:text="@string/no_functon"
+                        />
+                </TableRow>
+            </TableLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:orientation="vertical" >
+                android:layout_weight="1"
+                android:orientation="horizontal" >
 
                 <ImageButton
-                    android:id="@+id/buttonUp"
-                    android:layout_width="fill_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/navigation_collapse"
-                    android:text="↑"
+                    android:id="@+id/buttonLeft"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:src="@drawable/navigation_previous_item"
+                    android:text="←"
                     android:visibility="gone" />
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="vertical" >
+
+                    <ImageButton
+                        android:id="@+id/buttonUp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/navigation_collapse"
+                        android:text="↑"
+                        android:visibility="gone" />
+
+                    <ImageButton
+                        android:id="@+id/buttonDown"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/navigation_expand"
+                        android:text="↓"
+                        android:visibility="gone" />
+                </LinearLayout>
+
                 <ImageButton
-                    android:id="@+id/buttonDown"
-                    android:layout_width="fill_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/navigation_expand"
-                    android:text="↓"
+                    android:id="@+id/buttonRight"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:src="@drawable/navigation_next_item"
+                    android:text="→"
                     android:visibility="gone" />
             </LinearLayout>
-
-            <ImageButton
-                android:id="@+id/buttonRight"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:src="@drawable/navigation_next_item"
-                android:text="→"
-                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
@@ -276,4 +442,160 @@
         </LinearLayout>
     </LinearLayout>
 
-</RelativeLayout><!-- From: file:/home/korka/AndroidstudioProjects/STA/app/src/main/res/layout/activity_st_land.xml -->
+</RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/dragMenuLL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:visibility="invisible"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/editButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/drag_drop_edit"
+                    android:drawableLeft="@android:drawable/ic_menu_edit"
+                    android:background="@color/transparent_gray"
+                    android:textColor="@android:color/white"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"/>
+
+                <Button
+                    android:id="@+id/dellButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/drag_drop_del"
+                    android:drawableLeft="@android:drawable/ic_menu_close_clear_cancel"
+                    android:background="#44000000"
+                    android:textColor="@android:color/white"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"/>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/VolDownButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#44000000"
+                    android:textColor="@android:color/white"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/volDown" />
+
+                <Button
+                    android:id="@+id/VolUpButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/volUp"
+                    android:background="@color/transparent_gray"
+                    android:textColor="@android:color/white"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_weight="1" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id = "@+id/leftScroll"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="15dp"
+
+
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"/>
+
+        <View
+            android:id = "@+id/leftScrollIndicator"
+            android:layout_width="1dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
+            />
+
+        <Button
+
+            android:id = "@+id/rightScroll"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="100dp"
+
+            android:layout_marginRight="15dp"
+            android:layout_width="40dp"
+            android:layout_gravity="right"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent">
+
+        </Button>
+
+        <View
+            android:id = "@+id/rightScrollIndicator"
+            android:layout_width="1dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_gravity="right"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
+            />
+
+
+
+
+    </FrameLayout>
+    <!-- The navigation drawer -->
+    <RelativeLayout
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right">
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:textColor="@android:color/white"
+            android:background="@android:color/holo_blue_light"
+            />
+
+        <GridView android:id="@+id/right_drawer"
+            android:layout_width="match_parent"
+            android:numColumns="2"
+            android:layout_height="match_parent"
+            android:layout_above="@id/addButton"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:background="#aaa"/>
+    </RelativeLayout>
+</android.support.v4.widget.DrawerLayout><!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/src/main/res/layout/activity_st_land.xml -->

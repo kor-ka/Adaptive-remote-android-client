@@ -5,4 +5,4 @@
     <item android:drawable="@drawable/no_fn_btn_background_pressed" android:state_pressed="true"></item>
     <item android:drawable="@drawable/no_fn_btn_background"></item>
 
-</selector><!-- From: file:/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable/no_fn_btn_seelctor.xml -->
+</selector><!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/src/main/res/drawable/no_fn_btn_seelctor.xml -->

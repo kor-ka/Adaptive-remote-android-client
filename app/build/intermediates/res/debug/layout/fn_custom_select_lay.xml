@@ -15,7 +15,7 @@
 
 	<ImageButton
 		android:id="@+id/fnCustomDelElement"
-		android:src="@drawable/ic_action_back"
+		android:src="@drawable/ic_action_content_backspace"
 		android:background="@android:color/transparent"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -58,16 +58,16 @@
          android:textColor="#FFFFFF"
 			    android:background="@drawable/btn_seelctor"
 			    android:layout_margin="5dp"
-        android:text="That&apos;s what i need!" />
+        android:text="@string/fn_create_ok_btn" />
     
-     <EditText
+    <EditText
         android:id="@+id/fnCustomEtName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/fnCustomBtnOk"
         android:hint="Name of button" />
     
-      <TextView
+    <TextView
         android:id="@id/android:empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -88,4 +88,4 @@
 
     
 
-</RelativeLayout><!-- From: file:/home/korka/AndroidstudioProjects/STA/app/src/main/res/layout/fn_custom_select_lay.xml -->
+</RelativeLayout><!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/src/main/res/layout/fn_custom_select_lay.xml -->

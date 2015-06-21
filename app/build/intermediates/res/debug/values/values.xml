@@ -1,20 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- From: file:/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/values/values.xml -->
-    <eat-comment />
-
-    <attr name="centered" format="boolean" />
-    <attr name="selectedColor" format="color" />
-    <attr name="strokeWidth" format="dimension" />
-    <attr name="unselectedColor" format="color" />
-
+    <!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string-array name="tutorial_1">
+        <item>Empty space is touchpad</item>
+        <item>This button shows current PC app and its functions</item>
+        <item>Connect to PC (install server first)</item>
+    </string-array>
+    <string-array name="tutorial_2">
+        <item>Drag button to set up main screen</item>
+        <item>Add new button</item>
+    </string-array>
+    <string-array name="tutorial_3">
+        <item>You can choose preset button, make your own or download plugin with ready to use buttons</item>
+    </string-array>
+    <string-array name="tutorial_4">
+        <item>Slide from left or right button to open app context menu on PC</item>
+        <item>Slide from center button to switch apps on PC</item>
+    </string-array>
+    <string-array name="tutorial_titles">
+        <item>Main screen</item>
+        <item>Side menu, buttons set up</item>
+        <item>Add button dialog</item>
+        <item>Interface integration</item>
+        <item>...</item>
+    </string-array>
+    <!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/build/intermediates/exploded-aar/Adaptive-remote-android-client/library/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <attr format="boolean" name="centered"/>
+    <attr format="color" name="selectedColor"/>
+    <attr format="dimension" name="strokeWidth"/>
+    <attr format="color" name="unselectedColor"/>
     <bool name="default_circle_indicator_centered">true</bool>
     <bool name="default_circle_indicator_snap">false</bool>
     <bool name="default_line_indicator_centered">true</bool>
     <bool name="default_title_indicator_selected_bold">true</bool>
     <bool name="default_underline_indicator_fades">true</bool>
-
     <color name="default_circle_indicator_fill_color">#FFFFFFFF</color>
     <color name="default_circle_indicator_page_color">#00000000</color>
     <color name="default_circle_indicator_stroke_color">#FFDDDDDD</color>
@@ -24,6 +45,11 @@
     <color name="default_title_indicator_selected_color">#FFFFFFFF</color>
     <color name="default_title_indicator_text_color">#BBFFFFFF</color>
     <color name="default_underline_indicator_selected_color">#FF33B5E5</color>
+    <!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <color name="transparent_gray">#44000000</color>
+    <!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/build/intermediates/exploded-aar/Adaptive-remote-android-client/library/unspecified/res/values/values.xml -->
+    <eat-comment/>
     <color name="vpi__background_holo_dark">#ff000000</color>
     <color name="vpi__background_holo_light">#fff3f3f3</color>
     <color name="vpi__bright_foreground_disabled_holo_dark">#ff4c4c4c</color>
@@ -32,121 +58,17 @@
     <color name="vpi__bright_foreground_holo_light">@color/vpi__background_holo_dark</color>
     <color name="vpi__bright_foreground_inverse_holo_dark">@color/vpi__bright_foreground_holo_light</color>
     <color name="vpi__bright_foreground_inverse_holo_light">@color/vpi__bright_foreground_holo_dark</color>
-
-    <declare-styleable name="CirclePageIndicator">
-
-        <!-- Whether or not the indicators should be centered. -->
-        <attr name="centered" />
-        <!-- Color of the filled circle that represents the current page. -->
-        <attr name="fillColor" format="color" />
-        <!-- Color of the filled circles that represents pages. -->
-        <attr name="pageColor" format="color" />
-        <!-- Orientation of the indicator. -->
-        <attr name="android:orientation" />
-        <!-- Radius of the circles. This is also the spacing between circles. -->
-        <attr name="radius" format="dimension" />
-        <!-- Whether or not the selected indicator snaps to the circles. -->
-        <attr name="snap" format="boolean" />
-        <!-- Color of the open circles. -->
-        <attr name="strokeColor" format="color" />
-        <!-- Width of the stroke used to draw the circles. -->
-        <attr name="strokeWidth" />
-        <!-- View background -->
-        <attr name="android:background" />
-    </declare-styleable>
-    <declare-styleable name="LinePageIndicator">
-
-        <!-- Whether or not the indicators should be centered. -->
-        <attr name="centered" />
-        <!-- Color of the unselected lines that represent the pages. -->
-        <attr name="unselectedColor" />
-        <!-- Color of the selected line that represents the current page. -->
-        <attr name="selectedColor" />
-        <!-- Width of each indicator line. -->
-        <attr name="lineWidth" format="dimension" />
-        <!-- Width of each indicator line's stroke. -->
-        <attr name="strokeWidth" />
-        <!-- Width of the gap between each indicator line. -->
-        <attr name="gapWidth" format="dimension" />
-        <!-- View background -->
-        <attr name="android:background" />
-    </declare-styleable>
-    <declare-styleable name="TitlePageIndicator">
-
-        <!-- Screen edge padding. -->
-        <attr name="clipPadding" format="dimension" />
-        <!-- Color of the footer line and indicator. -->
-        <attr name="footerColor" format="color" />
-        <!-- Height of the footer line. -->
-        <attr name="footerLineHeight" format="dimension" />
-        <!-- Style of the indicator. Default is triangle. -->
-        <attr name="footerIndicatorStyle">
-            <enum name="none" value="0" />
-            <enum name="triangle" value="1" />
-            <enum name="underline" value="2" />
-        </attr>
-        <!-- Height of the indicator above the footer line. -->
-        <attr name="footerIndicatorHeight" format="dimension" />
-        <!-- Left and right padding of the underline indicator. -->
-        <attr name="footerIndicatorUnderlinePadding" format="dimension" />
-        <!-- Padding between the bottom of the title and the footer. -->
-        <attr name="footerPadding" format="dimension" />
-        <!-- Position of the line. -->
-        <attr name="linePosition">
-            <enum name="bottom" value="0" />
-            <enum name="top" value="1" />
-        </attr>
-        <!-- Color of the selected title. -->
-        <attr name="selectedColor" />
-        <!-- Whether or not the selected item is displayed as bold. -->
-        <attr name="selectedBold" format="boolean" />
-        <!-- Color of regular titles. -->
-        <attr name="android:textColor" />
-        <!-- Size of title text. -->
-        <attr name="android:textSize" />
-        <!-- Padding between titles when bumping into each other. -->
-        <attr name="titlePadding" format="dimension" />
-        <!-- Padding between titles and the top of the View. -->
-        <attr name="topPadding" format="dimension" />
-        <!-- View background -->
-        <attr name="android:background" />
-    </declare-styleable>
-    <declare-styleable name="UnderlinePageIndicator">
-
-        <!-- Whether or not the selected indicator fades. -->
-        <attr name="fades" format="boolean" />
-        <!-- Length of the delay to fade the indicator. -->
-        <attr name="fadeDelay" format="integer" />
-        <!-- Length of the indicator fade to transparent. -->
-        <attr name="fadeLength" format="integer" />
-        <!-- Color of the selected line that represents the current page. -->
-        <attr name="selectedColor" />
-        <!-- View background -->
-        <attr name="android:background" />
-    </declare-styleable>
-    <declare-styleable name="ViewPagerIndicator">
-
-        <!-- Style of the circle indicator. -->
-        <attr name="vpiCirclePageIndicatorStyle" format="reference" />
-        <!-- Style of the icon indicator's views. -->
-        <attr name="vpiIconPageIndicatorStyle" format="reference" />
-        <!-- Style of the line indicator. -->
-        <attr name="vpiLinePageIndicatorStyle" format="reference" />
-        <!-- Style of the title indicator. -->
-        <attr name="vpiTitlePageIndicatorStyle" format="reference" />
-        <!-- Style of the tab indicator's tabs. -->
-        <attr name="vpiTabPageIndicatorStyle" format="reference" />
-        <!-- Style of the underline indicator. -->
-        <attr name="vpiUnderlinePageIndicatorStyle" format="reference" />
-    </declare-styleable>
-    <!-- From: file:/home/korka/AndroidstudioProjects/STA/app/src/main/res/values/dimens.xml -->
-    <eat-comment />
-
+    <declare-styleable name="CirclePageIndicator"><attr name="centered"/><attr format="color" name="fillColor"/><attr format="color" name="pageColor"/><attr name="android:orientation"/><attr format="dimension" name="radius"/><attr format="boolean" name="snap"/><attr format="color" name="strokeColor"/><attr name="strokeWidth"/><attr name="android:background"/></declare-styleable>
+    <declare-styleable name="LinePageIndicator"><attr name="centered"/><attr name="unselectedColor"/><attr name="selectedColor"/><attr format="dimension" name="lineWidth"/><attr name="strokeWidth"/><attr format="dimension" name="gapWidth"/><attr name="android:background"/></declare-styleable>
+    <declare-styleable name="TitlePageIndicator"><attr format="dimension" name="clipPadding"/><attr format="color" name="footerColor"/><attr format="dimension" name="footerLineHeight"/><attr name="footerIndicatorStyle"><enum name="none" value="0"/><enum name="triangle" value="1"/><enum name="underline" value="2"/></attr><attr format="dimension" name="footerIndicatorHeight"/><attr format="dimension" name="footerIndicatorUnderlinePadding"/><attr format="dimension" name="footerPadding"/><attr name="linePosition"><enum name="bottom" value="0"/><enum name="top" value="1"/></attr><attr name="selectedColor"/><attr format="boolean" name="selectedBold"/><attr name="android:textColor"/><attr name="android:textSize"/><attr format="dimension" name="titlePadding"/><attr format="dimension" name="topPadding"/><attr name="android:background"/></declare-styleable>
+    <declare-styleable name="UnderlinePageIndicator"><attr format="boolean" name="fades"/><attr format="integer" name="fadeDelay"/><attr format="integer" name="fadeLength"/><attr name="selectedColor"/><attr name="android:background"/></declare-styleable>
+    <declare-styleable name="ViewPagerIndicator"><attr format="reference" name="vpiCirclePageIndicatorStyle"/><attr format="reference" name="vpiIconPageIndicatorStyle"/><attr format="reference" name="vpiLinePageIndicatorStyle"/><attr format="reference" name="vpiTitlePageIndicatorStyle"/><attr format="reference" name="vpiTabPageIndicatorStyle"/><attr format="reference" name="vpiUnderlinePageIndicatorStyle"/></declare-styleable>
+    <!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <!-- From: file:/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/values/values.xml -->
-    <eat-comment />
-
+    <!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/build/intermediates/exploded-aar/Adaptive-remote-android-client/library/unspecified/res/values/values.xml -->
+    <eat-comment/>
     <dimen name="default_circle_indicator_radius">3dp</dimen>
     <dimen name="default_circle_indicator_stroke_width">1dp</dimen>
     <dimen name="default_line_indicator_gap_width">4dp</dimen>
@@ -160,73 +82,121 @@
     <dimen name="default_title_indicator_text_size">15dp</dimen>
     <dimen name="default_title_indicator_title_padding">5dp</dimen>
     <dimen name="default_title_indicator_top_padding">7dp</dimen>
-
+    <!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="plugin_icon">25dp</dimen>
+    <!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/build/intermediates/exploded-aar/Adaptive-remote-android-client/library/unspecified/res/values/values.xml -->
+    <eat-comment/>
     <integer name="default_circle_indicator_orientation">0</integer>
     <integer name="default_title_indicator_footer_indicator_style">2</integer>
     <integer name="default_title_indicator_line_position">0</integer>
     <integer name="default_underline_indicator_fade_delay">300</integer>
     <integer name="default_underline_indicator_fade_length">400</integer>
-    <!-- From: file:/home/korka/AndroidstudioProjects/STA/app/src/main/res/values/strings.xml -->
-    <eat-comment />
-
-    <string name="action_settings">Settings</string>
+    <!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
     <string name="app_name">Adaptive remote</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="btn_arrows">Arrows</string>
+    <string name="btn_center_click">Center click</string>
+    <string name="btn_connect_to_server">Connect to server</string>
+    <string name="btn_context_btns">Context buttons</string>
+    <string name="btn_fire_fn">Fire Fn</string>
+    <string name="btn_launch_app">Launch app</string>
+    <string name="btn_launch_app_from_taskbar">Launch app from taskbar</string>
+    <string name="btn_left_click">Left click</string>
+    <string name="btn_right_click">Right click</string>
+    <string name="btn_voice_fn">Voice Fn</string>
+    <string name="btn_voice_input">Voice input</string>
+    <string name="btn_wheel_down">Wheel down</string>
+    <string name="btn_wheel_up">Wheel up</string>
+    <string name="connect_dialog_body">IP and port:</string>
+    <string name="connect_dialog_no_barcode_scanner">Get QR scanner</string>
+    <string name="connect_dialog_no_ip">IP?</string>
+    <string name="connect_dialog_no_port">Port?</string>
+    <string name="connect_dialog_okj">Connect!</string>
+    <string name="connect_dialog_scan_qr">Scan QR</string>
+    <string name="connect_dialog_title">Connect to server</string>
+    <string name="connect_dilog_no_ip_no_port">IP? Port?</string>
+    <string name="drag_drop_del">Delete</string>
+    <string name="drag_drop_edit">Edit</string>
+    <string name="enter_after_voiceinput">Enter after voice input</string>
+    <string name="fn_bind_tab_title_choose">Choose existing fn</string>
+    <string name="fn_bind_tab_title_cmd">Create command line command</string>
+    <string name="fn_bind_tab_title_shortcut">Create shortcut</string>
+    <string name="fn_create_ok_btn">That\'s what i need!</string>
+    <string name="fn_custom_empty_text">Select something</string>
+    <string name="full_access_dialog_body">You reached buttons limit. Buy full access to add and edit buttons with no limits.</string>
+    <string name="full_access_dialog_no">Not today</string>
+    <string name="full_access_dialog_ok">Buy full access</string>
+    <string name="full_access_dialog_title">Full access</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="left_scroll">eft scroll</string>
+    <string name="no_functon">No function</string>
+    <string name="right_scroll">Right scroll</string>
+    <string name="send_link_via">Send link via</string>
+    <string name="set_vol_buttons_b1">for current process</string>
+    <string name="set_vol_buttons_b2">by default</string>
+    <string name="set_vol_buttons_b3">reset</string>
+    <string name="set_vol_buttons_dialog_body">Enable for current process, set by default or reset?</string>
+    <string name="set_vol_buttons_dialog_title">Vol buttons settings</string>
+    <string name="settings_about_replace">Replase map</string>
+    <string name="title_activity_fn_byn_id">FnBynId</string>
     <string name="title_activity_fn_select">Fn Select</string>
     <string name="title_activity_launch_from_task_bar">Launch from taskbar</string>
-    <string name="title_activity_mapping_list">Fix voice input</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_tutorial">Help</string>
     <string name="title_activity_voice_fn_mapping_list">Voice Fn commands</string>
-    <!-- From: file:/home/korka/AndroidstudioProjects/STA/app/src/main/res/values/styles.xml -->
-    <eat-comment />
-
+    <string name="tutorial_send_me_link">Send me download server link!</string>
+    <string name="voice_input_hint_cmd_input">Input...</string>
+    <string name="voice_input_hint_launch_app">What app to launch?</string>
+    <string name="voice_input_hint_voice_fn">What Fn to fire? Input?</string>
+    <string name="voice_input_hint_voice_input">Speak...</string>
+    <string name="volDown">vol -</string>
+    <string name="volUp">vol +</string>
+    <!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/src/main/res/values/styles.xml -->
+    <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
+
+
         -->
     </style>
-
     <style name="AppTheme" parent="AppBaseTheme">
 
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="android:actionBarStyle">@style/MyActionBar</item>
         <item name="android:itemTextAppearance">@style/myCustomMenuTextApearance</item>
         <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
+       
     </style>
-
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@android:color/holo_blue_light</item>
-        <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
+         <item name="android:titleTextStyle">@style/MyTheme.ActionBar.TitleTextStyle</item>
     </style>
-
     <style name="MyActionButtonOverflow" parent="android:style/Widget.Holo.ActionButton.Overflow">
-        <item name="android:src">@drawable/ic_overflow</item>
-    </style>
-
+    <item name="android:src">@drawable/ic_overflow</item>
+</style>
     <style name="MyTheme.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@android:color/white</item>
     </style>
-    <!-- From: file:/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/STA/library/unspecified/res/values/values.xml -->
-    <eat-comment />
-
+    <!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/build/intermediates/exploded-aar/Adaptive-remote-android-client/library/unspecified/res/values/values.xml -->
+    <eat-comment/>
     <style name="TextAppearance.TabPageIndicator" parent="Widget">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/vpi__dark_theme</item>
     </style>
-
     <style name="Theme.PageIndicatorDefaults" parent="android:Theme">
         <item name="vpiIconPageIndicatorStyle">@style/Widget.IconPageIndicator</item>
         <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
     </style>
-
-    <style name="Widget" />
-
+    <style name="Widget">
+    </style>
     <style name="Widget.IconPageIndicator" parent="Widget">
         <item name="android:layout_marginLeft">6dp</item>
         <item name="android:layout_marginRight">6dp</item>
     </style>
-
     <style name="Widget.TabPageIndicator" parent="Widget">
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/vpi__tab_indicator</item>
@@ -238,11 +208,9 @@
         <item name="android:textSize">12sp</item>
         <item name="android:maxLines">1</item>
     </style>
-    <!-- From: file:/home/korka/AndroidstudioProjects/STA/app/src/main/res/values/styles.xml -->
-    <eat-comment />
-
+    <!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/src/main/res/values/styles.xml -->
+    <eat-comment/>
     <style name="myCustomMenuTextApearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
         <item name="android:textColor">@android:color/holo_blue_dark</item>
     </style>
-
 </resources>

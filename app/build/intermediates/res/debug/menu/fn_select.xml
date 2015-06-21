@@ -1,10 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
+
 
 </menu>
-<!-- From: file:/home/korka/AndroidstudioProjects/STA/app/src/main/res/menu/fn_select.xml -->
+<!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/src/main/res/menu/fn_select.xml -->

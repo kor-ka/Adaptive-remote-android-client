@@ -3,16 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
     tools:context=".MappingList" >
+
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_after_voiceinput"
+        android:id="@+id/enterAfterVoiceInput"
+        android:checked="false" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/left_scroll"
+        android:id="@+id/leftScroll"
+        android:checked="false" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/right_scroll"
+        android:id="@+id/rightScroll"
+        android:checked="false" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Список для переназначания результатов распознавания голоса (в случае, если не верно интерпритируется голосовой ввод, например &quot;хром&quot; вместо &quot;chrome&quot;)." />
+        android:text="@string/settings_about_replace" />
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,4 +79,4 @@
 
    
 </LinearLayout>
-<!-- From: file:/home/korka/AndroidstudioProjects/STA/app/src/main/res/layout/activity_mapping_list.xml -->
+<!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/src/main/res/layout/activity_mapping_list.xml -->

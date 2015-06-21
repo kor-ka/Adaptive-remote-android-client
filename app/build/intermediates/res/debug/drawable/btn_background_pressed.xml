@@ -3,15 +3,15 @@
 
     <item>
         <shape android:shape="rectangle" >
-            <solid android:color="@android:color/holo_blue_dark" />
+            <solid android:color="@android:color/darker_gray" />
              <corners android:radius="5dp"/>
         </shape>
     </item>
     <item android:bottom="5dp">
         <shape android:shape="rectangle" >
-            <solid android:color="@android:color/holo_blue_dark" />
+            <solid android:color="@android:color/darker_gray" />
              <corners android:radius="5dp"/>
         </shape>
     </item>
 
-</layer-list><!-- From: file:/home/korka/AndroidstudioProjects/STA/app/src/main/res/drawable/btn_background_pressed.xml -->
+</layer-list><!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/src/main/res/drawable/btn_background_pressed.xml -->

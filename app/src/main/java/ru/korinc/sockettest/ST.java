@@ -2367,7 +2367,13 @@ public class ST extends FragmentActivity implements OnClickListener {
         ed.putString("ip", ipEt.getText().toString());
         ed.putString("port", portEt.getText().toString());
         ed.commit();
-        if (mHelper != null) mHelper.dispose();
+        if (mHelper != null){
+            try {
+                mHelper.dispose();
+            }catch (IllegalArgumentException ex){
+                ex.printStackTrace();
+            }
+        }
         mHelper = null;
         super.onDestroy();
     }

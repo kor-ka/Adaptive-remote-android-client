@@ -1,14 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="2" >
-
-    <dataSet config="21.0.0-rc1" >
-        <source path="/home/korka/AndroidstudioProjects/STA/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0-rc1/assets" />
-    </dataSet>
-    <dataSet config="main" >
-        <source path="/home/korka/AndroidstudioProjects/STA/app/src/main/assets" />
-    </dataSet>
-    <dataSet config="debug" >
-        <source path="/home/korka/AndroidstudioProjects/STA/app/src/debug/assets" />
-    </dataSet>
-
-</merger>
+<merger version="3"><dataSet config="22.1.1"><source path="/home/korka/Documents/Adaptive-remote-android-client/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.1/assets"/></dataSet><dataSet config="unspecified"><source path="/home/korka/Documents/Adaptive-remote-android-client/app/build/intermediates/exploded-aar/Adaptive-remote-android-client/library/unspecified/assets"/></dataSet><dataSet config="main"><source path="/home/korka/Documents/Adaptive-remote-android-client/app/src/main/assets"/></dataSet><dataSet config="debug"><source path="/home/korka/Documents/Adaptive-remote-android-client/app/src/debug/assets"/></dataSet></merger>

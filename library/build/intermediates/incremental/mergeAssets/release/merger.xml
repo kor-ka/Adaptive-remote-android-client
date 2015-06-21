@@ -1,11 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="2" >
-
-    <dataSet config="main" >
-        <source path="/home/korka/AndroidstudioProjects/STA/library/src/main/assets" />
-    </dataSet>
-    <dataSet config="release" >
-        <source path="/home/korka/AndroidstudioProjects/STA/library/src/release/assets" />
-    </dataSet>
-
-</merger>
+<merger version="3"><dataSet config="main"><source path="/home/korka/Documents/Adaptive-remote-android-client/library/src/main/assets"/></dataSet><dataSet config="release"><source path="/home/korka/Documents/Adaptive-remote-android-client/library/src/release/assets"/></dataSet></merger>

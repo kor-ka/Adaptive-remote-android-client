@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LaunchFromTaskBar" >
 
@@ -18,4 +17,4 @@
     </ListView>
 
 </RelativeLayout>
-<!-- From: file:/home/korka/AndroidstudioProjects/STA/app/src/main/res/layout/activity_launch_from_task_bar.xml -->
+<!-- From: file:/home/korka/Documents/Adaptive-remote-android-client/app/src/main/res/layout/activity_launch_from_task_bar.xml -->
